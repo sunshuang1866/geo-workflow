@@ -4,32 +4,438 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 
 初始目标社区：**MindSpore**（AI 计算框架，竞品：TensorFlow / PyTorch / PaddlePaddle）。
 
-## 操作指南
+## 目录
 
-完整的工作流操作指南请参阅 **[WORKFLOW.md](WORKFLOW.md)**，包含首次运行、定期复检、目录结构和常见问题。
+- [系统架构](#系统架构)
+- [前置准备](#前置准备)
+- [首次运行（初始化）](#首次运行初始化)
+- [定期复检（自动化流水线）](#定期复检自动化流水线)
+- [各步骤详解](#各步骤详解)
+- [目录结构](#目录结构)
+- [文件说明](#文件说明)
+- [OpenClaw 集成](#openclaw-集成)
+- [常见问题](#常见问题)
+- [使用 Claude Code 开发](#使用-claude-code-开发)
 
 ## 系统架构
 
 本系统是一个由 Claude Code 驱动的 **Skill 链式流水线**，纯 CLI 运行，无 Web 界面。
 
-3 步流水线 + Issue 创建，每步对应一个独立 Skill：
+核心是一条 **4 步 Skill 流水线 + 跟踪更新**，由 `AGENT.md` 编排：
 
 ```
-questions.json        responses.json     scoring-results.json + suggestions.md
-     │                     │                     │
-     ▼                     ▼                     ▼
-┌──────────────┐  ┌──────────────────┐  ┌──────────────────────────────────────┐
-│ get-question │─▶│ platform-sampler │─▶│            scoring-engine            │
-└──────────────┘  └──────────────────┘  │  评分诊断 + 事实覆盖 + 模式分析     │
-                                        │  + 目录匹配建议（72 条 GEO 建议库） │
-                                        └──────────────────────────────────────┘
-   生成问题集          采样 AI 平台         评分 → 诊断 → 建议 → 路线图
+┌─────────────────┐     ┌──────────────────┐     ┌────────────────┐     ┌───────────────┐
+│  get-question   │────▶│ platform-sampler │────▶│ scoring-engine │────▶│ issue-creator │
+│  生成问题集      │     │  采样 AI 平台     │     │  评分 + 诊断   │     │ 创建/更新Issue │
+└─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘
+       ↓                        ↓                        │                      ↓
+  questions.json          responses.json                 │               created-issues.json
+  questions.md            responses.md                   │               issue-map.json
+                                                         ↓               tracking-log.md
+                                                 assessment-tracker.md
+                                                 scoring-results.json
+                                                 suggestions.md
 ```
 
-**数据流**：Skill 之间通过 JSON 文件传递数据，同时输出 Markdown 供人工审阅。
+运行模式有两种：
 
-**评估平台（MVP）**：ChatGPT · 豆包（火山引擎）· 千问（阿里云百炼）· DeepSeek
+| 模式 | 场景 | 人工介入 | 触发方式 |
+|------|------|----------|----------|
+| **首次运行** | 建立基线，准备问题集和标注 | 需要多步人工操作 | 手动 |
+| **定期复检** | 周期性检测分数变化，更新 Issue | 无需人工介入 | 手动 / OpenClaw |
 
+---
+
+## 前置准备
+
+### 1. 环境要求
+
+- [Claude Code](https://claude.ai/code) CLI
+- Python 3.8+
+- Git
+
+### 2. API Keys
+
+复制 `.env.example` 为 `.env`，填入 API 密钥：
+
+```bash
+cp .env.example .env
+```
+
+| 变量 | 用途 | 必需 |
+|------|------|------|
+| `OPENAI_API_KEY` | ChatGPT 采样 | 至少填 2 个平台 |
+| `DEEPSEEK_API_KEY` | DeepSeek 采样 | 至少填 2 个平台 |
+| `DOUBAO_API_KEY` | 豆包采样 | 至少填 2 个平台 |
+| `QWEN_API_KEY` | 千问采样 | 至少填 2 个平台 |
+| `GITCODE_TOKEN` | GitCode Issue 创建 | Issue 创建时必需 |
+| `GITHUB_TOKEN` | GitHub Issue 创建 | 用 GitHub 时必需 |
+
+> 至少需要 **2 个平台** 的 API Key 才能运行采样。
+
+### 3. 创建社区目录
+
+社区数据统一存放在 `packages/assessments/` 下：
+
+```bash
+mkdir -p packages/assessments/MindSpore/
+```
+
+---
+
+## 首次运行（初始化）
+
+首次运行需要依次完成以下步骤，包含多处人工审核环节。
+
+### Step A: 生成问题集
+
+在 Claude Code 中执行：
+
+```
+/get-question community=MindSpore paths=all
+```
+
+**输出**：
+- `questions.json` — 结构化问题集
+- `questions.md` — 人工审阅格式
+
+### Step B: 固化问题集
+
+生成完成后，将问题集复制为固化文件：
+
+```bash
+cp packages/assessments/MindSpore/questions.json packages/assessments/MindSpore/approved-questions.json
+```
+
+> 此后定期复检将使用 `approved-questions.json`，不再重新生成。如需更新问题集，手动编辑此文件。
+
+### Step C: 首次采样
+
+```
+/platform-sampler
+```
+
+输入 `questions.json`，输出 `responses.json` + `responses.md`。
+
+### Step D: 人工标注 content-labels
+
+根据 `approved-questions.json` 中的每个问题，人工判断 **官方是否已有对应内容**。
+
+创建 `packages/assessments/MindSpore/content-labels.json`：
+
+```json
+{
+  "labels": [
+    {
+      "question_id": "q_001",
+      "question": "MindSpore 支持哪些安装方式？",
+      "official_urls": ["https://www.mindspore.cn/install"],
+      "notes": "安装指南页面完整覆盖"
+    },
+    {
+      "question_id": "q_002",
+      "question": "MindSpore 和 PyTorch 相比有哪些优势？",
+      "official_urls": [],
+      "notes": "无官方对比文档"
+    }
+  ]
+}
+```
+
+字段说明：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `question_id` | string | 问题 ID |
+| `question` | string | 问题文本 |
+| `official_urls` | array | 对应的官方页面 URL（空数组 = 官方无内容） |
+| `notes` | string | 备注（可选） |
+
+> 判定规则：`official_urls` 非空 → 官方有内容，进入 Layer 2 评估；`official_urls` 为空 → Phenomenon A（内容空白），标 P2。
+
+### Step E: 首次评分
+
+```
+/scoring-engine
+```
+
+输入 `responses.json` + `content-labels.json`，输出 `scoring-results.json` + `suggestions.md`。
+
+### Step F: 人工抽检评分（推荐）
+
+审阅 `suggestions.md`，对 20% 评分结果进行抽检校准。将修正意见写入 `scoring-calibration.md`，下次评分时自动纳入 prompt。
+
+### Step G: 首次创建 Issue
+
+```
+/issue-creator repo_url=https://gitcode.com/mindspore/mindspore-portal/ dry_run=true
+```
+
+> 建议先用 `dry_run=true` 预览 Issue 内容，确认无误后去掉 `dry_run` 正式创建。
+
+**首次运行完成后**，`packages/assessments/MindSpore/` 目录下应有：
+- `approved-questions.json` — 固化问题集
+- `content-labels.json` — 人工标注
+- `issue-map.json` — Issue 映射（自动生成）
+
+---
+
+## 定期复检（自动化流水线）
+
+首次运行完成后，后续复检由 `AGENT.md` 编排，**无需人工介入**。
+
+### 手动触发
+
+在 Claude Code 中直接描述意图即可，Claude 会按照 `AGENT.md` 执行：
+
+```
+请按照 AGENT.md 对 MindSpore 社区执行一次 GEO 复检，
+repo_url=https://gitcode.com/mindspore/mindspore-portal/
+```
+
+### 自动化执行流程
+
+AGENT.md 定义的 7 个步骤：
+
+```
+Step 0: 初始化              创建 runs/{date}/ 目录，复制问题集和标注
+         ↓
+Step 1: 平台采样            /platform-sampler → responses.json
+         ↓
+Step 2: 评分诊断            /scoring-engine → scoring-results.json + suggestions.md
+         ↓
+Step 3: 更新跟踪表          追加本次结果到 assessment-tracker.md（按优先级分组、记录趋势）
+         ↓
+Step 4: Issue 创建/更新     新问题 → 新建 Issue；已有 Issue → 追加评论
+         ↓
+Step 5: 更新 tracking-log   对比上次结果，记录变化和 Issue 活动
+         ↓
+Step 6: 收尾                更新 run-meta.json，输出摘要
+```
+
+### 每次运行的输出
+
+| 输出文件 | 位置 | 说明 |
+|----------|------|------|
+| `responses.json` | `runs/{date}/` | 本次平台采样原始数据 |
+| `responses.md` | `runs/{date}/` | 采样结果（人工可读） |
+| `scoring-results.json` | `runs/{date}/` | 本次评分结果 |
+| `suggestions.md` | `runs/{date}/` | 改进建议报告 |
+| `run-meta.json` | `runs/{date}/` | 运行元数据（耗时、平台、统计） |
+| `created-issues.json` | `runs/{date}/` | 本次 Issue 创建/更新记录 |
+| `assessment-tracker.md` | 社区目录根 | 问题级优先级和建议跟踪表（跨运行持久化） |
+| `issue-map.json` | 社区目录根 | 累积 Issue 映射（跨运行持久化） |
+| `tracking-log.md` | 社区目录根 | 累积运行日志（跨运行持久化） |
+
+---
+
+## 各步骤详解
+
+### get-question — 生成问题集
+
+5 个数据来源路径，可单独选择或全选：
+
+| 路径 | 参数值 | 数据来源 | 场景 |
+|------|--------|----------|------|
+| Path 1 | `forum` | MindSpore Discourse 论坛热帖 | 使用阶段 |
+| Path 2 | `issue` | GitCode 仓库 Issue | 使用阶段 |
+| Path 3 | `maillist` | SIG 邮件列表归档 | 使用阶段 |
+| Path 4 | `website` | 官网站内搜索热词 | 使用阶段 |
+| Path 5 | `industry` | LLM 生成行业问题 | 了解阶段 |
+
+```
+/get-question community=MindSpore paths=forum,issue,industry
+/get-question community=MindSpore paths=all
+```
+
+### platform-sampler — 采样 AI 平台
+
+- 自动检测 `.env` 中哪些平台有 API Key
+- 对每个问题 x 每个平台发起一次查询
+- 速率限制：同平台间隔 1 秒
+- 单个平台失败不中断整体采样
+
+### scoring-engine — 评分诊断
+
+三层评估模型：
+
+| 层级 | 评估内容 | 数据来源 | 必需 |
+|------|----------|----------|------|
+| Layer 1 | 内容完整性 | `content-labels.json`（人工标注） | 是 |
+| Layer 2 | 引用准确性 | LLM 评估 | 是 |
+| Layer 2+ | 事实覆盖度 | `standard-answers.json` 或 `Answers/*.md` | 否 |
+
+五种现象分类：
+
+| 代码 | 现象 | 严重级别 | 说明 |
+|------|------|----------|------|
+| A | 官网无内容 | P2 | 内容空白，需补充官方内容 |
+| B | 有内容未被引用 | P0 | 官方已有内容但 AI 平台未引用，SEO 可发现性问题 |
+| C | 引用源错误 | P0 | 幻觉或错误信息，误导用户 |
+| D | 引用比例高 | OK | 健康状态 |
+| E | 引用比例低 | P1 | 第三方来源主导，官方引用不足 |
+
+### issue-creator — 创建/更新 Issue
+
+两种模式，通过 `issue-map.json` 自动判断：
+
+| 场景 | 动作 | API 操作 |
+|------|------|----------|
+| 新发现的问题 | 创建新 Issue | POST /issues |
+| 已有 Issue 的问题 | 追加评论 | POST /issues/{number}/comments |
+
+追加评论包含：
+- 评分变化（上次 vs 本次）
+- 严重级别变化
+- 本次发现描述
+- 改善建议（如分数改善，建议关闭 Issue）
+
+---
+
+## 目录结构
+
+```
+geo-workflow/
+├── AGENT.md                        # 工作流编排（定期复检入口）
+├── CLAUDE.md                       # Claude Code 开发规则
+├── CLAUDE-RESUME.md                # 会话恢复上下文
+├── README.md                       # 本文档
+├── .env.example                    # API Key 模板
+├── .env                            # API Keys（不入库）
+├── .gitignore
+├── docs/
+│   └── GEO搜索能力检测和优化改进-初步设计方案.md  # 完整设计文档
+├── packages/
+│   └── assessments/                # 社区评估数据
+│       ├── MindSpore/              # MindSpore 社区
+│       │   ├── questions.json      # 原始问题集
+│       │   ├── questions.md        # 问题集（人工可读）
+│       │   ├── approved-questions.json  # 固化问题集（手动维护）
+│       │   ├── content-labels.json      # 人工标注（手动维护）
+│       │   ├── assessment-tracker.md    # 问题级跟踪表（自动维护）
+│       │   ├── issue-map.json           # Issue 映射（自动维护）
+│       │   ├── tracking-log.md          # 运行日志（自动维护）
+│       │   └── runs/                    # 每次运行的数据
+│       │       ├── 2026-03-28/
+│       │       │   ├── questions.json
+│       │       │   ├── content-labels.json
+│       │       │   ├── responses.json
+│       │       │   ├── responses.md
+│       │       │   ├── scoring-results.json
+│       │       │   ├── suggestions.md
+│       │       │   ├── created-issues.json
+│       │       │   └── run-meta.json
+│       │       └── ...
+│       └── openUBMC/               # openUBMC 社区
+│           ├── questions.json
+│           ├── questions.md
+│           └── version1/           # 历史数据
+└── .claude/
+    └── skills/                     # Skill 定义
+        ├── get-question/
+        ├── platform-sampler/
+        ├── scoring-engine/
+        ├── issue-creator/
+        └── response-parser/
+```
+
+---
+
+## 文件说明
+
+### 手动维护的文件
+
+这些文件需要人工创建和更新：
+
+| 文件 | 更新时机 | 说明 |
+|------|----------|------|
+| `approved-questions.json` | 问题集需变更时 | 从 questions.json 筛选后固化 |
+| `content-labels.json` | 官方内容有变更时 | 人工判断每个问题的官方覆盖情况 |
+| `manual-questions.md` | 有新的手动问题时 | 补充自动生成未覆盖的问题 |
+| `feedback-rules.md` | 审核后有反馈时 | 问题生成的学习循环 |
+| `scoring-calibration.md` | 评分抽检后 | 评分校准反馈 |
+| `.env` | API Key 变更时 | 平台 API 密钥 |
+
+### 自动维护的文件
+
+这些文件由系统自动创建和更新，**不要手动编辑**：
+
+| 文件 | 生成时机 | 说明 |
+|------|----------|------|
+| `assessment-tracker.md` | 每次评分完成后 | 问题级优先级和建议历史跟踪表 |
+| `issue-map.json` | 每次 issue-creator 运行后 | 累积的 suggestion → issue 映射 |
+| `tracking-log.md` | 每次复检完成后 | 累积的运行日志，最新在最前 |
+| `runs/{date}/*` | 每次复检运行时 | 本次运行的所有中间和最终数据 |
+| `run-meta.json` | 每次复检运行时 | 运行元数据和统计摘要 |
+| `created-issues.json` | 每次 issue-creator 运行后 | 本次创建/更新的 Issue 记录 |
+
+---
+
+## OpenClaw 集成
+
+系统架构已为 OpenClaw 定期触发做好准备。当接入时：
+
+```bash
+openclaw trigger \
+  --agent "AGENT.md" \
+  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://gitcode.com/mindspore/mindspore-portal/"}' \
+  --schedule "0 9 * * 1"   # 每周一 9:00
+```
+
+**前提条件**：
+- `approved-questions.json` 和 `content-labels.json` 已就位
+- `.env` 中 API Keys 配置完整
+- 仓库可访问（有 push 权限更新 tracking-log 和 issue-map）
+
+**建议调度频率**：每周一次。AI 平台回答变化较慢，更高频率只增加成本。
+
+---
+
+## 常见问题
+
+### Q: 如何更新问题集？
+
+直接编辑 `packages/assessments/MindSpore/approved-questions.json`。同时检查 `content-labels.json` 是否需要同步更新（新增问题需要新标注）。
+
+### Q: 某个平台 API Key 过期了怎么办？
+
+更新 `.env` 中对应的 Key。只要还有 2 个以上平台可用，采样不会中断。`responses.md` 的覆盖矩阵会显示哪些平台缺失。
+
+### Q: Issue 被手动关闭后，下次复检还会操作它吗？
+
+会。系统通过 `issue-map.json` 追踪，如果该 suggestion 仍然存在，会向已关闭的 Issue 追加评论。如果 API 返回错误（如不允许评论已关闭 Issue），系统会记录错误并跳过，不会中断流程。
+
+### Q: 如何查看某个问题的优化历史？
+
+打开社区目录下的 `assessment-tracker.md`。按 P0/P1/P2/OK 优先级分节，每个问题下有一张表，每行是一次运行的记录（趋势、优先级、现象、建议、关联 Issue）。最新在上，纵向看就是该问题的完整优化时间线。当建议在下次运行中不再出现时，会自动标记 `✅已消化`。
+
+### Q: 如何查看历史评分变化？
+
+打开社区目录下的 `tracking-log.md`，按时间倒序记录了每次运行的概览、评分变化和 Issue 活动。
+
+### Q: 如何新增一个社区（如 openEuler）？
+
+1. 创建目录 `packages/assessments/openEuler/`
+2. 运行 `/get-question community=openEuler paths=all` 生成问题
+3. 审核后固化为 `packages/assessments/openEuler/approved-questions.json`
+4. 人工标注 `packages/assessments/openEuler/content-labels.json`
+5. 在 `.env` 中配置该社区的 `OFFICIAL_DOMAINS`
+6. 按正常流程运行
+
+### Q: dry-run 模式有什么用？
+
+`dry_run=true` 时，所有 API 调用（采样、Issue 创建、评论）只打印 payload 到 stdout，不实际执行。适用于：
+- 首次运行前验证 Issue 内容
+- 调试 workflow 流程
+- 培训新操作人员
+
+### Q: 评分结果不准怎么办？
+
+1. 打开 `suggestions.md`，找到不准的评分条目
+2. 将修正意见写入 `scoring-calibration.md`
+3. 下次评分时，校准反馈会作为 prompt context 自动纳入，避免同类错误
+
+---
 
 ## 使用 Claude Code 开发
 

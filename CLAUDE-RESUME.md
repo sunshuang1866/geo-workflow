@@ -10,7 +10,7 @@ GEO (Generative Engine Optimization) Search Assessment — a system that automat
 
 **Core workflow**: Define questions → Sample AI platforms → Score & diagnose → Output suggestions
 
-**Design doc**: `GEO搜索能力诊断-初步设计方案.md` contains the full specification. `INPUT.md` contains the latest requirements update.
+**Design doc**: `docs/GEO搜索能力检测和优化改进-初步设计方案.md` contains the full specification.
 
 ## Architecture
 
@@ -45,7 +45,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 ## Design Doc Structure
 
-`GEO搜索能力诊断-初步设计方案.md` sections:
+`docs/GEO搜索能力检测和优化改进-初步设计方案.md` sections:
 
 - **总览**: 系统架构 + 执行步骤(1-4) + 总体开发路线 + 待讨论问题汇总
 - **第一部分(一~五)**: 主流 AI 搜索平台分析 — 平台分类、优先级、API 可用性、MVP 结论
@@ -58,25 +58,16 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 | File | Purpose |
 |------|---------|
-| `GEO搜索能力诊断-初步设计方案.md` | Full design specification |
-| `INPUT.md` | Original user requirements |
+| `docs/GEO搜索能力检测和优化改进-初步设计方案.md` | Full design specification |
 | `CLAUDE.md` | Development rules (11 rules) |
-| `WORKFLOW.md` | Operator guide for running the GEO assessment workflow |
 | `AGENT.md` | Workflow orchestrator (periodic re-check entry point) |
 | `CLAUDE-RESUME.md` | Session recovery (this file) |
 | `README.md` | Usage rules for developers |
-| `CHANGELOG.md` | Release changelog (English only) |
-| `VERSION` | Current version (0.1.0) |
 | `.env.example` | API token template (6 platforms) |
 | `.gitignore` | Excludes `.env` from git |
-| `manual-questions.md` | (To create) Manual question input for get-question |
-| `feedback-rules.md` | (To create) Human review feedback for learning loop |
-| `GEO-Improvement-Report-Q8-Q10.md` | GEO improvement report for FAQ questions Q8-Q10 |
-| `GEO-Improvement-Report-Q4-Q7.md` | GEO improvement report for Q4-Q7 (activities, contribution, migration, version) |
-| `GEO-Improvement-Report-Q1-Q3.md` | GEO improvement report for Q1-Q3 (broad questions: install, version cadence, data sharding) |
-| `Answers/1.md` - `Answers/10.md` | Raw AI platform responses for Q1-Q10 |
-| `scoring-results.json` | Scoring engine output: 28 scored (question, platform) pairs |
-| `suggestions.md` | GEO scoring report with prioritized improvement suggestions |
+| `packages/assessments/` | Community assessment data root |
+| `packages/assessments/MindSpore/` | MindSpore community data (questions, labels, runs) |
+| `packages/assessments/openUBMC/` | openUBMC community data |
 
 ## Skills Created
 
@@ -117,21 +108,18 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 ### issue-creator
 - 5-step procedure: Load config → Parse scoring results → Deduplicate & group → Generate Issue payloads → Output summary
-- Scripts: `parse-suggestions.py`, `create-issue.py`
+- Scripts: `parse-suggestions.py`, `create-issue.py`, `comment-issue.py`
 - References: `gitcode-api-spec.md`
 - Assets: `issue-template.md`
 - Supports dry-run mode, outputs `created-issues.json`
 
 ## Current Status
 
-- **Phase**: All 4 pipeline skills created. MindSpore/version3 scoring completed (Qwen-only, 47 questions). Multi-platform data being collected for key questions.
-- **version3 scoring**: `MindSpore/version3/scoring-results.json` + `suggestions.md` (47 questions, 1 platform)
-- **version3 key findings**: 17 P0 (17×C), 7 P2 (A), 8 P1 (E), 3 P2, 12 OK. Qwen avg score 5.8/10. Major hallucination patterns: (1) fabricated model conversion APIs (export_from_torch/export_from_onnx); (2) SIG meeting schedules from issues/6789; (3) mailing list platform confusion (OpenI vs mailweb.mindspore.cn). Single-platform only — needs ChatGPT/DeepSeek/豆包 for cross-platform analysis. **Note**: Severity mapping updated 2026-03-28: B→P0, C→P0, E→P1, A→P2 (was A→P0, B→P1).
-- **version3 files**: `responses.json` (53 entries: 47 Qwen + multi-platform for q_032/q_037), `content-labels.json` (auto-generated, needs human review — NOTE: JSON syntax error at line 321), `scoring-results.json`, `suggestions.md`, `issues-draft.md` (s_001–s_011)
-- **version3 multi-platform**: q_032 now has 4 platforms (qwen/kimi/doubao/chatgpt); q_037 has 4 platforms (qwen/chatgpt/kimi/doubao)
-- **issues-draft.md**: 10 P0 issues (s_001–s_011 where s_011 is new: SIG page discoverability, mindspore.cn/sig/* not cited, C-type)
+- **Phase**: All 4 pipeline skills created. MindSpore version3 scoring completed (Qwen-only, 47 questions). Version1/2/3 historical data cleaned up. Multi-community support added (MindSpore + openUBMC).
+- **Directory structure**: Community data lives under `packages/assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
+- **MindSpore**: `packages/assessments/MindSpore/` — has `questions.json`, `questions.md`. Awaiting approved-questions.json and content-labels.json for first full pipeline run.
+- **openUBMC**: `packages/assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
 - **issue-creator skill**: Updated SKILL.md (community/version_label inputs, richer LLM prompt with causal_chain/cross_platform_section/action_items) and issue-template.md (matches real-world issue.md format)
-- **Old scoring results**: `MindSpore/version1/scoring-results.json` (10 questions, 5 platforms), `MindSpore/version2/scoring-results.json` (3 questions, 4 platforms)
 - **Branch**: `main`
 - **Last updated**: 2026-03-26
 
@@ -212,6 +200,9 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-28 | accuracy_score hidden from output: remains internal for D-type severity判定, removed from scoring-results.json and suggestion objects |
 | 2026-03-28 | Added assessment-tracker.md: question-level priority & suggestion tracking table, updated per workflow run. AGENT.md now 7 steps (was 6), new Step 3 before issue creation |
 | 2026-03-28 | Created scripts/update-tracker.py: parses existing tracker, appends new rows, regroups by priority, marks digested suggestions |
+| 2026-03-28 | Fixed directory typo: `asssessments` → `assessments`. All paths now use `packages/assessments/{community}/` |
+| 2026-03-28 | Created `.env.example` with 6 API key placeholders |
+| 2026-03-28 | Updated README.md, AGENT.md, CLAUDE-RESUME.md to match actual directory structure. Removed references to non-existent files (VERSION, CHANGELOG.md, WORKFLOW.md, INPUT.md) |
 
 ## Key Decisions
 
@@ -219,8 +210,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - Target community: MindSpore (AI computing framework, competitors: TensorFlow/PyTorch/PaddlePaddle/JAX)
 - Data format: JSON between skills, Markdown for human review
 - Manual questions: write in `manual-questions.md` (Markdown), skill auto-converts to JSON
-- CHANGELOG only in English (`CHANGELOG.md`)
-- Every commit must run `/release-skills` to update changelog
+- Community data path: `packages/assessments/{community}/` (e.g. `packages/assessments/MindSpore/`)
 - New skills must use `/skill-creator` and conform to agentskills.io spec
 - MVP platforms (4): ChatGPT + DeepSeek + 豆包 + Qwen（Perplexity 已移除）
 - API tokens stored in `.env`, template in `.env.example`

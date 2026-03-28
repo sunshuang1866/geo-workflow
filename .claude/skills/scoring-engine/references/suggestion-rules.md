@@ -69,7 +69,6 @@
   "platform": "ChatGPT",
   "citation_type": "B",
   "official_source_ratio": 0.2,
-  "accuracy_score": 4,
   "severity": "P1",
   "category": "seo",
   "catalog_refs": ["CTX-02", "ORG-05", "DIS-01"],
@@ -88,8 +87,10 @@
 
 ## Severity Override Rules
 
+- If `citation_type` is B and `official_urls` is non-empty, severity is always P0 (official has content but AI ignores it).
 - If `citation_type` is C, severity is always P0 regardless of ratio.
-- If `citation_type` is B and `content_coverage` is "full", elevate to P1 (official has complete answer but AI ignores it).
-- If `citation_type` is E and `official_source_ratio` < 0.1, elevate to P1.
+- If `citation_type` is E and `official_source_ratio` < 0.1, elevate to P0.
+- If `citation_type` is E, default severity is P1.
+- Phenomenon A (no content), default severity is P2.
 - Phenomenon D with `accuracy_score` >= 8 → no_action.
 - Phenomenon D with `accuracy_score` < 8 → P2.

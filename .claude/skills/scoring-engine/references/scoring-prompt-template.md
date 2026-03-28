@@ -15,8 +15,8 @@ Use this template to construct the LLM evaluation prompt for each (question, pla
 {response_text}
 
 **官方内容参考**:
-- 内容覆盖度: {content_coverage}
 - 官方 URL: {official_urls}
+- 备注: {notes}
 
 {calibration_context}
 
@@ -88,8 +88,8 @@ Use this template to construct the LLM evaluation prompt for each (question, pla
 | `{question}` | `responses.json` → `question` | Original question text |
 | `{platform}` | `responses.json` → `platform` | AI platform name |
 | `{response_text}` | `responses.json` → `response_text` | Full AI response |
-| `{content_coverage}` | `content-labels.json` → `content_coverage` | full / partial |
 | `{official_urls}` | `content-labels.json` → `official_urls` | Comma-separated official URLs |
+| `{notes}` | `content-labels.json` → `notes` | Human notes about the content |
 | `{calibration_context}` | `scoring-calibration.md` (if exists) | Human correction context from prior rounds |
 
 ## Calibration Context Format

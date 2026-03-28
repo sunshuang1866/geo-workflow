@@ -10,7 +10,7 @@ Evaluate AI platform responses against official content availability. Multi-laye
 ## Prerequisites
 
 - `responses.json` in the project root (output from platform-sampler skill)
-- `content-labels.json` in the project root (human pre-labeled: `content_exists`, `official_urls`, `content_coverage` per question)
+- `content-labels.json` in the project root (human pre-labeled: `question_id`, `question`, `official_urls`, `notes` per question)
 - Optional: `standard-answers.json` (official standard answers — enables Layer 2+ fact coverage analysis)
   - Alternative sources: `INPUT.md` or answer files in `Answers/` directory (Markdown format)
 - Optional: `scoring-calibration.md` (feedback from prior human spot-checks, incorporated as prompt context)
@@ -23,7 +23,7 @@ Evaluate AI platform responses against official content availability. Multi-laye
 2. Run `python3 scripts/validate-inputs.py responses.json content-labels.json` to verify both files exist and are structurally valid.
 3. The script checks:
    - `responses.json` contains a `responses` array with `question_id`, `platform`, `response_text` fields.
-   - `content-labels.json` contains a `labels` array with `question_id`, `content_exists` fields.
+   - `content-labels.json` contains a `labels` array with `question_id`, `official_urls` fields.
    - Every `question_id` in responses has a matching label entry.
 4. If validation fails, abort with the specific error from stderr.
 5. If `scoring-calibration.md` exists, read it. This contains human corrections from prior rounds — use as additional prompt context in Step 3.
@@ -36,17 +36,17 @@ Evaluate AI platform responses against official content availability. Multi-laye
 
 **Step 2: Layer 1 — Content Completeness**
 
-1. Read `content-labels.json` and extract each question's `content_exists` value.
-2. For each question where `content_exists` is `false` or `"none"`:
+1. Read `content-labels.json` and extract each question's `official_urls` array.
+2. For each question where `official_urls` is empty (`[]`):
    - Classify as **Phenomenon A** (官网无内容).
-   - Assign severity **P0**.
+   - Assign severity **P2**.
    - Do NOT proceed to Layer 2 for this question — there is no baseline to evaluate against.
    - Generate suggestion: "补充官方内容覆盖此问题".
-3. For each question where `content_exists` is `true`:
+3. For each question where `official_urls` is non-empty:
    - Mark as eligible for Layer 2 evaluation.
-   - Record the `official_urls` and `content_coverage` for use in Layer 2 prompts.
-4. For each question where `content_exists` is `null` (unlabeled):
-   - Log a warning: `"question {question_id} has no content_exists label, skipping"`.
+   - Record the `official_urls` and `notes` for use in Layer 2 prompts.
+4. If a question in `responses.json` has no matching entry in `content-labels.json`:
+   - Log a warning: `"question {question_id} has no content-labels entry, skipping"`.
    - Exclude from scoring.
 5. Output a Layer 1 summary to stdout:
    ```
@@ -54,7 +54,7 @@ Evaluate AI platform responses against official content availability. Multi-laye
      Total questions: {n}
      Labeled: {labeled}
      Unlabeled (skipped): {unlabeled}
-     Phenomenon A (no content): {a_count} → P0
+     Phenomenon A (no content): {a_count} → P2
      Eligible for Layer 2: {eligible}
    ```
 
@@ -174,9 +174,9 @@ For each question that has both platform responses and a standard answer:
 **Step 6: Assign Severity and Match Suggestions from Catalog**
 
 1. For each scored (question, platform) pair, assign severity based on these rules:
-   - **P0**: Phenomenon A (content gap) or C (wrong/hallucinated citation)
-   - **P1**: Phenomenon B (has content, not cited) or E (low citation ratio, `official_source_ratio` < 0.3)
-   - **P2**: Phenomenon D with minor issues (ratio > 0.7 but some inaccuracies noted)
+   - **P0**: Phenomenon B (has content, not cited) or C (wrong/hallucinated citation)
+   - **P1**: Phenomenon E (low citation ratio, `official_source_ratio` < 0.3)
+   - **P2**: Phenomenon A (content gap) or Phenomenon D with minor issues (ratio > 0.7 but some inaccuracies noted)
    - **No action**: Phenomenon D, ratio > 0.7, no issues
 2. Read `references/geo-suggestions-catalog.md` — the complete GEO optimization suggestion catalog (72 items).
 3. Read `references/suggestion-rules.md` for the matching workflow:
@@ -194,7 +194,6 @@ For each question that has both platform responses and a standard answer:
      "platform": "ChatGPT",
      "citation_type": "B",
      "official_source_ratio": 0.2,
-     "accuracy_score": 4,
      "severity": "P1",
      "category": "seo",
      "catalog_refs": ["CTX-02", "ORG-05", "DIS-01"],
@@ -204,7 +203,7 @@ For each question that has both platform responses and a standard answer:
      "is_content_origin": true
    }
    ```
-5. Categories: `content` (A — missing content), `seo` (B — discoverability), `correction` (C — wrong info), `optimization` (E — low ratio).
+5. Categories: `seo` (B — discoverability, P0), `correction` (C — wrong info, P0), `optimization` (E — low ratio, P1), `content` (A — missing content, P2).
 
 **Step 7: Compile Output**
 
@@ -246,10 +245,9 @@ For each question that has both platform responses and a standard answer:
        {
          "question_id": "q_001",
          "platform": "ChatGPT",
-         "content_exists": true,
+         "has_official_content": true,
          "citation_type": "B",
          "official_source_ratio": 0.2,
-         "accuracy_score": 4,
          "severity": "P1",
          "details": "...",
          "issues_found": ["no_direct_answer", "missing_faq"],
@@ -268,8 +266,8 @@ For each question that has both platform responses and a standard answer:
        "by_phenomenon": {"A": 4, "B": 12, "C": 2, "D": 18, "E": 4},
        "by_severity": {"P0": 6, "P1": 16, "P2": 4, "no_action": 14},
        "by_platform": {
-         "ChatGPT": {"avg_score": 6.2, "avg_ratio": 0.45},
-         "DeepSeek": {"avg_score": 5.8, "avg_ratio": 0.38}
+         "ChatGPT": {"avg_ratio": 0.45},
+         "DeepSeek": {"avg_ratio": 0.38}
        }
      },
      "suggestions": [...]
@@ -313,7 +311,7 @@ For each question that has both platform responses and a standard answer:
 
 * If `responses.json` is missing, abort with: `"responses.json not found. Run platform-sampler skill first."`
 * If `content-labels.json` is missing, abort with: `"content-labels.json not found. Human labeling required before scoring."`
-* If `content-labels.json` has all `content_exists: null`, abort with: `"No questions have been labeled. Complete human labeling first."`
+* If `content-labels.json` has an empty `labels` array, abort with: `"No questions have been labeled. Complete human labeling first."`
 * If `standard-answers.json` is missing and no `Answers/` directory: skip Layer 2+ with a log message (not an error).
 * If a question in `responses.json` has no matching standard answer, skip fact coverage for that question with a warning.
 * If LLM scoring fails for a (question, platform) pair after retry, log the error and continue. Report failed pairs in the summary.

@@ -4,6 +4,10 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 
 初始目标社区：**MindSpore**（AI 计算框架，竞品：TensorFlow / PyTorch / PaddlePaddle）。
 
+## 操作指南
+
+完整的工作流操作指南请参阅 **[WORKFLOW.md](WORKFLOW.md)**，包含首次运行、定期复检、目录结构和常见问题。
+
 ## 系统架构
 
 本系统是一个由 Claude Code 驱动的 **Skill 链式流水线**，纯 CLI 运行，无 Web 界面。

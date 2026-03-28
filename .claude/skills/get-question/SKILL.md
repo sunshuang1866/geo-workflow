@@ -114,9 +114,3 @@ Skip if `paths` excludes `industry`.
 1. Write validated JSON → `questions.json`.
 2. Render `questions.md` using `$SD/assets/questions-template.md` — group by intent, include summary table, mark source per question.
 3. Print: `Generated {total} questions | Sources: manual={n} forum={n} issue={n} maillist={n} website={n} industry={n} | Paths: {paths_run}`.
-
----
-
-## Step 10 — Review Checkpoint
-
-PAUSE: `⏸ Review questions.md — delete irrelevant, add missing. Resume when done.`

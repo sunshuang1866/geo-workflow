@@ -39,11 +39,9 @@ Merge (manual + selected paths) → semantic dedup → classify → output `ques
 
 Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
-**Human review checkpoint**: After generating questions, PAUSE for human review. Human filters and provides feedback. Feedback is saved to `feedback-rules.md` and incorporated into future question generation as prompt context (learning loop).
-
 **Quantity**: 30-40 questions for MVP (adjustable based on results).
 
-**Output format**: `questions.json` (machine) + `questions.md` (human review). Bilingual zh/en.
+**Output format**: `questions.json` (machine) + `questions.md` (human readable). Bilingual zh/en.
 
 ## Design Doc Structure
 
@@ -63,6 +61,8 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | `GEO搜索能力诊断-初步设计方案.md` | Full design specification |
 | `INPUT.md` | Original user requirements |
 | `CLAUDE.md` | Development rules (11 rules) |
+| `WORKFLOW.md` | Operator guide for running the GEO assessment workflow |
+| `AGENT.md` | Workflow orchestrator (periodic re-check entry point) |
 | `CLAUDE-RESUME.md` | Session recovery (this file) |
 | `README.md` | Usage rules for developers |
 | `CHANGELOG.md` | Release changelog (English only) |
@@ -89,7 +89,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | ~~improvement-advisor~~ | merged into scoring-engine (2026-03-19) | ❌ Deleted |
 
 ### get-question
-- 10-step procedure: Load config → Parse manual → Path 1 (forum) → Path 2 (issue) → Path 3 (maillist/SIG) → Path 4 (website search keywords) → Path 5 (industry LLM) → Merge & dedup → Output → Human review
+- 9-step procedure: Load config → Parse manual → Path 1 (forum) → Path 2 (issue) → Path 3 (maillist/SIG) → Path 4 (website search keywords) → Path 5 (industry LLM) → Merge & dedup → Output
 - Maillist path: two-step flow — (1) MagicAPI fetches SIG list → extracts mailing_list addresses, (2) HyperKitty API fetches email archives from mailweb.mindspore.cn → thread subjects + email content. Active lists: dev(71), tsc(53), discuss(49), infra(8).
 - Forum: all content types included (technical, events, blogs, announcements) — views are relevance filter, not content type
 - Forum endpoint: `/c/{slug}/{id}/l/top.json?period=all` (views-sorted, not latest activity)
@@ -126,7 +126,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 - **Phase**: All 4 pipeline skills created. MindSpore/version3 scoring completed (Qwen-only, 47 questions). Multi-platform data being collected for key questions.
 - **version3 scoring**: `MindSpore/version3/scoring-results.json` + `suggestions.md` (47 questions, 1 platform)
-- **version3 key findings**: 24 P0 (7×A + 17×C), 8 P1 (E), 3 P2, 12 OK. Qwen avg score 5.8/10. Major hallucination patterns: (1) fabricated model conversion APIs (export_from_torch/export_from_onnx); (2) SIG meeting schedules from issues/6789; (3) mailing list platform confusion (OpenI vs mailweb.mindspore.cn). Single-platform only — needs ChatGPT/DeepSeek/豆包 for cross-platform analysis.
+- **version3 key findings**: 17 P0 (17×C), 7 P2 (A), 8 P1 (E), 3 P2, 12 OK. Qwen avg score 5.8/10. Major hallucination patterns: (1) fabricated model conversion APIs (export_from_torch/export_from_onnx); (2) SIG meeting schedules from issues/6789; (3) mailing list platform confusion (OpenI vs mailweb.mindspore.cn). Single-platform only — needs ChatGPT/DeepSeek/豆包 for cross-platform analysis. **Note**: Severity mapping updated 2026-03-28: B→P0, C→P0, E→P1, A→P2 (was A→P0, B→P1).
 - **version3 files**: `responses.json` (53 entries: 47 Qwen + multi-platform for q_032/q_037), `content-labels.json` (auto-generated, needs human review — NOTE: JSON syntax error at line 321), `scoring-results.json`, `suggestions.md`, `issues-draft.md` (s_001–s_011)
 - **version3 multi-platform**: q_032 now has 4 platforms (qwen/kimi/doubao/chatgpt); q_037 has 4 platforms (qwen/chatgpt/kimi/doubao)
 - **issues-draft.md**: 10 P0 issues (s_001–s_011 where s_011 is new: SIG page discoverability, mindspore.cn/sig/* not cited, C-type)
@@ -142,10 +142,9 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - [x] Create scoring-engine skill (design agreed, needs `/skill-creator`)
 - [x] Create issue-creator skill
 - [x] ~~Create improvement-advisor skill~~ (merged into scoring-engine 2026-03-19)
-- [ ] Create AGENT.md to orchestrate the full workflow
-- [ ] Design feedback-rules.md format and integration
+- [x] Create AGENT.md to orchestrate the full workflow
 - [ ] Discuss 第一部分 (主流 AI 搜索平台分析) with user
-- [x] Create `content-labels.json` template (human labels: content_exists per question)
+- [x] Create `content-labels.json` template (human labels: official_urls per question)
 - [ ] Design scoring LLM Prompt template (待设计 3.3)
 
 ## Recent Changes
@@ -185,7 +184,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-16 | Added SKILL_DIR variable to SKILL.md Step 1 to fix script path resolution |
 | 2026-03-16 | Added GitCode token pre-validation (curl) before running fetch-repo-issues.py |
 | 2026-03-12 | Scoring design agreed: two-layer (content completeness + citation accuracy), 5 phenomena (A-E) |
-| 2026-03-12 | content_exists = human pre-labeled, citation ratio = source-level, human spot-check 20% |
+| 2026-03-12 | official_urls = human pre-labeled, citation ratio = source-level, human spot-check 20% |
 | 2026-03-12 | Issue auto-creation = separate skill (issue-creator), not inside scoring-engine |
 | 2026-03-12 | Pipeline expanded to 4 steps: get-question → platform-sampler → scoring-engine → issue-creator |
 | 2026-03-12 | Ran scoring-engine on Q1,Q4,Q5,Q7,Q9,Q10 (28 pairs). Output: scoring-results.json + suggestions.md |
@@ -202,6 +201,17 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-26 | Added s_011 to issues-draft.md: SIG page discoverability (C-type, P0), cross-platform meeting time inconsistency |
 | 2026-03-26 | Updated issue-creator SKILL.md: community/version_label inputs, richer LLM prompt, ASCII causal chain, cross-platform table |
 | 2026-03-26 | Updated issue-creator issue-template.md: matches real-world issue.md format (phenomenon_type, causal_chain, action_items) |
+| 2026-03-28 | Created AGENT.md: 5-step workflow orchestrator (init → sample → score → issue create/update → tracking log), versioned runs/ storage, issue-map.json for dedup, OpenClaw compatible |
+| 2026-03-28 | Updated issue-creator SKILL.md: added Steps 4-7 (issue-map matching, create new, comment existing, save map), new inputs issue_map_file/run_date |
+| 2026-03-28 | Created comment-issue.py: appends comments to existing GitHub/GitCode Issues (supports both platforms, dry-run mode) |
+| 2026-03-28 | Created scripts/generate-tracking-entry.py: compares two scoring-results.json, outputs Markdown tracking log entry with overview, changes table, issue activity |
+| 2026-03-28 | Updated gitcode-api-spec.md: added issue comment API endpoint documentation |
+| 2026-03-28 | Created WORKFLOW.md: operator guide covering prerequisites, first run, periodic re-check, directory structure, file reference, OpenClaw integration, FAQ |
+| 2026-03-28 | Updated README.md: added link to WORKFLOW.md |
+| 2026-03-28 | Severity priority remapping: B→P0, C→P0, E→P1, A→P2 (was A→P0, B→P1). Updated WORKFLOW.md, scoring-engine SKILL.md (Steps 2+6), suggestion-rules.md, CLAUDE-RESUME.md |
+| 2026-03-28 | accuracy_score hidden from output: remains internal for D-type severity判定, removed from scoring-results.json and suggestion objects |
+| 2026-03-28 | Added assessment-tracker.md: question-level priority & suggestion tracking table, updated per workflow run. AGENT.md now 7 steps (was 6), new Step 3 before issue creation |
+| 2026-03-28 | Created scripts/update-tracker.py: parses existing tracker, appends new rows, regroups by priority, marks digested suggestions |
 
 ## Key Decisions
 
@@ -219,13 +229,12 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - Path 4 (AI reverse extraction) permanently removed — circular reasoning risk; real data only
 - Forum includes all content types (not filtered by category type); views = relevance signal
 - Forum URL: https://discuss.mindspore.cn/ (Discourse, public API, no auth needed)
-- Human review checkpoint after question generation, feedback saved to `feedback-rules.md`
 - MVP question count: 30-40 (adjustable)
 - No official doc directory as data source for now
 - Pipeline is 4 execution steps: get-question → platform-sampler → scoring-engine → issue-creator
 - Scoring uses two-layer model: Layer 1 = content completeness (human pre-labeled), Layer 2 = citation accuracy (LLM)
-- Five phenomena: A (no content), B (not cited), C (wrong citation), D (high ratio), E (low ratio)
+- Five phenomena: A (no content, P2), B (not cited, P0), C (wrong citation, P0), D (high ratio, OK/P2), E (low ratio, P1)
 - Citation ratio = source-level (official sources / total sources), not content word count
-- `content_exists` per question is human pre-labeled in `content-labels.json`
+- `official_urls` per question is human pre-labeled in `content-labels.json` (empty array = no official content)
 - Scoring results require human spot-check calibration (20% stratified sampling → `scoring-calibration.md`)
 - Issue auto-creation is a separate skill (issue-creator), uses same GITCODE_TOKEN

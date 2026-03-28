@@ -54,6 +54,33 @@ Response (201 Created):
 - `404`: Repository not found
 - `422`: Validation error (e.g., title too long)
 
+## Create Issue Comment
+
+```
+POST /repos/{owner}/{repo}/issues/{number}/comments
+Content-Type: application/json
+```
+
+Request body:
+```json
+{
+  "access_token": "<token>",
+  "body": "Comment body in Markdown"
+}
+```
+
+Response (201 Created):
+```json
+{
+  "id": 67890,
+  "body": "Comment body in Markdown",
+  "html_url": "https://gitcode.com/mindspore/mindspore/issues/I123AB#note_67890",
+  "created_at": "2026-03-28T10:00:00+08:00"
+}
+```
+
+Note: The `{number}` in the URL is the issue number (e.g. `I123AB` for GitCode). Authentication uses the same `private-token` header.
+
 ## Labels
 
 Issue labels are passed as a comma-separated string. Pre-create these labels in the repo:

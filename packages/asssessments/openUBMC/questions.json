@@ -1,0 +1,470 @@
+[
+  {
+    "id": "q_001",
+    "question": "如何在openUBMC中快速启动QEMU进行仿真开发？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "installation"
+  },
+  {
+    "id": "q_002",
+    "question": "openUBMC QEMU仿真环境中，用Administrator可以SSH登录但Web登录失败，如何解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_003",
+    "question": "openUBMC社区如何生成Redfish接口说明文档？",
+    "intent": "特性",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_004",
+    "question": "openUBMC的Redfish接口规范是什么？有哪些设计原则？",
+    "intent": "认知",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_005",
+    "question": "openUBMC中Redfish TelemetryService接口是如何实现的？",
+    "intent": "特性",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_006",
+    "question": "openUBMC的Redfish OEM字段如何在不使用装备项和白牌包的情况下定制？",
+    "intent": "场景",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_007",
+    "question": "openUBMC中管理员与操作员执行Get auth token获取到的token值为什么一致？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_008",
+    "question": "进行IPMI与SNMP压测时openUBMC概率性出现IPMI访问BMC失败，如何排查？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_009",
+    "question": "如何使用IPMI命令查询openUBMC中NPU模组的FRU ID？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_010",
+    "question": "openUBMC中ipmcset/ipmcget出现无回显且coredump，重启BMC才能恢复，如何解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_011",
+    "question": "带外执行chassis status命令时openUBMC低概率出现Close Session failed，原因是什么？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_012",
+    "question": "如何通过ipmitool mc命令获取BIOS版本信息？openUBMC中不支持时如何解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_013",
+    "question": "openUBMC 25 LTS SP1构建失败，如何排查和解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "installation"
+  },
+  {
+    "id": "q_014",
+    "question": "openUBMC中使用Conan构建时有哪些常见问题？如何解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_015",
+    "question": "openUBMC bingo build时本地Conan仓有缓存，为什么还会触发源码构建？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_016",
+    "question": "openUBMC 25.12 LTS编译时常见问题有哪些？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "installation"
+  },
+  {
+    "id": "q_017",
+    "question": "openUBMC中I2C通道扫描不到设备，如何排查？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_018",
+    "question": "openUBMC如何适配MiniSAS接口及其下挂接的硬盘？",
+    "intent": "场景",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_019",
+    "question": "openUBMC中如何适配NCSI网卡？",
+    "intent": "场景",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_020",
+    "question": "openUBMC中如何使用SMC协议封装I2C数据？具体配置方法是什么？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_021",
+    "question": "openUBMC提供哪些I2C扫描和读写工具？",
+    "intent": "特性",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_022",
+    "question": "openUBMC中如何通过I2C与自定义协议的芯片通信？",
+    "intent": "场景",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_023",
+    "question": "openUBMC中无法获取CPU温度、电压等健康信息，如何排查？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_024",
+    "question": "openUBMC传感器数值不更新，如何定位和修复？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_025",
+    "question": "openUBMC中脚本轮询sensor和fan信息导致NAND Flash写入过多告警，如何优化？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "performance"
+  },
+  {
+    "id": "q_026",
+    "question": "openUBMC同一传感器在门限传感器界面和温度海洋界面显示阈值不一致，原因是什么？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_027",
+    "question": "openUBMC中NVMe盘获取不到SMART信息，如何解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_028",
+    "question": "openUBMC中支持MCTP协议的直通NVMe获取不到SMART信息，如何处理？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_029",
+    "question": "如何从BMC 3.x版本升级到openUBMC？升级步骤是什么？",
+    "intent": "迁移",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "migration"
+  },
+  {
+    "id": "q_030",
+    "question": "openUBMC是否支持对AI卡（如昇腾300I A2）进行带外固件升级？",
+    "intent": "特性",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_031",
+    "question": "从iBMC升级到openUBMC后，Web页面无法读取传感器、CPU、内存信息，如何解决？",
+    "intent": "迁移",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "migration"
+  },
+  {
+    "id": "q_032",
+    "question": "openUBMC BMC NandFlash写入量过大问题的定位思路是什么？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_033",
+    "question": "openUBMC社区中可以通过PR评论触发哪些机器人自动化操作？",
+    "intent": "认知",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "other"
+  },
+  {
+    "id": "q_034",
+    "question": "如何在openUBMC中新增一个组件？详细步骤是什么？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "tutorial"
+  },
+  {
+    "id": "q_035",
+    "question": "openUBMC的风扇调速配置文档在哪里？如何配置调速策略？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_036",
+    "question": "openUBMC中BusinessConnector是什么？有什么作用？",
+    "intent": "认知",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_037",
+    "question": "openUBMC中如何将第三方库文件和头文件集成到组件代码中？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "tutorial"
+  },
+  {
+    "id": "q_038",
+    "question": "openUBMC中如何调整app.log的日志打印等级？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_039",
+    "question": "openUBMC的USB管理功能有哪些使用场景？",
+    "intent": "场景",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "feature"
+  },
+  {
+    "id": "q_040",
+    "question": "WSL环境下BMC Studio启动报错，如何解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_041",
+    "question": "openUBMC中PCIe卡无法正常加载，如何排查？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_042",
+    "question": "openUBMC中通过CPLD管理EEPROM和PSU的方式是什么？",
+    "intent": "教程",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "configuration"
+  },
+  {
+    "id": "q_043",
+    "question": "openUBMC固件升级后无法再次更新固件，如何排查和解决？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  },
+  {
+    "id": "q_044",
+    "question": "What is openUBMC and how does it differ from traditional BMC firmware solutions?",
+    "intent": "认知",
+    "lang": "en",
+    "source": "industry",
+    "priority": 4,
+    "category": "other"
+  },
+  {
+    "id": "q_045",
+    "question": "What are the main open-source BMC firmware projects available for enterprise server management?",
+    "intent": "选型",
+    "lang": "en",
+    "source": "industry",
+    "priority": 4,
+    "category": "other"
+  },
+  {
+    "id": "q_046",
+    "question": "How does openUBMC compare to OpenBMC from the Linux Foundation?",
+    "intent": "选型",
+    "lang": "en",
+    "source": "industry",
+    "priority": 4,
+    "category": "other"
+  },
+  {
+    "id": "q_047",
+    "question": "openUBMC支持哪些服务器硬件平台和处理器架构？",
+    "intent": "场景",
+    "lang": "zh",
+    "source": "industry",
+    "priority": 4,
+    "category": "compatibility"
+  },
+  {
+    "id": "q_048",
+    "question": "服务器BMC固件开源化的趋势是什么？openUBMC在其中处于什么定位？",
+    "intent": "趋势",
+    "lang": "zh",
+    "source": "industry",
+    "priority": 4,
+    "category": "other"
+  },
+  {
+    "id": "q_049",
+    "question": "Alternatives to proprietary BMC firmware for Huawei or HiSilicon servers?",
+    "intent": "选型",
+    "lang": "en",
+    "source": "industry",
+    "priority": 4,
+    "category": "other"
+  },
+  {
+    "id": "q_050",
+    "question": "如何为openUBMC社区贡献代码？贡献流程和规范是什么？",
+    "intent": "认知",
+    "lang": "zh",
+    "source": "forum",
+    "priority": 2,
+    "category": "other"
+  },
+  {
+    "id": "q_051",
+    "question": "openUBMC的版本发布周期和LTS支持策略是什么？",
+    "intent": "认知",
+    "lang": "zh",
+    "source": "forum",
+    "priority": 2,
+    "category": "other"
+  },
+  {
+    "id": "q_052",
+    "question": "openUBMC中如何通过mdbctl setprop修改资源树属性信息？修改失败如何排查？",
+    "intent": "故障",
+    "lang": "zh",
+    "source": "manual",
+    "priority": 1,
+    "category": "troubleshooting"
+  }
+]

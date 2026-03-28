@@ -1,0 +1,475 @@
+[
+  {
+    "id": "q_001",
+    "question": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+    "scenario": "使用阶段",
+    "intent": "故障",
+    "category": "installation",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 168,
+    "source_title": "ubuntu 22.04 arm 架构，安装昇思报 opp_kernel 没安装"
+  },
+  {
+    "id": "q_002",
+    "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+    "scenario": "使用阶段",
+    "intent": "故障",
+    "category": "installation",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 133,
+    "source_title": "MindSpore NLP安装不上"
+  },
+  {
+    "id": "q_003",
+    "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+    "scenario": "使用阶段",
+    "intent": "故障",
+    "category": "installation",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 94,
+    "source_title": "参考mindspore文档无法安装2.6.0GPU昇思框架"
+  },
+  {
+    "id": "q_004",
+    "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+    "scenario": "使用阶段",
+    "intent": "故障",
+    "category": "troubleshooting",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 91,
+    "source_title": "模型推理报错"
+  },
+  {
+    "id": "q_005",
+    "question": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+    "scenario": "使用阶段",
+    "intent": "故障",
+    "category": "troubleshooting",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 77,
+    "source_title": "310b上运行LibriSpeech，mindnlp自动下载模型出错"
+  },
+  {
+    "id": "q_006",
+    "question": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
+    "scenario": "使用阶段",
+    "intent": "故障",
+    "category": "troubleshooting",
+    "source": "issue",
+    "priority": 1
+  },
+  {
+    "id": "q_007",
+    "question": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "deployment",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 151,
+    "source_title": "vLLM框架部署MindSpore模型的推理服务流式异步返回"
+  },
+  {
+    "id": "q_008",
+    "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "deployment",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 135,
+    "source_title": "昇思如何打包成镜像"
+  },
+  {
+    "id": "q_009",
+    "question": "如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "installation",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 45,
+    "source_title": "端侧模型转换 windows 配环境报错"
+  },
+  {
+    "id": "q_010",
+    "question": "MindSpore 支持哪些安装方式？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "tutorial",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_011",
+    "question": "MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "tutorial",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_012",
+    "question": "如何基于 MindSpore 框架训练 YOLOv5 模型？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "tutorial",
+    "source": "forum",
+    "priority": 1
+  },
+  {
+    "id": "q_013",
+    "question": "如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？",
+    "scenario": "使用阶段",
+    "intent": "迁移",
+    "category": "migration",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 70,
+    "source_title": "torch.nn.Conv2d和ms.nn.Conv2d精度对齐问题"
+  },
+  {
+    "id": "q_014",
+    "question": "将 ONNX 模型转换为 MindIR 格式时出现兼容性问题，如何排查和解决？",
+    "scenario": "使用阶段",
+    "intent": "迁移",
+    "category": "migration",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 65,
+    "source_title": "onnx模型转换成mindir模型出现兼容问题"
+  },
+  {
+    "id": "q_015",
+    "question": "如何将 PyTorch 模型转换为 MindSpore 模型？",
+    "scenario": "使用阶段",
+    "intent": "迁移",
+    "category": "migration",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_016",
+    "question": "MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？",
+    "scenario": "使用阶段",
+    "intent": "特性",
+    "category": "feature",
+    "source": "forum",
+    "priority": 1,
+    "source_views": 69,
+    "source_title": "mindspore框架支持在数据下沉时训练动态的切换数据集吗"
+  },
+  {
+    "id": "q_017",
+    "question": "MindSpore 2.8.0 版本有哪些新增特性？",
+    "scenario": "使用阶段",
+    "intent": "特性",
+    "category": "feature",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_018",
+    "question": "MindSpore 的 PyNative 模式与 Graph 模式应如何选择？",
+    "scenario": "使用阶段",
+    "intent": "特性",
+    "category": "feature",
+    "source": "FAQ",
+    "priority": 1
+  },
+  {
+    "id": "q_019",
+    "question": "MindSpore 目前支持读取哪些第三方框架的模型及格式？",
+    "scenario": "使用阶段",
+    "intent": "特性",
+    "category": "feature",
+    "source": "FAQ",
+    "priority": 1
+  },
+  {
+    "id": "q_020",
+    "question": "TransData 算子的功能是什么？如何利用该算子优化性能？",
+    "scenario": "使用阶段",
+    "intent": "特性",
+    "category": "feature",
+    "source": "FAQ",
+    "priority": 1
+  },
+  {
+    "id": "q_021",
+    "question": "整数标量与一维 Tensor 混合运算时，MindSpore 与 PyTorch 的隐式类型转换规则是否一致？MindSpore 算子输入的类型提升规则是什么？",
+    "scenario": "使用阶段",
+    "intent": "特性",
+    "category": "feature",
+    "source": "forum",
+    "priority": 1
+  },
+  {
+    "id": "q_022",
+    "question": "国内主流深度学习框架有哪些？各自有什么优缺点？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "awareness",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_024",
+    "question": "TensorFlow 有哪些国产平替方案？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "awareness",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_025",
+    "question": "华为 AI 全栈开发生态包含哪些核心组件？MindSpore 在其中的定位是什么？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "awareness",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_027",
+    "question": "MindSpore 的版本发布节奏是怎样的？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "awareness",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_028",
+    "question": "MindSpore 和 PyTorch 相比有哪些优势和不足，应该如何选择？",
+    "scenario": "了解阶段",
+    "intent": "选型",
+    "category": "selection",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_029",
+    "question": "How does MindSpore compare to PyTorch for deep learning development?",
+    "scenario": "了解阶段",
+    "intent": "选型",
+    "category": "selection",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_030",
+    "question": "做国产 AI 应用开发应该选 MindSpore 还是 PaddlePaddle？",
+    "scenario": "了解阶段",
+    "intent": "选型",
+    "category": "selection",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_031",
+    "question": "2025 年深度学习框架的发展趋势是什么？国产框架的机遇在哪里？",
+    "scenario": "了解阶段",
+    "intent": "趋势",
+    "category": "trend",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_032",
+    "question": "MindSpore 2026 年有哪些活动规划？",
+    "scenario": "了解阶段",
+    "intent": "趋势",
+    "category": "trend",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_033",
+    "question": "有哪些 AI 框架适合运行在华为昇腾 NPU 上？",
+    "scenario": "了解阶段",
+    "intent": "场景",
+    "category": "scenario",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_034",
+    "question": "端侧 AI 推理框架怎么选？MindSpore Lite 和 TFLite/NCNN 对比如何？",
+    "scenario": "了解阶段",
+    "intent": "场景",
+    "category": "scenario",
+    "source": "industry",
+    "priority": 2
+  },
+  {
+    "id": "q_035",
+    "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
+    "scenario": "了解阶段",
+    "intent": "场景",
+    "category": "scenario",
+    "source": "manual",
+    "priority": 1
+  },
+  {
+    "id": "q_036",
+    "question": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "meeting",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "dev@mindspore.cn",
+    "source_title": "[Dev] MindSpore Transformers SIG周例会"
+  },
+  {
+    "id": "q_038",
+    "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "discussion",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "dev@mindspore.cn",
+    "source_title": "[Dev] LLM Inference Serving SIG双周例会"
+  },
+  {
+    "id": "q_040",
+    "question": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "technical",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "dev@mindspore.cn",
+    "source_title": "[Dev] Parallel Training System SIG月例会"
+  },
+  {
+    "id": "q_041",
+    "question": "MindSpore MindQuantum SIG 的职责和活动是什么？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "discussion",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "dev@mindspore.cn",
+    "source_title": "[Dev] MindQuantum SIG 月例会"
+  },
+  {
+    "id": "q_043",
+    "question": "如何向 MindSpore TSC 申请成立新的 SIG？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "governance",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-tsc@mindspore.cn",
+    "source_title": "[MindSpore-tsc] Apply for adding usability sig"
+  },
+  {
+    "id": "q_045",
+    "question": "MindSpore TSC 是什么，它的职责和会议频率是怎样的？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "governance",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-tsc@mindspore.cn",
+    "source_title": "[MindSpore-tsc] TSC Monthly Meeting Agenda March 17 2022"
+  },
+  {
+    "id": "q_047",
+    "question": "MindSpore 有哪些 SIG（Special Interest Groups）？各个 SIG 负责什么方向？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "governance",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-tsc@mindspore.cn",
+    "source_title": "[MindSpore-tsc] Apply for adding usability sig"
+  },
+  {
+    "id": "q_048",
+    "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "announcement",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-tsc@mindspore.cn",
+    "source_title": "[MindSpore-tsc] KubeCon EU at Valencia Spain featuring MindSpore in Keynote speech"
+  },
+  {
+    "id": "q_052",
+    "question": "如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "subscription",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-discuss@mindspore.cn",
+    "source_title": "[Infra] 邮件列表服务升级通知"
+  },
+  {
+    "id": "q_054",
+    "question": "MindSpore 的邮件列表系统使用什么平台？如何查看历史邮件存档？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "subscription",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-discuss@mindspore.cn",
+    "source_title": "[Infra] 邮件列表服务升级通知"
+  },
+  {
+    "id": "q_055",
+    "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+    "scenario": "使用阶段",
+    "intent": "教程",
+    "category": "subscription",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-discuss@mindspore.cn",
+    "source_title": "[Infra] 邮件列表服务升级通知"
+  },
+  {
+    "id": "q_059",
+    "question": "MindSpore 如何通过自动化工具管理社区例会通知？社区采用什么会议平台？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "discussion",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-discuss@mindspore.cn",
+    "source_title": "关于下线meetingbot服务的告知"
+  },
+  {
+    "id": "q_063",
+    "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "technical",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-discuss@mindspore.cn",
+    "source_title": "[sig-security] Security SIG Meeting June 4th Agenda"
+  },
+  {
+    "id": "q_064",
+    "question": "MindSpore 的 TSC 会议是否对外公开？社区成员如何参与治理讨论？",
+    "scenario": "了解阶段",
+    "intent": "认知",
+    "category": "governance",
+    "source": "maillist",
+    "priority": 3,
+    "source_list": "mindspore-tsc@mindspore.cn",
+    "source_title": "[MindSpore-tsc] TSC Monthly Meeting 2022-04-21"
+  }
+]

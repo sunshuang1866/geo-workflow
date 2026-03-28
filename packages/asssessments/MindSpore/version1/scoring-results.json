@@ -1,0 +1,107 @@
+{
+  "scored_at": "2026-03-12T00:00:00Z",
+  "total_questions": 10,
+  "questions_scored": 6,
+  "questions_skipped": 4,
+  "skipped_reasons": {
+    "q_002": "content_exists=null (未标注)",
+    "q_003": "content_exists=null (未标注)",
+    "q_006": "不在本次分析范围",
+    "q_008": "不在本次分析范围"
+  },
+  "platforms": ["Perplexity", "ChatGPT", "豆包", "千问", "DeepSeek"],
+  "results": [
+    {
+      "question_id": "q_001",
+      "question": "MindSpore 支持哪些安装方式？",
+      "content_exists": true,
+      "scores": [
+        {"platform": "Perplexity", "citation_type": "D", "official_source_ratio": 0.78, "accuracy_score": 9, "severity": "no_action", "details": "准确列出pip/conda/source/docker四种安装方式，引用mindspore.cn/install等官方页面9处。"},
+        {"platform": "ChatGPT", "citation_type": "D", "official_source_ratio": 0.82, "accuracy_score": 9, "severity": "no_action", "details": "完整覆盖pip/conda/docker/source/Lite五种安装方式，11处官方引用，含源码编译和Lite文档链接。"},
+        {"platform": "豆包", "citation_type": "D", "official_source_ratio": 0.86, "accuracy_score": 8, "severity": "no_action", "details": "详细列出5种安装方式含离线安装，14处引用。部分URL路径可能不精确（如conda_install.html、offline_install.html），但内容基本准确。"},
+        {"platform": "千问", "citation_type": "D", "official_source_ratio": 0.80, "accuracy_score": 9, "severity": "no_action", "details": "5种安装方式+Nightly+云平台，5处高质量官方引用，含CANN版本配套表。"},
+        {"platform": "DeepSeek", "citation_type": "D", "official_source_ratio": 1.00, "accuracy_score": 8, "severity": "no_action", "details": "4种安装方式，3处官方引用全部指向mindspore.cn，内容准确但深度稍不足。"}
+      ]
+    },
+    {
+      "question_id": "q_004",
+      "question": "MindSpore 2026 年有哪些活动规划？",
+      "content_exists": true,
+      "scores": [
+        {"platform": "ChatGPT", "citation_type": "E", "official_source_ratio": 0.50, "accuracy_score": 5, "severity": "P2", "details": "大量推测性内容（'预计2026年继续举办'），引用中含不相关页面（privacy policy）。仅2处官方引用，其中1处不相关。"},
+        {"platform": "千问", "citation_type": "D", "official_source_ratio": 0.60, "accuracy_score": 7, "severity": "P2", "details": "列出具体2026年活动（技术干货征集令、万码奔腾贺新春等），内容具体但部分活动日期/细节待验证。仅1处直接官方引用。"},
+        {"platform": "DeepSeek", "citation_type": "D", "official_source_ratio": 1.00, "accuracy_score": 6, "severity": "P2", "details": "仅提及技术干货征集令一项活动，内容过于有限，未覆盖已公布的其他活动。1处官方引用。"}
+      ]
+    },
+    {
+      "question_id": "q_005",
+      "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
+      "content_exists": true,
+      "scores": [
+        {"platform": "Perplexity", "citation_type": "D", "official_source_ratio": 0.67, "accuracy_score": 9, "severity": "no_action", "details": "详细的入门路径（CLA→Fork→Issue→PR），18处引用含大量GitHub CONTRIBUTING文档和官网页面，内容准确全面。"},
+        {"platform": "ChatGPT", "citation_type": "D", "official_source_ratio": 0.71, "accuracy_score": 8, "severity": "no_action", "details": "完整的贡献流程（交流→文档→Issue→代码→活动），14处引用含GitHub和官网。"},
+        {"platform": "豆包", "citation_type": "D", "official_source_ratio": 0.71, "accuracy_score": 8, "severity": "no_action", "details": "最详细的回答，含AtomGit仓库、SIG、CLA签署等完整路径，21处引用。提及AtomGit为主仓库需验证。"},
+        {"platform": "千问", "citation_type": "D", "official_source_ratio": 0.75, "accuracy_score": 8, "severity": "no_action", "details": "标准的Forking工作流，含SIG组织介绍，8处引用。提及Gitee为主仓库。"},
+        {"platform": "DeepSeek", "citation_type": "D", "official_source_ratio": 0.80, "accuracy_score": 7, "severity": "P2", "details": "内容完整但部分链接可能过时（如CLA签署链接指向openeuler），论坛链接指向华为云bbs而非discuss.mindspore.cn。5处引用。"}
+      ]
+    },
+    {
+      "question_id": "q_007",
+      "question": "MindSpore 2.8.0 版本有哪些新增特性？",
+      "content_exists": true,
+      "scores": [
+        {"platform": "ChatGPT", "citation_type": "D", "official_source_ratio": 1.00, "accuracy_score": 8, "severity": "no_action", "details": "聚焦MindSpore Lite 2.8.0特性（LoRA权重更新、ACL推理、Python 3.12），2处官方Release Notes引用，内容准确但仅覆盖Lite部分。"},
+        {"platform": "豆包", "citation_type": "C", "official_source_ratio": 0.60, "accuracy_score": 3, "severity": "P0", "details": "严重幻觉：捏造「分层张量并行Hierarchical TP」「INT4/INT8混合精度推理延迟降低40%」「Android 15/iOS 18原生适配」「PyTorch 2.4+ .pth导入迁移成功率95%」「VS Code MindSpore Assistant插件」等不存在的特性。多个URL为捏造路径（release_notes/2.8.0.html、feature/2.8.0_feature.html等）。"},
+        {"platform": "千问", "citation_type": "D", "official_source_ratio": 1.00, "accuracy_score": 9, "severity": "no_action", "details": "最准确的回答：正确描述HyperParallel架构（HyperShard/HyperOffload/HyperMPMD）、SGLang推理引擎、Dataset DataLoader、NSA算子等实际特性。引用官方Release Notes和hiascend.com发布文章。"},
+        {"platform": "DeepSeek", "citation_type": "D", "official_source_ratio": 1.00, "accuracy_score": 8, "severity": "no_action", "details": "准确描述Dataset模块（DataLoader、send/recv）、编译执行（自定义后端、图模式优化）、API新增（NSA算子、mint模块）等实际特性。1处官方引用。"}
+      ]
+    },
+    {
+      "question_id": "q_009",
+      "question": "MindSpore 目前支持读取哪些第三方框架的模型及格式？",
+      "content_exists": true,
+      "scores": [
+        {"platform": "Perplexity", "citation_type": "D", "official_source_ratio": 0.62, "accuracy_score": 9, "severity": "no_action", "details": "正确指出MindSpore训练框架不能直接读取其他框架checkpoint，需先转换。区分训练框架vs Lite转换链路。13处引用含官方FAQ。"},
+        {"platform": "ChatGPT", "citation_type": "E", "official_source_ratio": 0.50, "accuracy_score": 6, "severity": "P2", "details": "暗示可通过MindConverter直接迁移，未充分强调'不能直接读取'这一关键限制。混淆了训练框架能力和Lite转换能力。6处引用。"},
+        {"platform": "豆包", "citation_type": "C", "official_source_ratio": 0.50, "accuracy_score": 3, "severity": "P0", "details": "严重错误：声称存在mindspore.train.imports/mindspore.convert模块（不存在），声称'支持TensorFlow 1.x/2.x版本的模型导入'、'支持PyTorch 1.5+版本的模型参数/计算图导入'、'支持直接加载ONNX模型推理'，这与官方FAQ明确矛盾。声称'兼容TensorFlow/PyTorch的ckpt格式'更是完全错误。多个URL为捏造路径。"},
+        {"platform": "千问", "citation_type": "D", "official_source_ratio": 0.75, "accuracy_score": 9, "severity": "no_action", "details": "正确指出MindSpore不支持直接读取其他框架模型，仅支持MINDIR导入。清晰区分训练阶段vs推理阶段（Lite converter_lite）。4处引用含官方FAQ。"},
+        {"platform": "DeepSeek", "citation_type": "C", "official_source_ratio": 0.50, "accuracy_score": 3, "severity": "P0", "details": "与豆包回答内容高度相似（疑似同源幻觉）：同样声称存在mindspore.train.imports/mindspore.convert模块，声称支持直接导入TF/PyTorch/ONNX/Caffe模型。8处引用但多个URL为捏造路径。"}
+      ]
+    },
+    {
+      "question_id": "q_010",
+      "question": "TransData 算子的功能是什么？如何利用该算子优化性能？",
+      "content_exists": true,
+      "scores": [
+        {"platform": "Perplexity", "citation_type": "D", "official_source_ratio": 0.60, "accuracy_score": 9, "severity": "no_action", "details": "准确描述TransData为Ascend数据格式转换算子（NC1HWC0等），优化思路为减少插入次数。5处引用含mindspore.cn FAQ和hiascend.com。"},
+        {"platform": "ChatGPT", "citation_type": "D", "official_source_ratio": 0.44, "accuracy_score": 8, "severity": "no_action", "details": "正确描述TransData功能（4D↔5D格式转换）和优化方法（混合精度、统一格式、图融合），9处引用含官方FAQ和hiascend.com。"},
+        {"platform": "豆包", "citation_type": "C", "official_source_ratio": 0.00, "accuracy_score": 1, "severity": "P0", "details": "完全错误的上下文：将TransData描述为大数据ETL算子（Flink/Spark/FusionInsight/MaxCompute中的数据格式转换），而非MindSpore/Ascend的张量格式转换算子。零官方引用。引用来源为华为FusionInsight和阿里MaxCompute文档，与问题完全无关。"},
+        {"platform": "千问", "citation_type": "D", "official_source_ratio": 0.50, "accuracy_score": 8, "severity": "no_action", "details": "正确描述TransData为CANN/MindSpore底层算子，详细解释格式转换功能和4种优化策略（算子融合、冗余消除、内存优化、布局规划）。引用hiascend.com文档。"},
+        {"platform": "DeepSeek", "citation_type": "C", "official_source_ratio": 0.00, "accuracy_score": 0, "severity": "P0", "details": "回答完全不相关：描述的是DeepSeek界面的复制粘贴功能，与TransData算子毫无关系。疑似平台响应错误或问题未被正确处理。零引用。"}
+      ]
+    }
+  ],
+  "summary": {
+    "total_scored_pairs": 28,
+    "phenomenon_distribution": {
+      "A": 0,
+      "B": 0,
+      "C": 5,
+      "D": 19,
+      "E": 2
+    },
+    "severity_distribution": {
+      "P0": 5,
+      "P1": 0,
+      "P2": 5,
+      "no_action": 18
+    },
+    "platform_summary": {
+      "Perplexity": {"avg_accuracy": 9.0, "avg_ratio": 0.67, "main_phenomenon": "D", "scored_pairs": 4},
+      "ChatGPT": {"avg_accuracy": 7.3, "avg_ratio": 0.66, "main_phenomenon": "D", "scored_pairs": 6},
+      "豆包": {"avg_accuracy": 4.3, "avg_ratio": 0.53, "main_phenomenon": "C/D", "scored_pairs": 6},
+      "千问": {"avg_accuracy": 8.2, "avg_ratio": 0.73, "main_phenomenon": "D", "scored_pairs": 6},
+      "DeepSeek": {"avg_accuracy": 5.0, "avg_ratio": 0.55, "main_phenomenon": "D/C", "scored_pairs": 6}
+    }
+  }
+}

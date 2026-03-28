@@ -1,0 +1,73 @@
+{
+  "community": "openUBMC",
+  "labeled_at": "2026-03-23",
+  "official_domains": ["openubmc.cn", "discuss.openubmc.cn", "gitcode.com/openubmc"],
+  "labels": [
+    {
+      "question_id": "q_004",
+      "question": "openUBMC的Redfish接口规范是什么？有哪些设计原则？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "notes": "Architecture design reference covers interface adapter model and multi-protocol design principles, but no dedicated Redfish spec compliance document",
+      "official_urls": [
+        "https://www.openubmc.cn/docs/zh/development/design_reference/architecture.html",
+        "https://discuss.openubmc.cn/t/topic/1853",
+        "https://discuss.openubmc.cn/t/topic/3821"
+      ]
+    },
+    {
+      "question_id": "q_006",
+      "question": "openUBMC的Redfish OEM字段如何在不使用装备项和白牌包的情况下定制？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "notes": "Forum discussion topic/3821 covers OEM extension approach without whitelist packages; architecture doc covers extension mechanisms",
+      "official_urls": [
+        "https://discuss.openubmc.cn/t/topic/3821",
+        "https://www.openubmc.cn/docs/zh/development/design_reference/architecture.html"
+      ]
+    },
+    {
+      "question_id": "q_018",
+      "question": "openUBMC如何适配MiniSAS接口及其下挂接的硬盘？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "notes": "General development docs exist but no dedicated MiniSAS hardware adaptation page; content is scattered across development docs",
+      "official_urls": [
+        "https://www.openubmc.cn/docs/zh/development/"
+      ]
+    },
+    {
+      "question_id": "q_033",
+      "question": "openUBMC社区中可以通过PR评论触发哪些机器人自动化操作？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "notes": "Forum topic/208 documents CI robot commands; gitcode.com/openubmc repo may have .github or CI config docs",
+      "official_urls": [
+        "https://discuss.openubmc.cn/t/topic/208",
+        "https://gitcode.com/openubmc"
+      ]
+    },
+    {
+      "question_id": "q_036",
+      "question": "openUBMC中BusinessConnector是什么？有什么作用？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "notes": "BusinessConnector is covered in the architecture design reference as part of the MDB resource tree model",
+      "official_urls": [
+        "https://www.openubmc.cn/docs/zh/development/design_reference/architecture.html",
+        "https://discuss.openubmc.cn/t/topic/1643"
+      ]
+    },
+    {
+      "question_id": "q_050",
+      "question": "如何为openUBMC社区贡献代码？贡献流程和规范是什么？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "notes": "Dedicated contribution guide at /docs/zh/contribution/guide.html; all platforms found this page",
+      "official_urls": [
+        "https://www.openubmc.cn/docs/zh/contribution/guide.html",
+        "https://discuss.openubmc.cn/t/topic/4975"
+      ]
+    }
+  ]
+}

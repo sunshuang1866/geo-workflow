@@ -1,0 +1,675 @@
+{
+  "metadata": {
+    "scored_at": "2026-03-23T15:55:41Z",
+    "total_questions": 3,
+    "total_platforms": 4,
+    "total_pairs": 12,
+    "scored_pairs": 12,
+    "skipped_pairs": 0,
+    "has_standard_answers": false,
+    "official_domains": [
+      "mindspore.cn",
+      "gitcode.com/mindspore",
+      "github.com/mindspore-ai",
+      "gitee.com/mindspore"
+    ],
+    "input_file": "MindSpore/responses.json",
+    "calibration_notes": "q_032 content_exists 更正为 true（官方活动页: mindspore.cn/activities），已重新评分"
+  },
+  "results": [
+    {
+      "question_id": "q_027",
+      "platform": "chatgpt",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "E",
+      "official_source_ratio": 0.5,
+      "accuracy_score": 6,
+      "severity": "P2",
+      "details": "通过 PyPI 和 piwheels 发布历史推断节奏（≈3个月一版），方法合理但依赖第三方数据源；官方比例恰好 0.5，无官方版本策略页可引用。未标注结论来源局限性。",
+      "issues_found": [
+        "missing_scope",
+        "no_process_doc",
+        "no_evidence"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "pypi.org/project/mindspore",
+          "type": "third-party"
+        },
+        {
+          "url_or_name": "piwheels.org/project/mindspore",
+          "type": "third-party"
+        },
+        {
+          "url_or_name": "repo.mindspore.cn/mindnlp/version",
+          "type": "official"
+        },
+        {
+          "url_or_name": "gitee.com/mindspore/mindspore/wikis",
+          "type": "official"
+        }
+      ]
+    },
+    {
+      "question_id": "q_027",
+      "platform": "deepseek",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "D",
+      "official_source_ratio": 1.0,
+      "accuracy_score": 7,
+      "severity": "P2",
+      "details": "诚实说明核心框架无官方节奏文档，转而引用 Golden Stick 生命周期文档（官方，但属子组件）。主动披露局限性是优点；缺点是未能直接回答主框架发布节奏。",
+      "issues_found": [
+        "missing_scope",
+        "shallow_content",
+        "buried_answer"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.4.1/install.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/golden_stick/docs/en/master/install.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn",
+          "type": "official"
+        }
+      ]
+    },
+    {
+      "question_id": "q_027",
+      "platform": "qwen",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "C",
+      "official_source_ratio": 0.71,
+      "accuracy_score": 5,
+      "severity": "P0",
+      "details": "引用了官方 URL（version_history、install、gitee releases），但声称'每年2个大版本/6个月一版'以及具体 LTS 版本（2.2.0 LTS、2.4.0 LTS）均无官方依据，属捏造细节。官网无版本节奏策略文档，任何具体周期声明均为推断或虚构。",
+      "issues_found": [
+        "fabricated_claims",
+        "version_confusion",
+        "no_evidence",
+        "missing_scope"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/docs/zh-CN/master/version_history.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/install",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://gitee.com/mindspore/mindspore/releases",
+          "type": "official"
+        },
+        {
+          "url_or_name": "GitHub releases / blog sources",
+          "type": "third-party"
+        }
+      ]
+    },
+    {
+      "question_id": "q_027",
+      "platform": "doubao",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "E",
+      "official_source_ratio": 0.43,
+      "accuracy_score": 5,
+      "severity": "P2",
+      "details": "主要依赖 CSDN 博客和昇腾社区公告（非 MindSpore 官方域名），官方比例 0.43。mindspore.cn/version-updates 为疑似不存在 URL，含潜在捏造引用。'每季度1个正式版'结论有一定根据但官方来源不足。",
+      "issues_found": [
+        "fabricated_claims",
+        "ambiguous_terminology",
+        "no_evidence"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/news/detail/?id=3761",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/version-updates",
+          "type": "official"
+        },
+        {
+          "url_or_name": "blog.csdn.net/csdnnews/...",
+          "type": "third-party"
+        },
+        {
+          "url_or_name": "hiascend.com/productbulletins/...",
+          "type": "third-party"
+        }
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "platform": "chatgpt",
+      "content_exists": true,
+      "content_coverage": "full",
+      "citation_type": "D",
+      "official_source_ratio": 1.0,
+      "accuracy_score": 9,
+      "severity": "P2",
+      "details": "全部 8 条引用均为官方源（mindspore.cn/developers、贡献指南、gitee CONTRIBUTING 等），流程准确完整，覆盖 Fork→PR→CI 全流程。唯一不足是开头有较长铺垫，核心答案略有埋没。",
+      "issues_found": [
+        "buried_answer"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/developers",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/mindformers/docs/.../mindformers_contribution.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://gitee.com/mindspore/docs/blob/master/CONTRIBUTING_DOC_CN.md",
+          "type": "official"
+        }
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "platform": "deepseek",
+      "content_exists": true,
+      "content_coverage": "full",
+      "citation_type": "D",
+      "official_source_ratio": 0.53,
+      "accuracy_score": 7,
+      "severity": "P2",
+      "details": "引用 10/19 为官方源（gitee MindSpore 仓库、社区 SIG 文档、ICLA 页面），内容结构清晰、步骤准确。非官方引用来自 GitHub 镜像等中性源。整体合理，但官方比例偏低。",
+      "issues_found": [
+        "missing_summary",
+        "no_direct_answer"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/icla",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://gitee.com/mindspore/mindspore/issues",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://gitee.com/mindspore/community/blob/master/sigs/dx/docs/labels.md",
+          "type": "official"
+        },
+        {
+          "url_or_name": "github.com mirrors / other sources",
+          "type": "third-party"
+        }
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "platform": "qwen",
+      "content_exists": true,
+      "content_coverage": "full",
+      "citation_type": "D",
+      "official_source_ratio": 0.83,
+      "accuracy_score": 8,
+      "severity": "P2",
+      "details": "19/23 引用为官方源，内容全面覆盖社区渠道、贡献流程、SIG 选择等。少量引用目标（如 /install、/tutorials）与贡献话题相关性稍低，但总体质量高。开头有背景铺垫。",
+      "issues_found": [
+        "buried_answer",
+        "no_direct_answer"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/tutorials/zh-CN/master/beginner/beginner.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://gitee.com/mindspore/...",
+          "type": "official"
+        }
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "platform": "doubao",
+      "content_exists": true,
+      "content_coverage": "full",
+      "citation_type": "E",
+      "official_source_ratio": 0.46,
+      "accuracy_score": 6,
+      "severity": "P2",
+      "details": "6/13 引用为官方源（CONTRIBUTING_CN.md、贡献文档等），开头流程摘要清晰。但近一半引用指向非官方域名（AtomGit 或中性源），官方比例低于 0.5。缺少常见追问的覆盖（如 'SIG 怎么选''第一个 PR 要注意什么'）。",
+      "issues_found": [
+        "missing_faq",
+        "missing_scope"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING_CN.md",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://gitee.com/mindspore/docs/blob/master/CONTRIBUTING_DOC_CN.md",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/mindscience/docs/.../CONTRIBUTING.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "AtomGit / GitHub mirrors",
+          "type": "third-party"
+        }
+      ]
+    },
+    {
+      "question_id": "q_032",
+      "platform": "chatgpt",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "B",
+      "official_source_ratio": 0.14,
+      "accuracy_score": 5,
+      "severity": "P1",
+      "details": "官网有 mindspore.cn/activities 活动页，但 ChatGPT 明确声称'没有发布完整规划'并引用了 mindspore.cn/developers（与活动无关）。未发现或引用 /activities 页，属有内容未引用（Phenomenon B）。",
+      "issues_found": [
+        "missing_scope",
+        "no_direct_answer",
+        "buried_answer"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/developers",
+          "type": "official"
+        },
+        {
+          "url_or_name": "openEuler / 开放原子 related mentions",
+          "type": "third-party"
+        }
+      ]
+    },
+    {
+      "question_id": "q_032",
+      "platform": "deepseek",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "E",
+      "official_source_ratio": 0.43,
+      "accuracy_score": 6,
+      "severity": "P2",
+      "details": "从论坛（discuss.mindspore.cn）找到了真实的 2026 年活动内容（技术干货征集令），官方引用率 0.43。未直接引用 mindspore.cn/activities 主页，但找到的内容有实际来源，可信度较高。",
+      "issues_found": [
+        "missing_scope",
+        "no_direct_answer"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://discuss.mindspore.cn/t/topic/1456/3",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://discuss.mindspore.cn/",
+          "type": "official"
+        },
+        {
+          "url_or_name": "third-party sources",
+          "type": "third-party"
+        }
+      ]
+    },
+    {
+      "question_id": "q_032",
+      "platform": "qwen",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "C",
+      "official_source_ratio": 0.625,
+      "accuracy_score": 3,
+      "severity": "P0",
+      "details": "引用了 mindspore.cn/activity/conference2026、mindspore.cn/activity/mindspore-cup-2026、discuss.mindspore.cn/t/hackathon-2026-spring 等疑似捏造的官方 URL（这些页面极可能不存在）。官方域名下的路径属幻觉，是最危险的 Phenomenon C 变体。",
+      "issues_found": [
+        "fabricated_claims",
+        "no_evidence",
+        "version_confusion"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://www.mindspore.cn/activity/conference2026",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/activity/mindspore-cup-2026",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://discuss.mindspore.cn/t/hackathon-2026-spring",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/activity",
+          "type": "official"
+        }
+      ]
+    },
+    {
+      "question_id": "q_032",
+      "platform": "doubao",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "citation_type": "D",
+      "official_source_ratio": 0.56,
+      "accuracy_score": 7,
+      "severity": "P2",
+      "details": "从论坛帖子（discuss.mindspore.cn/t/topic/1456）找到真实的 2026 活动信息（技术干货征集令、开源实习），官方引用率 0.56 略超 0.5。内容有实际官方来源，质量尚可，但未引用 /activities 主页。",
+      "issues_found": [
+        "missing_scope",
+        "missing_faq"
+      ],
+      "sources_identified": [
+        {
+          "url_or_name": "https://discuss.mindspore.cn/t/topic/1456/1",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/internship/",
+          "type": "official"
+        },
+        {
+          "url_or_name": "https://www.mindspore.cn/docs/note/en/r1.6/roadmap.html",
+          "type": "official"
+        },
+        {
+          "url_or_name": "CSDN / third-party blogs",
+          "type": "third-party"
+        }
+      ]
+    }
+  ],
+  "patterns": {
+    "hallucination_patterns": [
+      {
+        "trigger": "版本发布节奏/LTS版本",
+        "platforms": [
+          "qwen"
+        ],
+        "example": "千问声称 2.2.0 LTS、2.4.0 LTS 为官方 LTS 版本，但官方无此声明"
+      },
+      {
+        "trigger": "2026年具体活动URL",
+        "platforms": [
+          "qwen"
+        ],
+        "example": "千问捏造 mindspore.cn/activity/conference2026、mindspore.cn/activity/mindspore-cup-2026 等不存在的页面"
+      }
+    ],
+    "disambiguation_patterns": [
+      {
+        "term": "版本发布节奏",
+        "confused_with": "Golden Stick 子组件版本生命周期",
+        "platforms": [
+          "deepseek"
+        ]
+      },
+      {
+        "term": "LTS 版本",
+        "confused_with": "自行推断的特定版本号",
+        "platforms": [
+          "qwen"
+        ]
+      }
+    ],
+    "negation_failures": [
+      {
+        "fact": "MindSpore 主框架目前无官方 LTS 声明",
+        "platforms_missed": [
+          "qwen",
+          "chatgpt",
+          "doubao"
+        ]
+      }
+    ],
+    "citation_gaps": [
+      {
+        "topic": "版本发布节奏与生命周期策略",
+        "suggested_page": "mindspore.cn/docs/release-policy 或 gitee.com/mindspore/mindspore RELEASE.md"
+      },
+      {
+        "topic": "2026年社区活动规划",
+        "suggested_page": "mindspore.cn/news/events 或年度社区规划公告"
+      }
+    ],
+    "content_origin_issues": [
+      {
+        "issue": "mindspore.cn/activities 未被引用（B/C/E现象）",
+        "affected_platforms": [
+          "chatgpt",
+          "deepseek",
+          "qwen",
+          "doubao"
+        ],
+        "question_ids": [
+          "q_032"
+        ]
+      },
+      {
+        "issue": "no_process_doc + fabricated_claims (2026活动规划页面缺失)",
+        "affected_platforms": [
+          "chatgpt",
+          "deepseek",
+          "qwen",
+          "doubao"
+        ],
+        "question_ids": [
+          "q_032"
+        ]
+      },
+      {
+        "issue": "buried_answer (社区贡献页面结构)",
+        "affected_platforms": [
+          "chatgpt",
+          "deepseek",
+          "qwen"
+        ],
+        "question_ids": [
+          "q_035"
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "by_phenomenon": {
+      "E": 4,
+      "D": 5,
+      "C": 2,
+      "B": 1
+    },
+    "by_severity": {
+      "P2": 9,
+      "P0": 2,
+      "P1": 1
+    },
+    "by_platform": {
+      "chatgpt": {
+        "avg_score": 6.7,
+        "avg_ratio": 0.55
+      },
+      "deepseek": {
+        "avg_score": 6.7,
+        "avg_ratio": 0.65
+      },
+      "qwen": {
+        "avg_score": 5.3,
+        "avg_ratio": 0.72
+      },
+      "doubao": {
+        "avg_score": 6.0,
+        "avg_ratio": 0.48
+      }
+    }
+  },
+  "suggestions": [
+    {
+      "suggestion_id": "s_001",
+      "question_id": "q_032",
+      "question": "MindSpore 2026 年有哪些活动规划？",
+      "platform": "all",
+      "citation_type": "mixed",
+      "official_source_ratio": 0.43,
+      "accuracy_score": 5.25,
+      "severity": "P0",
+      "category": "seo",
+      "catalog_refs": [
+        "CTX-02",
+        "CTX-03",
+        "ORG-01",
+        "REF-04",
+        "DIS-03"
+      ],
+      "suggestion_text": "提升 mindspore.cn/activities 页面的 GEO 可发现性：确保页面标题含'2026年活动'关键词，在页面首段给出当年活动日历摘要，并添加结构化数据（Event schema），使 AI 平台能直接引用而非从论坛或其他渠道推断。",
+      "details": "官网 /activities 页存在但所有平台均未引用。ChatGPT 认为无内容（B/P1），DeepSeek 和 Doubao 从论坛找到部分内容，千问捏造了具体活动 URL（C/P0）。根本原因是 /activities 页 SEO 和内容结构不足，导致 AI 无法直接找到权威来源。",
+      "affected_platforms": [
+        "chatgpt",
+        "deepseek",
+        "qwen",
+        "doubao"
+      ],
+      "is_content_origin": true
+    },
+    {
+      "suggestion_id": "s_001b",
+      "question_id": "q_032",
+      "question": "MindSpore 2026 年有哪些活动规划？",
+      "platform": "qwen",
+      "citation_type": "C",
+      "official_source_ratio": 0.625,
+      "accuracy_score": 3,
+      "severity": "P0",
+      "category": "correction",
+      "catalog_refs": [
+        "REF-04",
+        "REF-10",
+        "DIS-03",
+        "NEG-03"
+      ],
+      "suggestion_text": "在 mindspore.cn/activities 页明确列出已确认的 2026 年活动（含时间、形式），使 AI 平台无需推断具体活动名称和 URL，从根本上消除千问等平台捏造具体活动页路径的动机。",
+      "details": "千问捏造了 mindspore.cn/activity/conference2026 等不存在的官方 URL，这是最危险的 C 现象变体（官方域名下幻觉路径）。需要用真实内容填充 /activities，让 AI 有可引用的官方权威内容。",
+      "affected_platforms": [
+        "qwen"
+      ],
+      "is_content_origin": false
+    },
+    {
+      "suggestion_id": "s_002",
+      "question_id": "q_027",
+      "question": "MindSpore 的版本发布节奏是怎样的？",
+      "platform": "all",
+      "citation_type": "mixed",
+      "official_source_ratio": 0.66,
+      "accuracy_score": 5.75,
+      "severity": "P0",
+      "category": "content",
+      "catalog_refs": [
+        "CTX-05",
+        "REF-04",
+        "REF-05",
+        "EXP-03",
+        "EXC-01"
+      ],
+      "suggestion_text": "在官网创建'版本发布节奏与生命周期策略'专题页，明确说明大版本发布周期、LTS 策略、补丁版本规则和 EOL 政策，使 AI 平台无需从第三方推断，直接引用官方权威说明。",
+      "details": "官网缺少核心框架版本策略文档（仅 Golden Stick 子组件有）。Qwen 捏造了具体 LTS 版本号（Phenomenon C/P0）；ChatGPT/Doubao 依赖 PyPI/CSDN 第三方数据；DeepSeek 虽诚实但用子组件文档代替主框架。missing_scope 和 no_evidence 在 3-4 个平台上均出现，属内容缺口问题。",
+      "affected_platforms": [
+        "chatgpt",
+        "deepseek",
+        "qwen",
+        "doubao"
+      ],
+      "is_content_origin": true
+    },
+    {
+      "suggestion_id": "s_003",
+      "question_id": "q_027",
+      "question": "MindSpore 的版本发布节奏是怎样的？",
+      "platform": "qwen",
+      "citation_type": "C",
+      "official_source_ratio": 0.71,
+      "accuracy_score": 5,
+      "severity": "P0",
+      "category": "correction",
+      "catalog_refs": [
+        "REF-04",
+        "REF-10",
+        "DIS-03",
+        "NEG-03"
+      ],
+      "suggestion_text": "在 Gitee/GitCode MindSpore 仓库的 Release Notes 页面及官网版本历史页中，明确标注'以下为已发布版本记录，MindSpore 目前无正式 LTS 声明'，防止 AI 平台错误推断 LTS 版本号。",
+      "details": "千问引用官方 URL 但声称 2.2.0/2.4.0 为 LTS 版本，属 Phenomenon C（引用错误信息）。需在官方页面中加入明确的否定声明（'目前无 LTS 版本'或实际的 LTS 发布公告），消除歧义。",
+      "affected_platforms": [
+        "qwen"
+      ],
+      "is_content_origin": false
+    },
+    {
+      "suggestion_id": "s_004",
+      "question_id": "q_035",
+      "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
+      "platform": "all",
+      "citation_type": "mixed",
+      "official_source_ratio": 0.71,
+      "accuracy_score": 7.5,
+      "severity": "P2",
+      "category": "optimization",
+      "catalog_refs": [
+        "CTX-02",
+        "ORG-02",
+        "CTX-09",
+        "ORG-05"
+      ],
+      "suggestion_text": "优化 mindspore.cn/developers 页面：将核心参与步骤（注册→签 CLA→Fork→提 PR）提到正文前 150 字，以结论先行格式呈现，减少冗长背景铺垫，提升 AI 平台直接引用概率。",
+      "details": "ChatGPT 和 Qwen 的 buried_answer 问题（3 个平台）显示官方内容结构可改进——答案被嵌在大段背景介绍中。官方贡献页内容充分（ChatGPT ratio=1.0, score=9），但结构优化后可进一步提升 Doubao 等平台的引用比例（当前 0.46）。",
+      "affected_platforms": [
+        "chatgpt",
+        "qwen",
+        "doubao"
+      ],
+      "is_content_origin": true
+    },
+    {
+      "suggestion_id": "s_005",
+      "question_id": "q_035",
+      "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
+      "platform": "doubao",
+      "citation_type": "E",
+      "official_source_ratio": 0.46,
+      "accuracy_score": 6,
+      "severity": "P2",
+      "category": "optimization",
+      "catalog_refs": [
+        "REF-01",
+        "REF-05",
+        "EXC-01",
+        "CTX-09"
+      ],
+      "suggestion_text": "在官方贡献指南中增加常见追问 FAQ 章节（如'如何选择 SIG？''第一个 PR 需要注意什么？''CLA 签署步骤是什么？'），并确保每个问题都有独立的 anchor 链接，方便 AI 精准引用。",
+      "details": "豆包的 missing_faq 标签显示官方页面缺少常见追问的覆盖，导致 AI 使用额外的非官方来源填充。FAQ 锚点化后，豆包等平台的官方引用比例预计从 0.46 提升至 0.6 以上。",
+      "affected_platforms": [
+        "doubao"
+      ],
+      "is_content_origin": false
+    }
+  ]
+}

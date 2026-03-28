@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-03-23T16:06:29Z",
+  "mode": "live",
+  "repo": "github.com/opensourceways/portal-mcp-servers",
+  "issues": [
+    {
+      "group_id": "g_001",
+      "severity": "P0",
+      "title": "[GEO-P0] 补充 mindspore.cn/activities 活动页内容，提升 AI 搜索引擎可发现性",
+      "url": "https://github.com/opensourceways/portal-mcp-servers/issues/23",
+      "number": 23,
+      "question_ids": [
+        "q_032"
+      ]
+    },
+    {
+      "group_id": "g_002",
+      "severity": "P0",
+      "title": "[GEO-P0] 创建版本发布节奏策略专页，明确 LTS 状态，防止 AI 捏造版本信息",
+      "url": "https://github.com/opensourceways/portal-mcp-servers/issues/24",
+      "number": 24,
+      "question_ids": [
+        "q_027"
+      ]
+    },
+    {
+      "group_id": "g_003",
+      "severity": "P2",
+      "title": "[GEO-P2] 优化贡献指南结构：结论前置 + 增加新手 FAQ",
+      "url": "https://github.com/opensourceways/portal-mcp-servers/issues/25",
+      "number": 25,
+      "question_ids": [
+        "q_035"
+      ]
+    }
+  ]
+}

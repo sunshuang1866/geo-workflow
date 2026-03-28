@@ -1,0 +1,440 @@
+{
+  "community": "MindSpore",
+  "labeled_at": "2026-03-25",
+  "source": "auto-inferred from Qwen citations — requires human review for notes fields",
+  "official_domains": [
+    "mindspore.cn",
+    "gitcode.com/mindspore",
+    "github.com/mindspore-ai",
+    "gitee.com/mindspore"
+  ],
+  "labels": [
+    {
+      "question_id": "q_001",
+      "question": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_002",
+      "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_003",
+      "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.6/install/install_gpu.html",
+        "https://www.mindspore.cn/docs/zh-CN/r2.6/note/version.html",
+        "https://www.mindspore.cn/tutorials/zh-CN/r2.6/beginner/quickstart.html"
+      ]
+    },
+    {
+      "question_id": "q_004",
+      "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_005",
+      "question": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+        "https://gitee.com/mindspore/community/issues?q=MindNLP"
+      ],
+      "notes": "昇腾设备上MindNLP下载失败的专项排查文档未找到，Qwen仅引用社区Issues搜索链接；需人工确认是否有相关文档"
+    },
+    {
+      "question_id": "q_006",
+      "question": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r1.11/install/docker_install.html",
+        "https://www.mindspore.cn/tutorials/zh-CN/r1.11/beginner/docker.html"
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_007",
+      "question": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_008",
+      "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.8/install/docker_install.html",
+        "https://www.mindspore.cn/tutorials/zh-CN/r2.8/beginner/docker.html"
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_009",
+      "question": "如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/lite/docs/zh-CN/r2.8/install_windows.html",
+        "https://www.mindspore.cn/lite/docs/zh-CN/r2.8/quick_start.html"
+      ]
+    },
+    {
+      "question_id": "q_010",
+      "question": "MindSpore 支持哪些安装方式？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/install"
+      ]
+    },
+    {
+      "question_id": "q_011",
+      "question": "MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/doc/faq/zh-CN/r1.2/backend_running.html"
+      ]
+    },
+    {
+      "question_id": "q_012",
+      "question": "如何基于 MindSpore 框架训练 YOLOv5 模型？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_013",
+      "question": "如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_014",
+      "question": "将 ONNX 模型转换为 MindIR 格式时出现兼容性问题，如何排查和解决？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://discuss.mindspore.cn/t/topic/196"
+      ]
+    },
+    {
+      "question_id": "q_015",
+      "question": "如何将 PyTorch 模型转换为 MindSpore 模型？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/migration_case_of_mindconverter.html"
+      ]
+    },
+    {
+      "question_id": "q_016",
+      "question": "MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_017",
+      "question": "MindSpore 2.8.0 版本有哪些新增特性？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/RELEASE.html"
+      ]
+    },
+    {
+      "question_id": "q_018",
+      "question": "MindSpore 的 PyNative 模式与 Graph 模式应如何选择？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/tutorials/zh-CN/r1.3/intermediate/pynative_mode_and_graph_mode.html"
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_019",
+      "question": "MindSpore 目前支持读取哪些第三方框架的模型及格式？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/master/faq/feature_advice.html"
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_020",
+      "question": "TransData 算子的功能是什么？如何利用该算子优化性能？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.8/api_python/ops/mindspore.ops.TransData.html"
+      ],
+      "notes": "引用了1条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_021",
+      "question": "整数标量与一维 Tensor 混合运算时，MindSpore 与 PyTorch 的隐式类型转换规则是否一致？MindSpore 算子输入的类型提升规则是什么？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.8/note/tensor_dtype_promotion.html",
+        "https://www.mindspore.cn/docs/zh-CN/r2.8/api_python/mindspore/mindspore.dtype.html"
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_022",
+      "question": "国内主流深度学习框架有哪些？各自有什么优缺点？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_024",
+      "question": "TensorFlow 有哪些国产平替方案？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_025",
+      "question": "华为 AI 全栈开发生态包含哪些核心组件？MindSpore 在其中的定位是什么？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_027",
+      "question": "MindSpore 的版本发布节奏是怎样的？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/version-updates/"
+      ]
+    },
+    {
+      "question_id": "q_028",
+      "question": "MindSpore 和 PyTorch 相比有哪些优势和不足，应该如何选择？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_029",
+      "question": "How does MindSpore compare to PyTorch for deep learning development?",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_030",
+      "question": "做国产 AI 应用开发应该选 MindSpore 还是 PaddlePaddle？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+        "https://www.mindspore.cn/",
+        "https://gitee.com/mindspore/community"
+      ],
+      "notes": "行业对比/选型类问题，MindSpore官网无此类比较文档；需人工确认是否有定位说明页"
+    },
+    {
+      "question_id": "q_031",
+      "question": "2025 年深度学习框架的发展趋势是什么？国产框架的机遇在哪里？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+        "https://www.mindspore.cn/",
+        "https://gitee.com/mindspore/community"
+      ],
+      "notes": "行业对比/选型类问题，MindSpore官网无此类比较文档；需人工确认是否有定位说明页"
+    },
+    {
+      "question_id": "q_032",
+      "question": "MindSpore 2026 年有哪些活动规划？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/activities"
+      ]
+    },
+    {
+      "question_id": "q_033",
+      "question": "有哪些 AI 框架适合运行在华为昇腾 NPU 上？",
+      "content_exists": false,
+      "content_coverage": "none",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_034",
+      "question": "端侧 AI 推理框架怎么选？MindSpore Lite 和 TFLite/NCNN 对比如何？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/contribution?type=word"
+      ]
+    },
+    {
+      "question_id": "q_036",
+      "question": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/sig/MindSpore%20Transformers",
+        "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers"
+      ],
+      "notes": 官方链接 (https://www.mindspore.cn/sig/MindSpore%20Transformers)中详细说了例会的时间以及具体时间点，希望从这个正确的链接中获取信息，而不是官网其他位置：例如活动页面等。
+    },
+    {
+      "question_id": "q_038",
+      "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+        "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
+        "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving"
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_040",
+      "question": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/sig/Parallel%20Training%20System",
+        "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system"
+      ]
+    },
+    {
+      "question_id": "q_041",
+      "question": "MindSpore Quantum SIG 的职责和活动是什么？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/sig/MindSpore%20Quantum",
+        "https://atomgit.com/mindspore/mindquantum"
+      ]
+    },
+    {
+      "question_id": "q_043",
+      "question": "如何向 MindSpore TSC 申请成立新的 SIG？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_045",
+      "question": "MindSpore TSC 是什么，它的职责和会议频率是怎样的？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        
+      ]
+    },
+    {
+      "question_id": "q_047",
+      "question": "MindSpore 有哪些 SIG（Special Interest Groups）？各个 SIG 负责什么方向？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/sig/"
+      ]
+    },
+    {
+      "question_id": "q_048",
+      "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_052",
+      "question": "如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+        "https://www.mindspore.cn/personal-data-collection-overview"
+      ]
+    },
+    {
+      "question_id": "q_054",
+      "question": "MindSpore 的邮件列表系统使用什么平台？如何查看历史邮件存档？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_055",
+      "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+      "content_exists": true,
+      "content_coverage": "partial",
+      "official_urls": [
+      ],
+      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+    },
+    {
+      "question_id": "q_059",
+      "question": "MindSpore 如何通过自动化工具管理社区例会通知？社区采用什么会议平台？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_063",
+      "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    },
+    {
+      "question_id": "q_064",
+      "question": "MindSpore 的 TSC 会议是否对外公开？社区成员如何参与治理讨论？",
+      "content_exists": true,
+      "content_coverage": "full",
+      "official_urls": [
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "issues": {
+    "s_001": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
+      "issue_number": 1,
+      "question_ids": ["q_001"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "ARM 架构安装文档未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-30",
+      "created_in_run": "2026-03-30",
+      "last_updated_run": "2026-03-30"
+    },
+    "s_002": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
+      "issue_number": 2,
+      "question_ids": ["q_002", "q_005"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.33,
+      "title_summary": "MindNLP 相关问题官方链接未被引用（引用率 0%~67%）",
+      "created_at": "2026-03-30",
+      "created_in_run": "2026-03-30",
+      "last_updated_run": "2026-03-30"
+    },
+    "s_003": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
+      "issue_number": 3,
+      "question_ids": ["q_004"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.67,
+      "title_summary": "推理排障 FAQ 页面未被 qwen 引用（引用率 67%）",
+      "created_at": "2026-03-30",
+      "created_in_run": "2026-03-30",
+      "last_updated_run": "2026-03-30"
+    },
+    "s_004": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/4",
+      "issue_number": 4,
+      "question_ids": ["q_006", "q_007"],
+      "status": "no_official_content",
+      "severity": "P1",
+      "citation_rate": null,
+      "title_summary": "容器部署和 vLLM 集成文档缺失",
+      "created_at": "2026-03-30",
+      "created_in_run": "2026-03-30",
+      "last_updated_run": "2026-03-30"
+    },
+    "s_005": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+      "issue_number": 5,
+      "question_ids": ["q_038", "q_048"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.67,
+      "title_summary": "SIG 和社区活动页面未被 deepseek 引用（引用率 67%）",
+      "created_at": "2026-03-30",
+      "created_in_run": "2026-03-30",
+      "last_updated_run": "2026-03-30"
+    },
+    "s_006": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
+      "issue_number": 6,
+      "question_ids": ["q_063"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.75,
+      "title_summary": "安全 SIG 页面未被 chatgpt 引用（引用率 75%）",
+      "created_at": "2026-03-30",
+      "created_in_run": "2026-03-30",
+      "last_updated_run": "2026-03-30"
+    }
+  }
+}

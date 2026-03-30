@@ -1,0 +1,71 @@
+{
+  "created_at": "2026-03-30T11:45:00+00:00",
+  "mode": "live",
+  "repo": "github.com/opensourceways/geo-workflow",
+  "community": "MindSpore",
+  "version_label": "V1",
+  "issues_created": [
+    {
+      "group_id": "g_001",
+      "severity": "P0",
+      "status": "not_cited",
+      "citation_rate": 0.0,
+      "title": "[MindSpore][V1]: ARM 架构安装文档未被 AI 平台引用（引用率 0%）",
+      "url": "https://github.com/opensourceways/geo-workflow/issues/1",
+      "number": 1,
+      "question_ids": ["q_001"]
+    },
+    {
+      "group_id": "g_002",
+      "severity": "P0",
+      "status": "not_cited",
+      "citation_rate": 0.33,
+      "title": "[MindSpore][V1]: MindNLP 相关问题官方链接未被引用（引用率 0%~67%）",
+      "url": "https://github.com/opensourceways/geo-workflow/issues/2",
+      "number": 2,
+      "question_ids": ["q_002", "q_005"]
+    },
+    {
+      "group_id": "g_003",
+      "severity": "P0",
+      "status": "not_cited",
+      "citation_rate": 0.67,
+      "title": "[MindSpore][V1]: 推理排障 FAQ 页面未被 qwen 引用（引用率 67%）",
+      "url": "https://github.com/opensourceways/geo-workflow/issues/3",
+      "number": 3,
+      "question_ids": ["q_004"]
+    },
+    {
+      "group_id": "g_004",
+      "severity": "P1",
+      "status": "no_official_content",
+      "citation_rate": null,
+      "title": "[MindSpore][V1]: 容器部署和 vLLM 集成文档缺失",
+      "url": "https://github.com/opensourceways/geo-workflow/issues/4",
+      "number": 4,
+      "question_ids": ["q_006", "q_007"]
+    },
+    {
+      "group_id": "g_005",
+      "severity": "P0",
+      "status": "not_cited",
+      "citation_rate": 0.67,
+      "title": "[MindSpore][V1]: SIG 和社区活动页面未被 deepseek 引用（引用率 67%）",
+      "url": "https://github.com/opensourceways/geo-workflow/issues/5",
+      "number": 5,
+      "question_ids": ["q_038", "q_048"]
+    },
+    {
+      "group_id": "g_006",
+      "severity": "P0",
+      "status": "not_cited",
+      "citation_rate": 0.75,
+      "title": "[MindSpore][V1]: 安全 SIG 页面未被 chatgpt 引用（引用率 75%）",
+      "url": "https://github.com/opensourceways/geo-workflow/issues/6",
+      "number": 6,
+      "question_ids": ["q_063"]
+    }
+  ],
+  "issues_updated": [],
+  "issues_resolved": []
+}

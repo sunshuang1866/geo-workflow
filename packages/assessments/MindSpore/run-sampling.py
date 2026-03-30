@@ -26,17 +26,31 @@ with open(env_path) as f:
             env_vars[k.strip()] = v.strip()
 
 PLATFORMS = {}
+if env_vars.get("CHATGPT_API_KEY"):
+    PLATFORMS["chatgpt"] = {
+        "api_key": env_vars["CHATGPT_API_KEY"],
+        "base_url": "https://www.packyapi.com/v1",
+        "model": "gpt-5.4",
+        "delay": 1.0,
+    }
+if env_vars.get("DEEPSEEK_API_KEY"):
+    PLATFORMS["deepseek"] = {
+        "api_key": env_vars["DEEPSEEK_API_KEY"],
+        "base_url": "https://api.lingyaai.cn/v1",
+        "model": "deepseek-v3.2",
+        "delay": 1.5,
+    }
 if env_vars.get("DOUBAO_API_KEY"):
     PLATFORMS["doubao"] = {
         "api_key": env_vars["DOUBAO_API_KEY"],
-        "base_url": "https://www.packyapi.com/v1",
+        "base_url": "https://api.lingyaai.cn/v1",
         "model": "doubao-seed-2.0-pro",
         "delay": 1.0,
     }
 if env_vars.get("QWEN_API_KEY"):
     PLATFORMS["qwen"] = {
         "api_key": env_vars["QWEN_API_KEY"],
-        "base_url": "https://www.packyapi.com/v1",
+        "base_url": "https://api.lingyaai.cn/v1",
         "model": "qwen3.5-plus",
         "delay": 1.5,
     }

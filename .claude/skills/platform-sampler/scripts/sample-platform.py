@@ -27,15 +27,15 @@ PLATFORM_CONFIG = {
         "model": "gpt-5.4",
     },
     "deepseek": {
-        "base_url": "https://api.deepseek.com",
-        "model": "deepseek-chat",
+        "base_url": "https://api.lingyaai.cn/v1",
+        "model": "deepseek-v3.2",
     },
     "doubao": {
-        "base_url": "https://www.packyapi.com/v1",
+        "base_url": "https://api.lingyaai.cn/v1",
         "model": "doubao-seed-2.0-pro",
     },
     "qwen": {
-        "base_url": "https://www.packyapi.com/v1",
+        "base_url": "https://api.lingyaai.cn/v1",
         "model": "qwen3.5-plus",
     },
 }

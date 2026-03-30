@@ -18,7 +18,7 @@ Collect raw AI platform responses for each question in the question set, across 
 
 1. Read `.env` from the project root to load API tokens.
 2. Detect available platforms by checking which tokens are non-empty:
-   - `OPENAI_API_KEY` → ChatGPT
+   - `CHATGPT_API_KEY` → ChatGPT
    - `DEEPSEEK_API_KEY` → DeepSeek
    - `DOUBAO_API_KEY` → 豆包
    - `QWEN_API_KEY` → Qwen

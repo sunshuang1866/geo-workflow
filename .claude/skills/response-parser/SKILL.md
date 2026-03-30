@@ -5,7 +5,7 @@ description: Parses manually collected AI platform responses from a raw Markdown
 
 # Response Parser
 
-Converts a manually collected `response.md` file into the standard `responses.json` + `responses.md` output used by the rest of the GEO pipeline.
+Converts a manually collected `response.md` file into the standard `responses.json` output used by the rest of the GEO pipeline.
 
 ## I/O
 
@@ -15,7 +15,7 @@ Converts a manually collected `response.md` file into the standard `responses.js
 | `questions_file` | no | `questions.json` | Path to question set |
 | `community` | no | auto-detected | Community name for metadata extraction |
 
-**Outputs**: `responses.json`, `responses.md` in project root
+**Outputs**: `responses.json` in project root
 
 **Constant**: `SD=.claude/skills/response-parser`
 
@@ -88,22 +88,17 @@ Merge the returned fields into each response object. Add `"timestamp"` (current 
 
 ---
 
-## Step 5 — Generate responses.md
+## Step 5 — Finalize Output
 
-1. Read `$SD/assets/responses-template.md`.
-2. Render using:
-   - Coverage matrix: questions × platforms (✅ / —)
-   - Per-question blocks: platform name, model, metadata summary, raw_response truncated to 500 chars
-3. Write to `responses.md`.
-4. Print:
+1. Print:
    ```
    Parse complete:
      Questions: {q_count}
      Platforms: {platform_list}
      Total responses: {total}
      Coverage: {pct}% ({total}/{q_count × platform_count})
-     Missing: {missing} (see responses.md)
-   Output: responses.json, responses.md
+     Missing: {missing}
+   Output: responses.json
    ```
 
 ---

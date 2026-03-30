@@ -30,9 +30,8 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 └─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘
        ↓                        ↓                        │                      ↓
   questions.json          responses.json                 │               created-issues.json
-  questions.md            responses.md                   │               issue-map.json
-                                                         ↓               tracking-log.md
-                                                 assessment-tracker.md
+  questions.md                                            │               issue-map.json
+                                                         ↓
                                                  scoring-results.json
 ```
 
@@ -104,7 +103,7 @@ mkdir -p packages/assessments/MindSpore/
 /platform-sampler
 ```
 
-输入 `questions.json`，输出 `responses.json` + `responses.md`。
+输入 `questions.json`，输出 `responses.json`。
 
 ### Step C: 人工标注 content-labels
 
@@ -189,13 +188,9 @@ Step 1 (sample):    /platform-sampler → responses.json（scope 控制问题范
          ↓
 Step 2 (score):     /scoring-engine → scoring-results.json
          ↓
-Step 3 (tracker):   追加本次结果到 assessment-tracker.md（按优先级分组、记录趋势）
+Step 3 (issue):     新问题 → 新建 Issue；已有 Issue → 追加评论
          ↓
-Step 4 (issue):     新问题 → 新建 Issue；已有 Issue → 追加评论
-         ↓
-Step 5 (log):       对比上次结果，记录变化和 Issue 活动
-         ↓
-Step 6 (finalize):  更新 run-meta.json，输出摘要
+Step 4 (finalize):  更新 run-meta.json，输出摘要
 ```
 
 **常用组合**：
@@ -203,7 +198,7 @@ Step 6 (finalize):  更新 run-meta.json，输出摘要
 | 场景 | 参数 |
 |------|------|
 | 全量复检（默认） | 无需额外参数 |
-| 已有采样，重新评分 | `steps=2,3,4,5,6` |
+| 已有采样，重新评分 | `steps=2,3,4` |
 | 只重检 P0 问题 | `steps=1,2, scope=p0` |
 | 采样指定问题 | `steps=1, scope=q_048,q_049` |
 | 接受问题集变更并继续 | `accept_question_update=true` |
@@ -214,13 +209,10 @@ Step 6 (finalize):  更新 run-meta.json，输出摘要
 | 输出文件 | 位置 | 说明 |
 |----------|------|------|
 | `responses.json` | `runs/{date}/` | 本次平台采样原始数据 |
-| `responses.md` | `runs/{date}/` | 采样结果（人工可读） |
 | `scoring-results.json` | `runs/{date}/` | 本次评分结果 |
 | `run-meta.json` | `runs/{date}/` | 运行元数据（耗时、平台、统计） |
 | `created-issues.json` | `runs/{date}/` | 本次 Issue 创建/更新记录 |
-| `assessment-tracker.md` | 社区目录根 | 问题级优先级和建议跟踪表（跨运行持久化） |
 | `issue-map.json` | 社区目录根 | 累积 Issue 映射（跨运行持久化） |
-| `tracking-log.md` | 社区目录根 | 累积运行日志（跨运行持久化） |
 
 ---
 
@@ -296,15 +288,12 @@ geo-workflow/
 │       │   ├── questions.json           # 问题集（/get-question 生成，source of truth）
 │       │   ├── questions.md             # 问题集（人工可读）
 │       │   ├── content-labels.json      # 人工标注（手动维护）
-│       │   ├── assessment-tracker.md    # 问题级跟踪表（自动维护）
 │       │   ├── issue-map.json           # Issue 映射（自动维护）
-│       │   ├── tracking-log.md          # 运行日志（自动维护）
 │       │   └── runs/                    # 每次运行的数据
 │       │       ├── 2026-03-28/
 │       │       │   ├── questions.json
 │       │       │   ├── content-labels.json
 │       │       │   ├── responses.json
-│       │       │   ├── responses.md
 │       │       │   ├── scoring-results.json
 │       │       │   ├── created-issues.json
 │       │       │   └── run-meta.json
@@ -335,7 +324,6 @@ geo-workflow/
 | `questions.json` | 运行 `/get-question` 后审核 | 问题集唯一来源；变更时 AGENT.md 会要求确认 |
 | `content-labels.json` | 官方内容有变更时 | 人工判断每个问题的官方覆盖情况 |
 | `manual-questions.md` | 有新的手动问题时 | 补充自动生成未覆盖的问题 |
-| `feedback-rules.md` | 审核后有反馈时 | 问题生成的学习循环 |
 | `.env` | API Key 变更时 | 平台 API 密钥 |
 
 ### 自动维护的文件
@@ -344,9 +332,7 @@ geo-workflow/
 
 | 文件 | 生成时机 | 说明 |
 |------|----------|------|
-| `assessment-tracker.md` | 每次评分完成后 | 问题级优先级和建议历史跟踪表 |
 | `issue-map.json` | 每次 issue-creator 运行后 | 累积的 suggestion → issue 映射 |
-| `tracking-log.md` | 每次复检完成后 | 累积的运行日志，最新在最前 |
 | `runs/{date}/*` | 每次复检运行时 | 本次运行的所有中间和最终数据 |
 | `run-meta.json` | 每次复检运行时 | 运行元数据和统计摘要 |
 | `created-issues.json` | 每次 issue-creator 运行后 | 本次创建/更新的 Issue 记录 |
@@ -367,7 +353,7 @@ openclaw trigger \
 **前提条件**：
 - `questions.json` 和 `content-labels.json` 已就位
 - `.env` 中 API Keys 配置完整
-- 仓库可访问（有 push 权限更新 tracking-log 和 issue-map）
+- 仓库可访问（有 push 权限更新 issue-map）
 
 **建议调度频率**：每周一次。AI 平台回答变化较慢，更高频率只增加成本。
 
@@ -381,7 +367,7 @@ openclaw trigger \
 
 ### Q: 某个平台 API Key 过期了怎么办？
 
-更新 `.env` 中对应的 Key。只要还有 2 个以上平台可用，采样不会中断。`responses.md` 的覆盖矩阵会显示哪些平台缺失。
+更新 `.env` 中对应的 Key。只要还有 2 个以上平台可用，采样不会中断。采样完成时 stdout 会输出覆盖率摘要，显示哪些平台缺失。
 
 ### Q: Issue 被手动关闭后，下次复检还会操作它吗？
 
@@ -389,11 +375,7 @@ openclaw trigger \
 
 ### Q: 如何查看某个问题的优化历史？
 
-打开社区目录下的 `assessment-tracker.md`。按 P0/P1/P2/OK 优先级分节，每个问题下有一张表，每行是一次运行的记录（趋势、优先级、现象、建议、关联 Issue）。最新在上，纵向看就是该问题的完整优化时间线。当建议在下次运行中不再出现时，会自动标记 `✅已消化`。
-
-### Q: 如何查看历史评分变化？
-
-打开社区目录下的 `tracking-log.md`，按时间倒序记录了每次运行的概览、评分变化和 Issue 活动。
+打开该问题在 GitCode/GitHub 上对应的 Issue，每次复检都会追加评论，包含引用率变化和平台覆盖情况，纵向看即为完整优化时间线。
 
 ### Q: 如何新增一个社区（如 openEuler）？
 

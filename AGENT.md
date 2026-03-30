@@ -74,8 +74,7 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
    - Output directory: `{community_dir}/runs/{date}/`
 3. The skill reads `.env` for platform API tokens, samples all available platforms, and produces:
    - `{community_dir}/runs/{date}/responses.json`
-   - `{community_dir}/runs/{date}/responses.md`
-4. If a platform API fails, the skill logs the error and continues. Check `responses.md` coverage matrix for gaps.
+4. If a platform API fails, the skill logs the error and continues. Check the sampling summary printed to stdout for coverage gaps.
 5. Verify output: `responses.json` must exist and contain at least 1 response per sampled question.
 
 ### Step 2: Scoring (`score`)
@@ -90,32 +89,9 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
    - `{community_dir}/runs/{date}/scoring-results.json`
 3. Verify output: `scoring-results.json` must exist and contain `results` array.
 
-### Step 3: Update Assessment Tracker (`tracker`)
+### Step 3: Issue Creation / Update (`issue`)
 
-> Skip this step if `steps` is specified and does not include `3` or `tracker`.
-
-Update the question-level tracking table that records priority and suggestion history across runs.
-
-1. Read `{community_dir}/assessment-tracker.md` (create with header if not exists).
-2. Read `{community_dir}/runs/{date}/scoring-results.json` for this run's results and suggestions.
-3. Read `{community_dir}/issue-map.json` (if exists) for issue associations.
-4. Update the tracker with this run's data:
-   - Input: `{community_dir}/runs/{date}/scoring-results.json`
-   - Tracker: `{community_dir}/assessment-tracker.md`
-   - Issue map: `{community_dir}/issue-map.json` (if exists)
-   - Version: `{version_label}`, Date: `{date}`
-5. The update logic:
-   - For each question, determines the current highest priority across all platforms.
-   - Appends a new row under each question's table with this run's data.
-   - Compares with the previous row to compute trend: `↑` (priority lowered/improved), `→` (unchanged), `↓` (priority raised/worsened), `NEW` (first appearance).
-   - Marks suggestions from the previous row that no longer appear as `✅已消化`.
-   - Moves questions between priority sections if their current priority changed.
-   - Uses status descriptions directly: `官方内容缺失` (P1), `有内容未被引用` (P0), `引用了官方内容` (OK).
-6. Write the updated `assessment-tracker.md` back to `{community_dir}/`.
-
-### Step 4: Issue Creation / Update (`issue`)
-
-> Skip this step if `steps` is specified and does not include `4` or `issue`.
+> Skip this step if `steps` is specified and does not include `3` or `issue`.
 
 This step uses `{community_dir}/issue-map.json` to determine whether to create new issues or append comments to existing ones.
 
@@ -167,48 +143,9 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
 4. Write updated `issue-map.json` back to `{community_dir}/`.
 5. Record issue activity in `run-meta.json`: issues created count, comments added count.
 
-### Step 5: Update Tracking Log (`log`)
+### Step 4: Finalize (`finalize`)
 
-> Skip this step if `steps` is specified and does not include `5` or `log`.
-
-1. Read `{community_dir}/tracking-log.md` (create with header if not exists).
-2. Read `{community_dir}/runs/{date}/scoring-results.json` for this run's data.
-3. If a previous run exists (latest `runs/` directory before today), read its `scoring-results.json` for comparison.
-4. Generate a new section and **prepend** it (newest first) to `tracking-log.md`:
-
-   ```markdown
-   ## {date} ({version_label})
-
-   ### Overview
-   - Questions: {n}, Platforms: {n}, Avg Score: {avg}/10
-   - P0: {n}, P1: {n}, P2: {n}, OK: {n}
-   - Platforms sampled: {platform_list}
-
-   ### Changes from Previous Run ({prev_date})
-   | Suggestion | Previous | Current | Change |
-   |------------|----------|---------|--------|
-   | s_001: ... | P0 (3.2) | P1 (5.8) | Improved |
-   | s_012: ... | — | P0 (2.1) | New |
-
-   ### Issues Activity
-   - Created: {n} new issues
-   - Updated: {n} existing issues with comments
-   - Potentially resolved: {n} (score improved to OK)
-
-   ### Issue Details
-   | Issue | Action | Title |
-   |-------|--------|-------|
-   | #45 | New | [MindSpore][V4]: ... |
-   | #12 | Comment | Score improved P0→P1 |
-
-   ---
-   ```
-
-5. If no previous run exists, omit the "Changes from Previous Run" section.
-
-### Step 6: Finalize (`finalize`)
-
-> Skip this step if `steps` is specified and does not include `6` or `finalize`.
+> Skip this step if `steps` is specified and does not include `4` or `finalize`.
 
 1. Update `run-meta.json` with completion data:
    ```json
@@ -298,19 +235,17 @@ Use this to explicitly confirm and record a question set update without running 
 | 0 | `init` | Initialize run directory, detect question set changes |
 | 1 | `sample` | Platform sampling (respects `scope`) |
 | 2 | `score` | Scoring and diagnosis |
-| 3 | `tracker` | Update assessment tracker |
-| 4 | `issue` | Create / update GitHub/GitCode Issues |
-| 5 | `log` | Update tracking log |
-| 6 | `finalize` | Write run-meta.json, print summary |
+| 3 | `issue` | Create / update GitHub/GitCode Issues |
+| 4 | `finalize` | Write run-meta.json, print summary |
 | — | `update_questions` | Confirm question set changes only (special, non-pipeline) |
 
 **Examples**:
 ```
 # Full run (default)
-steps=0,1,2,3,4,5,6
+steps=0,1,2,3,4
 
 # Re-run scoring and downstream only (responses.json already exists)
-steps=2,3,4,5,6
+steps=2,3,4
 
 # Sampling only, for specific questions
 steps=1, scope=q_048,q_049,q_050
@@ -332,15 +267,12 @@ packages/assessments/MindSpore/
   content-labels.json           <- frozen labels (manually maintained)
   questions.md                  <- human-readable questions (from /get-question)
   issue-map.json                <- cumulative issue mapping (auto-maintained)
-  assessment-tracker.md         <- question-level priority & suggestion history (auto-maintained)
-  tracking-log.md               <- cumulative run log (auto-maintained, newest first)
   question-update-log.md        <- record of confirmed question set changes (auto-maintained)
   runs/
     2026-03-28/
       questions.json            <- copy of approved-questions.json for this run
       content-labels.json       <- copy of content-labels.json for this run
       responses.json            <- platform sampling output
-      responses.md              <- human-readable responses
       scoring-results.json      <- scoring output
       run-meta.json             <- run metadata and summary
     2026-04-04/
@@ -357,7 +289,7 @@ packages/assessments/MindSpore/
 - If `.env` is missing or has fewer than 2 platform tokens, abort with token check details.
 - If platform-sampler produces zero responses, abort before scoring.
 - If scoring-engine fails (>50% pairs failed), abort before issue creation.
-- If issue creation API fails, log errors but do not abort — tracking log is still updated.
+- If issue creation API fails, log errors but do not abort — run-meta.json is still updated.
 - Each step validates the previous step's output before proceeding.
 
 ## OpenClaw Compatibility

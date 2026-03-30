@@ -1,6 +1,6 @@
 ---
 name: platform-sampler
-description: Samples AI platform responses for GEO search assessment. Reads questions.json, sends each question to multiple AI platforms (Perplexity, ChatGPT, DeepSeek, Doubao, Qwen) via API, collects raw responses with citations and metadata, then outputs responses.json and responses.md. Supports parallel and sequential sampling modes with rate limiting. Use when a question set is ready and platform responses need to be collected. Do not use for question generation, scoring, or improvement suggestion generation.
+description: Samples AI platform responses for GEO search assessment. Reads questions.json, sends each question to multiple AI platforms (ChatGPT, DeepSeek, Doubao, Qwen) via API, collects raw responses with citations and metadata, then outputs responses.json. Supports parallel and sequential sampling modes with rate limiting. Use when a question set is ready and platform responses need to be collected. Do not use for question generation, scoring, or improvement suggestion generation.
 ---
 
 # Platform Sampler
@@ -82,19 +82,15 @@ For each question in `questions.json`, for each available platform:
    - All required metadata fields present
    - Reports missing combinations as warnings
 3. Write the validated collection to `responses.json` in the project root.
-4. Generate `responses.md` using the template in `assets/responses-template.md`:
-   - Group by question, then by platform
-   - Show raw response (truncated to 500 chars) + metadata summary
-   - Include a coverage matrix at the top
-5. Print a summary to stdout:
+4. Print a summary to stdout:
    ```
    Sampling complete:
      Questions: {total_questions}
      Platforms: {platform_list}
      Total responses: {total_responses}
      Coverage: {coverage_pct}%
-     Missing: {missing_count} (see responses.md for details)
-   Output: responses.json, responses.md
+     Missing: {missing_count}
+   Output: responses.json
    ```
 
 ## Error Handling

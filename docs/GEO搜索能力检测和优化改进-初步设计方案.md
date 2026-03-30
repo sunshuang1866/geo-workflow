@@ -38,7 +38,7 @@ AGENT.md（工作流编排）
   │
   ├── Step 2: platform-sampler skill
   │     输入：questions.json
-  │     输出：responses.json + responses.md
+  │     输出：responses.json
   │
   ├── Step 3: scoring-engine skill
   │     输入：responses.json + content-labels.json
@@ -123,7 +123,7 @@ HyperKitty API (mailweb.mindspore.cn) → 无需鉴权
 
 合并（手动 + 已选路径）→ 语义去重 → 分类标注 → 输出 `questions.json` + `questions.md`
 
-**人工审阅检查点**：生成后暂停，等待人工筛选反馈。反馈保存到 `feedback-rules.md`，后续自动融入生成 prompt（学习循环）。
+**人工审阅检查点**：生成后暂停，等待人工筛选确认。
 
 ---
 

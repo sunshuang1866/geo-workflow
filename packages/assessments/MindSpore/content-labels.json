@@ -11,29 +11,35 @@
     {
       "question_id": "q_001",
       "question": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
-      "official_urls": [],
-      "notes": ""
+      "official_urls": [
+        "https://www.mindspore.cn/install/",
+        "https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/custom_program/operation/op_custom_ascendc.html#%E6%8A%A5%E9%94%99%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E7%AE%97%E5%AD%90%E7%B1%BB%E5%9E%8B"
+      ],
+      "notes": "官网文档明确说的版本是 Ubuntu 18.04"
     },
     {
       "question_id": "q_002",
       "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.mindspore.cn/news/detail?id=3610",
+        "https://www.mindspore.cn/news/detail?id=3867"
+      ],
       "notes": ""
     },
     {
       "question_id": "q_003",
       "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
       "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.6/install/install_gpu.html",
-        "https://www.mindspore.cn/docs/zh-CN/r2.6/note/version.html",
-        "https://www.mindspore.cn/tutorials/zh-CN/r2.6/beginner/quickstart.html"
+        "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
       ],
       "notes": ""
     },
     {
       "question_id": "q_004",
       "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html"
+      ],
       "notes": ""
     },
     {
@@ -42,16 +48,13 @@
       "official_urls": [
         "https://gitee.com/mindspore/community/issues?q=MindNLP"
       ],
-      "notes": "昇腾设备上MindNLP下载失败的专项排查文档未找到，Qwen仅引用社区Issues搜索链接；需人工确认是否有相关文档"
+      "notes": ""
     },
     {
       "question_id": "q_006",
       "question": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r1.11/install/docker_install.html",
-        "https://www.mindspore.cn/tutorials/zh-CN/r1.11/beginner/docker.html"
-      ],
-      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+      "official_urls": [],
+      "notes": ""
     },
     {
       "question_id": "q_007",
@@ -63,17 +66,17 @@
       "question_id": "q_008",
       "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
       "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.8/install/docker_install.html",
-        "https://www.mindspore.cn/tutorials/zh-CN/r2.8/beginner/docker.html"
+        "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html",
+        "https://www.mindspore.cn/news/detail/?id=2561&type=blogs"
       ],
-      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+      "notes": ""
     },
     {
       "question_id": "q_009",
       "question": "如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？",
       "official_urls": [
-        "https://www.mindspore.cn/lite/docs/zh-CN/r2.8/install_windows.html",
-        "https://www.mindspore.cn/lite/docs/zh-CN/r2.8/quick_start.html"
+        "https://www.mindspore.cn/lite/docs/zh-CN/stable/use/downloads.html",
+        "https://www.mindspore.cn/install"
       ],
       "notes": ""
     },
@@ -96,20 +99,25 @@
     {
       "question_id": "q_012",
       "question": "如何基于 MindSpore 框架训练 YOLOv5 模型？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.mindspore.cn/search?q=YOLOv5"
+      ],
       "notes": ""
     },
     {
       "question_id": "q_013",
       "question": "如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html"
+      ],
       "notes": ""
     },
     {
       "question_id": "q_014",
       "question": "将 ONNX 模型转换为 MindIR 格式时出现兼容性问题，如何排查和解决？",
       "official_urls": [
-        "https://discuss.mindspore.cn/t/topic/196"
+        "https://discuss.mindspore.cn/t/topic/196",
+        "https://www.mindspore.cn/lite/cloud_docs/zh-CN/r2.8.0/mindir/converter_tool.html"
       ],
       "notes": ""
     },
@@ -124,7 +132,9 @@
     {
       "question_id": "q_016",
       "question": "MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/mindspore/mindspore.data_sink.html"
+      ],
       "notes": ""
     },
     {
@@ -141,7 +151,7 @@
       "official_urls": [
         "https://www.mindspore.cn/tutorials/zh-CN/r1.3/intermediate/pynative_mode_and_graph_mode.html"
       ],
-      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+      "notes": ""
     },
     {
       "question_id": "q_019",
@@ -149,24 +159,24 @@
       "official_urls": [
         "https://www.mindspore.cn/docs/zh-CN/master/faq/feature_advice.html"
       ],
-      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+      "notes": ""
     },
     {
       "question_id": "q_020",
       "question": "TransData 算子的功能是什么？如何利用该算子优化性能？",
       "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.8/api_python/ops/mindspore.ops.TransData.html"
+        "https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html"
       ],
-      "notes": "引用了1条具体官方URL，建议人工确认是否有更完整的文档"
+      "notes": ""
     },
     {
       "question_id": "q_021",
       "question": "整数标量与一维 Tensor 混合运算时，MindSpore 与 PyTorch 的隐式类型转换规则是否一致？MindSpore 算子输入的类型提升规则是什么？",
       "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.8/note/tensor_dtype_promotion.html",
-        "https://www.mindspore.cn/docs/zh-CN/r2.8/api_python/mindspore/mindspore.dtype.html"
+        "https://www.mindspore.cn/docs/zh-CN/master/faq/operators_api.html",
+        "https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html"
       ],
-      "notes": "引用了2条具体官方URL，建议人工确认是否有更完整的文档"
+      "notes": ""
     },
     {
       "question_id": "q_022",

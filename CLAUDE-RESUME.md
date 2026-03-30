@@ -118,7 +118,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 ## Current Status
 
-- **Phase**: All 4 pipeline skills created. MindSpore version3 scoring completed (Qwen-only, 47 questions). Version1/2/3 historical data cleaned up. Multi-community support added (MindSpore + openUBMC).
+- **Phase**: All 4 pipeline skills created and simplified. AGENT.md reduced to 5 steps (0-4). assessment-tracker.md and tracking-log.md removed from workflow.
 - **Directory structure**: Community data lives under `packages/assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
 - **MindSpore**: `packages/assessments/MindSpore/` — has `questions.json`, `questions.md`. Awaiting approved-questions.json and content-labels.json for first full pipeline run.
 - **openUBMC**: `packages/assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
@@ -211,6 +211,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-30 | Removed `suggestions.md` output from scoring-engine and all workflow docs. Removed 人工抽检评分 step from first-run flow. Scoring output is `scoring-results.json` only. |
 | 2026-03-30 | scoring-engine rewritten: pure URL string matching (exact + domain), no LLM. Three statuses replace A-E phenomena: `引用了官方内容`(OK), `有内容未被引用`(P0), `官方内容缺失`(P1). 5 steps down from 8. |
 | 2026-03-30 | issue-creator updated: citation_type→status, A-E→new statuses in LLM prompt; citation_rate shown in issue body and comments; issue-map match key is question_ids only; to_resolve list for satisfied questions; Step 6 adds content-labels.json update prompt for no_official_content questions. |
+| 2026-03-30 | Removed assessment-tracker.md and tracking-log.md from workflow. AGENT.md steps reduced from 7 to 5 (removed tracker Step 3 and log Step 5, renumbered). Issue history now lives in GitCode/GitHub Issue comments only. |
 
 ## Key Decisions
 

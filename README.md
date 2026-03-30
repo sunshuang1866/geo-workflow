@@ -63,6 +63,7 @@ cp .env.example .env
 | 变量 | 用途 | 必需 |
 |------|------|------|
 | `CHATGPT_API_KEY` | ChatGPT 采样 | 至少填 2 个平台 |
+| `GEMINI_API_KEY` | Gemini 采样 | 至少填 2 个平台 |
 | `DEEPSEEK_API_KEY` | DeepSeek 采样 | 至少填 2 个平台 |
 | `DOUBAO_API_KEY` | 豆包采样 | 至少填 2 个平台 |
 | `QWEN_API_KEY` | 千问采样 | 至少填 2 个平台 |

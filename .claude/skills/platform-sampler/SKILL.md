@@ -18,7 +18,6 @@ Collect raw AI platform responses for each question in the question set, across 
 
 1. Read `.env` from the project root to load API tokens.
 2. Detect available platforms by checking which tokens are non-empty:
-   - `PERPLEXITY_API_KEY` → Perplexity
    - `OPENAI_API_KEY` → ChatGPT
    - `DEEPSEEK_API_KEY` → DeepSeek
    - `DOUBAO_API_KEY` → 豆包
@@ -43,7 +42,7 @@ For each question in `questions.json`, for each available platform:
    ```json
    {
      "question_id": "q_001",
-     "platform": "perplexity",
+     "platform": "chatgpt",
      "query": "主流深度学习框架有哪些",
      "timestamp": "2026-03-10T08:00:00Z",
      "raw_response": "...",

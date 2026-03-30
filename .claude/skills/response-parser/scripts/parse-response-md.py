@@ -29,15 +29,13 @@ PLATFORM_NORM = {
     "qwen": "qwen", "Qwen": "qwen", "千问": "qwen",
     "chatgpt": "chatgpt", "ChatGPT": "chatgpt",
     "deepseek": "deepseek", "DeepSeek": "deepseek",
-    "perplexity": "perplexity", "Perplexity": "perplexity",
 }
 
 MODEL_MAP = {
-    "doubao": "doubao-1.5-pro-32k",
-    "qwen": "qwen-plus",
-    "chatgpt": "gpt-4o",
+    "doubao": "doubao-seed-2.0-pro",
+    "qwen": "qwen3.5-plus",
+    "chatgpt": "gpt-5.4",
     "deepseek": "deepseek-chat",
-    "perplexity": "sonar",
 }
 
 # Regex for Q markers: Q: / Q： / Q；

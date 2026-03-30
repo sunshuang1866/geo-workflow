@@ -36,11 +36,10 @@ Must appear at the **start of a line** (no leading whitespace).
 
 | Raw name | Normalized | Model |
 |----------|-----------|-------|
-| `Doubao` / `doubao` | `doubao` | `doubao-1.5-pro-32k` |
-| `Qwen` / `qwen` / `千问` | `qwen` | `qwen-plus` |
-| `ChatGPT` / `chatgpt` | `chatgpt` | `gpt-4o` |
+| `Doubao` / `doubao` | `doubao` | `doubao-seed-2.0-pro` |
+| `Qwen` / `qwen` / `千问` | `qwen` | `qwen3.5-plus` |
+| `ChatGPT` / `chatgpt` | `chatgpt` | `gpt-5.4` |
 | `DeepSeek` / `deepseek` | `deepseek` | `deepseek-chat` |
-| `Perplexity` / `perplexity` | `perplexity` | `sonar` |
 
 Delimiter after name is `：` (Chinese full-width colon) or `:` (ASCII colon). Text on the same line as the marker is included as the start of the response.
 

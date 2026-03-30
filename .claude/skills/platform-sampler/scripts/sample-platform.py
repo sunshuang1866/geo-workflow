@@ -3,7 +3,7 @@
 
 Usage: python3 sample-platform.py --platform <name> --api-key <key> --query "<query>" --question-id <id> [--base-url <url>]
 
-Supported platforms: perplexity, chatgpt, deepseek, doubao, qwen
+Supported platforms: chatgpt, deepseek, doubao, qwen
 
 Output: JSON to stdout with fields: question_id, platform, query, timestamp, raw_response, citations, model.
 Errors: stderr with descriptive messages, exits with code 1.
@@ -22,25 +22,21 @@ except ImportError:
 
 
 PLATFORM_CONFIG = {
-    "perplexity": {
-        "base_url": "https://api.perplexity.ai",
-        "model": "sonar",
-    },
     "chatgpt": {
-        "base_url": "https://api.openai.com/v1",
-        "model": "gpt-4o",
+        "base_url": "https://www.packyapi.com/v1",
+        "model": "gpt-5.4",
     },
     "deepseek": {
         "base_url": "https://api.deepseek.com",
         "model": "deepseek-chat",
     },
     "doubao": {
-        "base_url": "https://ark.cn-beijing.volces.com/api/v3",
-        "model": "doubao-1.5-pro-32k",
+        "base_url": "https://www.packyapi.com/v1",
+        "model": "doubao-seed-2.0-pro",
     },
     "qwen": {
-        "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "model": "qwen-plus",
+        "base_url": "https://www.packyapi.com/v1",
+        "model": "qwen3.5-plus",
     },
 }
 
@@ -75,9 +71,7 @@ def sample(platform: str, api_key: str, query: str, question_id: str, base_url: 
             "status": "success",
         }
 
-        # Extract citations if available (Perplexity)
-        if hasattr(response, "citations") and response.citations:
-            result["citations"] = response.citations
+        # No platform-specific citation extraction needed for current platforms
 
         return result
 

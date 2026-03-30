@@ -77,6 +77,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | platform-sampler | `.claude/skills/platform-sampler/` | ✅ Complete |
 | scoring-engine | `.claude/skills/scoring-engine/` | ✅ Complete |
 | issue-creator | `.claude/skills/issue-creator/` | ✅ Complete |
+| assessment-report | `.claude/skills/assessment-report/` | ✅ Complete |
 | ~~improvement-advisor~~ | merged into scoring-engine (2026-03-19) | ❌ Deleted |
 
 ### get-question
@@ -118,7 +119,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 ## Current Status
 
-- **Phase**: All 4 pipeline skills created and simplified. AGENT.md reduced to 5 steps (0-4). assessment-tracker.md and tracking-log.md removed from workflow.
+- **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize. assessment-tracker.md and tracking-log.md removed from workflow.
 - **Directory structure**: Community data lives under `packages/assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
 - **MindSpore**: `packages/assessments/MindSpore/` — has `questions.json`, `questions.md`. Awaiting approved-questions.json and content-labels.json for first full pipeline run.
 - **openUBMC**: `packages/assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
@@ -212,6 +213,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-30 | scoring-engine rewritten: pure URL string matching (exact + domain), no LLM. Three statuses replace A-E phenomena: `引用了官方内容`(OK), `有内容未被引用`(P0), `官方内容缺失`(P1). 5 steps down from 8. |
 | 2026-03-30 | issue-creator updated: citation_type→status, A-E→new statuses in LLM prompt; citation_rate shown in issue body and comments; issue-map match key is question_ids only; to_resolve list for satisfied questions; Step 6 adds content-labels.json update prompt for no_official_content questions. |
 | 2026-03-30 | Removed assessment-tracker.md and tracking-log.md from workflow. AGENT.md steps reduced from 7 to 5 (removed tracker Step 3 and log Step 5, renumbered). Issue history now lives in GitCode/GitHub Issue comments only. |
+| 2026-03-30 | Created assessment-report skill: 6-step procedure, generates assessment-report.json + assessment-report.md per run. Grouped by phenomenon (no_official_content/not_cited/satisfied) with per-platform ✅/❌/— indicators and Issue metadata. Integrated into AGENT.md as Step 4 (report). |
 
 ## Key Decisions
 
@@ -238,3 +240,4 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - `official_urls` per question is human pre-labeled in `content-labels.json` (empty array = no official content)
 - Scoring is pure URL string matching (exact + domain-level), no LLM, no human spot-check
 - Issue auto-creation is a separate skill (issue-creator), uses same GITCODE_TOKEN
+- assessment-report skill generates per-question report (JSON + Markdown) after issue-creator; groups by phenomenon category with per-platform indicators (✅/❌/—) and Issue URL + iteration count

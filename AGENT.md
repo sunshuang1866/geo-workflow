@@ -10,7 +10,7 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 | `repo_url` | Yes | Target repo for issue creation, e.g. `https://gitcode.com/mindspore/mindspore-portal/` |
 | `version_label` | No | Round label, e.g. `V4`. Default: auto-increment from latest `runs/` subdirectory |
 | `dry_run` | No | If `true`, skip actual issue creation. Default: `false` |
-| `steps` | No | Comma-separated list of steps to execute. Default: `0,1,2,3,4,5,6` (all). Accepts step numbers or names: `init,sample,score,tracker,issue,log,finalize`. Also accepts `update_questions` to only confirm question set changes. |
+| `steps` | No | Comma-separated list of steps to execute. Default: `0,1,2,3,4,5` (all). Accepts step numbers or names: `init,sample,score,issue,report,finalize`. Also accepts `update_questions` to only confirm question set changes. |
 | `scope` | No | Controls which questions Step 1 (sampling) processes. Default: `all`. Options: `all` \| `p0` \| comma-separated question IDs (e.g. `q_001,q_005`). |
 | `accept_question_update` | No | If `true`, accept detected changes in `questions.json` and proceed. Default: `false` (abort on changes). |
 
@@ -143,7 +143,22 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
 4. Write updated `issue-map.json` back to `{community_dir}/`.
 5. Record issue activity in `run-meta.json`: issues created count, comments added count.
 
-### Step 4: Finalize (`finalize`)
+### Step 4: Assessment Report (`report`)
+
+> Skip this step if `steps` is specified and does not include `4` or `report`.
+
+1. Invoke `/assessment-report` with:
+   - `scoring_file`: `{community_dir}/runs/{date}/scoring-results.json`
+   - `labels_file`: `{community_dir}/content-labels.json`
+   - `issue_map_file`: `{community_dir}/issue-map.json`
+   - `output_dir`: `{community_dir}/runs/{date}/`
+   - `community`: derived from `community_dir` name
+2. The skill produces:
+   - `{community_dir}/runs/{date}/assessment-report.json`
+   - `{community_dir}/runs/{date}/assessment-report.md`
+3. Verify output: both files must exist.
+
+### Step 5: Finalize (`finalize`)
 
 > Skip this step if `steps` is specified and does not include `4` or `finalize`.
 
@@ -173,7 +188,7 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
       以下 {n} 个问题当前标记为「官方内容缺失」。
       如果官方已补充相关文档，请更新 {community_dir}/content-labels.json，
       在对应 question_id 的 official_urls 字段中填入新页面 URL，
-      然后重新运行 scoring-engine（steps=2,3,4,5,6）以更新评分。
+      然后重新运行 scoring-engine（steps=2,3,4,5）以更新评分。
 
       待检查问题：
       {list of question_id + question_text, one per line}
@@ -204,8 +219,8 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
 
    Outputs:
      {community_dir}/runs/{date}/scoring-results.json
-     {community_dir}/assessment-tracker.md
-     {community_dir}/tracking-log.md
+     {community_dir}/runs/{date}/assessment-report.json
+     {community_dir}/runs/{date}/assessment-report.md
      {community_dir}/issue-map.json
    ```
 
@@ -236,22 +251,26 @@ Use this to explicitly confirm and record a question set update without running 
 | 1 | `sample` | Platform sampling (respects `scope`) |
 | 2 | `score` | Scoring and diagnosis |
 | 3 | `issue` | Create / update GitHub/GitCode Issues |
-| 4 | `finalize` | Write run-meta.json, print summary |
+| 4 | `report` | Generate assessment-report.json + assessment-report.md |
+| 5 | `finalize` | Write run-meta.json, print summary |
 | — | `update_questions` | Confirm question set changes only (special, non-pipeline) |
 
 **Examples**:
 ```
 # Full run (default)
-steps=0,1,2,3,4
+steps=0,1,2,3,4,5
 
 # Re-run scoring and downstream only (responses.json already exists)
-steps=2,3,4
+steps=2,3,4,5
 
 # Sampling only, for specific questions
 steps=1, scope=q_048,q_049,q_050
 
 # Re-check only P0 questions
 steps=1,2, scope=p0
+
+# Regenerate report only (scoring and issues already done)
+steps=4
 
 # Accept question set changes without running pipeline
 steps=update_questions, accept_question_update=true
@@ -274,6 +293,8 @@ packages/assessments/MindSpore/
       content-labels.json       <- copy of content-labels.json for this run
       responses.json            <- platform sampling output
       scoring-results.json      <- scoring output
+      assessment-report.json    <- per-question report (machine-readable)
+      assessment-report.md      <- per-question report (human-readable)
       run-meta.json             <- run metadata and summary
     2026-04-04/
       ...

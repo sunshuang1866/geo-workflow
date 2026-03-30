@@ -21,16 +21,16 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 
 本系统是一个由 Claude Code 驱动的 **Skill 链式流水线**，纯 CLI 运行，无 Web 界面。
 
-核心是一条 **4 步 Skill 流水线 + 跟踪更新**，由 `AGENT.md` 编排：
+核心是一条 **5 步 Skill 流水线**，由 `AGENT.md` 编排：
 
 ```
-┌─────────────────┐     ┌──────────────────┐     ┌────────────────┐     ┌───────────────┐
-│  get-question   │────▶│ platform-sampler │────▶│ scoring-engine │────▶│ issue-creator │
-│  生成问题集      │     │  采样 AI 平台     │     │  评分 + 诊断   │     │ 创建/更新Issue │
-└─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘
-       ↓                        ↓                        │                      ↓
-  questions.json          responses.json                 │               created-issues.json
-  questions.md                                            │               issue-map.json
+┌─────────────────┐     ┌──────────────────┐     ┌────────────────┐     ┌───────────────┐     ┌───────────────────┐
+│  get-question   │────▶│ platform-sampler │────▶│ scoring-engine │────▶│ issue-creator │────▶│ assessment-report │
+│  生成问题集      │     │  采样 AI 平台     │     │  评分 + 诊断   │     │ 创建/更新Issue │     │  生成评估报告      │
+└─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘     └───────────────────┘
+       ↓                        ↓                        │                      ↓                       ↓
+  questions.json          responses.json                 │               created-issues.json   assessment-report.json
+  questions.md                                            │               issue-map.json        assessment-report.md
                                                          ↓
                                                  scoring-results.json
 ```
@@ -152,7 +152,7 @@ mkdir -p packages/assessments/MindSpore/
 ### Step E: 首次创建 Issue
 
 ```
-/issue-creator repo_url=https://gitcode.com/mindspore/mindspore-portal/ dry_run=true
+/issue-creator repo_url=https://github.com/opensourceways/geo-workflow/ dry_run=true
 ```
 
 > 建议先用 `dry_run=true` 预览 Issue 内容，确认无误后去掉 `dry_run` 正式创建。
@@ -174,12 +174,12 @@ mkdir -p packages/assessments/MindSpore/
 
 ```
 请按照 AGENT.md 对 MindSpore 社区执行一次 GEO 复检，
-repo_url=https://gitcode.com/mindspore/mindspore-portal/
+repo_url=https://github.com/opensourceways/geo-workflow/
 ```
 
 ### 自动化执行流程
 
-AGENT.md 定义的 7 个步骤，支持通过 `steps` 和 `scope` 参数选择性执行：
+AGENT.md 定义的 6 个步骤，支持通过 `steps` 和 `scope` 参数选择性执行：
 
 ```
 Step 0 (init):      初始化 runs/{date}/ 目录，检测 questions.json 变更
@@ -190,7 +190,9 @@ Step 2 (score):     /scoring-engine → scoring-results.json
          ↓
 Step 3 (issue):     新问题 → 新建 Issue；已有 Issue → 追加评论
          ↓
-Step 4 (finalize):  更新 run-meta.json，输出摘要
+Step 4 (report):    /assessment-report → assessment-report.json + assessment-report.md
+         ↓
+Step 5 (finalize):  更新 run-meta.json，输出摘要
 ```
 
 **常用组合**：
@@ -198,9 +200,10 @@ Step 4 (finalize):  更新 run-meta.json，输出摘要
 | 场景 | 参数 |
 |------|------|
 | 全量复检（默认） | 无需额外参数 |
-| 已有采样，重新评分 | `steps=2,3,4` |
+| 已有采样，重新评分 | `steps=2,3,4,5` |
 | 只重检 P0 问题 | `steps=1,2, scope=p0` |
 | 采样指定问题 | `steps=1, scope=q_048,q_049` |
+| 仅重新生成报告 | `steps=4` |
 | 接受问题集变更并继续 | `accept_question_update=true` |
 | 查看问题集变更详情 | `steps=update_questions` |
 
@@ -210,6 +213,8 @@ Step 4 (finalize):  更新 run-meta.json，输出摘要
 |----------|------|------|
 | `responses.json` | `runs/{date}/` | 本次平台采样原始数据 |
 | `scoring-results.json` | `runs/{date}/` | 本次评分结果 |
+| `assessment-report.json` | `runs/{date}/` | 问题集评估报告（机器可读） |
+| `assessment-report.md` | `runs/{date}/` | 问题集评估报告（人工可读） |
 | `run-meta.json` | `runs/{date}/` | 运行元数据（耗时、平台、统计） |
 | `created-issues.json` | `runs/{date}/` | 本次 Issue 创建/更新记录 |
 | `issue-map.json` | 社区目录根 | 累积 Issue 映射（跨运行持久化） |
@@ -267,6 +272,20 @@ Step 4 (finalize):  更新 run-meta.json，输出摘要
 - 本次发现描述
 - 改善建议（如分数改善，建议关闭 Issue）
 
+### assessment-report — 生成评估报告
+
+综合 `scoring-results.json`、`content-labels.json`、`issue-map.json`，生成每次运行的问题集全量报告。
+
+| 输出 | 格式 | 说明 |
+|------|------|------|
+| `assessment-report.json` | JSON | 机器可读，含完整 per-question 记录 |
+| `assessment-report.md` | Markdown | 人工可读，按现象类别分组展示 |
+
+报告按三类现象分组，每个问题显示：
+- 各平台引用情况（✅ 已引用 / ❌ 未引用 / — 无官方内容）
+- 引用率 + 严重级别
+- 关联 Issue 链接和迭代次数
+
 ---
 
 ## 目录结构
@@ -295,6 +314,8 @@ geo-workflow/
 │       │       │   ├── content-labels.json
 │       │       │   ├── responses.json
 │       │       │   ├── scoring-results.json
+│       │       │   ├── assessment-report.json
+│       │       │   ├── assessment-report.md
 │       │       │   ├── created-issues.json
 │       │       │   └── run-meta.json
 │       │       └── ...
@@ -308,6 +329,7 @@ geo-workflow/
         ├── platform-sampler/
         ├── scoring-engine/
         ├── issue-creator/
+        ├── assessment-report/
         └── response-parser/
 ```
 
@@ -336,6 +358,8 @@ geo-workflow/
 | `runs/{date}/*` | 每次复检运行时 | 本次运行的所有中间和最终数据 |
 | `run-meta.json` | 每次复检运行时 | 运行元数据和统计摘要 |
 | `created-issues.json` | 每次 issue-creator 运行后 | 本次创建/更新的 Issue 记录 |
+| `assessment-report.json` | 每次 assessment-report 运行后 | 问题集评估报告（机器可读） |
+| `assessment-report.md` | 每次 assessment-report 运行后 | 问题集评估报告（人工可读） |
 
 ---
 

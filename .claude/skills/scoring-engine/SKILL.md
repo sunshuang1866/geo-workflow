@@ -1,30 +1,31 @@
 ---
 name: scoring-engine
-description: Evaluates AI platform responses by checking whether they cite official URLs from content-labels.json. Pure URL string matching (exact + domain-level), no LLM. Scores at question level: if ≥90% of platforms cite official URLs the question is "引用了官方内容" (OK), otherwise "有内容未被引用" (P0), or "官方内容缺失" (P1) when no official URLs exist. Matches GEO catalog suggestions and outputs scoring-results.json. Use after platform-sampler completes sampling. Do not use for question generation, platform sampling, or issue creation.
+description: Evaluates AI platform responses by checking whether they cite official URLs from questions.json. Pure URL string matching (exact + domain-level), no LLM. Scores at question level: if ≥90% of platforms cite official URLs the question is "引用了官方内容" (OK), otherwise "有内容未被引用" (P0), or "官方内容缺失" (P1) when no official URLs exist. Matches GEO catalog suggestions and outputs scoring-results.json. Use after platform-sampler completes sampling. Do not use for question generation, platform sampling, or issue creation.
 ---
 
 # Scoring Engine
 
-Evaluate AI platform responses against official content availability. Pure URL string matching — checks whether each platform's response cites any official URL listed in `content-labels.json`. Final status is determined per question by aggregating across platforms using a 90% citation threshold.
+Evaluate AI platform responses against official content availability. Pure URL string matching — checks whether each platform's response cites any official URL listed in `questions.json`. Final status is determined per question by aggregating across platforms using a 90% citation threshold.
 
 ## Prerequisites
 
-- `responses.json` in the working directory (output from platform-sampler skill)
-- `content-labels.json` in the working directory (human pre-labeled: `question_id`, `question`, `official_urls`, `notes` per question)
+- `responses.json` in the run directory (output from platform-sampler skill)
+- `questions.json` in `packages/assessments/{community}/` (output from get-question skill, with `official_urls` and `official_domains` fields populated by human)
 
 ## Procedures
 
 **Step 1: Load and Validate Inputs**
 
-1. Read `responses.json` from the working directory.
-2. Run `python3 scripts/validate-inputs.py responses.json content-labels.json` to verify both files exist and are structurally valid.
-3. The script checks:
+1. Read `responses.json` from the run directory.
+2. Read `questions.json` from `packages/assessments/{community}/`. Build a lookup map `{id → {official_urls, notes}}`.
+3. Run `python3 scripts/validate-inputs.py responses.json {questions_json_path}` to verify both files exist and are structurally valid.
+4. The script checks:
    - `responses.json` contains a `responses` array with `question_id`, `platform`, `response_text` fields.
-   - `content-labels.json` contains a `labels` array with `question_id`, `official_urls` fields.
-   - Every `question_id` in responses has a matching label entry.
-4. If validation fails, abort with the specific error from stderr.
-5. If a question in `responses.json` has no matching entry in `content-labels.json`:
-   - Log a warning: `"question {question_id} has no content-labels entry, skipping"`.
+   - `questions.json` contains a `questions` array with `id`, `official_urls` fields.
+   - Every `question_id` in responses has a matching entry in `questions.json`.
+5. If validation fails, abort with the specific error from stderr.
+6. If a question in `responses.json` has no matching entry in `questions.json`:
+   - Log a warning: `"question {question_id} has no entry in questions.json, skipping"`.
    - Exclude from scoring.
 6. Print input summary to stdout:
    ```
@@ -40,7 +41,7 @@ Evaluate AI platform responses against official content availability. Pure URL s
 
 For each (question, platform) pair, run a binary URL match check:
 
-1. Look up the question's `official_urls` from `content-labels.json`.
+1. Look up the question's `official_urls` from `questions.json`.
 
 2. **If `official_urls` is empty (`[]`)**: mark the pair as `no_official_content`. Skip URL matching.
 
@@ -222,8 +223,9 @@ For each question, aggregate the per-platform results from Step 2 to determine t
 ## Error Handling
 
 * If `responses.json` is missing, abort with: `"responses.json not found. Run platform-sampler skill first."`
-* If `content-labels.json` is missing, abort with: `"content-labels.json not found. Human labeling required before scoring."`
-* If `content-labels.json` has an empty `labels` array, abort with: `"No questions have been labeled. Complete human labeling first."`
-* If a question in `responses.json` has no matching label, log a warning and skip (do not abort).
+* If `questions.json` is missing, abort with: `"questions.json not found. Run get-question skill first."`
+* If `questions.json` has an empty `questions` array, abort with: `"questions.json has no questions."`
+* If all questions have empty `official_urls`, warn: `"No official_urls found in questions.json. Populate them before scoring for meaningful results."`
+* If a question in `responses.json` has no matching entry in `questions.json`, log a warning and skip (do not abort).
 * If `responses.json` contains zero valid pairs after filtering, abort with: `"No valid question-platform pairs to score."`
 * If a question has only 1 platform response, the 90% threshold still applies (1/1 = 100% ≥ 90% → satisfied; 0/1 = 0% < 90% → not_cited).

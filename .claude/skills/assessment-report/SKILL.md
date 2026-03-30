@@ -1,6 +1,6 @@
 ---
 name: assessment-report
-description: Generates a structured question assessment report after issue-creator completes. Reads scoring-results.json, content-labels.json, and issue-map.json to compile per-question records including question_id, question text, official URLs, per-platform citation status with emoji indicators, severity level, linked Issue URL, issue creation date, and iteration count. Groups questions by phenomenon category (官方内容缺失, 有内容未被引用, 引用了官方内容) and outputs both machine-readable JSON and human-readable Markdown. Use after issue-creator skill completes. Do not use for question generation, platform sampling, scoring, or issue creation.
+description: Generates a structured question assessment report after issue-creator completes. Reads scoring-results.json, questions.json, and issue-map.json to compile per-question records including question_id, question text, official URLs, per-platform citation status with emoji indicators, severity level, linked Issue URL, issue creation date, and iteration count. Groups questions by phenomenon category (官方内容缺失, 有内容未被引用, 引用了官方内容) and outputs both machine-readable JSON and human-readable Markdown. Use after issue-creator skill completes. Do not use for question generation, platform sampling, scoring, or issue creation.
 ---
 
 # Assessment Report
@@ -10,7 +10,7 @@ Compile a structured question assessment report from scoring and issue data. Eac
 ## Prerequisites
 
 - `scoring-results.json` — output from scoring-engine
-- `content-labels.json` — human-labeled official URLs per question
+- `questions.json` — source of `official_urls` and `notes` per question (from `packages/assessments/{community}/`)
 - `issue-map.json` — Issue URL, creation date, and update history from issue-creator
 
 ## Inputs
@@ -18,7 +18,7 @@ Compile a structured question assessment report from scoring and issue data. Eac
 | Param | Required | Default | Notes |
 |-------|----------|---------|-------|
 | `scoring_file` | no | `scoring-results.json` | Path to scoring results |
-| `labels_file` | no | `content-labels.json` | Path to content labels |
+| `questions_file` | no | `packages/assessments/{community}/questions.json` | Path to questions file |
 | `issue_map_file` | no | `issue-map.json` | Path to issue map |
 | `output_dir` | no | same directory as `scoring_file` | Where to write output files |
 | `community` | no | auto-detected from path | Community name for report header |
@@ -28,11 +28,11 @@ Compile a structured question assessment report from scoring and issue data. Eac
 **Step 1: Load Inputs**
 
 1. Read `scoring_file`. Extract `results` array (question-level records with `status`, `description`, `severity`, `citation_rate`, `platforms` array) and `metadata`.
-2. Read `labels_file`. Build a lookup map `{question_id → {official_urls, notes}}`.
+2. Read `questions_file`. Build a lookup map `{id → {official_urls, notes}}`.
 3. Read `issue_map_file`. Build a lookup map `{question_id → {issue_url, issue_number, created_at, last_updated_run, update_count}}`.
    - Derive `update_count` for each question: count how many entries in `issue-map.json` reference this `question_id`, or read the `last_updated_run` vs `created_at` diff as iteration count. Use the number of times `last_updated_run` has changed as the iteration count (if not tracked, default to 1 for entries that exist).
    - If `issue_map_file` does not exist, proceed with empty issue data.
-4. Run `python3 scripts/build-report.py {scoring_file} {labels_file} {issue_map_file}` to merge all three sources into a unified per-question record list. The script outputs JSON to stdout.
+4. Run `python3 scripts/build-report.py {scoring_file} {questions_file} {issue_map_file}` to merge all three sources into a unified per-question record list. The script outputs JSON to stdout.
 5. Print load summary:
    ```
    Inputs loaded:
@@ -87,6 +87,45 @@ Within each group, sort by:
 1. `severity` descending (P0 → P1 → OK)
 2. `citation_rate` ascending (lowest coverage first)
 
+**Step 3b: Sub-group P0 questions by improvement action type (multi-label)**
+
+For the `not_cited` group, classify each question into **one or more** improvement action categories. A single question may appear in multiple action groups simultaneously.
+
+**Improvement Action Taxonomy:**
+
+| Action Key | 中文标题 | 适用场景 |
+|------------|---------|---------|
+| `optimize_structured_data` | 添加结构化数据标记 | 页面存在但缺少 Schema.org / JSON-LD 标记，AI 平台无法解析内容语义 |
+| `create_dedicated_doc` | 补充专题文档页面 | 官方内容分散在新闻、Issue、邮件列表中，缺少独立的文档/教程/FAQ 页面 |
+| `improve_seo_metadata` | 优化 SEO 元数据 | 页面 title/description/canonical URL 不准确或缺失，影响索引质量 |
+| `submit_to_platforms` | 针对特定平台提交收录 | 多数平台已引用但个别平台漏引，需向目标平台主动提交 |
+| `add_multilingual` | 添加多语言页面 | 仅有中文页面，国际化 AI 平台（ChatGPT 等）倾向引用英文源 |
+| `restructure_content` | 重构内容结构与关键词 | 页面存在但内容层级混乱、关键词不匹配用户搜索意图 |
+
+**Classification logic (multi-label):**
+
+For each P0 question, analyze the following信号 to assign **所有适用的** action keys（不限一个）:
+
+1. **citation_rate = 0 且 official_urls 指向非文档页面**（如 Gitee Issues 搜索页、新闻页）→ `create_dedicated_doc`；同时可加 `optimize_structured_data`
+2. **citation_rate = 0 且 official_urls 指向正规文档页面** → `restructure_content`；若页面也缺少结构化标记 → 同时加 `optimize_structured_data`
+3. **citation_rate > 0 且仅 1 个平台未命中** → `submit_to_platforms`；若未命中平台为 ChatGPT 等国际平台 → 同时加 `add_multilingual`
+4. **citation_rate > 0 且多个平台未命中** → `improve_seo_metadata`；若页面结构也有问题 → 同时加 `restructure_content` 或 `optimize_structured_data`
+
+当信号不足时，结合 LLM 分析问题文本、official_urls 页面类型和未引用平台特征做出判断。每题至少分配 1 个 action，可分配多个。
+
+**Sub-group construction:**
+
+1. Assign each P0 question an `action_keys: [...]` array (one or more keys from the taxonomy).
+2. Group questions by `action_key` — 同一问题可出现在多个分组中。
+3. Each action group gets:
+   - `action_key`, `action_title`, `action_description`
+   - `questions` array (the question records belonging to this group)
+   - `issue_refs` array (linked Issues from issue-map, deduplicated)
+   - `avg_citation_rate` (average of questions in this group)
+4. Sort action groups by `avg_citation_rate` ascending (worst first).
+5. Store in `not_cited.action_groups` array in the JSON output.
+6. In the report summary, `unique_question_count` records the deduplicated P0 question count (since questions may repeat across groups).
+
 **Step 4: Write JSON Output**
 
 Write `assessment-report.json` to `output_dir`:
@@ -101,7 +140,7 @@ Write `assessment-report.json` to `output_dir`:
     "citation_threshold": 0.9,
     "source_files": {
       "scoring": "runs/2026-03-30/scoring-results.json",
-      "labels": "content-labels.json",
+      "questions": "packages/assessments/{community}/questions.json",
       "issue_map": "issue-map.json"
     }
   },
@@ -144,19 +183,40 @@ Write `assessment-report.md` to `output_dir`. Read `assets/report-template.md` f
 1. **Report header**: community name, generation date, scoring threshold, source files.
 2. **Summary table**: counts by category and severity.
 3. **Platform legend**: list all platforms with their indicator meanings.
-4. **Per-category sections**: one `##` section per category, with a table of questions:
+4. **Per-category sections**: one `##` section per category.
+
+   For `no_official_content` and `satisfied`, render a flat table as before.
+
+   For `not_cited` (P0), render **sub-grouped by improvement action type**. For each action group:
+   - A `### {action_title}` heading with action description
+   - A table of questions in the group:
 
 ```markdown
-## 有内容未被引用（P0）— 20 个问题
+## 有内容未被引用（P0）— 7 个问题
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | 严重级别 | Issue |
-|----|------|------|------|---------|----------|--------|----------|-------|
-| q_001 | MindSpore 支持哪些安装方式？ | ❌ | ✅ | ❌ | ❌ | 25% | P0 | [#45](url) ×2 |
-| q_002 | MindSpore 和 PyTorch 相比有哪些优势？ | ❌ | ❌ | ❌ | ❌ | 0% | P0 | [#46](url) ×1 |
+### 补充专题文档页面
+
+> 官方内容分散在新闻、Issue 中，缺少独立文档页面，AI 平台难以引用。
+
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue |
+|----|------|------|------|---------|----------|--------|-------|
+| q_002 | MindNLP 安装失败怎么排查？ | ❌ | ✅ | — | ✅ | 66% | [#2](url) ×1 |
+| q_005 | MindNLP 在昇腾设备上出错 | ❌ | ❌ | — | ❌ | 0% | [#2](url) ×1 |
+
+> 官方链接：url1, url2
+
+### 针对特定平台提交收录
+
+> 多数平台已引用，个别平台漏引，需向目标平台主动提交内容。
+
+| ID | 问题 | ... | 引用率 | Issue |
+...
 ```
 
+   - Each action group heading is the action title (中文).
+   - Action description rendered as blockquote below the heading.
+   - Official URLs shown as a blockquote below each action group table.
    - Issue column format: `[#{number}](url) ×{iterations}` if issue exists; `—` if no issue.
-   - Official URLs shown as footnotes below each category table.
 
 5. **官方内容缺失 section**: additionally list official URL recommendations per question.
 
@@ -178,7 +238,7 @@ Output:
 ## Error Handling
 
 - If `scoring_file` is missing, abort: `"scoring-results.json not found. Run scoring-engine first."`
-- If `labels_file` is missing, continue with empty `official_urls` for all questions and log a warning.
+- If `questions_file` is missing, continue with empty `official_urls` for all questions and log a warning.
 - If `issue_map_file` is missing, continue with empty issue data — `issue_url` and `issue_iterations` will be `null`.
-- If a question in `scoring-results.json` has no matching entry in `content-labels.json`, use `official_urls: []`.
+- If a question in `scoring-results.json` has no matching entry in `questions.json`, use `official_urls: []`.
 - If `build-report.py` fails, abort with the stderr output.

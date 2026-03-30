@@ -1,6 +1,6 @@
 ---
 name: get-question
-description: Generates a structured question set for GEO search assessment. Supports 5 source paths (forum, issue, maillist, website, industry) — select individually or all. Reads manual questions from Markdown, fetches real data from forum/issues/SIG mailing lists/website search logs, generates industry questions via LLM, merges and deduplicates, then outputs questions.json and questions.md. Use when starting a new GEO assessment or refreshing the question set. Do not use for platform sampling, scoring, or improvement suggestions.
+description: Generates a structured question set for GEO search assessment. Supports 4 source paths (forum, issue, maillist, website) — select individually or all. Reads manual questions from Markdown, fetches real data from forum/issues/SIG mailing lists/website search logs, merges and deduplicates, then outputs questions.json and questions.md. Use when starting a new GEO assessment or refreshing the question set. Do not use for platform sampling, scoring, or improvement suggestions.
 ---
 
 # Get Question
@@ -11,7 +11,7 @@ description: Generates a structured question set for GEO search assessment. Supp
 |---|---|---|---|
 | `community` | yes | — | e.g. "MindSpore" |
 | `seed_keywords` | no | LLM-derived | comma-separated |
-| `paths` | no | `all` | `forum` / `issue` / `maillist` / `website` / `industry` / `all` |
+| `paths` | no | `all` | `forum` / `issue` / `maillist` / `website` / `all` |
 | `sig_url` | no | `https://www.mindspore.cn/sig` | Entry point for SIG data (maillist path) |
 | `forum_url` | no | — | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
 | `repo_owner` | no | — | GitCode repo owner/org for issue path |
@@ -89,18 +89,9 @@ Skip if `paths` excludes `website`.
 
 ---
 
-## Step 7 — Path 5: Industry
+## Step 7 — Merge & Deduplicate
 
-Skip if `paths` excludes `industry`.
-
-1. Read `$SD/assets/prompt-templates.md` section `INDUSTRY_DISCOVERY`, send LLM call.
-2. Extract `questions` array → `path5_questions`.
-
----
-
-## Step 8 — Merge & Deduplicate
-
-1. Combine: `all_questions = manual_questions + path1_questions + path2_questions + path3_questions + path4_questions + path5_questions`.
+1. Combine: `all_questions = manual_questions + path1_questions + path2_questions + path3_questions + path4_questions`.
 2. Read `$SD/assets/prompt-templates.md` section `MERGE_DEDUP`, send LLM call with combined data.
 3. Validate: `echo '{merged_json}' | python3 $SD/scripts/validate-questions.py`.
    - **errors** → show errors, LLM fixes JSON, re-validate once.
@@ -109,8 +100,32 @@ Skip if `paths` excludes `industry`.
 
 ---
 
-## Step 9 — Output
+## Step 8 — Output
 
-1. Write validated JSON → `questions.json`.
-2. Render `questions.md` using `$SD/assets/questions-template.md` — group by intent, include summary table, mark source per question.
-3. Print: `Generated {total} questions | Sources: manual={n} forum={n} issue={n} maillist={n} website={n} industry={n} | Paths: {paths_run}`.
+1. Write `questions.json` to `packages/assessments/{community}/` with the following structure:
+   ```json
+   {
+     "community": "{community}",
+     "generated_at": "{YYYY-MM-DD}",
+     "official_domains": [],
+     "questions": [
+       {
+         "id": "q_001",
+         "question": "...",
+         "official_urls": [],
+         "notes": ""
+       }
+     ]
+   }
+   ```
+   - `official_domains`: top-level list of the community's official domains — leave empty `[]` for human to fill.
+   - `official_urls`: per-question list of authoritative URLs for scoring — leave empty `[]` for human to fill.
+   - `notes`: optional human annotation per question — leave empty `""`.
+
+2. **Human action required after generation**: Before running scoring-engine, a human must populate:
+   - `official_domains` (once per community, e.g. `["mindspore.cn", "gitcode.com/mindspore"]`)
+   - `official_urls` per question (e.g. `["https://www.mindspore.cn/install/"]`); leave `[]` if no official content exists for that question.
+
+3. Render `questions.md` using `$SD/assets/questions-template.md` — group by intent, include summary table, mark source per question. `questions.md` does not include `official_urls` or `notes`.
+
+4. Print: `Generated {total} questions | Sources: manual={n} forum={n} issue={n} maillist={n} website={n} | Paths: {paths_run}`.

@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """Sample a single AI platform with a question and return the response.
 
-Usage: python3 sample-platform.py --platform <name> --api-key <key> --query "<query>" --question-id <id> [--base-url <url>]
+Usage: python3 sample-platform.py --platform <name> --query "<query>" --question-id <id>
 
-Supported platforms: chatgpt, deepseek, doubao, qwen
+Supported platforms: chatgpt, deepseek, doubao, qwen, gemini
+
+API keys and base URLs are read from .env in the project root:
+  {PLATFORM}_API_KEY   — required
+  {PLATFORM}_BASE_URL  — optional, overrides the built-in default
 
 The model is always instructed to include reference links in its response.
 
@@ -13,8 +17,10 @@ Errors: stderr with descriptive messages, exits with code 1.
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
 
 try:
     from openai import OpenAI
@@ -25,20 +31,24 @@ except ImportError:
 
 PLATFORM_CONFIG = {
     "chatgpt": {
-        "base_url": "https://www.packyapi.com/v1",
+        "default_base_url": "https://www.packyapi.com/v1",
         "model": "gpt-5.4",
     },
     "deepseek": {
-        "base_url": "https://api.lingyaai.cn/v1",
+        "default_base_url": "https://api.lingyaai.cn/v1",
         "model": "deepseek-v3.2",
     },
     "doubao": {
-        "base_url": "https://www.packyapi.com/v1",
+        "default_base_url": "https://www.packyapi.com/v1",
         "model": "doubao-seed-2.0-pro",
     },
     "qwen": {
-        "base_url": "https://api.lingyaai.cn/v1",
+        "default_base_url": "https://api.lingyaai.cn/v1",
         "model": "qwen3.5-plus",
+    },
+    "gemini": {
+        "default_base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "model": "gemini-2.5-flash",
     },
 }
 
@@ -55,18 +65,45 @@ SYSTEM_PROMPT = (
 )
 
 
-def sample(platform: str, api_key: str, query: str, question_id: str,
-           base_url: str | None = None) -> dict:
+def load_dotenv(env_path: Path) -> None:
+    """Parse .env file and set variables into os.environ (does not overwrite existing)."""
+    if not env_path.exists():
+        return
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip()
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+def resolve_config(platform: str) -> tuple[str, str]:
+    """Return (api_key, base_url) for the given platform, reading from env."""
+    env_key = f"{platform.upper()}_API_KEY"
+    env_url = f"{platform.upper()}_BASE_URL"
+
+    api_key = os.environ.get(env_key, "")
+    if not api_key:
+        print(f"ERROR: {env_key} is not set in .env", file=sys.stderr)
+        sys.exit(1)
+
+    base_url = os.environ.get(env_url, "") or PLATFORM_CONFIG[platform]["default_base_url"]
+    return api_key, base_url
+
+
+def sample(platform: str, query: str, question_id: str) -> dict:
     if platform not in PLATFORM_CONFIG:
         print(f"ERROR: Unknown platform '{platform}'. Supported: {list(PLATFORM_CONFIG.keys())}", file=sys.stderr)
         sys.exit(1)
 
+    api_key, base_url = resolve_config(platform)
     config = PLATFORM_CONFIG[platform]
-    client = OpenAI(
-        api_key=api_key,
-        base_url=base_url or config["base_url"],
-    )
 
+    client = OpenAI(api_key=api_key, base_url=base_url)
     timestamp = datetime.now(timezone.utc).isoformat()
 
     messages = [
@@ -80,7 +117,7 @@ def sample(platform: str, api_key: str, query: str, question_id: str,
             messages=messages,
         )
 
-        result = {
+        return {
             "question_id": question_id,
             "platform": platform,
             "query": query,
@@ -90,8 +127,6 @@ def sample(platform: str, api_key: str, query: str, question_id: str,
             "model": config["model"],
             "status": "success",
         }
-
-        return result
 
     except Exception as e:
         return {
@@ -108,15 +143,18 @@ def sample(platform: str, api_key: str, query: str, question_id: str,
 
 
 if __name__ == "__main__":
+    # Load .env from project root (two levels up from this script)
+    script_dir = Path(__file__).resolve().parent
+    project_root = script_dir.parent.parent.parent.parent  # skills/platform-sampler/scripts -> project root
+    load_dotenv(project_root / ".env")
+
     parser = argparse.ArgumentParser(description="Sample AI platform")
     parser.add_argument("--platform", required=True, choices=list(PLATFORM_CONFIG.keys()))
-    parser.add_argument("--api-key", required=True)
     parser.add_argument("--query", required=True)
     parser.add_argument("--question-id", required=True)
-    parser.add_argument("--base-url", default=None)
     args = parser.parse_args()
 
-    result = sample(args.platform, args.api_key, args.query, args.question_id, args.base_url)
+    result = sample(args.platform, args.query, args.question_id)
 
     if result["status"] == "error":
         print(f"WARNING: {args.platform} call failed: {result['error']}", file=sys.stderr)

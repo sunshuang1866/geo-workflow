@@ -13,7 +13,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
   - `GITHUB_TOKEN` — GitHub Personal Access Token with `issues:write` scope (for GitHub repos)
   - `GITCODE_TOKEN` — GitCode personal access token with `read_projects` + `write_issues` scopes (for GitCode repos)
 - `scoring-results.json` (output from scoring-engine skill)
-- `content-labels.json` in the same directory (used to enrich root-cause analysis)
+- `questions.json` in `packages/assessments/{community}/` (used to enrich root-cause analysis with `official_urls` and `notes`)
 - Human review of scoring results completed
 
 ## Procedures
@@ -42,7 +42,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
 **Step 2: Parse Scoring Results**
 
 1. Read the `input_file` (default: `scoring-results.json`).
-2. Also read `content-labels.json` from the same directory if it exists — its `notes` and `official_urls` fields enrich root-cause analysis.
+2. Also read `questions.json` from `packages/assessments/{community}/` if it exists — its `notes` and `official_urls` fields enrich root-cause analysis.
 3. Run `python3 scripts/parse-suggestions.py {input_file}` to extract actionable items.
 4. The script outputs a JSON array of suggestion objects to stdout — one per question with `not_cited` or `no_official_content` status:
    ```json
@@ -75,7 +75,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
    You are a GEO (Generative Engine Optimization) analyst. The following are improvement
    suggestions extracted from AI platform scoring results for the {community} open-source community.
 
-   Also provided: content-labels.json entries for context (official_urls and notes fields).
+   Also provided: questions.json entries for context (official_urls and notes fields).
 
    Your tasks:
    A. Group semantically similar suggestions that target the same root cause.
@@ -98,7 +98,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
    phenomenon_detail: 2–4 sentences describing what was observed. Include:
      - Which platforms cited and which did not (use cited_platforms / not_cited_platforms).
      - The current citation rate (e.g. "当前引用率 25%，仅 qwen 引用了官方链接").
-     - Reference official_urls from content-labels.json where relevant.
+     - Reference official_urls from questions.json where relevant.
 
    causal_chain: A compact ASCII diagram of the root cause chain (3–5 steps):
        [正确信源/缺失根因]
@@ -125,8 +125,8 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
    Scoring results:
    {suggestions_json}
 
-   Content labels (excerpt):
-   {content_labels_json}
+   Questions with official_urls (excerpt):
+   {questions_json}
 
    Output as a JSON array. Each element:
    {
@@ -334,7 +334,7 @@ For each suggestion in `to_resolve` (status now `satisfied`):
 * If the required token is missing, abort immediately.
 * If `input_file` is missing, abort with: `"File not found. Run scoring-engine skill first."`
 * If `issue_map_file` is missing, initialize as `{"issues": {}}` and proceed.
-* If `content-labels.json` is missing, continue without it — root-cause analysis will be less specific. Log: `"content-labels.json not found. Root-cause enrichment skipped."`
+* If `questions.json` is missing, continue without it — root-cause analysis will be less specific. Log: `"questions.json not found. Root-cause enrichment skipped."`
 * If `parse-suggestions.py` returns zero actionable items, print `"No actionable suggestions found. All scores are healthy."` and exit cleanly.
 * If `create-issue.py` fails after label fallback, log the error and continue with remaining Issues.
 * If `comment-issue.py` fails (e.g. issue was closed/deleted), log the error and continue.

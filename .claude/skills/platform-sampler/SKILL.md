@@ -1,6 +1,6 @@
 ---
 name: platform-sampler
-description: Samples AI platform responses for GEO search assessment. Reads questions.json, sends each question to multiple AI platforms (ChatGPT, DeepSeek, Doubao, Qwen) via API, collects raw responses with citations and metadata, then outputs responses.json. Supports platform and question filtering, batched output (5 questions per batch), and citation-required mode. Use when a question set is ready and platform responses need to be collected. Do not use for question generation, scoring, or improvement suggestion generation.
+description: Samples AI platform responses for GEO search assessment. Reads questions.json, sends each question to multiple AI platforms (ChatGPT, DeepSeek, Doubao, Qwen, Gemini) via API, collects raw responses with citations and metadata, then outputs responses.json. Supports platform and question filtering, batched output (5 questions per batch), and citation-required mode. Use when a question set is ready and platform responses need to be collected. Do not use for question generation, scoring, or improvement suggestion generation.
 ---
 
 # Platform Sampler
@@ -10,51 +10,52 @@ Collect raw AI platform responses for each question in the question set, across 
 ## Prerequisites
 
 - `.env` file with API tokens (at least one platform required)
-- `questions.json` in the project root (output from get-question skill)
+- `packages/assessments/{community}/questions.json` (output from get-question skill)
 
 ## Inputs
 
 | Param | Required | Default | Notes |
 |-------|----------|---------|-------|
-| `platforms` | No | all detected | Comma-separated list of platforms to sample: `chatgpt`, `deepseek`, `doubao`, `qwen` |
+| `community` | Yes | — | Community name, e.g. `MindSpore`. Determines the data path under `packages/assessments/`. |
+| `platforms` | No | all detected | Comma-separated list of platforms to sample: `chatgpt`, `deepseek`, `doubao`, `qwen`, `gemini` |
 | `questions` | No | all | Comma-separated list of question IDs to sample: e.g. `q_001,q_005,q_012` |
-| `questions_file` | No | `questions.json` | Path to the questions file |
-| `output_dir` | No | same as `questions_file` parent | Directory to write `responses.json` |
-| `output_mode` | No | `append` | How to handle existing `responses.json` in `output_dir`: `append` / `overwrite` / `new_run` |
+| `output_mode` | No | `new_run` | `append` — write into the latest existing date folder; `new_run` — create a new `{YYYY-MM-DD}` date folder |
 
 ### Output Mode
 
 | Mode | Behavior |
 |------|----------|
-| `append` | If `{output_dir}/responses.json` exists, load it, merge new results (replace entries with same `question_id` + `platform`, append the rest). If not exists, create new file. |
-| `overwrite` | Write a fresh `responses.json` to `output_dir`, discarding any existing file. |
-| `new_run` | Create a date subdirectory `{output_dir}/runs/{YYYY-MM-DD}/` and write `responses.json` there. If the date directory already exists, append to the existing file in it. |
+| `append` | Find the latest date subfolder under `packages/assessments/{community}/` (e.g. `2026-03-28/`). Load its `responses.json`, merge new results (replace entries with same `question_id` + `platform`, append the rest). If no date folder exists, fall back to `new_run`. |
+| `new_run` | Create `packages/assessments/{community}/{YYYY-MM-DD}/` and write a fresh `responses.json` there. If the folder already exists (same-day re-run), append to the existing file. |
 
 ## Procedures
 
 **Step 1: Load Configuration**
 
-1. Read `.env` from the project root to load API tokens.
-2. Detect available platforms by checking which tokens are non-empty:
+1. Read `.env` from the project root. Each platform is configured by two vars:
+   - `{PLATFORM}_API_KEY` — required for the platform to be active
+   - `{PLATFORM}_BASE_URL` — optional; overrides the built-in default endpoint
+2. Detect available platforms by checking which API keys are non-empty:
    - `CHATGPT_API_KEY` → `chatgpt`
    - `DEEPSEEK_API_KEY` → `deepseek`
    - `DOUBAO_API_KEY` → `doubao`
    - `QWEN_API_KEY` → `qwen`
+   - `GEMINI_API_KEY` → `gemini`
 3. If the `platforms` param is provided, filter detected platforms to only those listed. If a requested platform has no token, warn and skip it.
 4. If no platforms remain after filtering, abort: `"No configured platforms available. Check .env tokens."`
 5. Resolve output path based on `output_mode`:
-   - `append` or `overwrite`: target is `{output_dir}/responses.json`.
-   - `new_run`: target is `{output_dir}/runs/{YYYY-MM-DD}/responses.json`. Create the date directory if it does not exist.
+   - `append`: scan `packages/assessments/{community}/` for date-named subfolders (`YYYY-MM-DD`), pick the latest one. Target: `{latest_date_folder}/responses.json`. If no date folder exists, fall back to `new_run`.
+   - `new_run`: target is `packages/assessments/{community}/{YYYY-MM-DD}/responses.json`. Create the date folder if it does not exist. If it already exists (same-day re-run), load existing file as `existing_responses` for merging.
    - If `output_mode=append` and the target file exists, load its contents as `existing_responses` for later merging.
 6. Print active platforms and output target to stdout:
    ```
-   Platforms: chatgpt, deepseek, doubao, qwen
+   Platforms: chatgpt, deepseek, doubao, qwen, gemini
    Output: {resolved_output_path} (mode: {output_mode})
    ```
 
 **Step 2: Load Question Set**
 
-1. Read `questions_file` (default: `questions.json`) from the project root.
+1. Read `packages/assessments/{community}/questions.json`.
 2. Run `python3 scripts/validate-input.py < questions.json` to verify the input format.
 3. If validation fails, display the error and abort.
 4. If the `questions` param is provided, filter the question list to only the specified IDs. If any requested ID is not found in the file, warn and skip it.
@@ -81,10 +82,10 @@ For each group of 5 questions (or fewer for the last group):
      ```
      python3 scripts/sample-platform.py \
        --platform {name} \
-       --api-key {key} \
        --query "{question}" \
        --question-id {id}
      ```
+   - The script auto-loads `.env` from the project root and reads `{PLATFORM}_API_KEY` and `{PLATFORM}_BASE_URL`.
    - The script always instructs the model to include reference links in its response (via system prompt).
    - The script returns a JSON object to stdout:
      ```json
@@ -135,11 +136,11 @@ For each group of 5 questions (or fewer for the last group):
 
 **Step 5: Merge and Finalize**
 
-1. If `output_mode=append` and `existing_responses` was loaded in Step 1:
+1. If `existing_responses` was loaded in Step 1 (append mode or same-day new_run):
    - Build a lookup from existing responses keyed by `(question_id, platform)`.
    - For each new response, replace the existing entry with the same key, or append if no match.
    - Write the merged result to the resolved output path.
-2. If `output_mode=overwrite` or `new_run`: write only the new responses (no merge).
+2. Otherwise: write only the new responses.
 3. Run `python3 scripts/validate-responses.py < {resolved_output_path}` to verify completeness.
 4. The script checks:
    - Every question has responses from all active platforms
@@ -162,6 +163,6 @@ For each group of 5 questions (or fewer for the last group):
 
 * If a platform API call fails (timeout, auth error, rate limit), log the error to stderr, mark the response as `"status": "error"` with the error message, and continue with the next call. Do not abort the entire sampling run.
 * If a platform returns an empty response, mark it as `"status": "empty"` and continue.
-* If `questions.json` is missing, abort with a clear error: "questions.json not found. Run get-question skill first."
+* If `packages/assessments/{community}/questions.json` is missing, abort with a clear error: "questions.json not found for community '{community}'. Run get-question skill first."
 * If rate-limited by a platform (HTTP 429), wait 30 seconds and retry once. If still rate-limited, mark as error and continue.
 * After all sampling, if more than 50% of responses are errors, warn the user and suggest checking API tokens.

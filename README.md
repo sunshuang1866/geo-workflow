@@ -83,14 +83,14 @@ mkdir -p packages/assessments/MindSpore/
 
 ## 首次运行（初始化）
 
-首次运行需要依次完成以下步骤，包含多处人工审核环节。
+首次运行需要依次完成以下步骤。
 
 ### Step A: 生成问题集
 
 在 Claude Code 中执行：
 
 ```
-/get-question community=MindSpore paths=all
+/get-question community=MindSpore
 ```
 
 **输出**：
@@ -105,23 +105,21 @@ mkdir -p packages/assessments/MindSpore/
 
 输入 `questions.json`，输出 `responses.json`。
 
-### Step C: 人工标注 content-labels
+### Step C: 填写 official_urls
 
-根据 `questions.json` 中的每个问题，人工判断 **官方是否已有对应内容**。
-
-创建 `packages/assessments/MindSpore/content-labels.json`：
+`/get-question` 生成的 `questions.json` 中每个问题的 `official_urls` 默认为空数组。在运行评分前，需要人工为每个问题填写官方页面 URL：
 
 ```json
 {
-  "labels": [
+  "questions": [
     {
-      "question_id": "q_001",
+      "id": "q_001",
       "question": "MindSpore 支持哪些安装方式？",
       "official_urls": ["https://www.mindspore.cn/install"],
       "notes": "安装指南页面完整覆盖"
     },
     {
-      "question_id": "q_002",
+      "id": "q_002",
       "question": "MindSpore 和 PyTorch 相比有哪些优势？",
       "official_urls": [],
       "notes": "无官方对比文档"
@@ -129,15 +127,6 @@ mkdir -p packages/assessments/MindSpore/
   ]
 }
 ```
-
-字段说明：
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `question_id` | string | 问题 ID |
-| `question` | string | 问题文本 |
-| `official_urls` | array | 对应的官方页面 URL（空数组 = 官方无内容） |
-| `notes` | string | 备注（可选） |
 
 > 判定规则：`official_urls` 非空 → 官方有内容，检查 AI 回答是否引用；`official_urls` 为空 → 官方内容缺失，标 P1。
 
@@ -147,7 +136,7 @@ mkdir -p packages/assessments/MindSpore/
 /scoring-engine
 ```
 
-输入 `responses.json` + `content-labels.json`，输出 `scoring-results.json`。
+输入 `responses.json` + `questions.json`（含 `official_urls`），输出 `scoring-results.json`。
 
 ### Step E: 首次创建 Issue
 
@@ -158,8 +147,7 @@ mkdir -p packages/assessments/MindSpore/
 > 建议先用 `dry_run=true` 预览 Issue 内容，确认无误后去掉 `dry_run` 正式创建。
 
 **首次运行完成后**，`packages/assessments/MindSpore/` 目录下应有：
-- `questions.json` — 问题集（`/get-question` 生成）
-- `content-labels.json` — 人工标注
+- `questions.json` — 问题集（`/get-question` 生成，含人工填写的 `official_urls`）
 - `issue-map.json` — Issue 映射（自动生成）
 
 ---
@@ -274,7 +262,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 
 ### assessment-report — 生成评估报告
 
-综合 `scoring-results.json`、`content-labels.json`、`issue-map.json`，生成每次运行的问题集全量报告。
+综合 `scoring-results.json`、`questions.json`、`issue-map.json`，生成每次运行的问题集全量报告。
 
 | 输出 | 格式 | 说明 |
 |------|------|------|
@@ -303,26 +291,16 @@ geo-workflow/
 │   └── GEO搜索能力检测和优化改进-初步设计方案.md  # 完整设计文档
 ├── packages/
 │   └── assessments/                # 社区评估数据
-│       ├── MindSpore/              # MindSpore 社区
-│       │   ├── questions.json           # 问题集（/get-question 生成，source of truth）
-│       │   ├── questions.md             # 问题集（人工可读）
-│       │   ├── content-labels.json      # 人工标注（手动维护）
-│       │   ├── issue-map.json           # Issue 映射（自动维护）
-│       │   └── runs/                    # 每次运行的数据
-│       │       ├── 2026-03-28/
-│       │       │   ├── questions.json
-│       │       │   ├── content-labels.json
-│       │       │   ├── responses.json
-│       │       │   ├── scoring-results.json
-│       │       │   ├── assessment-report.json
-│       │       │   ├── assessment-report.md
-│       │       │   ├── created-issues.json
-│       │       │   └── run-meta.json
-│       │       └── ...
-│       └── openUBMC/               # openUBMC 社区
-│           ├── questions.json
-│           ├── questions.md
-│           └── version1/           # 历史数据
+│       └── MindSpore/              # MindSpore 社区
+│           ├── questions.json           # 问题集 + official_urls（人工填写，source of truth）
+│           ├── questions.md             # 问题集（人工可读）
+│           ├── issue-map.json           # Issue 映射（自动维护）
+│           └── 2026-03-30/             # 运行数据（按日期命名）
+│               ├── responses.json
+│               ├── scoring-results.json
+│               ├── assessment-report.json
+│               ├── assessment-report.md
+│               └── created-issues.json
 └── .claude/
     └── skills/                     # Skill 定义
         ├── get-question/
@@ -330,7 +308,8 @@ geo-workflow/
         ├── scoring-engine/
         ├── issue-creator/
         ├── assessment-report/
-        └── response-parser/
+        ├── release-skills/
+        └── skill-creator/
 ```
 
 ---
@@ -343,8 +322,7 @@ geo-workflow/
 
 | 文件 | 更新时机 | 说明 |
 |------|----------|------|
-| `questions.json` | 运行 `/get-question` 后审核 | 问题集唯一来源；变更时 AGENT.md 会要求确认 |
-| `content-labels.json` | 官方内容有变更时 | 人工判断每个问题的官方覆盖情况 |
+| `questions.json` | 运行 `/get-question` 后填写 `official_urls` | 问题集唯一来源，含官方 URL 标注；变更时 AGENT.md 会要求确认 |
 | `manual-questions.md` | 有新的手动问题时 | 补充自动生成未覆盖的问题 |
 | `.env` | API Key 变更时 | 平台 API 密钥 |
 
@@ -375,7 +353,7 @@ openclaw trigger \
 ```
 
 **前提条件**：
-- `questions.json` 和 `content-labels.json` 已就位
+- `questions.json` 已就位（含人工填写的 `official_urls`）
 - `.env` 中 API Keys 配置完整
 - 仓库可访问（有 push 权限更新 issue-map）
 
@@ -387,7 +365,7 @@ openclaw trigger \
 
 ### Q: 如何更新问题集？
 
-重新运行 `/get-question` 或直接编辑 `packages/assessments/MindSpore/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。同时检查 `content-labels.json` 是否需要同步更新（新增问题需要新标注）。
+重新运行 `/get-question` 或直接编辑 `packages/assessments/MindSpore/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
 
 ### Q: 某个平台 API Key 过期了怎么办？
 
@@ -406,8 +384,8 @@ openclaw trigger \
 1. 创建目录 `packages/assessments/openEuler/`
 2. 运行 `/get-question community=openEuler paths=all` 生成 `questions.json`
 3. 审核 `questions.md`，直接编辑 `questions.json` 做必要调整
-4. 人工标注 `packages/assessments/openEuler/content-labels.json`
-5. 在 `.env` 中配置该社区的 `OFFICIAL_DOMAINS`
+4. 在 `packages/assessments/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
+5. 在 `.env` 中配置该社区的平台 API Keys
 6. 按正常流程运行
 
 ### Q: dry-run 模式有什么用？
@@ -419,7 +397,7 @@ openclaw trigger \
 
 ### Q: 评分结果不准怎么办？
 
-打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `content-labels.json` 后重新运行 scoring-engine。
+打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `packages/assessments/{community}/questions.json` 中对应问题的 `official_urls`，然后重新运行 scoring-engine（`steps=2,3,4,5`）。
 
 ---
 

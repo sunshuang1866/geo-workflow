@@ -121,7 +121,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 - **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize. assessment-tracker.md and tracking-log.md removed from workflow.
 - **Directory structure**: Community data lives under `packages/assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
-- **MindSpore**: `packages/assessments/MindSpore/` — has `questions.json`, `questions.md`. Awaiting approved-questions.json and content-labels.json for first full pipeline run.
+- **MindSpore**: `packages/assessments/MindSpore/` — has `questions.json` (with official_urls merged in), `questions.md`. Ready for first full pipeline run.
 - **openUBMC**: `packages/assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
 - **issue-creator skill**: Updated SKILL.md (community/version_label inputs, richer LLM prompt with causal_chain/cross_platform_section/action_items) and issue-template.md (matches real-world issue.md format)
 - **Branch**: `main`
@@ -214,6 +214,10 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-30 | issue-creator updated: citation_type→status, A-E→new statuses in LLM prompt; citation_rate shown in issue body and comments; issue-map match key is question_ids only; to_resolve list for satisfied questions; Step 6 adds content-labels.json update prompt for no_official_content questions. |
 | 2026-03-30 | Removed assessment-tracker.md and tracking-log.md from workflow. AGENT.md steps reduced from 7 to 5 (removed tracker Step 3 and log Step 5, renumbered). Issue history now lives in GitCode/GitHub Issue comments only. |
 | 2026-03-30 | Created assessment-report skill: 6-step procedure, generates assessment-report.json + assessment-report.md per run. Grouped by phenomenon (no_official_content/not_cited/satisfied) with per-platform ✅/❌/— indicators and Issue metadata. Integrated into AGENT.md as Step 4 (report). |
+| 2026-03-30 | Added Gemini to platform-sampler. All platform BASE_URL + API_KEY now in .env. Script auto-loads .env, removed --api-key/--base-url CLI args. |
+| 2026-03-30 | Removed Path 5 (Industry) from get-question. |
+| 2026-03-30 | platform-sampler: added `community` param, removed `questions_file`/`output_dir`. Paths auto-resolved from community dir. |
+| 2026-03-30 | Merged content-labels.json into questions.json. questions.json is now single source of truth with official_urls/notes/official_domains. content-labels.json no longer used. AGENT.md, scoring-engine, issue-creator, assessment-report all updated to read from questions.json. MindSpore questions.json migrated to new object format with all official_urls merged in. |
 
 ## Key Decisions
 
@@ -225,7 +229,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - `approved-questions.json` removed: `questions.json` is the source of truth. AGENT.md Step 0 diffs against the last run's snapshot; if changed, aborts unless `accept_question_update=true` is set.
 - AGENT.md supports `steps` (select which steps to run), `scope` (which questions to sample: `all`/`p0`/IDs), `accept_question_update` parameters.
 - New skills must use `/skill-creator` and conform to agentskills.io spec
-- MVP platforms (4): ChatGPT + DeepSeek + 豆包 + Qwen（Perplexity 已移除）
+- MVP platforms (5): ChatGPT + DeepSeek + 豆包 + Qwen + Gemini
 - API tokens stored in `.env`, template in `.env.example`
 - Two scenarios in parallel: 了解阶段 (industry discovery) + 使用阶段 (usage extraction)
 - Forum (Discourse API) is primary question source; all 5 paths selectable via `paths` param (forum, issue, maillist, website, industry)
@@ -237,7 +241,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - Pipeline is 4 execution steps: get-question → platform-sampler → scoring-engine → issue-creator
 - Scoring uses two-layer model: Layer 1 = content completeness (human pre-labeled), Layer 2 = citation accuracy (LLM)
 - Three statuses: `引用了官方内容` (OK), `有内容未被引用` (P0), `官方内容缺失` (P1) — replaces old A-E phenomenon codes
-- `official_urls` per question is human pre-labeled in `content-labels.json` (empty array = no official content)
+- `official_urls` per question is human pre-labeled directly in `questions.json` (empty array = no official content). `content-labels.json` is retired.
 - Scoring is pure URL string matching (exact + domain-level), no LLM, no human spot-check
 - Issue auto-creation is a separate skill (issue-creator), uses same GITCODE_TOKEN
 - assessment-report skill generates per-question report (JSON + Markdown) after issue-creator; groups by phenomenon category with per-platform indicators (✅/❌/—) and Issue URL + iteration count

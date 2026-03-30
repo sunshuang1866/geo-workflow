@@ -49,13 +49,9 @@
 
 ## 有内容未被引用（P0）— {count_not_cited} 个问题
 
-> 官方内容已存在，但未达到 {citation_threshold_pct}% 平台引用阈值，建议优化 SEO 和内容结构。
+> 官方内容已存在，但未达到 {citation_threshold_pct}% 平台引用阈值。按改进措施分组，同一 Issue 下的问题需要相同的改进行动。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | 严重级别 | Issue |
-|----|------|------|------|---------|----------|--------|----------|-------|
-{rows_not_cited}
-
-{footnotes_not_cited}
+{grouped_not_cited}
 
 ---
 

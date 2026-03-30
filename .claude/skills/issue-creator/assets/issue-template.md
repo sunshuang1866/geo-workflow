@@ -29,4 +29,4 @@
 {reference_urls}
 
 ---
-> 此 Issue 由 GEO Search Assessment 系统自动生成，基于 content-labels.json 人工标注及多平台采样结果。
+> 此 Issue 由 GEO Search Assessment 系统自动生成，基于 questions.json 人工标注及多平台采样结果。

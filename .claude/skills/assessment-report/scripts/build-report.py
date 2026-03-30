@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-build-report.py — Merge scoring-results.json, content-labels.json, and issue-map.json
+build-report.py — Merge scoring-results.json, questions.json, and issue-map.json
 into a unified per-question record list.
 
 Usage:
-  python3 build-report.py <scoring_file> <labels_file> <issue_map_file>
+  python3 build-report.py <scoring_file> <questions_file> <issue_map_file>
 
 Outputs JSON array to stdout. Each element is a per-question record.
 Exits 1 on error.
@@ -84,24 +84,24 @@ def build_platform_record(platform_data, has_official_content):
 
 def main():
     if len(sys.argv) < 4:
-        print("Usage: build-report.py <scoring_file> <labels_file> <issue_map_file>",
+        print("Usage: build-report.py <scoring_file> <questions_file> <issue_map_file>",
               file=sys.stderr)
         sys.exit(1)
 
-    scoring_file, labels_file, issue_map_file = sys.argv[1], sys.argv[2], sys.argv[3]
+    scoring_file, questions_file, issue_map_file = sys.argv[1], sys.argv[2], sys.argv[3]
 
     scoring = load_json(scoring_file, "scoring-results.json")
     if not scoring:
         print(f"ERROR: {scoring_file} not found or empty", file=sys.stderr)
         sys.exit(1)
 
-    labels_data = load_json(labels_file, "content-labels.json") or {"labels": []}
+    questions_data = load_json(questions_file, "questions.json") or {"questions": []}
     issue_map = load_json(issue_map_file, "issue-map.json") or {"issues": {}}
 
-    # Build labels lookup
+    # Build questions lookup
     labels_lookup = {
-        entry["question_id"]: entry
-        for entry in labels_data.get("labels", [])
+        entry["id"]: entry
+        for entry in questions_data.get("questions", [])
     }
 
     # Build issue lookup

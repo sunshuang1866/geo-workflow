@@ -42,29 +42,6 @@ Output JSON array: [{question, category}]
 
 ---
 
-## INDUSTRY_DISCOVERY
-
-Used in Step 5 (single LLM call).
-
-```
-For open-source project "{community}" (keywords: {seed_keywords}):
-
-1. Identify: industry, sub-domain, positioning, competitors (3-5 names).
-2. Generate 10-15 questions a user might ask an AI about this domain — including questions where they don't yet know {community} exists. Cover:
-   - "What are mainstream X?"
-   - "Which X should I choose?"
-   - "What are trends in X?"
-   - "What X fits Y scenario?"
-   - "Alternatives to {competitor}?"
-
-Output JSON: {
-  "domain": {industry, sub_domain, positioning, competitors},
-  "questions": [{question, intent}]
-}
-```
-
----
-
 ## MAILLIST_REWRITE
 
 Used in Step 5 (maillist path). Rewrites SIG mailing list email archives into user questions.
@@ -110,13 +87,13 @@ Output JSON array: [{question, category}]
 
 ## MERGE_DEDUP
 
-Used in Step 6.
+Used in Step 7.
 
 ```
 Merge and deduplicate this {community} question set.
 Rules:
 - Remove semantic duplicates (similarity > 0.85); keep better-phrased version.
-- Priority order: manual > forum / issue > maillist > industry.
+- Priority order: manual > forum / issue > maillist > website.
 - Keep all manual questions unchanged.
 - Target 30-40 total. If over 40, drop lowest-priority duplicates.
 - Assign each question: intent (认知|选型|趋势|场景|教程|故障|特性|迁移).

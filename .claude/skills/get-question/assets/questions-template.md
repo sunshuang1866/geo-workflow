@@ -22,7 +22,8 @@
 | 手动输入 | {manual_count} |
 | 论坛 | {forum_count} |
 | Issue | {issue_count} |
-| 行业 | {industry_count} |
+| 邮件列表 | {maillist_count} |
+| 网站搜索 | {website_count} |
 
 ---
 

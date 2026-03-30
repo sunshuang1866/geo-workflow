@@ -248,16 +248,7 @@
   },
   {
     "id": "q_028",
-    "question": "MindSpore 和 PyTorch 相比有哪些优势和不足，应该如何选择？",
-    "scenario": "了解阶段",
-    "intent": "选型",
-    "category": "selection",
-    "source": "industry",
-    "priority": 2
-  },
-  {
-    "id": "q_029",
-    "question": "How does MindSpore compare to PyTorch for deep learning development?",
+    "question": "MindSpore 和 PyTorch 对比有哪些相同和不同？",
     "scenario": "了解阶段",
     "intent": "选型",
     "category": "selection",
@@ -441,7 +432,7 @@
   },
   {
     "id": "q_059",
-    "question": "MindSpore 如何通过自动化工具管理社区例会通知？社区采用什么会议平台？",
+    "question": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
     "scenario": "了解阶段",
     "intent": "认知",
     "category": "discussion",

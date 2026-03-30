@@ -34,7 +34,6 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
                                                          ↓               tracking-log.md
                                                  assessment-tracker.md
                                                  scoring-results.json
-                                                 suggestions.md
 ```
 
 运行模式有两种：
@@ -99,17 +98,7 @@ mkdir -p packages/assessments/MindSpore/
 - `questions.json` — 结构化问题集
 - `questions.md` — 人工审阅格式
 
-### Step B: 固化问题集
-
-生成完成后，将问题集复制为固化文件：
-
-```bash
-cp packages/assessments/MindSpore/questions.json packages/assessments/MindSpore/approved-questions.json
-```
-
-> 此后定期复检将使用 `approved-questions.json`，不再重新生成。如需更新问题集，手动编辑此文件。
-
-### Step C: 首次采样
+### Step B: 首次采样
 
 ```
 /platform-sampler
@@ -117,9 +106,9 @@ cp packages/assessments/MindSpore/questions.json packages/assessments/MindSpore/
 
 输入 `questions.json`，输出 `responses.json` + `responses.md`。
 
-### Step D: 人工标注 content-labels
+### Step C: 人工标注 content-labels
 
-根据 `approved-questions.json` 中的每个问题，人工判断 **官方是否已有对应内容**。
+根据 `questions.json` 中的每个问题，人工判断 **官方是否已有对应内容**。
 
 创建 `packages/assessments/MindSpore/content-labels.json`：
 
@@ -151,21 +140,17 @@ cp packages/assessments/MindSpore/questions.json packages/assessments/MindSpore/
 | `official_urls` | array | 对应的官方页面 URL（空数组 = 官方无内容） |
 | `notes` | string | 备注（可选） |
 
-> 判定规则：`official_urls` 非空 → 官方有内容，进入 Layer 2 评估；`official_urls` 为空 → Phenomenon A（内容空白），标 P2。
+> 判定规则：`official_urls` 非空 → 官方有内容，检查 AI 回答是否引用；`official_urls` 为空 → 官方内容缺失，标 P1。
 
-### Step E: 首次评分
+### Step D: 首次评分
 
 ```
 /scoring-engine
 ```
 
-输入 `responses.json` + `content-labels.json`，输出 `scoring-results.json` + `suggestions.md`。
+输入 `responses.json` + `content-labels.json`，输出 `scoring-results.json`。
 
-### Step F: 人工抽检评分（推荐）
-
-审阅 `suggestions.md`，对 20% 评分结果进行抽检校准。将修正意见写入 `scoring-calibration.md`，下次评分时自动纳入 prompt。
-
-### Step G: 首次创建 Issue
+### Step E: 首次创建 Issue
 
 ```
 /issue-creator repo_url=https://gitcode.com/mindspore/mindspore-portal/ dry_run=true
@@ -174,7 +159,7 @@ cp packages/assessments/MindSpore/questions.json packages/assessments/MindSpore/
 > 建议先用 `dry_run=true` 预览 Issue 内容，确认无误后去掉 `dry_run` 正式创建。
 
 **首次运行完成后**，`packages/assessments/MindSpore/` 目录下应有：
-- `approved-questions.json` — 固化问题集
+- `questions.json` — 问题集（`/get-question` 生成）
 - `content-labels.json` — 人工标注
 - `issue-map.json` — Issue 映射（自动生成）
 
@@ -195,23 +180,34 @@ repo_url=https://gitcode.com/mindspore/mindspore-portal/
 
 ### 自动化执行流程
 
-AGENT.md 定义的 7 个步骤：
+AGENT.md 定义的 7 个步骤，支持通过 `steps` 和 `scope` 参数选择性执行：
 
 ```
-Step 0: 初始化              创建 runs/{date}/ 目录，复制问题集和标注
+Step 0 (init):      初始化 runs/{date}/ 目录，检测 questions.json 变更
          ↓
-Step 1: 平台采样            /platform-sampler → responses.json
+Step 1 (sample):    /platform-sampler → responses.json（scope 控制问题范围）
          ↓
-Step 2: 评分诊断            /scoring-engine → scoring-results.json + suggestions.md
+Step 2 (score):     /scoring-engine → scoring-results.json
          ↓
-Step 3: 更新跟踪表          追加本次结果到 assessment-tracker.md（按优先级分组、记录趋势）
+Step 3 (tracker):   追加本次结果到 assessment-tracker.md（按优先级分组、记录趋势）
          ↓
-Step 4: Issue 创建/更新     新问题 → 新建 Issue；已有 Issue → 追加评论
+Step 4 (issue):     新问题 → 新建 Issue；已有 Issue → 追加评论
          ↓
-Step 5: 更新 tracking-log   对比上次结果，记录变化和 Issue 活动
+Step 5 (log):       对比上次结果，记录变化和 Issue 活动
          ↓
-Step 6: 收尾                更新 run-meta.json，输出摘要
+Step 6 (finalize):  更新 run-meta.json，输出摘要
 ```
+
+**常用组合**：
+
+| 场景 | 参数 |
+|------|------|
+| 全量复检（默认） | 无需额外参数 |
+| 已有采样，重新评分 | `steps=2,3,4,5,6` |
+| 只重检 P0 问题 | `steps=1,2, scope=p0` |
+| 采样指定问题 | `steps=1, scope=q_048,q_049` |
+| 接受问题集变更并继续 | `accept_question_update=true` |
+| 查看问题集变更详情 | `steps=update_questions` |
 
 ### 每次运行的输出
 
@@ -220,7 +216,6 @@ Step 6: 收尾                更新 run-meta.json，输出摘要
 | `responses.json` | `runs/{date}/` | 本次平台采样原始数据 |
 | `responses.md` | `runs/{date}/` | 采样结果（人工可读） |
 | `scoring-results.json` | `runs/{date}/` | 本次评分结果 |
-| `suggestions.md` | `runs/{date}/` | 改进建议报告 |
 | `run-meta.json` | `runs/{date}/` | 运行元数据（耗时、平台、统计） |
 | `created-issues.json` | `runs/{date}/` | 本次 Issue 创建/更新记录 |
 | `assessment-tracker.md` | 社区目录根 | 问题级优先级和建议跟踪表（跨运行持久化） |
@@ -257,23 +252,13 @@ Step 6: 收尾                更新 run-meta.json，输出摘要
 
 ### scoring-engine — 评分诊断
 
-三层评估模型：
+纯 URL 字符串匹配（精确 URL + 域名级），无 LLM 评估：
 
-| 层级 | 评估内容 | 数据来源 | 必需 |
-|------|----------|----------|------|
-| Layer 1 | 内容完整性 | `content-labels.json`（人工标注） | 是 |
-| Layer 2 | 引用准确性 | LLM 评估 | 是 |
-| Layer 2+ | 事实覆盖度 | `standard-answers.json` 或 `Answers/*.md` | 否 |
-
-五种现象分类：
-
-| 代码 | 现象 | 严重级别 | 说明 |
+| 状态 | 描述 | 严重级别 | 说明 |
 |------|------|----------|------|
-| A | 官网无内容 | P2 | 内容空白，需补充官方内容 |
-| B | 有内容未被引用 | P0 | 官方已有内容但 AI 平台未引用，SEO 可发现性问题 |
-| C | 引用源错误 | P0 | 幻觉或错误信息，误导用户 |
-| D | 引用比例高 | OK | 健康状态 |
-| E | 引用比例低 | P1 | 第三方来源主导，官方引用不足 |
+| `satisfied` | 引用了官方内容 | OK | 回答中包含官方 URL 或域名 |
+| `not_cited` | 有内容未被引用 | P0 | 官方已有内容但 AI 平台未引用 |
+| `no_official_content` | 官方内容缺失 | P1 | 官方本身无对应内容 |
 
 ### issue-creator — 创建/更新 Issue
 
@@ -308,9 +293,8 @@ geo-workflow/
 ├── packages/
 │   └── assessments/                # 社区评估数据
 │       ├── MindSpore/              # MindSpore 社区
-│       │   ├── questions.json      # 原始问题集
-│       │   ├── questions.md        # 问题集（人工可读）
-│       │   ├── approved-questions.json  # 固化问题集（手动维护）
+│       │   ├── questions.json           # 问题集（/get-question 生成，source of truth）
+│       │   ├── questions.md             # 问题集（人工可读）
 │       │   ├── content-labels.json      # 人工标注（手动维护）
 │       │   ├── assessment-tracker.md    # 问题级跟踪表（自动维护）
 │       │   ├── issue-map.json           # Issue 映射（自动维护）
@@ -322,7 +306,6 @@ geo-workflow/
 │       │       │   ├── responses.json
 │       │       │   ├── responses.md
 │       │       │   ├── scoring-results.json
-│       │       │   ├── suggestions.md
 │       │       │   ├── created-issues.json
 │       │       │   └── run-meta.json
 │       │       └── ...
@@ -349,11 +332,10 @@ geo-workflow/
 
 | 文件 | 更新时机 | 说明 |
 |------|----------|------|
-| `approved-questions.json` | 问题集需变更时 | 从 questions.json 筛选后固化 |
+| `questions.json` | 运行 `/get-question` 后审核 | 问题集唯一来源；变更时 AGENT.md 会要求确认 |
 | `content-labels.json` | 官方内容有变更时 | 人工判断每个问题的官方覆盖情况 |
 | `manual-questions.md` | 有新的手动问题时 | 补充自动生成未覆盖的问题 |
 | `feedback-rules.md` | 审核后有反馈时 | 问题生成的学习循环 |
-| `scoring-calibration.md` | 评分抽检后 | 评分校准反馈 |
 | `.env` | API Key 变更时 | 平台 API 密钥 |
 
 ### 自动维护的文件
@@ -383,7 +365,7 @@ openclaw trigger \
 ```
 
 **前提条件**：
-- `approved-questions.json` 和 `content-labels.json` 已就位
+- `questions.json` 和 `content-labels.json` 已就位
 - `.env` 中 API Keys 配置完整
 - 仓库可访问（有 push 权限更新 tracking-log 和 issue-map）
 
@@ -395,7 +377,7 @@ openclaw trigger \
 
 ### Q: 如何更新问题集？
 
-直接编辑 `packages/assessments/MindSpore/approved-questions.json`。同时检查 `content-labels.json` 是否需要同步更新（新增问题需要新标注）。
+重新运行 `/get-question` 或直接编辑 `packages/assessments/MindSpore/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。同时检查 `content-labels.json` 是否需要同步更新（新增问题需要新标注）。
 
 ### Q: 某个平台 API Key 过期了怎么办？
 
@@ -416,8 +398,8 @@ openclaw trigger \
 ### Q: 如何新增一个社区（如 openEuler）？
 
 1. 创建目录 `packages/assessments/openEuler/`
-2. 运行 `/get-question community=openEuler paths=all` 生成问题
-3. 审核后固化为 `packages/assessments/openEuler/approved-questions.json`
+2. 运行 `/get-question community=openEuler paths=all` 生成 `questions.json`
+3. 审核 `questions.md`，直接编辑 `questions.json` 做必要调整
 4. 人工标注 `packages/assessments/openEuler/content-labels.json`
 5. 在 `.env` 中配置该社区的 `OFFICIAL_DOMAINS`
 6. 按正常流程运行
@@ -431,9 +413,7 @@ openclaw trigger \
 
 ### Q: 评分结果不准怎么办？
 
-1. 打开 `suggestions.md`，找到不准的评分条目
-2. 将修正意见写入 `scoring-calibration.md`
-3. 下次评分时，校准反馈会作为 prompt context 自动纳入，避免同类错误
+打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `content-labels.json` 后重新运行 scoring-engine。
 
 ---
 

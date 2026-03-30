@@ -96,22 +96,25 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - Post-processing extracts: mentions_community, community_description, competitors_mentioned, recommendation_position, citations_to_official
 
 ### scoring-engine
-- 8-step procedure: Validate inputs → Layer 1 (content completeness) → Layer 2 (citation accuracy + 26 issue tags) → Layer 2+ (optional fact coverage with standard answers) → Cross-platform pattern analysis → Assign severity & match from catalog → Compile output → Human spot-check
-- Scripts: `validate-inputs.py`, `parse-llm-score.py`, `select-spot-check.py`, `compile-report.py`
-- References: `scoring-prompt-template.md`, `suggestion-rules.md`, `geo-suggestions-catalog.md`
-- Assets: `suggestions-template.md`
-- Multi-layer model: Layer 1 = human-labeled, Layer 2 = LLM citation + issue tags, Layer 2+ = optional fact coverage (when standard-answers.json exists)
-- 72-item GEO suggestion catalog mapped to 5 phenomena (A-E), matched via 26 issue tags
-- Cross-platform pattern analysis identifies content-origin issues (≥3 platforms) vs platform-specific issues
-- Absorbed improvement-advisor capabilities: fact coverage analysis, cross-platform patterns, universal recommendations
-- Outputs: `scoring-results.json`, `suggestions.md` (with execution roadmap + KPI tracking)
+- 5-step procedure: Validate inputs → URL match scoring → Cross-platform aggregation → Match GEO catalog suggestions → Compile output
+- Scripts: `validate-inputs.py`, `compile-report.py`
+- References: `suggestion-rules.md`, `geo-suggestions-catalog.md`
+- Pure URL string matching (exact URL + domain-level), no LLM evaluation
+- Scoring is question-level: Step 2 does per-platform binary match (cited/not_cited), Step 3 aggregates with 90% threshold
+- citation_rate = cited_platforms / total_platforms; ≥90% → "引用了官方内容" (OK), <90% → "有内容未被引用" (P0), no official URLs → "官方内容缺失" (P1)
+- 72-item GEO suggestion catalog, matched by status (not_cited → SEO suggestions, no_official_content → content creation)
+- Output: `scoring-results.json` only
 
 ### issue-creator
-- 5-step procedure: Load config → Parse scoring results → Deduplicate & group → Generate Issue payloads → Output summary
+- 7-step procedure: Load config → Parse scoring results → LLM enrich & group → Match issue-map → Create new issues → Update/resolve existing → Save & summary
 - Scripts: `parse-suggestions.py`, `create-issue.py`, `comment-issue.py`
 - References: `gitcode-api-spec.md`
 - Assets: `issue-template.md`
 - Supports dry-run mode, outputs `created-issues.json`
+- Status-based matching: `not_cited`→SEO suggestions, `no_official_content`→content creation; `satisfied` triggers resolution comment
+- Issue-map match key: `question_ids` overlap only (status excluded, so status changes don't create duplicate issues)
+- `citation_rate` displayed in all issue bodies and update comments
+- LLM generates: `phenomenon_type`, `content_judgment`, `phenomenon_detail`, `causal_chain`, `action_items`, `cross_platform_section`
 
 ## Current Status
 
@@ -203,6 +206,11 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-28 | Fixed directory typo: `asssessments` → `assessments`. All paths now use `packages/assessments/{community}/` |
 | 2026-03-28 | Created `.env.example` with 6 API key placeholders |
 | 2026-03-28 | Updated README.md, AGENT.md, CLAUDE-RESUME.md to match actual directory structure. Removed references to non-existent files (VERSION, CHANGELOG.md, WORKFLOW.md, INPUT.md) |
+| 2026-03-30 | Removed `approved-questions.json`: `questions.json` is now source of truth. AGENT.md Step 0 detects changes and requires `accept_question_update=true` to proceed. |
+| 2026-03-30 | AGENT.md: added `steps` param (select steps by number or name), `scope` param (`all`/`p0`/IDs), `accept_question_update` param. Added `update_questions` special step. Each step now has a name label. |
+| 2026-03-30 | Removed `suggestions.md` output from scoring-engine and all workflow docs. Removed 人工抽检评分 step from first-run flow. Scoring output is `scoring-results.json` only. |
+| 2026-03-30 | scoring-engine rewritten: pure URL string matching (exact + domain), no LLM. Three statuses replace A-E phenomena: `引用了官方内容`(OK), `有内容未被引用`(P0), `官方内容缺失`(P1). 5 steps down from 8. |
+| 2026-03-30 | issue-creator updated: citation_type→status, A-E→new statuses in LLM prompt; citation_rate shown in issue body and comments; issue-map match key is question_ids only; to_resolve list for satisfied questions; Step 6 adds content-labels.json update prompt for no_official_content questions. |
 
 ## Key Decisions
 
@@ -211,6 +219,8 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - Data format: JSON between skills, Markdown for human review
 - Manual questions: write in `manual-questions.md` (Markdown), skill auto-converts to JSON
 - Community data path: `packages/assessments/{community}/` (e.g. `packages/assessments/MindSpore/`)
+- `approved-questions.json` removed: `questions.json` is the source of truth. AGENT.md Step 0 diffs against the last run's snapshot; if changed, aborts unless `accept_question_update=true` is set.
+- AGENT.md supports `steps` (select which steps to run), `scope` (which questions to sample: `all`/`p0`/IDs), `accept_question_update` parameters.
 - New skills must use `/skill-creator` and conform to agentskills.io spec
 - MVP platforms (4): ChatGPT + DeepSeek + 豆包 + Qwen（Perplexity 已移除）
 - API tokens stored in `.env`, template in `.env.example`
@@ -223,8 +233,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - No official doc directory as data source for now
 - Pipeline is 4 execution steps: get-question → platform-sampler → scoring-engine → issue-creator
 - Scoring uses two-layer model: Layer 1 = content completeness (human pre-labeled), Layer 2 = citation accuracy (LLM)
-- Five phenomena: A (no content, P2), B (not cited, P0), C (wrong citation, P0), D (high ratio, OK/P2), E (low ratio, P1)
-- Citation ratio = source-level (official sources / total sources), not content word count
+- Three statuses: `引用了官方内容` (OK), `有内容未被引用` (P0), `官方内容缺失` (P1) — replaces old A-E phenomenon codes
 - `official_urls` per question is human pre-labeled in `content-labels.json` (empty array = no official content)
-- Scoring results require human spot-check calibration (20% stratified sampling → `scoring-calibration.md`)
+- Scoring is pure URL string matching (exact + domain-level), no LLM, no human spot-check
 - Issue auto-creation is a separate skill (issue-creator), uses same GITCODE_TOKEN

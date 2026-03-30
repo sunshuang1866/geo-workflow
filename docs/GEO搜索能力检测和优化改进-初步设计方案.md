@@ -21,7 +21,7 @@
 
 ## 目标用户
 
-本工具面向**开源社区运营人员**，给定一个开源社区，自动完成主流 AI 平台的 GEO 搜索能力判断，输出结构化的改进建议报告（`suggestions.md`），并自动将每条建议创建为社区 Issue。
+本工具面向**开源社区运营人员**，给定一个开源社区，自动完成主流 AI 平台的 GEO 搜索能力判断，输出结构化评分结果（`scoring-results.json`），并自动将每条建议创建为社区 Issue。
 
 ## 系统架构
 
@@ -42,11 +42,10 @@ AGENT.md（工作流编排）
   │
   ├── Step 3: scoring-engine skill
   │     输入：responses.json + content-labels.json
-  │     输出：scoring-results.json + suggestions.md
-  │     ⏸ 人工抽检校准（20%）
+  │     输出：scoring-results.json
   │
   └── Step 4: issue-creator skill
-        输入：suggestions.md / scoring-results.json
+        输入：scoring-results.json
         输出：GitCode Issues（每条建议 → 一个 Issue）
 ```
 
@@ -203,17 +202,7 @@ MVP 阶段聚焦 **ChatGPT + DeepSeek + 豆包 + Qwen** 四个平台：
 - `content-labels.json`（人工标注：每个问题的 `content_exists` + 官方内容 URL）
 
 **输出**：
-- `scoring-results.json`（机器可读评分结果）
-- `suggestions.md`（改进建议报告）
-
-**人工抽检校准**：
-
-```
-LLM 自动评分 → scoring-results.json
-  → 人工分层抽检 20%（每个 severity 级别各抽几个）
-  → 校准偏差记录到 scoring-calibration.md
-  → 下一轮评分时作为 prompt context 融入 LLM（学习循环）
-```
+- `scoring-results.json`（评分结果，含 suggestions）
 
 ---
 
@@ -221,7 +210,7 @@ LLM 自动评分 → scoring-results.json
 
 **目标**：将改进建议自动创建为 GitCode 仓库 Issue，便于社区跟踪和分配。
 
-**输入**：`suggestions.md` 或 `scoring-results.json`
+**输入**：`scoring-results.json`
 
 **输出**：GitCode Issue（每条改进建议 → 一个 Issue）
 

@@ -5,7 +5,9 @@ Usage: python3 sample-platform.py --platform <name> --api-key <key> --query "<qu
 
 Supported platforms: chatgpt, deepseek, doubao, qwen
 
-Output: JSON to stdout with fields: question_id, platform, query, timestamp, raw_response, citations, model.
+The model is always instructed to include reference links in its response.
+
+Output: JSON to stdout with fields: question_id, platform, query, timestamp, raw_response, citations, model, status.
 Errors: stderr with descriptive messages, exits with code 1.
 """
 
@@ -31,7 +33,7 @@ PLATFORM_CONFIG = {
         "model": "deepseek-v3.2",
     },
     "doubao": {
-        "base_url": "https://api.lingyaai.cn/v1",
+        "base_url": "https://www.packyapi.com/v1",
         "model": "doubao-seed-2.0-pro",
     },
     "qwen": {
@@ -41,7 +43,20 @@ PLATFORM_CONFIG = {
 }
 
 
-def sample(platform: str, api_key: str, query: str, question_id: str, base_url: str | None = None) -> dict:
+SYSTEM_PROMPT = (
+    "你的回答必须包含引用来源的链接。在回答末尾，列出所有引用源的完整 URL，格式为：\n\n"
+    "参考链接：\n"
+    "- https://...\n"
+    "- https://...\n\n"
+    "要求：\n"
+    "1. 每条引用必须是完整的 URL（以 http:// 或 https:// 开头），不接受纯文字来源名称。\n"
+    "2. 链接不限来源。\n"
+    "3. 至少提供 3 条引用链接。"
+)
+
+
+def sample(platform: str, api_key: str, query: str, question_id: str,
+           base_url: str | None = None) -> dict:
     if platform not in PLATFORM_CONFIG:
         print(f"ERROR: Unknown platform '{platform}'. Supported: {list(PLATFORM_CONFIG.keys())}", file=sys.stderr)
         sys.exit(1)
@@ -54,10 +69,15 @@ def sample(platform: str, api_key: str, query: str, question_id: str, base_url: 
 
     timestamp = datetime.now(timezone.utc).isoformat()
 
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": query},
+    ]
+
     try:
         response = client.chat.completions.create(
             model=config["model"],
-            messages=[{"role": "user", "content": query}],
+            messages=messages,
         )
 
         result = {
@@ -70,8 +90,6 @@ def sample(platform: str, api_key: str, query: str, question_id: str, base_url: 
             "model": config["model"],
             "status": "success",
         }
-
-        # No platform-specific citation extraction needed for current platforms
 
         return result
 

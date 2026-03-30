@@ -1,0 +1,1039 @@
+[
+  {
+    "question_id": "q_001",
+    "platform": "deepseek",
+    "query": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+    "timestamp": "2026-03-30T09:12:37.260338+00:00",
+    "raw_response": "在 Ubuntu 22.04 ARM 架构上安装 MindSpore，以下是详细的安装步骤和 `opp_kernel` 报错的解决方案：\n\n## 一、MindSpore ARM 版本安装步骤\n\n### 1. 系统要求确认\n- Ubuntu 22.04 ARM64\n- Python 3.7-3.9（推荐 3.8）\n- ARMv8.2 或更高架构\n\n### 2. 安装依赖\n```bash\n# 更新系统\nsudo apt update\nsudo apt upgrade -y\n\n# 安装基础依赖\nsudo apt install -y gcc g++ make cmake git libgmp-dev\n\n# 安装 Python 相关\nsudo apt install -y python3 python3-pip python3-dev python3-venv\n```\n\n### 3. 创建虚拟环境（推荐）\n```bash\n# 创建虚拟环境\npython3 -m venv mindspore_env\nsource mindspore_env/bin/activate\n\n# 升级 pip\npip install --upgrade pip\n```\n\n### 4. 安装 MindSpore ARM 版本\n```bash\n# 根据你的 Python 版本选择对应的安装命令\n# Python 3.8\npip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp38-cp38-linux_aarch64.whl\n\n# Python 3.9\npip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp39-cp39-linux_aarch64.whl\n```\n\n### 5. 验证安装\n```python\nimport mindspore as ms\nimport numpy as np\n\n# 测试基本功能\nx = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))\ny = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))\nprint(ms.ops.add(x, y))\n\n# 检查版本\nprint(f\"MindSpore version: {ms.__version__}\")\n```\n\n## 二、opp_kernel 报错解决方案\n\n### 常见错误场景：\n```\nERROR: opp_kernel module not found\n或\nImportError: cannot import name 'opp_kernel' from 'mindspore._extends'\n```\n\n### 解决方案：\n\n#### 方案1：安装完整依赖\n```bash\n# 安装系统级依赖\nsudo apt install -y libblas3 liblapack3 liblapack-dev libblas-dev\nsudo apt install -y gfortran libopenblas-dev libffi-dev\n\n# 重新安装 MindSpore\npip uninstall mindspore -y\npip cache purge\npip install --no-cache-dir https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp38-cp38-linux_aarch64.whl\n```\n\n#### 方案2：检查 Python 环境\n```bash\n# 确认 Python 版本\npython3 --version\n\n# 如果使用 conda，确保环境正确\nconda create -n mindspore python=3.8\nconda activate mindspore\n\n# 重新安装\npip install mindspore -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n#### 方案3：源码编译安装（最彻底）\n```bash\n# 1. 安装编译依赖\nsudo apt install -y build-essential libssl-dev zlib1g-dev \\\nlibbz2-dev libreadline-dev libsqlite3-dev curl \\\nlibncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \\\nlibffi-dev liblzma-dev\n\n# 2. 安装 Python 3.8\nwget https://www.python.org/ftp/python/3.8.18/Python-3.8.18.tar.xz\ntar -xf Python-3.8.18.tar.xz\ncd Python-3.8.18\n./configure --enable-optimizations\nmake -j$(nproc)\nsudo make altinstall\n\n# 3. 使用 Python 3.8 安装 MindSpore\npython3.8 -m pip install mindspore -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n#### 方案4：使用 Docker（推荐）\n```bash\n# 拉取 MindSpore ARM Docker 镜像\ndocker pull mindspore/mindspore-cpu:2.2.0-aarch64\n\n# 运行容器\ndocker run -it mindspore/mindspore-cpu:2.2.0-aarch64 /bin/bash\n\n# 在容器内测试\npython -c \"import mindspore; print(mindspore.__version__)\"\n```\n\n### 方案5：特定版本降级/升级\n```bash\n# 尝试不同版本\n# 版本 2.1.0\npip install mindspore==2.1.0\n\n# 或安装 nightly 版本\npip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n## 三、故障排查命令\n\n```bash\n# 1. 检查系统架构\nuname -m\n# 应该显示: aarch64\n\n# 2. 检查 Python 扩展模块\npython3 -c \"import mindspore; print(mindspore.__file__)\"\n\n# 3. 查看详细错误信息\npython3 -c \"import mindspore\" 2>&1 | grep -i opp_kernel\n\n# 4. 检查 wheel 文件完整性\npip download https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp38-cp38-linux_aarch64.whl\n```\n\n## 四、替代方案\n\n如果问题持续存在，可以考虑：\n\n1. **使用华为云 ModelArts**：直接使用云端的 MindSpore 环境\n2. **使用 Conda 环境**：\n```bash\nconda create -n mindspore python=3.8\nconda activate mindspore\nconda install mindspore -c mindspore -c conda-forge\n```\n\n3. **等待官方修复**：关注 [MindSpore GitHub Issues](https://github.com/mindspore-ai/mindspore/issues)\n\n## 注意事项\n1. ARM 架构的 MindSpore 目前只支持 CPU 版本\n2. 确保 pip 版本 >= 19.0\n3. 如果使用代理，确保网络连接正常\n4. 安装前关闭所有 Python 进程\n\n如果以上方案都不能解决问题，建议：\n- 查看 `/var/log/syslog` 中的相关错误\n- 在 MindSpore 官方 GitHub 提交 issue\n- 提供完整的错误日志和系统信息",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个深度学习框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://ms-release.obs.cn-north-4.myhuaweicloud.com/",
+      "https://pypi.tuna.tsinghua.edu.cn/simple"
+    ]
+  },
+  {
+    "question_id": "q_001",
+    "platform": "doubao",
+    "query": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+    "timestamp": "2026-03-30T09:39:36.307912+00:00",
+    "raw_response": "### 一、Ubuntu 22.04 ARM（aarch64）架构安装MindSpore步骤\n首先通过`uname -m`确认系统架构为`aarch64`，再根据是否带昇腾NPU选择对应安装方案：\n\n---\n#### 场景1：纯ARM CPU安装（无昇腾NPU）\n无需额外依赖，直接用pip安装即可：\n1. **前置准备**：安装Python 3.8~3.11（MindSpore 2.x支持版本），并升级pip：\n   ```bash\n   sudo apt install python3 python3-pip\n   pip3 install --upgrade pip\n   ```\n2. **安装MindSpore CPU版**：\n   可直接通过国内镜像安装指定版本（以最新稳定版2.3.0为例）：\n   ```bash\n   pip3 install mindspore==2.3.0 -i https://pypi.mirrors.ustc.edu.cn/simple\n   ```\n3. **验证安装**：\n   ```bash\n   python3 -c \"import mindspore;mindspore.set_context(device_target='CPU');print(mindspore.run_check())\"\n   ```\n   输出`MindSpore version: xxx`、运行成功即安装完成。\n\n---\n#### 场景2：ARM+昇腾NPU安装（鲲鹏服务器/昇腾开发板等）\n需要先安装和MindSpore版本严格匹配的昇腾驱动+CANN套件：\n1. **安装昇腾配套环境**：\n   - 到[昇腾官网](https://www.hiascend.com/software/cann)下载对应aarch64架构、Ubuntu 22.04的CANN套件，注意**CANN版本必须和MindSpore版本严格对应**：\n     | MindSpore版本 | 匹配CANN版本 |\n     |---|---|\n     | 2.3.x | 8.0.RC1 |\n     | 2.2.x | 7.0.RC1 |\n     | 2.1.x | 6.3.RC2 |\n   - 按照昇腾官方文档完成驱动、CANN套件安装后，配置环境变量（路径替换为你的实际安装路径）：\n     ```bash\n     echo \"source /usr/local/Ascend/ascend-toolkit/set_env.sh\" >> ~/.bashrc\n     source ~/.bashrc\n     ```\n2. **安装MindSpore昇腾版**：\n   2.x版本MindSpore已统一安装包，自动适配昇腾环境，安装命令同CPU版：\n   ```bash\n   pip3 install mindspore==2.3.0 -i https://pypi.mirrors.ustc.edu.cn/simple\n   ```\n3. **验证安装**：\n   ```bash\n   python3 -c \"import mindspore;mindspore.set_context(device_target='Ascend');print(mindspore.run_check())\"\n   ```\n\n---\n### 二、opp_kernel报错解决方案\n`opp_kernel`是昇腾算子内核组件，该报错仅出现在昇腾版安装/运行场景，常见原因和解决方法按优先级排序：\n---\n1. **最常见原因：版本不匹配**\n   - 问题：MindSpore版本和CANN版本不兼容，或安装了x86架构的CANN包到ARM系统。\n   - 解决：对照上文中的版本对应表，重新安装匹配版本的CANN或MindSpore，且确保CANN包是aarch64架构版本。\n---\n2. **环境变量未正确配置**\n   - 问题：未source CANN的环境变量，或运行时（如sudo执行）未继承环境变量。\n   - 解决：\n     1. 执行`source /usr/local/Ascend/ascend-toolkit/set_env.sh`（路径替换为你的实际CANN安装路径）\n     2. 如果用sudo运行代码，添加`-E`参数继承环境变量：`sudo -E python3 xxx.py`\n---\n3. **权限不足**\n   - 问题：当前用户没有CANN安装目录的读取权限，无法加载opp算子。\n   - 解决：将当前用户加入昇腾用户组，重启终端生效：\n     ```bash\n     sudo usermod -aG ascend $USER\n     ```\n---\n4. **算子缓存损坏**\n   - 问题：之前运行生成的算子缓存冲突，导致加载失败。\n   - 解决：清空缓存目录后重新运行：\n     ```bash\n     rm -rf ~/.cache/ascend\n     ```\n---\n5. **CANN组件安装不全**\n   - 问题：安装CANN时漏选了opp算子包组件。\n   - 解决：重新运行CANN安装包，勾选`opp`组件完整安装，安装后检查`ls ${CANN路径}/opp`目录有内容即可。\n---\n6. **系统依赖缺失**\n   - 问题：Ubuntu22.04缺少算子运行依赖库。\n   - 解决：安装依赖：\n     ```bash\n     sudo apt install -y libgl1 libglib2.0-0 libgflags-dev libglog-dev\n     ```\n\n如果是纯ARM CPU用户碰到该报错，直接把代码里的`device_target`从`Ascend`改为`CPU`即可解决。",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": []
+  },
+  {
+    "question_id": "q_001",
+    "platform": "qwen",
+    "query": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+    "timestamp": "2026-03-30T09:13:42.403376+00:00",
+    "raw_response": "在 Ubuntu 22.04 ARM 架构（如鲲鹏、树莓派等）上安装 MindSpore 并解决 opp_kernel 报错，可参考以下完整指南：\n\n---\n\n## 一、系统与环境要求\n\n- **操作系统**：Ubuntu 22.04 LTS（ARM64）\n- **Python 版本**：3.7 ~ 3.9（推荐 3.8）\n- **MindSpore 版本**：建议使用 2.2+（支持 ARM64）\n- **硬件要求**：\n  - 内存 ≥ 8GB\n  - 磁盘空间 ≥ 10GB\n  - 若使用 Ascend NPU，需安装对应 CANN 工具包\n\n---\n\n## 二、安装前准备\n\n### 1. 更新系统与安装基础依赖\n\n```bash\nsudo apt update && sudo apt upgrade -y\nsudo apt install -y python3-pip python3-dev python3-venv \\\n    libffi-dev libssl-dev libxml2-dev libxslt1-dev \\\n    g++ gcc make cmake git wget curl\n```\n\n### 2. 创建并激活虚拟环境（推荐）\n\n```bash\npython3 -m venv mindspore_env\nsource mindspore_env/bin/activate\npip install --upgrade pip setuptools wheel\n```\n\n### 3. 安装 Python 依赖\n\n```bash\npip install numpy scipy protobuf matplotlib\n```\n\n---\n\n## 三、安装 MindSpore\n\n### 方法一：使用 pip 安装（推荐）\n\n```bash\npip install mindspore==2.2.0 -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n> 注意：请根据实际硬件选择对应版本。若使用 Ascend NPU，需安装 `mindspore-ascend`。\n\n### 方法二：源码编译（适用于定制或解决兼容性问题）\n\n```bash\ngit clone -b r2.2 https://gitee.com/mindspore/mindspore.git\ncd mindspore\nbash build.sh -e ascend  # 或 -e cpu / gpu\n```\n\n---\n\n## 四、opp_kernel 报错解决方案\n\n### 常见报错信息\n\n```\nRuntimeError: opp_kernel load failed\nImportError: libascendcl.so not found\n```\n\n### 原因与解决方法\n\n#### 1. 缺少 CANN 工具包（Ascend 用户）\n\n- 前往华为官网下载与 MindSpore 版本匹配的 CANN 工具包（如 7.0.RC1）\n- 安装后配置环境变量：\n\n```bash\nsource /usr/local/Ascend/ascend-toolkit/set_env.sh\n```\n\n- 添加到 `~/.bashrc` 实现永久生效：\n\n```bash\necho 'source /usr/local/Ascend/ascend-toolkit/set_env.sh' >> ~/.bashrc\nsource ~/.bashrc\n```\n\n#### 2. 动态库路径未设置\n\n```bash\nexport LD_LIBRARY_PATH=/usr/local/Ascend/ascend-toolkit/latest/aarch64-linux-gnu/lib64:$LD_LIBRARY_PATH\n```\n\n#### 3. 权限问题\n\n```bash\nsudo chmod -R 755 /usr/local/Ascend\n```\n\n#### 4. 版本不匹配\n\n确保 MindSpore、CANN、Python 版本兼容。例如：\n\n| MindSpore | CANN     | Python |\n|-----------|----------|--------|\n| 2.2.x     | 7.0.RC1  | 3.8    |\n| 2.0.x     | 6.3.RC1  | 3.7-3.9|\n\n#### 5. 使用 CPU 模式绕过 opp_kernel（非 Ascend 用户）\n\n```python\nimport mindspore as ms\nms.set_context(device_target=\"CPU\")\n```\n\n或设置环境变量：\n\n```bash\nexport MS_DEVICE_TARGET=CPU\n```\n\n---\n\n## 五、验证安装\n\n```python\nimport mindspore as ms\nimport numpy as np\n\nprint(ms.__version__)\nprint(ms.get_context().device_target)\n\nx = ms.Tensor(np.ones([2, 3]), ms.float32)\ny = ms.Tensor(np.ones([2, 3]), ms.float32)\nprint(x + y)\n```\n\n若使用 Ascend：\n\n```python\nms.set_context(device_target=\"Ascend\")\n```\n\n---\n\n## 六、常见问题排查\n\n| 问题 | 解决方法 |\n|------|----------|\n| `libascendcl.so not found` | 检查 CANN 安装与 LD_LIBRARY_PATH |\n| `opp_kernel load failed` | 检查驱动、权限、版本匹配 |\n| `Segmentation fault` | 更换 Python 版本或重新编译 |\n| 导入失败 | 激活虚拟环境，确认 pip 安装路径 |\n\n使用以下命令辅助排查：\n\n```bash\nldd $(python -c \"import mindspore; print(mindspore.__file__)\") | grep ascend\nnpu-smi info  # 检查 NPU 状态\n```\n\n---\n\n## 七、优化建议\n\n- 使用虚拟环境隔离依赖\n- 定期更新 MindSpore 与 CANN\n- 使用清华/阿里镜像加速 pip 下载\n- 若无需 NPU，建议使用 CPU 模式简化部署\n\n---\n\n通过上述步骤，您应能在 Ubuntu 22.04 ARM 架构上成功安装 MindSpore，并有效解决 opp_kernel 相关报错。如仍有问题，建议查阅华为昇腾社区或 MindSpore 官方文档获取最新支持。",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个AI计算框架，支持在Ascend NPU、CPU、GPU等不同硬件上运行。",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://gitee.com/mindspore/mindspore.git"
+    ]
+  },
+  {
+    "question_id": "q_002",
+    "platform": "deepseek",
+    "query": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+    "timestamp": "2026-03-30T09:14:11.041961+00:00",
+    "raw_response": "好的，MindSpore NLP 的安装确实可能会遇到一些问题，因为它依赖于特定的 MindSpore 版本、Python 环境和系统配置。请按照以下步骤系统性地排查和解决。\n\n### **第一步：明确错误信息（最关键的一步）**\n\n安装失败时，**务必记录完整的错误信息**。通常你会在最后几行看到核心错误。常见的错误类型包括：\n*   `Could not find a version that satisfies the requirement...`\n*   `ERROR: Failed building wheel for...`\n*   `ModuleNotFoundError: No module named '...'`\n*   与 CUDA、cuDNN、GCC 版本相关的编译错误。\n\n**请先定位你的错误属于哪一类，然后对照下文解决。**\n\n---\n\n### **第二步：通用排查与解决方案**\n\n#### **1. 确认官方安装指南**\n首先，以 **GitHub 仓库的 README 或官方文档** 为准，不要依赖过时的博客。\n*   MindNLP GitHub: [https://github.com/mindspore-lab/mindnlp](https://github.com/mindspore-lab/mindnlp)\n*   查看 `README.md` 中的 `Installation` 部分。\n\n#### **2. 检查 MindSpore 前置安装**\nMindNLP **强烈依赖** 正确安装的 MindSpore。请务必先完成这一步。\n*   **访问 MindSpore 官方安装页面**：[https://www.mindspore.cn/install](https://www.mindspore.cn/install)\n*   **严格按照你的环境选择**：\n    *   **操作系统**： Windows / Linux / macOS\n    *   **硬件平台**： CPU / GPU (CUDA 版本：11.1, 11.6 等)\n    *   **安装方式**： Pip / Conda / Docker\n*   **验证 MindSpore 安装**：\n    ```bash\n    python -c \"import mindspore; print(mindspore.__version__)\"\n    ```\n    如果这步失败，**先解决 MindSpore 的安装问题**，MindNLP 的问题会迎刃而解。\n\n#### **3. 创建干净的虚拟环境（强烈推荐）**\n使用 conda 或 venv 可以避免包冲突。\n```bash\n# 使用 Conda (推荐)\nconda create -n mindnlp_env python=3.8  # 建议使用官方推荐的Python版本（如3.7-3.9）\nconda activate mindnlp_env\n\n# 或在虚拟环境中\npip install --upgrade pip\n```\n\n#### **4. 升级关键工具**\n```bash\npip install --upgrade pip setuptools wheel\n```\n\n---\n\n### **第三步：针对特定错误场景的解决方案**\n\n#### **场景一：找不到 MindNLP 版本或依赖包**\n```\nERROR: Could not find a version that satisfies the requirement mindnlp (from versions: none)\nERROR: No matching distribution found for mindnlp\n```\n*   **方案**： 直接从 GitHub 源码安装最新开发版。\n    ```bash\n    pip install git+https://github.com/mindspore-lab/mindnlp.git\n    ```\n*   如果上述方法失败，可以尝试克隆仓库后安装：\n    ```bash\n    git clone https://github.com/mindspore-lab/mindnlp.git\n    cd mindnlp\n    pip install -e .  # 可编辑模式安装，方便后续开发\n    # 或\n    pip install .\n    ```\n\n#### **场景二：编译扩展或依赖包失败 (Building wheel failed)**\n通常出现在安装 `tokenizers`, `regex` 等需要编译的包时。\n*   **方案1 (Linux/macOS)**： 安装开发工具链。\n    ```bash\n    # Ubuntu/Debian\n    sudo apt-get install build-essential\n\n    # CentOS/RHEL\n    sudo yum install gcc gcc-c++ make\n\n    # macOS (确保已安装Xcode Command Line Tools)\n    xcode-select --install\n    ```\n*   **方案2 (Windows)**： 确保已安装 Visual C++ Build Tools。最简单的方法是安装 [Visual Studio Community](https://visualstudio.microsoft.com/zh-hans/vs/community/)，并在安装时勾选“使用C++的桌面开发”工作负载。\n*   **方案3**： 寻找预编译的 wheel 包。可以到 [https://pypi.org/](https://pypi.org/) 搜索对应包和版本的非官方编译版，但需注意兼容性。\n\n#### **场景三：版本不兼容**\n错误信息中可能提示 `mindspore` 或其他包版本不满足要求。\n*   **方案**： 在安装 MindNLP 时指定兼容的版本。查看 `mindnlp` 目录下的 `setup.py` 或 `requirements.txt` 文件，了解其要求的精确版本。\n    ```bash\n    # 示例：先安装指定版本的MindSpore，再安装MindNLP\n    pip install mindspore==2.2.0  # 请替换为MindNLP要求的版本\n    pip install git+https://github.com/mindspore-lab/mindnlp.git\n    ```\n\n#### **场景四：CUDA 相关错误**\n提示 `CUDA version`, `cuDNN` 或 `NVIDIA driver` 不匹配。\n*   **方案**：\n    1.  使用 `nvidia-smi` 查看驱动支持的 **最高** CUDA 版本。\n    2.  使用 `nvcc -V` 查看当前安装的 CUDA 工具包版本。\n    3.  **确保 MindSpore 安装命令中的 CUDA 版本号 ≤ 驱动支持的版本，且与本地环境匹配**。\n    4.  例如，驱动支持 CUDA 12.0，你可以安装 MindSpore 的 CUDA 11.6 版本，但可能无法安装 CUDA 12.1 版本。\n\n#### **场景五：安装成功，但导入时报错**\n```\nModuleNotFoundError: No module named 'mindnlp'\n```\n*   **方案**：\n    1.  检查虚拟环境是否激活。\n    2.  检查安装路径是否在 Python 的搜索路径中。\n        ```bash\n        python -c \"import sys; print(sys.path)\"\n        pip show mindnlp  # 查看安装位置\n        ```\n    3.  可能是部分依赖未正确安装，尝试重新安装。\n\n---\n\n### **第四步：安装流程总结（推荐步骤）**\n\n这是最稳妥的安装流程：\n\n1.  **准备环境**：\n    ```bash\n    conda create -n mindnlp_env python=3.8\n    conda activate mindnlp_env\n    pip install --upgrade pip\n    ```\n\n2.  **安装 MindSpore (核心)**：\n    *   前往 [MindSpore Install Page](https://www.mindspore.cn/install)。\n    *   选择：**操作系统**、**架构**、**版本**、**Python版本**、**CUDA版本（如需要）**。\n    *   复制生成的 `pip` 命令并执行。例如（CPU Linux 示例）：\n        ```bash\n        pip install mindspore==2.2.0  # 请使用官网生成的确切命令\n        ```\n    *   **验证**：`python -c \"import mindspore; print(mindspore.__version__)\"`。\n\n3.  **安装 MindNLP**：\n    ```bash\n    # 方案A：直接安装（首选）\n    pip install git+https://github.com/mindspore-lab/mindnlp.git\n\n    # 方案B：克隆后安装\n    git clone https://github.com/mindspore-lab/mindnlp.git\n    cd mindnlp\n    pip install -e .\n    ```\n\n4.  **验证 MindNLP**：\n    ```bash\n    python -c \"import mindnlp; print(mindnlp.__version__)\"\n    ```\n\n---\n\n### **第五步：寻求进一步帮助**\n\n如果以上步骤均无法解决：\n1.  **查阅项目 Issues**： 前往 [MindNLP GitHub Issues](https://github.com/mindspore-lab/mindnlp/issues)，用关键词搜索你的错误。很可能已经有人遇到并解决了。\n2.  **提交新 Issue**： 如果找不到解决方案，提交一个新 Issue。**务必提供完整信息**：\n    *   **操作系统**和**版本**。\n    *   **Python 版本** (`python --version`)。\n    *   **MindSpore 版本**和**安装方式**。\n    *   **完整的错误日志**（复制粘贴文本，不要截图）。\n    *   你已经尝试过的步骤。\n\n按照这个流程，绝大多数安装问题都可以被定位和解决。祝您安装顺利！",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI computing framework",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install"
+    ]
+  },
+  {
+    "question_id": "q_002",
+    "platform": "doubao",
+    "query": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+    "timestamp": "2026-03-30T09:40:36.119208+00:00",
+    "raw_response": "MindNLP安装失败绝大多数是环境不匹配、依赖冲突、网络/源问题导致的，可以按照以下步骤逐层排查解决：\n---\n### 第一步：先做前置环境校验（80%的安装失败都是这一步的问题）\nMindNLP强依赖对应版本的MindSpore，版本不匹配会直接导致安装/导入失败，首先确认以下信息：\n#### 1. 版本匹配检查\n参考官方版本对应表：\n| MindNLP版本 | 要求MindSpore版本 | 支持Python版本 |\n|-------------|------------------|----------------|\n| 0.4.x       | 2.3.x            | 3.7~3.10       |\n| 0.3.x       | 2.2.x            | 3.7~3.10       |\n| 0.2.x       | 2.0.x            | 3.7~3.9        |\n| 0.1.x       | 1.8.x            | 3.7~3.9        |\n\n先执行以下命令确认当前MindSpore状态：\n```bash\n# 看已装MindSpore版本\npip list | grep mindspore\n# 确认MindSpore本身可以正常运行\npython -c \"import mindspore;mindspore.run_check()\"\n```\n如果MindSpore本身运行报错/版本不匹配，先按照MindSpore官方文档安装对应版本的MindSpore（注意和你用的硬件CPU/GPU/Ascend对应）。\n\n#### 2. 环境隔离检查\n避免全局环境的依赖冲突，建议先用conda/venv创建干净的虚拟环境再安装：\n```bash\n# 示例：用conda创建环境\nconda create -n mindnlp python=3.9\nconda activate mindnlp\n# 先装对应版本的MindSpore，再装MindNLP\n```\n\n---\n### 第二步：针对安装方式排查问题\n#### 情况1：pip安装失败\n最常见的是源问题/包下载不完整：\n1. 先卸载残留的旧版本MindNLP：\n```bash\npip uninstall mindnlp -y\n# 确保没有多版本残留\npython -m pip uninstall mindnlp -y\n```\n2. 换国内镜像源安装，同时指定对应版本：\n```bash\n# 用清华源安装，指定版本，比如你用MindSpore2.3就装0.4.0\npython -m pip install mindnlp==0.4.0 -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n如果提示`Could not find a version that satisfies the requirement mindnlp`，确认你的Python版本在支持范围内，不要用Python3.11/3.12，目前还未适配。\n\n#### 情况2：源码编译安装失败\n如果要装最新开发版，从Gitee拉源码安装失败的话：\n1. 先装编译依赖：\n```bash\npip install setuptools wheel setuptools_scm -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n2. 确认拉取的源码完整，避免网络中断导致文件缺失，建议用Gitee镜像（比GitHub速度快）：\n```bash\ngit clone https://gitee.com/mindspore-lab/mindnlp.git\ncd mindnlp\npip install .\n```\n3. Windows下源码安装额外注意：\n   - 开启系统长路径支持：管理员身份运行PowerShell执行：\n     ```powershell\n     New-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\" -Name \"LongPathsEnabled\" -Value 1 -PropertyType DWORD -Force\n     ```\n   - 安装Visual Studio的C++桌面开发组件，避免编译依赖时报错。\n\n---\n### 第三步：典型错误专项解决\n| 错误场景 | 解决方法 |\n|----------|----------|\n| 安装时提示`sentencepiece`/`tokenizers`等依赖编译失败 | Linux下先装系统依赖：<br>Ubuntu：`sudo apt install build-essential cmake pkg-config`<br>CentOS：`sudo yum install gcc-c++ cmake make` |\n| 安装成功但`import mindnlp`报错版本不匹配 | 要么升级/降级MindSpore到对应版本，要么卸载MindNLP装匹配的版本 |\n| 导入时提示`dll load failed`/so库找不到 | Windows下安装VC++ Redistributable 2019；Linux下装`sudo apt install libgomp1`；GPU环境确认CUDA路径已经加到系统环境变量 |\n| 内网离线安装失败 | 先在外网环境下载所有依赖包：`pip download mindnlp==xxx -d ./pkgs`，把pkgs文件夹拷贝到内网后执行`pip install --no-index --find-links=./pkgs mindnlp` |\n\n---\n### 第四步：求助渠道\n如果以上步骤都无法解决，可以到MindNLP官方仓库提Issue求助，提的时候附上以下信息方便快速定位：\n1. 系统版本、硬件平台（CPU/GPU/Ascend，显卡/昇腾卡型号）\n2. Python版本、MindSpore版本、MindNLP版本\n3. 完整的安装命令和报错日志\n4. 已经做过的排查操作\n\n仓库地址：https://gitee.com/mindspore-lab/mindnlp/issues\n也可以到MindSpore官方论坛、交流群咨询。",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindNLP强依赖对应版本的MindSpore",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://gitee.com/mindspore-lab/mindnlp/issues"
+    ]
+  },
+  {
+    "question_id": "q_002",
+    "platform": "qwen",
+    "query": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+    "timestamp": "2026-03-30T09:15:24.440538+00:00",
+    "raw_response": "# MindSpore NLP（MindNLP）安装失败排查指南\n\n当安装 MindNLP 失败时，建议按照以下系统性步骤进行排查和解决：\n\n---\n\n## 一、检查基础环境\n\n### 1. Python 版本\nMindNLP 通常支持 Python 3.7–3.9：\n```bash\npython --version\n```\n如版本不匹配，请创建虚拟环境：\n```bash\nconda create -n mindnlp python=3.8\nconda activate mindnlp\n```\n\n### 2. MindSpore 版本兼容性\n查看已安装的 MindSpore 版本：\n```bash\npython -c \"import mindspore; print(mindspore.__version__)\"\n```\nMindNLP 通常要求 MindSpore ≥ 2.0。如版本不匹配，请升级：\n```bash\npip install -U mindspore\n# 或指定版本\npip install mindspore==2.2.0\n```\n\n### 3. 操作系统与架构\n确认系统架构与 MindSpore 安装包匹配：\n```bash\nuname -m  # Linux/Mac\n# 或\npython -c \"import platform; print(platform.machine())\"\n```\n\n---\n\n## 二、安装方式与依赖\n\n### 1. 推荐安装方式\n```bash\n# 从 PyPI 安装\npip install mindnlp\n\n# 或从源码安装\ngit clone https://gitee.com/mindspore/mindnlp.git\ncd mindnlp\npip install -e .\n```\n\n### 2. 安装依赖\n```bash\npip install -r requirements.txt\n```\n\n### 3. 使用国内镜像加速\n```bash\npip install mindnlp -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n---\n\n## 三、常见错误及解决方案\n\n| 错误类型 | 可能原因 | 解决方案 |\n|----------|----------|----------|\n| `ModuleNotFoundError: No module named 'mindspore'` | MindSpore 未安装 | `pip install mindspore` |\n| `VersionConflict` | 版本不兼容 | 升级/降级 MindSpore 或 MindNLP |\n| `Permission denied` | 权限不足 | 使用 `--user` 或虚拟环境 |\n| `SSL/Certificate error` | 网络问题 | 更换镜像源或配置代理 |\n| `ImportError: libxxx.so` | 系统库缺失 | 安装系统依赖（如 `libstdc++`） |\n\n---\n\n## 四、网络与代理配置\n\n### 1. 配置 pip 镜像\n```bash\npip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n### 2. 设置代理（如需要）\n```bash\nexport http_proxy=http://proxy:port\nexport https_proxy=http://proxy:port\n```\n\n### 3. 离线安装\n```bash\n# 在有网络环境下载\npip download mindnlp -d ./packages\n\n# 在无网络环境安装\npip install --no-index --find-links=./packages mindnlp\n```\n\n---\n\n## 五、权限与虚拟环境\n\n### 1. 使用虚拟环境（推荐）\n```bash\npython -m venv mindnlp_env\nsource mindnlp_env/bin/activate  # Linux/Mac\n# 或\nmindnlp_env\\Scripts\\activate  # Windows\n```\n\n### 2. 避免使用 sudo\n```bash\n# 不推荐\nsudo pip install mindnlp\n\n# 推荐\npip install --user mindnlp\n```\n\n---\n\n## 六、系统依赖与编译问题\n\n### 1. 安装系统依赖（以 Ubuntu 为例）\n```bash\nsudo apt-get update\nsudo apt-get install -y build-essential libssl-dev libffi-dev python3-dev\n```\n\n### 2. 升级构建工具\n```bash\npip install --upgrade pip setuptools wheel\n```\n\n### 3. 清理缓存后重试\n```bash\npip cache purge\npip install --no-cache-dir mindnlp\n```\n\n---\n\n## 七、验证安装\n\n```bash\npython -c \"import mindnlp; print(mindnlp.__version__)\"\npython -c \"import mindspore; print(mindspore.__version__)\"\n```\n\n运行示例代码验证功能：\n```python\nfrom mindnlp.transformers import AutoTokenizer\ntokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')\nprint(\"安装成功！\")\n```\n\n---\n\n## 八、日志与调试\n\n### 1. 查看详细安装日志\n```bash\npip install mindnlp -vvv\n```\n\n### 2. 收集诊断信息\n```bash\npython -c \"\nimport sys, platform, mindspore\nprint('Python:', sys.version)\nprint('Platform:', platform.platform())\nprint('MindSpore:', mindspore.__version__)\ntry:\n    import mindnlp\n    print('MindNLP:', mindnlp.__version__)\nexcept Exception as e:\n    print('MindNLP Error:', e)\n\"\n```\n\n---\n\n## 九、获取帮助与反馈\n\n- 官方文档：https://mindnlp.readthedocs.io\n- Gitee 仓库：https://gitee.com/mindspore/mindnlp\n- 提交 Issue：https://gitee.com/mindspore/mindnlp/issues\n- 社区论坛：https://forum.mindspore.cn\n\n---\n\n## 十、快速检查清单 ✅\n\n- [ ] Python 版本在 3.7–3.9 范围内\n- [ ] MindSpore 已安装且版本兼容\n- [ ] 使用虚拟环境安装\n- [ ] pip/setuptools/wheel 已升级\n- [ ] 网络通畅或使用镜像源\n- [ ] 系统依赖已安装\n- [ ] 安装日志无致命错误\n- [ ] 导入测试成功\n\n---\n\n如仍无法解决，请提供以下信息以便进一步协助：\n1. 操作系统及版本\n2. Python 和 MindSpore 版本\n3. 完整错误日志\n4. 安装命令及环境（是否使用虚拟环境/代理等）\n\n通过上述步骤，大多数 MindNLP 安装问题都可以被定位并解决。",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "The AI computing framework for which MindNLP is the natural language processing library. It is the required base dependency, with specific version compatibility requirements (e.g., ≥ 2.0).",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": []
+  },
+  {
+    "question_id": "q_003",
+    "platform": "deepseek",
+    "query": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+    "timestamp": "2026-03-30T09:15:51.916933+00:00",
+    "raw_response": "安装 MindSpore 2.6.0 GPU 版本时遇到问题很常见，特别是环境配置复杂时。以下是详细步骤和故障排查指南：\n\n## 一、官方推荐安装步骤（精简版）\n\n### 1. **系统与环境要求**\n- **CUDA 版本**：MindSpore 2.6.0 GPU 通常需要 CUDA 11.1/11.6\n- **cuDNN**：与 CUDA 对应版本（如 8.0+）\n- **Python**：3.7-3.9（官方推荐 3.7.5）\n- **操作系统**：Ubuntu 18.04/20.04，CentOS 7.6+\n\n### 2. **标准安装命令**\n```bash\n# 创建虚拟环境（推荐）\nconda create -n mindspore python=3.7.5\nconda activate mindspore\n\n# 安装 MindSpore GPU 版本（以 CUDA 11.6 为例）\npip install mindspore==2.6.0 -i https://pypi.tuna.tsinghua.edu.cn/simple\n```\n\n## 二、常见失败原因及解决方案\n\n### **问题1：CUDA/cuDNN 版本不匹配**\n```bash\n# 验证 CUDA 版本\nnvcc --version  # 或 nvidia-smi\n\n# 验证 cuDNN\ncat /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2\n```\n\n**解决方案**：\n- 访问 [MindSpore 版本列表](https://www.mindspore.cn/versions) 确认兼容性矩阵\n- 使用 Docker 镜像避免环境冲突：\n```bash\ndocker pull mindspore/mindspore-gpu:2.6.0\n```\n\n### **问题2：Python 版本不兼容**\n```bash\n# 检查 Python 版本\npython --version\n\n# 如果版本不对，使用 conda 指定版本\nconda create -n ms260 python=3.7.5\n```\n\n### **问题3：网络问题导致下载失败**\n```bash\n# 使用国内镜像源\npip install mindspore==2.6.0 -i https://pypi.tuna.tsinghua.edu.cn/simple\n\n# 或华为镜像\npip install mindspore==2.6.0 -i https://mirrors.huaweicloud.com/repository/pypi/simple\n```\n\n### **问题4：依赖库冲突**\n```bash\n# 在干净环境中安装\nconda create -n mindspore_new python=3.7.5\nconda activate mindspore_new\npip install --upgrade pip\npip install mindspore==2.6.0\n```\n\n## 三、验证安装是否成功\n\n```python\nimport mindspore as ms\nimport numpy as np\nfrom mindspore import Tensor\n\n# 检查版本\nprint(f\"MindSpore version: {ms.__version__}\")\n\n# 测试 GPU 支持\nprint(f\"GPU available: {ms.context.get_context('device_target')}\")\n\n# 简单运算测试\nx = Tensor(np.ones([1,3,3,4]).astype(np.float32))\ny = Tensor(np.ones([1,3,3,4]).astype(np.float32))\nprint(x + y)\n```\n\n## 四、高级故障排查\n\n### **1. 查看详细错误信息**\n```bash\n# 增加 verbose 输出\npip install mindspore==2.6.0 -v\n\n# 查看具体错误日志\npip install mindspore==2.6.0 2>&1 | tee install.log\n```\n\n### **2. 手动下载安装**\n```bash\n# 从华为镜像手动下载\nwget https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/gpu/x86_64/cuda-11.6/mindspore-2.6.0-cp37-cp37m-linux_x86_64.whl\npip install mindspore-2.6.0-cp37-cp37m-linux_x86_64.whl\n```\n\n### **3. 使用 conda 安装**\n```bash\nconda install mindspore-gpu=2.6.0 -c mindspore -c conda-forge\n```\n\n## 五、官方资源与求助\n\n### **1. 官方文档**\n- [安装指南](https://www.mindspore.cn/install)\n- [版本说明](https://www.mindspore.cn/docs/zh-CN/r2.6/note/installation.html)\n\n### **2. 寻求帮助**\n- **GitHub Issues**：[MindSpore Issues](https://github.com/mindspore-ai/mindspore/issues)\n- **官方论坛**：[MindSpore 论坛](https://bbs.huaweicloud.com/forum/forum-1076-1.html)\n- **错误报告模板**：\n  ```\n  1. 操作系统版本：\n  2. CUDA/cuDNN 版本：\n  3. Python 版本：\n  4. 完整错误信息：\n  5. 已尝试的解决方案：\n  ```\n\n## 六、备选方案\n\n如果仍无法解决，考虑：\n1. **使用 Docker**：`docker run -it mindspore/mindspore-gpu:2.6.0 /bin/bash`\n2. **尝试其他版本**：如 MindSpore 2.5.0 可能更稳定\n3. **使用 CPU 版本临时替代**：`pip install mindspore==2.6.0`\n\n**建议**：如果环境配置困难，优先使用 Docker 或 conda 环境，这能避免大部分系统级依赖问题。安装后务必运行验证脚本确认 GPU 支持正常。",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI框架或深度学习框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/versions",
+      "https://www.mindspore.cn/install",
+      "https://www.mindspore.cn/docs/zh-CN/r2.6/note/installation.html",
+      "https://github.com/mindspore-ai/mindspore/issues"
+    ]
+  },
+  {
+    "question_id": "q_003",
+    "platform": "doubao",
+    "query": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+    "timestamp": "2026-03-30T09:41:36.578591+00:00",
+    "raw_response": "### 一、MindSpore 2.6.0 GPU 版本正确安装步骤\nMindSpore 2.6.0 GPU版仅支持NVIDIA显卡（算力≥5.3），适配CUDA 11.6/11.8/12.1、CuDNN 8.6+、Python 3.8~3.11，以下是最稳妥的安装流程：\n---\n#### 步骤1：前置环境检查\n首先确认硬件和基础驱动符合要求：\n1. 执行`nvidia-smi`，右上角显示的驱动支持最高CUDA版本≥你要安装的CUDA版本：\n   - 用CUDA11.8：驱动版本≥520.61.05\n   - 用CUDA12.1：驱动版本≥530.30.02\n2. 确认Python版本在3.8~3.11范围内：`python --version`\n---\n#### 步骤2：安装CUDA/CuDNN依赖\n推荐用conda安装（无需修改系统环境变量，避免多版本冲突）：\n```bash\n# 1. 先创建独立的conda环境，避免依赖冲突\nconda create -n ms2.6 python=3.10 -y\nconda activate ms2.6\n\n# 2. 安装对应版本的CUDA和CuDNN，以下以CUDA11.8为例（最稳定）\nconda install cudatoolkit=11.8 cudnn=8.9 -c conda-forge -y\n```\n如果需要系统级安装CUDA，去[NVIDIA官网](https://developer.nvidia.com/cuda-toolkit-archive)下载对应版本安装包，安装后添加环境变量：\n```bash\n# 写入~/.bashrc（Linux）或~/.zshrc，重启终端生效\nexport PATH=/usr/local/cuda-11.8/bin:$PATH\nexport LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH\n# 验证：nvcc -V 输出对应CUDA版本即为成功\n```\n---\n#### 步骤3：安装MindSpore 2.6.0 GPU版\n根据你安装的CUDA版本选对应的安装命令，优先用国内源避免下载失败：\n| CUDA版本 | pip安装命令 |\n|---------|------------|\n| 11.6 | `pip install mindspore-cuda116==2.6.0 -i https://repo.huaweicloud.com/repository/pypi/simple` |\n| 11.8 | `pip install mindspore-cuda118==2.6.0 -i https://repo.huaweicloud.com/repository/pypi/simple` |\n| 12.1 | `pip install mindspore-cuda121==2.6.0 -i https://repo.huaweicloud.com/repository/pypi/simple` |\n\n> 注意：不要直接执行`pip install mindspore`，默认会安装CPU版本！\n---\n#### 步骤4：验证安装\n执行以下代码，输出`MindSpore version: 2.6.0`+`Device: GPU`且无报错即为安装成功：\n```python\nimport mindspore as ms\nprint(ms.__version__)\nprint(ms.run_check())\n```\n\n---\n### 二、按官方步骤安装失败的常见排查方案\n#### 1. 安装时提示「找不到对应版本」/下载失败\n- 排查点1：确认Python版本是3.8~3.11，Python 3.7/3.12+均不支持MindSpore 2.6.0\n- 排查点2：确认包名和CUDA版本匹配，不要写错包名\n- 解决：换华为云/中科大pypi源，或手动从[MindSpore官网下载页面](https://www.mindspore.cn/versions#2.6.0)下载对应whl包本地安装：`pip install 本地whl路径`\n\n#### 2. import时提示「CUDA/CuDNN not found」/版本不匹配\n- 排查点1：确认CUDA版本是11.6/11.8/12.1，其他版本（如11.7/12.0）官方不提供预编译包，无法直接使用\n- 排查点2：如果是conda安装的CUDA，确认当前在对应conda环境中，执行`conda list`检查是否有对应版本的cudatoolkit和cudnn\n- 解决：强制指定CUDA路径，在运行代码前加环境变量：`export CUDA_HOME=$CONDA_PREFIX`（conda环境）或`export CUDA_HOME=/usr/local/cuda-11.8`（系统级安装）\n\n#### 3. run_check时提示GPU不可用\n- 排查点1：执行`nvidia-smi`确认显卡显存未被其他进程占满，关闭占用显卡的进程再尝试\n- 排查点2：如果是WSL2环境，不要在WSL内安装NVIDIA驱动，仅需Windows系统安装最新WSL2专属NVIDIA驱动即可\n- 排查点3：老显卡（如GTX 750之前的型号）算力<5.3，需要参考官方文档自行源码编译适配\n\n#### 4. 运行时报错依赖冲突\n- 常见是numpy版本过高，MindSpore 2.6.0不支持numpy 2.0+，执行`pip install numpy<2.0`降级即可\n\n---\n### 三、兜底求助方案\n如果以上排查都无法解决，可直接向官方社区求助，提供以下信息能快速定位问题：\n1. 操作系统版本（如Ubuntu 22.04、WSL2、Windows 11）\n2. 完整的报错日志、Python/CUDA/驱动版本信息\n3. 你执行的安装命令、`pip list`的输出\n- 求助渠道：\n  1. [MindSpore Gitee Issue仓库](https://gitee.com/mindspore/mindspore/issues)\n  2. [MindSpore官方论坛](https://www.mindspore.cn/community/forum)\n  3. 官方用户群（官网首页可扫码加入）\n\n如果不想折腾本地环境，也可以直接用官方预构建的Docker镜像：\n```bash\ndocker pull mindspore/mindspore-gpu-cuda11.8:2.6.0\ndocker run -it --gpus all mindspore/mindspore-gpu-cuda11.8:2.6.0 /bin/bash\n```",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI框架 (AI framework)",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/versions#2.6.0",
+      "https://www.mindspore.cn/community/forum",
+      "https://gitee.com/mindspore/mindspore/issues"
+    ]
+  },
+  {
+    "question_id": "q_003",
+    "platform": "qwen",
+    "query": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+    "timestamp": "2026-03-30T09:16:51.924750+00:00",
+    "raw_response": "安装 MindSpore 2.6.0 GPU 版本确实比 CPU 版本复杂，主要难点在于 **CUDA/cuDNN 版本匹配**、**系统依赖库** 以及 **网络环境**。如果官方文档步骤失败，通常是因为环境预处理没做到位。\n\n以下是一份经过验证的**避坑指南**，包含标准安装流程和失败后的排查方案。\n\n---\n\n### 第一阶段：安装前的“环境体检” (最关键)\n\n90% 的安装失败是因为环境不满足前置要求。在执行 `pip install` 之前，请务必确认以下信息：\n\n#### 1. 操作系统与架构\n*   **推荐系统**：Ubuntu 20.04 / 22.04 (64 位)。\n*   **注意**：Windows 下直接安装 GPU 版本支持有限，建议使用 **WSL2 (Ubuntu 子系统)** 或 **Docker**。以下教程以 Linux 为例。\n\n#### 2. Python 版本\nMindSpore 2.6.0 对 Python 版本有严格限制。\n*   **推荐**：Python 3.8 或 3.9。\n*   **检查**：`python --version`\n*   **建议**：使用 `conda` 创建独立环境，避免污染系统 Python。\n    ```bash\n    conda create -n mindspore260 python=3.8 -y\n    conda activate mindspore260\n    ```\n\n#### 3. NVIDIA 驱动与 CUDA (核心痛点)\nMindSpore GPU 版本与 CUDA 版本是**强绑定**的。\n*   **查看驱动**：`nvidia-smi` (右上角显示的 `CUDA Version` 是驱动支持的最高版本，不是已安装的 Toolkit 版本)。\n*   **MindSpore 2.6.0 推荐配置**：\n    *   **CUDA**: 11.8 或 12.1 (建议优先尝试 **11.8**，兼容性更好)。\n    *   **cuDNN**: 对应 CUDA 版本的最新版 (如 cuDNN 8.7 for CUDA 11.8)。\n    *   **NCCL**: 如果涉及多卡训练，需安装 NCCL 2.x。\n*   **检查环境变量**：确保 CUDA 库路径在 `LD_LIBRARY_PATH` 中。\n    ```bash\n    echo $LD_LIBRARY_PATH\n    # 必须包含 /usr/local/cuda/lib64 或类似路径\n    ```\n\n#### 4. 编译依赖 (GCC)\nMindSpore 某些算子需要系统级编译依赖。\n*   **GCC**: 版本建议 7.5.0 以上 (Ubuntu 20.04 默认通常满足)。\n*   **安装基础依赖**：\n    ```bash\n    sudo apt-get update\n    sudo apt-get install -y cmake zlib1g-dev libbz2-dev libssl-dev libffi-dev\n    ```\n\n---\n\n### 第二阶段：标准安装步骤 (推荐 Pip 方式)\n\n不要直接运行 `pip install mindspore`，这会从 PyPI 拉取可能不匹配的版本。请指定官方源。\n\n#### 1. 升级 pip\n```bash\npip install --upgrade pip\n```\n\n#### 2. 安装 MindSpore GPU 版本\n国内用户建议使用阿里云或清华镜像加速，但**必须指定 MindSpore 的 whl 索引地址**。\n\n**命令 (CUDA 11.8 环境示例):**\n```bash\n# 注意：-f 参数指定了预编译包的地址，这是成功的关键\npip install mindspore==2.6.0 -f https://mindspore.cn/whl/gpu/\n```\n\n**如果下载慢，使用阿里云镜像源配合官方 whl 地址：**\n```bash\npip install mindspore==2.6.0 -f https://mindspore.cn/whl/gpu/ --extra-index-url https://mirrors.aliyun.com/pypi/simple/\n```\n\n#### 3. 安装配套组件 (可选但推荐)\n```bash\npip install mindspore-ops==2.6.0  # 如果需要自定义算子\n```\n\n---\n\n### 第三阶段：验证安装\n\n不要只在终端看 `pip list`，要运行代码验证。\n\n```python\nimport mindspore as ms\nimport numpy as np\n\n# 1. 检查版本号\nprint(ms.__version__)  # 应输出 2.6.0\n\n# 2. 设置上下文为 GPU\nms.set_context(device_target=\"GPU\")\n\n# 3. 简单运算测试\nx = ms.Tensor(np.ones([2, 2]).astype(np.float32))\ny = ms.Tensor(np.ones([2, 2]).astype(np.float32))\nprint(x + y)\n```\n*   **成功标志**：无报错，且输出计算结果。\n*   **失败标志**：报错 `ImportError` 或 `Device target GPU is not supported`。\n\n---\n\n### 第四阶段：官方步骤失败怎么办？(排查清单)\n\n如果按上述步骤仍失败，请按以下顺序排查：\n\n#### 1. 报错：`ImportError: libcudart.so.xx: cannot open shared object file`\n*   **原因**：系统找不到 CUDA 动态库。\n*   **解决**：\n    1.  确认已安装 CUDA Toolkit (不仅仅是驱动)。\n    2.  将 CUDA 库路径加入环境变量。在 `~/.bashrc` 末尾添加：\n        ```bash\n        export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH\n        export CUDA_HOME=/usr/local/cuda-11.8\n        ```\n    3.  执行 `source ~/.bashrc` 生效。\n\n#### 2. 报错：`Wheel xxx is not a supported wheel on this platform`\n*   **原因**：Python 版本或 Linux 发行版不匹配。\n*   **解决**：\n    *   检查 Python 是否为 3.8/3.9。\n    *   检查系统是否为 glibc 版本过低 (CentOS 7 常见)。建议换用 Ubuntu 20.04+。\n    *   检查 pip 版本是否过旧 (`pip install --upgrade pip`)。\n\n#### 3. 报错：`OSError: [Errno 22] Invalid argument` 或 启动即崩溃\n*   **原因**：显卡驱动与 CUDA 版本不兼容。\n*   **解决**：\n    *   运行 `nvidia-smi`，确保驱动版本支持你安装的 CUDA 版本。\n    *   尝试降级 CUDA 到 11.8 (2.6.0 对 12.x 的支持可能不如 11.x 稳定)。\n\n#### 4. 报错：`ModuleNotFoundError: No module named 'mindspore'` (但在 pip list 里有)\n*   **原因**：Python 环境混淆。\n*   **解决**：\n    *   确认当前终端激活的 conda 环境与安装时的环境一致。\n    *   确认 `which python` 指向的是你预期的路径。\n\n#### 5. 网络问题导致下载中断\n*   **解决**：\n    *   手动下载 `.whl` 文件：访问 [MindSpore 历史版本页面](https://www.mindspore.cn/versions)，找到 2.6.0 GPU 对应的 `.whl` 文件下载到本地。\n    *   本地安装：`pip install ./mindspore-2.6.0-cp38-cp38-linux_x86_64.whl`。\n\n---\n\n### 第五阶段：终极解决方案 (如果以上都无效)\n\n如果你被环境依赖折磨得无法解决，请使用 **Docker**。这是最稳妥的方式，官方提供了预装好所有依赖的镜像。\n\n#### 1. 拉取官方镜像\n访问 [MindSpore Docker 镜像库](https://www.mindspore.cn/install/docker) 查找 2.6.0 GPU 对应的镜像标签。\n通常格式如下（示例）：\n```bash\ndocker pull mindspore/mindspore:2.6.0-gpu\n```\n\n#### 2. 运行容器 (挂载显卡)\n```bash\ndocker run -it --gpus all -v /path/to/your/code:/root/code mindspore/mindspore:2.6.0-gpu /bin/bash\n```\n*   `--gpus all`：必须加，否则容器内看不到显卡。\n*   `-v`：将你的代码目录挂载进去，方便开发。\n\n#### 3. 在容器内验证\n进入容器后直接运行 Python 测试代码，通常能 100% 成功。\n\n---\n\n### 总结与建议\n\n1.  **首选 Conda + Pip**：在 Ubuntu 20.04 + Python 3.8 + CUDA 11.8 环境下最稳定。\n2.  **必看兼容性表**：安装前务必查阅 MindSpore 官网的 **\"硬件信息\"** 或 **\"版本兼容性\"** 页面，确认 2.6.0 具体支持的 CUDA 版本（有时小版本更新会改变依赖）。\n3.  **开启日志**：如果报错不明，运行前设置环境变量 `export MS_LOG_LEVEL=1` 以获取更详细的报错堆栈。\n4.  **不要死磕源码编译**：除非你需要修改 MindSpore 源码，否则不要尝试 `build.sh` 源码编译，那会引入更多依赖问题。\n5.  **求助渠道**：如果问题依旧，携带 `nvidia-smi` 输出、`pip list` 输出和完整报错日志，在 [MindSpore Gitee Issues](https://gitee.com/mindspore/mindspore/issues) 或 官方论坛 提问。\n\n**最快捷的成功路径：** 如果你只是学习或跑通模型，**直接使用 Docker 镜像**，能节省你 2-3 天的环境调试时间。",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://mindspore.cn/whl/gpu/"
+    ]
+  },
+  {
+    "question_id": "q_004",
+    "platform": "deepseek",
+    "query": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+    "timestamp": "2026-03-30T09:18:03.703014+00:00",
+    "raw_response": "MindSpore模型推理报错的常见原因和排查思路如下：\n\n## 一、常见报错原因\n\n### 1. **模型加载问题**\n- 模型文件损坏或不完整\n- 模型版本与MindSpore版本不兼容\n- 模型格式问题（.mindir/.air/.onnx等）\n\n### 2. **输入数据问题**\n- 输入张量shape不匹配\n- 数据类型不一致\n- 数据范围/归一化问题\n- 输入节点名称错误\n\n### 3. **环境配置问题**\n- MindSpore版本与硬件不匹配\n- 缺少依赖库\n- GPU/昇腾环境配置错误\n- 内存/显存不足\n\n### 4. **算子支持问题**\n- 模型中包含当前版本不支持的算子\n- 算子属性配置错误\n- 自定义算子未注册\n\n## 二、系统化排查思路\n\n### **第一步：检查基础环境**\n```python\n# 1. 验证MindSpore安装\nimport mindspore\nprint(f\"MindSpore版本: {mindspore.__version__}\")\nprint(f\"编译类型: {mindspore.__git_commit__}\")\n\n# 2. 检查设备可用性\nfrom mindspore import context\ncontext.set_context(device_target=\"GPU\")  # 或\"Ascend\"/\"CPU\"\nprint(f\"设备数量: {context.get_context('device_num')}\")\n```\n\n### **第二步：模型加载检查**\n```python\n# 1. 验证模型文件\nimport mindspore as ms\ntry:\n    graph = ms.load(\"model.mindir\")\n    print(\"模型加载成功\")\nexcept Exception as e:\n    print(f\"模型加载失败: {e}\")\n\n# 2. 检查模型输入输出\nnet = ms.nn.GraphCell(graph)\nprint(f\"输入信息: {net.inputs}\")\nprint(f\"输出信息: {net.outputs}\")\n```\n\n### **第三步：输入数据验证**\n```python\n# 1. 确保输入shape匹配\nimport numpy as np\n# 获取模型期望的输入shape\nexpected_shape = net.inputs[0].shape\nprint(f\"期望输入shape: {expected_shape}\")\n\n# 2. 创建正确格式的输入\ninput_data = np.random.randn(*expected_shape).astype(np.float32)\n```\n\n### **第四步：推理过程调试**\n```python\n# 1. 逐步执行推理\ncontext.set_context(mode=context.GRAPH_MODE)  # 或PYNATIVE_MODE调试\n\n# 2. 使用try-catch捕获具体错误\ntry:\n    output = net(ms.Tensor(input_data))\n    print(\"推理成功\")\nexcept RuntimeError as e:\n    print(f\"运行时错误: {e}\")\nexcept ValueError as e:\n    print(f\"值错误: {e}\")\n```\n\n## 三、高级调试技巧\n\n### 1. **启用详细日志**\n```bash\nexport GLOG_v=3  # 日志级别1-3\nexport MS_LOG=debug\n```\n\n### 2. **使用PyNative模式调试**\n```python\ncontext.set_context(mode=context.PYNATIVE_MODE)\n# 可以逐算子调试，定位具体出错位置\n```\n\n### 3. **检查算子支持**\n```python\n# 查看模型中所有算子\nfrom mindspore.ops import operations as P\n# 检查是否有不支持的操作\n```\n\n### 4. **内存问题排查**\n```python\n# 监控内存使用\nfrom mindspore import Tensor\nimport psutil\nprint(f\"内存使用: {psutil.virtual_memory().percent}%\")\n```\n\n## 四、特定场景解决方案\n\n### **场景1：Shape不匹配**\n```python\n# 动态shape处理\ncontext.set_context(mode=context.GRAPH_MODE, \n                   dynamic_inputs=True)\n```\n\n### **场景2：自定义算子问题**\n```python\n# 注册自定义算子\nfrom mindspore.ops import CustomRegOp, custom_info_register\n```\n\n### **场景3：多设备推理**\n```python\n# 分布式推理设置\ncontext.set_auto_parallel_context(\n    parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL\n)\n```\n\n## 五、实用检查清单\n\n- [ ] MindSpore版本与模型训练版本一致\n- [ ] 模型文件完整且未损坏\n- [ ] 输入数据shape、dtype正确\n- [ ] 设备资源（内存/显存）充足\n- [ ] 环境变量配置正确\n- [ ] 依赖库版本兼容\n- [ ] 算子支持情况检查\n\n## 六、获取更多帮助\n\n1. **查看官方文档**：[MindSpore故障处理](https://www.mindspore.cn/docs/zh-CN/r2.0/faq.html)\n2. **查看日志文件**：`~/mindspore/logs/`\n3. **社区支持**：[MindSpore论坛](https://bbs.huaweicloud.com/forum/forum-1076-1.html)\n4. **开启Dump功能**收集详细错误信息\n\n**关键建议**：从简单到复杂逐步排查，先确保最小可运行示例正常工作，再逐步添加复杂功能。",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/docs/zh-CN/r2.0/faq.html",
+      "https://bbs.huaweicloud.com/forum/forum-1076-1.html"
+    ]
+  },
+  {
+    "question_id": "q_004",
+    "platform": "doubao",
+    "query": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+    "timestamp": "2026-03-30T09:43:06.846116+00:00",
+    "raw_response": "MindSpore推理报错可以按照**从易到难、从表层到深层**的逻辑排查，以下是高频报错原因和对应排查思路：\n\n---\n\n### 第一步：先定位报错根因的前置操作\n首先开启详细日志缩小问题范围：\n```bash\n# 开启Debug级日志（0=Debug,1=Info,2=Warning,3=Error）\nexport GLOG_v=1\n# 推理代码中开启计算图保存，方便定位编译问题\ncontext.set_context(save_graphs=True, save_graphs_path=\"./graph_log\")\n```\n优先看报错关键字：比如`shape mismatch`/`operator not support`/`OOM`/`load checkpoint failed`，直接对应以下分类排查。\n\n---\n\n### 常见报错原因&排查思路\n#### 1. 环境/版本不兼容问题（占比30%+）\n**常见原因**：\n- 训练用的MindSpore版本和推理版本不一致（比如训练用1.x，推理用2.x，API/算子实现有变更）\n- 跨硬件推理未适配：比如训练用GPU，推理用Ascend，硬件驱动/CANN版本和MindSpore版本不匹配\n- 设备权限不足：比如Ascend设备未加入`HwHiAiUser`用户组、模型/数据路径无读权限\n- 内存/显存/昇腾NPU内存不足，触发OOM报错\n\n**排查思路**：\n- 对照[MindSpore版本匹配表](https://www.mindspore.cn/install)核对：MindSpore版本、Python版本、Ascend CANN/固件驱动版本完全一致\n- 用`nvidia-smi`/`npu-smi info`检查设备资源占用，确认剩余显存/内存足够加载模型，推理时适当减小batch size\n- 跨硬件推理优先用统一的`MindIR`格式作为模型载体，不要直接用硬件特定的ckpt文件推理\n\n---\n\n#### 2. 模型/权重不匹配问题（占比25%）\n**常见原因**：\n- 分布式训练保存的ckpt直接用于单卡推理：ckpt里带了优化器参数、分布式并行前缀，和推理模型的参数名不匹配\n- 模型结构变更后没有更新权重：比如修改了输出类别数、新增了层，和旧权重shape不一致\n- MindIR导出错误：比如导出时用了静态shape，推理时输入shape和导出时不一致；或导出时用了Python动态语法，导致MindIR结构损坏\n\n**排查思路**：\n- 加载权重时开启严格校验，直接定位不匹配的参数：\n  ```python\n  load_checkpoint(ckpt_path, net=model, strict_load=True)\n  ```\n- 分布式训练的ckpt先用[ckpt转换工具](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/save_load.html#转换分布式ckpt为单卡ckpt)转成单卡权重，过滤掉优化器、分布式相关参数\n- 导出MindIR时和推理场景对齐：动态shape推理要显式指定`dynamic_shape`参数，导出后先用`mindspore.load()`接口测试是否能正常加载MindIR\n\n---\n\n#### 3. 输入数据/预处理问题（占比25%）\n**常见原因**：\n- 输入shape/数据类型不匹配：比如模型要求NCHW格式，输入传了NHWC；静态shape模型推理时batch size和导出时不一致\n- 预处理逻辑和训练时不一致：比如训练时做了归一化`/255`、减均值除方差，推理时遗漏/参数不对；图像resize、padding算法和训练时不同\n- 动态shape场景下，输入shape超出了导出MindIR时指定的最大/最小范围\n\n**排查思路**：\n- 先打印模型要求的输入规格，和输入Tensor逐位对比：\n  ```python\n  # 获取模型输入的shape、dtype\n  for input_spec in model.predict_network.get_inputs():\n      print(input_spec.shape, input_spec.dtype)\n  ```\n- 把训练阶段的预处理抽成公共函数，推理时直接复用，避免手写预处理逻辑不一致\n- 取训练阶段的1个验证样本，用完全相同的预处理后喂给推理，验证是否能正常输出，先排除数据问题\n\n---\n\n#### 4. 推理配置/语法兼容问题（占比15%）\n**常见原因**：\n- 运行模式配置错误：比如Ascend推理时选错了`device_target`，device_id配置错误指向了不存在的设备\n- 混合精度不匹配：训练时用了FP16混合精度，推理默认用FP32，触发算子不支持/精度溢出报错\n- 代码用了MindSpore静态图不支持的Python动态语法（比如依赖外部变量的for循环、动态类型判断），导致编译失败\n- 自定义算子未适配：训练时用了自定义GPU/CPU算子，推理时在Ascend上没有部署对应硬件的算子实现\n\n**排查思路**：\n- 先把推理模式切换到`PYNATIVE_MODE`，报错信息会更具体，可以直接定位到出错的代码行：\n  ```python\n  context.set_context(mode=context.PYNATIVE_MODE)\n  ```\n- 对照[MindSpore算子支持列表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/operator_list.html)，查报错的算子是否支持当前推理硬件，不支持的话用等价算子替换\n- 自定义算子要提前在推理硬件上编译、注册，确认算子在推理环境下可以正常调用\n\n---\n\n#### 5. 部署场景专属问题（占比5%）\n如果是用MindSpore Lite、MindServing部署推理：\n- Lite转换模型时遗漏了自定义算子注册，转换阶段就报错，需要加`--customOp`参数指定自定义算子库\n- MindServing的配置文件里输入/输出的name、shape和模型实际要求不一致，导致请求报错\n- 端口冲突、多模型部署时资源竞争，导致服务启动失败\n\n---\n\n### 排查流程优先级\n1. 看报错日志定位关键字 → 2. 核对版本/环境配置 → 3. 校验模型权重匹配性 → 4. 排查输入/预处理逻辑 → 5. 切换动态图定位代码/算子问题\n如果仍无法解决，提Issue时带上：MindSpore版本、硬件类型、报错完整日志、最小复现代码，会大幅提升排查效率。",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI平台或框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install",
+      "https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/save_load.html",
+      "https://www.mindspore.cn/docs/zh-CN/r2.3/note/operator_list.html"
+    ]
+  },
+  {
+    "question_id": "q_004",
+    "platform": "qwen",
+    "query": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+    "timestamp": "2026-03-30T09:18:54.355804+00:00",
+    "raw_response": "MindSpore 模型推理报错是一个常见问题，可能涉及环境、模型、数据、硬件或代码逻辑等多个层面。以下整理了**常见原因分类**及**系统化的排查思路**，帮助你快速定位问题。\n\n---\n\n### 一、常见报错原因分类\n\n#### 1. 环境与版本兼容性\n*   **MindSpore 版本不匹配：** 训练和推理使用的 MindSpore 版本不一致（特别是大版本间，如 1.x 到 2.x），导致算子或图结构不兼容。\n*   **依赖库冲突：** Python 版本、CANN（Ascend 环境）、CUDA/cuDNN（GPU 环境）版本与 MindSpore 不匹配。\n*   **驱动/固件问题：** Ascend NPU 驱动或固件版本过低，不支持某些算子。\n\n#### 2. 模型加载与结构\n*   **Checkpoint 加载失败：** 权重文件路径错误、文件损坏、或网络定义与权重结构不一致（如层名不匹配）。\n*   **MindIR 导出/加载问题：** 导出时的 `opset` 版本与加载时的推理引擎版本不一致；动态 Shape 处理不当。\n*   **训练/推理网络不一致：** 推理时未去掉训练特有的层（如 Dropout），或未设置 `model.set_train(False)` 导致 BN 层行为异常。\n\n#### 3. 输入数据问题\n*   **Shape 不匹配：** 输入数据的维度（Batch Size, H, W, C）与模型编译时确定的形状不一致。\n*   **数据类型错误：** 模型期望 `Float32`，输入却是 `Float16` 或 `Int8`。\n*   **预处理差异：** 推理时的归一化（Mean/Std）、Resize、Channel Order (RGB/BGR) 与训练时不一致，导致精度极差或报错。\n\n#### 4. 硬件与资源 (Ascend/GPU/CPU)\n*   **显存/内存溢出 (OOM)：** 输入 Batch Size 过大，或模型过大，导致设备内存不足。\n*   **Device ID 占用：** 指定的 NPU/GPU ID 被其他进程占用。\n*   **ACL 初始化失败：** (Ascend 特有) `acl.init` 失败，通常与环境变量 `ASCEND_HOME_PATH` 或权限有关。\n\n#### 5. 代码与配置逻辑\n*   **Context 设置错误：** 未正确设置 `device_target`、`device_id` 或 `mode` (GRAPH_MODE/PYNATIVE_MODE)。\n*   **动态 Shape 支持：** 默认情况下 MindSpore 图模式偏好静态 Shape，若输入尺寸变化未使用动态 Shape 特性，会报错。\n*   **自定义算子缺失：** 模型包含自定义算子，但推理环境未注册或编译该算子。\n\n---\n\n### 二、系统化排查思路 (Step-by-Step)\n\n#### 第一步：分析报错日志 (最关键)\n不要只看最后一行，要向上追溯。\n*   **Python 异常：** 查看 `Traceback`，定位到具体的代码行（是 `load_checkpoint` 报错，还是 `model.predict` 报错？）。\n*   **GE/ACL 错误 (Ascend)：** 如果是底层报错，搜索错误码（如 `GE` 开头错误）。查看 `ms_dump` 目录或 `/var/log/ascend_driver/` 下的日志。\n*   **开启调试日志：**\n    ```bash\n    export MS_ENABLE_LINT=1\n    export GLOG_v=3  # 增加日志详细度\n    ```\n\n#### 第二步：检查环境一致性\n1.  **版本核对：**\n    ```python\n    import mindspore as ms\n    print(ms.__version__)\n    ```\n    确保推理环境与训练环境版本一致（推荐）。检查 `cann-toolkit` 版本是否符合 MindSpore 安装要求。\n2.  **设备可见性：**\n    ```python\n    from mindspore import context\n    context.set_context(device_target=\"Ascend\") # 或 GPU/CPU\n    # 尝试运行一个简单的算子看设备是否可用\n    ```\n3.  **依赖检查：** 使用 `ms_info` 命令（如果可用）或 `pip list` 检查相关包。\n\n#### 第三步：验证模型加载\n1.  **最小化复现：** 写一个最简单的脚本，只加载网络和权重，不进行推理，看是否报错。\n    ```python\n    net = MyNetwork()\n    param_dict = load_checkpoint(\"ckpt_path\")\n    load_param_into_net(net, param_dict) # 报错通常在这里\n    ```\n2.  **检查缺失权重：** 加载时打印 `not_load_param`，确认是否有关键层权重未加载。\n3.  **MindIR 验证：** 如果是加载 `.mindir` 文件，尝试重新导出一次，确保导出过程无警告。\n\n#### 第四步：检查输入数据 (Data Pipeline)\n1.  **打印 Input Shape：** 在 `model.predict` 前，打印输入 Tensor 的 `shape` 和 `dtype`。\n    ```python\n    print(input_data.shape, input_data.dtype)\n    ```\n2.  **对比训练配置：** 确认推理的输入预处理代码是否与训练时的 `Dataset` 处理逻辑完全一致。\n3.  **静态 Shape 限制：** 如果是图模式，尝试固定 Batch Size。如果必须动态，检查是否使用了 `DynamicShape` 特性导出 MindIR。\n\n#### 第五步：硬件资源排查 (针对 Ascend/GPU)\n1.  **查看设备状态：**\n    *   Ascend: 使用 `npu-smi info` 查看设备状态、占用率、温度。\n    *   GPU: 使用 `nvidia-smi`。\n2.  **清理进程：** 杀死占用设备的僵尸进程。\n3.  **降低负载：** 将 Batch Size 调小（如设为 1），排除 OOM 问题。\n4.  **权限检查：** 确保当前用户有权限访问 `/dev/davinciX` (Ascend) 或 `/dev/nvidiaX` (GPU)。\n\n#### 第六步：代码逻辑审查\n1.  **设置推理模式：** 确保执行了 `net.set_train(False)`。这会影响 Dropout 和 BatchNorm 的行为。\n2.  **Context 配置：** 检查 `context.set_context` 是否在导入网络之前或预测之前正确调用。\n3.  **并行配置：** 如果训练用了分布式，推理时通常不需要 `HCCL` 相关配置，除非是分布式推理。\n\n---\n\n### 三、特定场景的解决方案\n\n#### 场景 1：Ascend NPU 报错 `GE` 或 `ACL` 错误\n*   **原因：** 通常是算子不支持或内存分配失败。\n*   **解决：**\n    *   升级 CANN 包到与 MindSpore 匹配的版本。\n    *   检查是否使用了 NPU 不支持的算子（查看 MindSpore 算子兼容性列表）。\n    *   设置环境变量 `export ASCEND_SLOG_PRINT_TO_STDOUT=1` 查看详细底层日志。\n\n#### 场景 2：MindIR 加载后推理结果全为 0 或 NaN\n*   **原因：** 权重未正确加载，或预处理导致数据异常。\n*   **解决：**\n    *   检查 `load_param_into_net` 的返回值。\n    *   检查输入数据是否归一化到了合理范围（如 0-1 或 -1-1）。\n    *   检查是否有算子在导出时发生了精度溢出（尝试导出时指定 `fp32`）。\n\n#### 场景 3：首次推理极慢或超时\n*   **原因：** 图编译（Graph Compile）耗时。\n*   **解决：**\n    *   这是正常现象，首次运行会进行算子编译和图优化。\n    *   如果持续慢，检查是否每次预测都重新构建了网络（应将网络构建放在循环外）。\n    *   使用 `model.compile()` 预编译。\n\n#### 场景 4：MindSpore Lite (端侧) 报错\n*   **原因：** 转换器（Converter）问题或运行时库不匹配。\n*   **解决：**\n    *   确保使用与推理库版本一致的 `converter_lite` 工具转换模型。\n    *   检查模型中是否包含 Lite 不支持的算子。\n    *   查看 Android/IOS 端的 `logcat` 或系统日志。\n\n---\n\n### 四、常用调试工具与命令\n\n1.  **获取版本信息：**\n    ```bash\n    python -c \"import mindspore; print(mindspore.__version__)\"\n    npu-smi info\n    ```\n2.  **开启详细日志 (Ascend)：**\n    ```bash\n    export GLOG_v=2\n    export MS_ENABLE_LINT=1\n    ```\n3.  **性能分析 (Profiling)：**\n    如果推理不报错但慢，使用 `msprof` 工具分析算子耗时。\n    ```bash\n    msprof --output=./profile_data python infer.py\n    ```\n4.  **算子精度比对：**\n    如果怀疑精度问题，使用 MindSpore 的精度比对工具，对比训练框架（如 PyTorch）与 MindSpore 的中间层输出。\n\n### 五、总结建议\n1.  **先软后硬：** 先查代码、版本、数据，最后查硬件驱动。\n2.  **控制变量：** 用官方示例模型（如 ResNet50）在你的环境跑通，以此判断是环境问题还是模型问题。\n3.  **善用社区：** 如果遇到底层报错（如 `GE` 错误码），直接在 Gitee 或 StackOverflow 搜索错误码，或联系华为昇腾社区支持。\n\n如果以上步骤仍无法解决，建议提供具体的**报错堆栈信息 (Traceback)** 和 **MindSpore 版本号**，以便进一步分析。",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI framework",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": []
+  },
+  {
+    "question_id": "q_005",
+    "platform": "deepseek",
+    "query": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+    "timestamp": "2026-03-30T09:20:14.767654+00:00",
+    "raw_response": "在昇腾设备上使用MindNLP自动下载模型时出错，这是一个常见的技术问题。别担心，我们可以一步步排查解决。\n\n## 常见原因及解决方案\n\n### 1. **网络连接问题**\n- **检查网络连接**：确保昇腾设备可以访问外网（特别是Hugging Face等模型仓库）\n- **配置代理**（如需要）：\n```python\nimport os\nos.environ['HTTP_PROXY'] = 'http://your-proxy:port'\nos.environ['HTTPS_PROXY'] = 'http://your-proxy:port'\n```\n\n### 2. **缓存目录权限问题**\n- **检查缓存目录权限**：\n```python\nfrom mindnlp.utils import get_cache_dir\ncache_dir = get_cache_dir()\nprint(f\"缓存目录: {cache_dir}\")\n# 确保该目录有读写权限\n```\n- **手动指定缓存目录**：\n```python\nimport mindnlp\nmindnlp.config.cache_dir = \"/your/custom/path\"\n```\n\n### 3. **模型名称或路径错误**\n- **验证模型标识符**：确保使用的模型名称在Hugging Face上存在\n- **使用本地模型**（如果已下载）：\n```python\nfrom mindnlp.models import BertModel\nmodel = BertModel.from_pretrained(\"/local/path/to/model\")\n```\n\n### 4. **昇腾环境特定问题**\n- **检查CANN版本兼容性**：\n```bash\nnpu-smi info\npip list | grep mindspore\n```\n- **设置环境变量**：\n```bash\nexport GIT_LFS_SKIP_SMUDGE=1\nexport HF_HUB_DISABLE_TELEMETRY=1\n```\n\n### 5. **具体错误排查步骤**\n\n**第一步：获取详细错误信息**\n```python\nimport logging\nlogging.basicConfig(level=logging.DEBUG)\n\ntry:\n    # 你的模型加载代码\n    from mindnlp.models import AutoModel\n    model = AutoModel.from_pretrained(\"bert-base-uncased\")\nexcept Exception as e:\n    print(f\"详细错误: {e}\")\n    import traceback\n    traceback.print_exc()\n```\n\n**第二步：手动下载测试**\n```bash\n# 测试网络连接\ncurl -I https://huggingface.co\n\n# 手动下载模型文件（示例）\ngit lfs install\ngit clone https://huggingface.co/bert-base-uncased\n```\n\n**第三步：使用离线模式**\n1. 在其他有网络的机器上下载模型\n2. 将模型文件复制到昇腾设备\n3. 从本地路径加载：\n```python\nmodel = AutoModel.from_pretrained(\"/local/path/to/model\")\n```\n\n### 6. **临时解决方案**\n```python\n# 方案1：禁用自动下载，使用已有模型\nimport mindnlp\nmindnlp.config.auto_download = False\n\n# 方案2：使用备用下载源\nos.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'\n```\n\n### 7. **完整检查脚本**\n```python\nimport sys\nimport os\nimport requests\nimport mindnlp\n\ndef check_environment():\n    print(\"=== 环境检查 ===\")\n    print(f\"Python版本: {sys.version}\")\n    print(f\"MindNLP版本: {mindnlp.__version__}\")\n    \n    # 检查网络\n    try:\n        response = requests.get(\"https://huggingface.co\", timeout=5)\n        print(f\"网络连接: 正常 (状态码: {response.status_code})\")\n    except:\n        print(\"网络连接: 失败\")\n    \n    # 检查缓存目录\n    cache_dir = mindnlp.config.cache_dir\n    print(f\"缓存目录: {cache_dir}\")\n    print(f\"缓存目录可写: {os.access(cache_dir, os.W_OK)}\")\n\nif __name__ == \"__main__\":\n    check_environment()\n```\n\n## 如果问题仍未解决\n\n请提供以下信息以便进一步帮助您：\n1. **完整的错误信息**（包括堆栈跟踪）\n2. **使用的具体命令或代码**\n3. **昇腾设备环境信息**（MindSpore版本、CANN版本等）\n4. **模型名称**（如\"bert-base-uncased\"）\n\n您也可以考虑：\n- 查看MindSpore官方文档中的昇腾适配章节\n- 在MindSpore社区或昇腾论坛提交issue\n- 使用Docker容器确保环境一致性\n\n需要更具体的帮助吗？请提供错误详情，我会为您进一步分析。",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "官方文档中的昇腾适配章节，社区或论坛",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": []
+  },
+  {
+    "question_id": "q_005",
+    "platform": "doubao",
+    "query": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+    "timestamp": "2026-03-30T09:44:15.389125+00:00",
+    "raw_response": "MindNLP在昇腾设备上自动下载模型出错，通常可以按照**错误类型定位→对应方案解决**的思路排查，以下是最常见的场景和解决方案：\n\n---\n\n### 一、先判断错误类型\n首先看报错日志的关键词：\n- 出现`ConnectionError`/`Timeout`/`404`：属于网络访问问题\n- 出现`PermissionError`：属于权限/授权问题\n- 出现`算子不支持`/`设备不匹配`/`权重转换失败`：属于环境适配问题\n\n---\n\n### 二、对应场景解决方案\n#### 1. 最常见：网络访问Hugging Face失败\n国内环境默认访问Hugging Face受限，优先用以下两种方案解决：\n##### 方案A：配置Hugging Face国内镜像（推荐）\n临时生效（当前终端有效）：\n```bash\nexport HF_ENDPOINT=https://hf-mirror.com\n```\n永久生效（写入环境变量，重启终端后始终有效）：\n```bash\necho \"export HF_ENDPOINT=https://hf-mirror.com\" >> ~/.bashrc\nsource ~/.bashrc\n```\n配置后再重新执行下载逻辑即可。\n\n##### 方案B：手动下载模型后本地加载\n如果镜像也无法访问，可手动下载模型到本地后直接加载：\n- 手动下载渠道：去[HF镜像站](https://hf-mirror.com)、[魔搭社区](https://modelscope.cn)搜索对应模型，下载整个模型文件夹；或者用`git lfs clone 模型地址`（需先安装`git-lfs`：`apt install git-lfs && git lfs install`）\n- 本地加载示例：\n```python\nfrom mindnlp.transformers import BertModel\n# 直接传入本地模型文件夹路径，加local_files_only=True避免联网\nmodel = BertModel.from_pretrained(\"./本地模型文件夹路径\", local_files_only=True)\n```\n\n---\n\n#### 2. 权限类错误\n- 缓存目录无读写权限：\n  默认缓存目录是`~/.cache/huggingface`，可执行`chmod -R 755 ~/.cache/huggingface`赋权，或者自定义缓存目录：\n  ```bash\n  export HF_HOME=/path/to/your/own/cache # 改成你有读写权限的路径\n  ```\n- 模型需要授权：比如Llama2等需要申请权限的模型，先在Hugging Face官网申请模型访问权限，然后本地执行`huggingface-cli login`，输入你的HF Access Token后再下载。\n\n---\n\n#### 3. 昇腾环境适配类错误\n如果模型下载完成但加载/运行报错，通常是环境版本不匹配导致：\n1. 核对版本对应关系：**昇腾驱动/CANN版本 → MindSpore版本 → MindNLP版本**必须匹配，可去[MindSpore官网版本匹配表](https://www.mindspore.cn/install)核对，建议升级到最新正式版组合：\n   ```bash\n   # 升级MindNLP到最新版\n   pip install --upgrade mindnlp\n   ```\n2. 提前指定昇腾设备：加载模型前先配置运行上下文：\n   ```python\n   import mindspore\n   mindspore.set_context(device_target=\"Ascend\", device_id=0) # 换成你自己的设备ID\n   ```\n3. 大模型显存不足：下载7B/13B等大模型时加载报错，可开启量化/权重卸载：\n   ```python\n   model = BertModel.from_pretrained(\"模型ID\", load_in_8bit=True, device_map=\"auto\")\n   ```\n\n---\n\n### 三、通用排查流程\n如果以上方案都无法解决，按以下步骤定位：\n1. 先确认模型ID拼写正确，没有少写前缀、写错大小写\n2. 检查磁盘空间：确认缓存目录所在磁盘剩余空间足够放下模型\n3. 关闭全局代理：部分代理会导致镜像站访问失败，可临时关闭代理后重试\n4. 提Issue排查：去[MindNLP GitHub仓库](https://github.com/mindspore-lab/mindnlp/issues)提交Issue，附上完整报错日志、CANN/MindSpore/MindNLP版本信息，开发人员会快速协助定位。",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "昇腾设备上运行的AI框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install",
+      "https://github.com/mindspore-lab/mindnlp/issues"
+    ]
+  },
+  {
+    "question_id": "q_005",
+    "platform": "qwen",
+    "query": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+    "timestamp": "2026-03-30T09:21:02.199433+00:00",
+    "raw_response": "在使用 MindNLP 于昇腾（Ascend）设备上自动下载模型时，若出现错误，可按照以下系统性排查与解决方案进行处理：\n\n---\n\n## 一、常见问题及解决方案\n\n### 1. 网络连接问题\n- **现象**：下载超时、连接失败。\n- **解决**：\n  - 检查网络连通性：\n    ```bash\n    ping huggingface.co\n    curl -I https://huggingface.co\n    ```\n  - 配置国内镜像源（推荐）：\n    ```python\n    import os\n    os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'\n    ```\n  - 设置代理（如适用）：\n    ```bash\n    export http_proxy=http://your-proxy:port\n    export https_proxy=http://your-proxy:port\n    ```\n\n### 2. 缓存目录权限或空间不足\n- **现象**：写入失败、权限拒绝。\n- **解决**：\n  - 检查并修改缓存目录权限：\n    ```bash\n    ls -la ~/.cache/huggingface\n    chmod -R 755 ~/.cache/huggingface\n    ```\n  - 自定义缓存路径（确保有写权限）：\n    ```python\n    import os\n    os.environ['HF_HOME'] = '/your/custom/cache/path'\n    os.environ['TRANSFORMERS_CACHE'] = '/your/custom/cache/path'\n    ```\n  - 检查磁盘空间：\n    ```bash\n    df -h\n    ```\n\n### 3. 模型源配置错误\n- **现象**：模型无法识别或下载路径错误。\n- **解决**：\n  - 明确指定模型来源：\n    ```python\n    from mindnlp.transformers import AutoModel\n    model = AutoModel.from_pretrained(\n        \"bert-base-uncased\",\n        cache_dir=\"/your/cache/path\"\n    )\n    ```\n  - 使用 MindSpore 官方模型仓（如适用）：\n    ```python\n    from mindnlp.engine import Trainer\n    # 配置使用 MindSpore 模型源\n    ```\n\n### 4. 昇腾设备特定配置\n- **现象**：模型加载失败、设备不识别。\n- **解决**：\n  - 确认昇腾驱动与 CANN 工具包已正确安装：\n    ```bash\n    npu-smi info\n    ```\n  - 设置 MindSpore 使用 Ascend 后端：\n    ```python\n    import mindspore as ms\n    ms.set_context(device_target=\"Ascend\")\n    ```\n  - 检查 MindSpore 与 MindNLP 版本兼容性：\n    ```bash\n    pip show mindspore\n    pip show mindnlp\n    ```\n\n### 5. 手动下载模型（推荐用于网络不稳定环境）\n- **步骤**：\n  1. 在其他网络环境下载模型文件。\n  2. 上传至昇腾设备指定目录。\n  3. 加载本地模型：\n     ```python\n     model = AutoModel.from_pretrained(\"/local/path/to/model\")\n     ```\n\n---\n\n## 二、完整配置示例\n\n```python\nimport os\nimport mindspore as ms\nfrom mindnlp.transformers import AutoModel, AutoTokenizer\n\n# 设置环境变量\nos.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'\nos.environ['HF_HOME'] = '/your/cache/path'\nos.environ['TRANSFORMERS_CACHE'] = '/your/cache/path'\n\n# 设置 MindSpore 使用昇腾设备\nms.set_context(device_target=\"Ascend\")\n\n# 加载模型\ntokenizer = AutoTokenizer.from_pretrained(\"bert-base-uncased\")\nmodel = AutoModel.from_pretrained(\"bert-base-uncased\")\n```\n\n---\n\n## 三、诊断脚本（可选）\n\n```python\nimport os\nimport mindspore as ms\nfrom mindnlp.transformers import AutoModel\n\ndef diagnose():\n    print(\"=== MindNLP 昇腾环境诊断 ===\")\n    print(f\"HF_ENDPOINT: {os.environ.get('HF_ENDPOINT')}\")\n    print(f\"HF_HOME: {os.environ.get('HF_HOME')}\")\n    print(f\"设备目标: {ms.get_context('device_target')}\")\n    \n    try:\n        model = AutoModel.from_pretrained(\"bert-base-uncased\", local_files_only=True)\n        print(\"✓ 本地模型加载成功\")\n    except Exception as e:\n        print(f\"✗ 本地模型加载失败: {e}\")\n    \n    try:\n        import torch_npu\n        print(\"✓ 昇腾支持库已安装\")\n    except ImportError:\n        print(\"✗ 昇腾支持库未安装\")\n\ndiagnose()\n```\n\n---\n\n## 四、版本兼容性参考\n\n| 组件 | 推荐版本 |\n|------|----------|\n| MindSpore | 2.2.x 或 2.3.x |\n| MindNLP | 0.5.x 或以上 |\n| CANN | 7.0 或以上 |\n| Python | 3.8 - 3.10 |\n\n---\n\n## 五、快速检查清单 ✅\n\n- [ ] 网络连接正常\n- [ ] 缓存目录有写权限\n- [ ] 磁盘空间充足\n- [ ] 环境变量配置正确\n- [ ] MindSpore 与 MindNLP 版本兼容\n- [ ] 昇腾驱动与 CANN 已安装\n- [ ] 必要时使用手动下载方式\n\n---\n\n如仍无法解决，请提供具体错误信息（如报错日志、 traceback），以便进一步定位问题。",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "An AI computing framework, with a model repository mentioned. The response describes setting its device context to use Ascend backend and checking version compatibility.",
+    "competitors_mentioned": [
+      "PyTorch"
+    ],
+    "recommendation_position": "primary",
+    "citations_to_official": []
+  },
+  {
+    "question_id": "q_006",
+    "platform": "deepseek",
+    "query": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
+    "timestamp": "2026-03-30T10:06:23.716153+00:00",
+    "raw_response": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时出现设备初始化失败，可以按照以下步骤进行排查：\n\n### 1. **确认容器环境配置**\n   - **Ascend 310 驱动与固件**：确保宿主机已正确安装昇腾 310 驱动与固件，并在容器启动时通过 `-v` 映射相关设备文件（如 `/dev/davinciX`）和库文件。\n   - **容器镜像**：检查容器镜像是否包含 MindSpore 1.1.1 和对应的 Ascend 310 软件包（如 Ascend CANN 工具包版本需兼容 MindSpore 1.1.1）。建议使用官方提供的 MindSpore 镜像。\n   - **用户权限**：容器内运行 MindSpore 进程的用户需有访问昇腾设备的权限（通常需添加到 `HwHiAiUser` 组）。\n\n### 2. **检查设备映射与挂载**\n   - **设备文件映射**：启动容器时需映射昇腾设备文件，例如：\n     ```bash\n     docker run -it --device=/dev/davinci0 --device=/dev/davinci_manager ...\n     ```\n   - **相关目录挂载**：将宿主机上的昇腾驱动和固件目录挂载到容器内，例如：\n     ```bash\n     -v /usr/local/Ascend/driver:/usr/local/Ascend/driver -v /usr/local/Ascend/firmware:/usr/local/Ascend/firmware\n     ```\n\n### 3. **验证 Ascend 环境**\n   - **CANN 环境变量**：在容器内检查 `ASCEND_HOME`、`LD_LIBRARY_PATH` 等环境变量是否正确设置，确保指向 CANN 安装路径。\n   - **Device ID 设置**：通过 `export ASCEND_DEVICE_ID=X` 指定设备 ID（默认为 0），并确认与实际设备对应。\n   - **运行 Ascend 测试工具**：使用 CANN 提供的测试工具（如 `msquickcmp` 或 `npu-smi info`）验证设备是否能正常访问。\n\n### 4. **检查 MindSpore 版本兼容性**\n   - MindSpore 1.1.1 需与特定版本的 CANN 工具包匹配（参考 MindSpore 官网版本配套表）。例如，MindSpore 1.1.1 可能需要 CANN 20.2 或更高版本。\n   - 使用以下 Python 代码验证 MindSpore 是否能识别 Ascend 设备：\n     ```python\n     import mindspore as ms\n     ms.context.set_context(device_target='Ascend')\n     ```\n\n### 5. **查看日志信息**\n   - **容器日志**：通过 `docker logs` 查看容器启动日志。\n   - **昇腾日志**：检查容器内 `/var/log/npu/` 目录下的 slog 日志（如 `slogd-*.log`）和 `plog` 日志，获取设备初始化失败的详细原因。\n   - **MindSpore 日志**：启用 MindSpore 的日志调试（设置环境变量 `export GLOG_v=3` 或 `export MS_LOG_DEBUG=1`）并查看输出。\n\n### 6. **常见问题与解决**\n   - **设备忙或权限不足**：确认设备未被其他进程占用，且容器内用户有访问权限（可通过 `ls -l /dev/davinci*` 检查权限）。\n   - **CANN 版本不匹配**：更新 CANN 到 MindSpore 1.1.1 要求的版本（参考 MindSpore 版本配套表）。\n   - **内核驱动冲突**：确保宿主机内核版本与昇腾驱动兼容，且未加载冲突的内核模块。\n   - **资源限制**：检查容器资源限制（如内存、进程数）是否足够 Ascend 310 运行。\n\n### 7. **复现与测试**\n   - 使用简单的张量运算测试脚本（如矩阵乘法）验证设备初始化是否成功：\n     ```python\n     import mindspore as ms\n     import mindspore.ops as ops\n     ms.context.set_context(device_target='Ascend')\n     x = ms.Tensor([[1.0, 2.0], [3.0, 4.0]])\n     y = ops.MatMul()(x, x)\n     print(y)\n     ```\n\n参考链接：\n- MindSpore 官方安装指南（Ascend 310）：https://www.mindspore.cn/install\n- MindSpore 版本配套表：https://www.mindspore.cn/versions\n- Ascend CANN 文档：https://www.hiascend.com/document\n- 昇腾社区问题排查：https://bbs.huaweicloud.com/forum/forum-726-1.html",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install",
+      "https://www.mindspore.cn/versions"
+    ]
+  },
+  {
+    "question_id": "q_006",
+    "platform": "doubao",
+    "query": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
+    "timestamp": "2026-03-30T10:07:00.017576+00:00",
+    "raw_response": "### 排查步骤按优先级从高到低排列如下：\n---\n#### 1. 优先校验版本兼容性（80%此类问题由版本不匹配导致）\nMindSpore 1.1.1 是历史版本，对昇腾栈的版本要求非常严格，必须完全匹配：\n- 要求配套 **CANN 版本 = 3.3.0.alpha001**，配套宿主侧 Ascend 310 固件+驱动版本 = 20.2.0\n- 注意：Ascend 310 是推理专属卡，MindSpore 1.1.1 不支持在310上执行训练类张量运算，仅支持推理场景的算子调用，如果是运行训练代码直接会触发设备初始化失败。\n\n---\n#### 2. 宿主侧环境排查\n- 执行 `npu-smi info` 确认宿主侧可以正常识别所有Ascend310卡，卡状态为`Normal`，无告警信息。如果识别失败，重新安装匹配版本的驱动固件。\n- 检查宿主SELinux、AppArmor等安全模块是否限制了设备访问，可临时关闭后重试。\n- 确认无其他进程/容器占用目标310卡的算力资源。\n\n---\n#### 3. 容器配置排查\n- 确认容器启动时正确挂载了所有昇腾必要设备节点：\n  ```bash\n  docker run -it --ipc=host --shm-size=16G \\\n  --device /dev/davinci0 \\ # 按实际卡数挂载所有davinciX\n  --device /dev/davinci_manager \\\n  --device /dev/devmm_svm \\\n  --device /dev/hisi_hdc \\\n  -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \\ # 挂载宿主驱动目录\n  -v /usr/local/dcmi:/usr/local/dcmi \\\n  你的镜像名\n  ```\n- 确认容器操作系统版本符合要求：MindSpore 1.1.1 + Ascend310 仅支持 Ubuntu 18.04、EulerOS 2.8 等老旧OS，不支持Ubuntu 20.04+、CentOS 8+等新版本。\n\n---\n#### 4. 容器内环境排查\n- 先执行 `npu-smi info` 确认容器内可以正常识别310卡，如果失败说明设备挂载/驱动目录挂载错误。\n- 确认安装的是MindSpore Ascend版本而非CPU/GPU版本：执行 `pip list | grep mindspore`，输出应为 `mindspore-ascend 1.1.1`。\n- 确认Python版本为3.7（MindSpore 1.1.1仅支持Python3.7）。\n- 确认CANN环境变量正确配置：\n  ```bash\n  export ASCEND_HOME_PATH=/usr/local/Ascend/nnrt/3.3.0.alpha001 # 推理用nnrt即可\n  export LD_LIBRARY_PATH=${ASCEND_HOME_PATH}/lib64:${LD_LIBRARY_PATH}:/usr/local/Ascend/driver/lib64\n  ```\n- 权限检查：容器运行用户需加入`HwHiAiUser`用户组，或确认当前用户有 `/dev/davinci*` 设备的读写权限。\n\n---\n#### 5. 代码&运行时配置排查\n- 确认代码中显式指定了昇腾设备：\n  ```python\n  import mindspore.context as context\n  context.set_context(mode=context.GRAPH_MODE, device_target=\"Ascend\", device_id=0) # device_id需为实际可用卡ID\n  ```\n- 确认使用的张量算子属于Ascend310支持的推理算子列表，1.1.1版本对310的算子支持范围较窄，不支持的算子会触发设备初始化失败。\n\n---\n#### 6. 日志深度排查\n- 查看MindSpore运行日志：默认生成在当前目录`logs/`文件夹下，搜索`Ascend`、`device init`等关键词定位具体错误。\n- 查看昇腾硬件日志：路径为`/var/log/npu/`，根据日志中的错误码对照昇腾官方文档定位根因。\n\n---\n### 常见问题快速解决方案\n1. 版本不匹配：严格按照MindSpore 1.1.1官方要求的昇腾栈版本重新安装\n2. 训练代码跑在310上：改为推理流程（先导出MindIR模型，再通过`load`接口加载推理）\n3. 权限不足：容器启动时加`--privileged`参数临时提权测试，确认后再细化权限配置\n\n参考链接：\n- https://www.mindspore.cn/docs/1.1.1/zh-CN/install/mindspore_ascend_install_pip.html （MindSpore 1.1.1 Ascend版本安装指南）\n- https://www.hiascend.com/document/detail/zh/quick-installation/20.2.0/quickinst/quickinst_0001.html （昇腾20.2.0版本安装部署指南）\n- https://gitee.com/mindspore/mindspore/blob/r1.1/README.md （MindSpore 1.1版本配套关系说明）",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个用于昇腾（Ascend）310 AI处理器上进行推理的AI框架历史版本（1.1.1）。",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/docs/1.1.1/zh-CN/install/mindspore_ascend_install_pip.html",
+      "https://gitee.com/mindspore/mindspore/blob/r1.1/README.md"
+    ]
+  },
+  {
+    "question_id": "q_006",
+    "platform": "qwen",
+    "query": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
+    "timestamp": "2026-03-30T10:07:50.468146+00:00",
+    "raw_response": "在容器环境中部署 MindSpore 1.1.1 配合 Ascend 310 出现“设备初始化失败”（Device Initialization Failed）是一个较为常见的问题，通常涉及驱动兼容性、容器权限、环境变量配置或 CANN  toolkit 版本不匹配。由于 MindSpore 1.1.1 是较早期的版本，对底层依赖的版本要求非常严格。\n\n以下是系统的排查步骤：\n\n### 1. 检查宿主机驱动与固件状态\n容器依赖宿主机的 NPU 驱动。如果宿主机驱动异常，容器内必然无法初始化设备。\n*   **执行命令**：在宿主机执行 `npu-smi info`。\n*   **预期结果**：应能列出 Ascend 310 卡片信息，状态为 `OK`，且无报错。\n*   **排查点**：\n    *   如果命令不存在，说明驱动未安装。\n    *   如果显示 `Unknown` 或报错，需重新安装与 Ascend 310 匹配的驱动和固件（Firmware）。\n    *   **注意**：MindSpore 1.1.1 通常对应较旧版本的 CANN（如 3.3.0 或 5.0.0 早期版本），请确认宿主机驱动版本是否在该 CANN 版本的兼容性列表内。\n\n### 2. 检查容器设备映射与权限\nDocker 容器默认无法访问宿主机的 NPU 设备文件，必须显式挂载。\n*   **设备文件挂载**：启动容器时，需使用 `--device` 参数挂载关键设备文件。对于 Ascend 310，通常包括：\n    ```bash\n    --device /dev/davinci_manager\n    --device /dev/devmm_svm\n    --device /dev/hisi_hdc\n    # 根据具体驱动版本，可能还需要 /dev/vlog 或 /dev/davinci*\n    ```\n*   **运行模式**：尝试添加 `--privileged` 参数排除权限问题（生产环境建议细化权限）。\n*   **用户组权限**：容器内的运行用户需要加入 `HwHiAiUser` 组。\n    *   检查容器内用户：`id`\n    *   切换用户或添加组：`usermod -aG HwHiAiUser $USER`\n    *   或者直接以 `root` 启动容器测试（仅用于排查）。\n\n### 3. 验证 CANN Toolkit 版本兼容性\nMindSpore 1.1.1 必须与特定版本的 CANN (Compute Architecture for Neural Networks) 配合使用。\n*   **版本匹配**：检查容器内安装的 CANN 版本。MindSpore 1.1.1 发布较早，建议查阅当时的《安装指南》确认对应的 CANN 版本（通常是 CANN 3.3.0 或 5.0.0 系列）。版本过高或过低都会导致初始化失败。\n*   **环境变量**：确保 CANN 的环境变量已正确加载。在容器内执行：\n    ```bash\n    source /usr/local/Ascend/ascend-toolkit/set_env.sh\n    # 或者\n    source /usr/local/Ascend/nnae/set_env.sh\n    ```\n    检查 `LD_LIBRARY_PATH` 中是否包含 CANN 的 `lib` 路径，`ASCEND_HOME_PATH` 是否设置正确。\n\n### 4. 检查 MindSpore 上下文配置\n代码中设置运行上下文时，参数错误也会导致初始化失败。\n*   **代码检查**：\n    ```python\n    import mindspore as ms\n    from mindspore import context\n\n    # Ascend 310 通常 device_id 为 0\n    context.set_context(mode=context.GRAPH_MODE, device_target=\"Ascend\", device_id=0)\n    ```\n*   **排查点**：\n    *   `device_target` 必须为 `\"Ascend\"`（区分大小写）。\n    *   `device_id` 必须对应 `npu-smi info` 中显示的逻辑 ID。\n    *   如果是多卡环境，确认当前用户是否有权限访问该 `device_id`。\n\n### 5. 分析日志定位具体错误\n如果上述步骤无误，需通过日志获取具体报错码。\n*   **MindSpore 日志**：默认位于 `~/ms_log/` 或当前运行目录下的 `log/` 文件夹。查看最新的 `.log` 文件，搜索 `ERROR` 或 `Init` 关键字。\n*   **CANN/驱动日志**：\n    *   宿主机路径：`/var/log/ascend_driver/`\n    *   容器内路径（如果挂载）：`/usr/local/Ascend/driver/log/`\n    *   使用 `hccn_tool` 或查看 `plog` 日志分析是否有 `Device open failed` 或 `Memory allocate failed` 等底层错误。\n\n### 6. 资源占用排查\n*   **进程占用**：使用 `npu-smi info -t process` 查看该 NPU 是否已被其他进程占用。Ascend 310 在某些配置下不支持多进程并发访问同一核心。\n*   **内存不足**：检查系统内存及 NPU 显存是否充足。\n\n### 7. 快速验证脚本\n在容器内运行以下最小化脚本，排除业务代码干扰：\n```python\nimport mindspore as ms\nfrom mindspore import Tensor, context\nimport numpy as np\n\ntry:\n    context.set_context(mode=context.GRAPH_MODE, device_target=\"Ascend\", device_id=0)\n    x = Tensor(np.ones([1, 3, 3, 4]).astype(np.float32))\n    print(\"Device Init Success:\", x)\nexcept Exception as e:\n    print(\"Device Init Failed:\", str(e))\n```\n\n### 总结建议\n鉴于 MindSpore 1.1.1 版本较老，如果项目允许，**强烈建议升级到受支持的 LTS 版本**（如 1.8.0 或 2.x），以获得更好的容器化支持和驱动兼容性。若必须使用 1.1.1，请务必严格对照该版本发布时的《硬件兼容性列表》。\n\n参考链接：\n- https://www.mindspore.cn/install\n- https://www.hiascend.com/document/detail/zh/canncommercial/321/overview/index.html\n- https://www.mindspore.cn/docs/zh-CN/r1.1/install/install_ascend.html\n- https://gitee.com/mindspore/mindspore/issues\n- https://www.hiascend.com/document/detail/zh/mindspore/installation/111/installation.html",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个较早期的版本，对底层依赖的版本要求非常严格",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install"
+    ]
+  },
+  {
+    "question_id": "q_007",
+    "platform": "deepseek",
+    "query": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+    "timestamp": "2026-03-30T10:08:50.966140+00:00",
+    "raw_response": "要使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务，需要经过几个关键步骤，因为 vLLM 主要针对 PyTorch 模型设计，所以需要先将 MindSpore 模型转换为兼容格式。以下是详细步骤和方案：\n\n### **1. 模型转换：将 MindSpore 模型转换为 PyTorch 格式**\n由于 vLLM 原生支持 PyTorch 模型，需要先将 MindSpore 模型转换为 PyTorch 支持的格式（如 Hugging Face Transformers 格式）。\n\n**步骤：**\n- **导出 MindSpore 模型权重和结构**：将训练好的 MindSpore 模型保存为 `mindir` 或 `ckpt` 格式，并记录模型结构（如 Transformer 层数、隐藏层大小等）。\n- **使用转换工具或手动转换**：\n  - 如果模型是标准 Transformer 架构（如 BERT、GPT），可尝试使用开源转换工具（如 [mindspore-huggingface](https://github.com/mindspore-lab/mindspore/tree/master/model_zoo) 中的转换脚本）。\n  - 手动转换：根据模型结构，用 PyTorch 重新实现模型，并加载 MindSpore 的权重（需注意权重名称映射和格式转换）。\n- **保存为 Hugging Face 格式**：将转换后的 PyTorch 模型保存为 Hugging Face 支持的格式（如 `model.save_pretrained()`），确保包含 `config.json` 和 `pytorch_model.bin` 文件。\n\n### **2. 使用 vLLM 部署转换后的模型**\n安装 vLLM 并配置环境：\n```bash\npip install vllm\n```\n\n**部署步骤：**\n- **编写启动脚本**：使用 vLLM 的异步 API 启动服务。示例代码：\n  ```python\n  from vllm import AsyncLLMEngine, SamplingParams\n  from vllm.engine.arg_utils import AsyncEngineArgs\n\n  # 配置引擎参数\n  engine_args = AsyncEngineArgs(\n      model=\"path/to/converted_model\",  # 转换后的模型路径\n      tensor_parallel_size=1,           # 张量并行度（多GPU时调整）\n      gpu_memory_utilization=0.9,\n      max_model_len=2048,\n  )\n\n  # 创建异步引擎\n  engine = AsyncLLMEngine.from_engine_args(engine_args)\n\n  # 异步推理函数\n  async def generate_stream(prompt: str):\n      sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=100)\n      results_generator = engine.generate(prompt, sampling_params, request_id=\"unique_id\")\n      async for output in results_generator:\n          yield output.outputs[0].text\n  ```\n- **启动服务**：使用 FastAPI 或异步框架封装生成函数，实现流式响应。示例：\n  ```python\n  from fastapi import FastAPI\n  from fastapi.responses import StreamingResponse\n\n  app = FastAPI()\n\n  @app.post(\"/stream_generate\")\n  async def stream_generate(prompt: str):\n      return StreamingResponse(generate_stream(prompt), media_type=\"text/plain\")\n  ```\n\n### **3. 实现流式异步推理服务**\n- **异步处理**：利用 vLLM 的 `AsyncLLMEngine` 支持并发请求，通过 `asyncio` 管理多个生成任务。\n- **流式输出**：使用 `StreamingResponse` 逐步返回生成结果，避免客户端长时间等待。\n- **性能优化**：\n  - 调整 `gpu_memory_utilization` 和 `max_model_len` 以优化内存使用。\n  - 启用批处理（`max_num_batched_tokens`）提高吞吐量。\n- **监控与扩展**：集成 Prometheus 监控，并使用 Kubernetes 或 Docker 扩展服务实例。\n\n### **注意事项**\n- **转换精度损失**：MindSpore 与 PyTorch 的数值计算差异可能导致精度微调，需测试验证。\n- **自定义算子支持**：如果 MindSpore 模型包含自定义算子，需在 PyTorch 中重新实现或寻找替代。\n- **vLLM 兼容性**：确保转换后的模型结构（如注意力机制）与 vLLM 的推理引擎兼容（参考 [vLLM 模型支持列表](https://docs.vllm.ai/en/latest/models/supported_models.html)）。\n\n### **备选方案**\n如果转换复杂，可考虑：\n- **使用 MindSpore 原生服务框架**：通过 [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/master/index.html) 部署，但需自行实现流式异步逻辑（如结合 gRPC 流）。\n- **混合框架**：将 MindSpore 模型导出为 ONNX 格式，再用 vLLM 的 [ONNX 支持](https://docs.vllm.ai/en/latest/models/onnx_models.html)（实验性功能）部署。\n\n### **参考链接**\n- vLLM 官方文档：https://docs.vllm.ai/en/latest/\n- Hugging Face 模型转换指南：https://huggingface.co/docs/transformers/model_sharing\n- MindSpore 模型导出：https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/export.html\n- FastAPI 流式响应：https://fastapi.tiangolo.com/advanced/custom-response/#streamingresponse\n\n参考链接：\n- https://docs.vllm.ai/en/latest/\n- https://huggingface.co/docs/transformers/model_sharing\n- https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/export.html\n- https://fastapi.tiangolo.com/advanced/custom-response/#streamingresponse\n- https://github.com/mindspore-lab/mindspore/tree/master/model_zoo\n- https://docs.vllm.ai/en/latest/models/supported_models.html\n- https://www.mindspore.cn/serving/docs/zh-CN/master/index.html\n- https://docs.vllm.ai/en/latest/models/onnx_models.html",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "需要先将 MindSpore 模型转换为兼容格式；如果模型是标准 Transformer 架构，可尝试使用开源转换工具（如 mindspore-huggingface 中的转换脚本）；如果转换复杂，可考虑使用 MindSpore 原生服务框架：通过 MindSpore Serving 部署",
+    "competitors_mentioned": [
+      "PyTorch",
+      "Hugging Face",
+      "ONNX"
+    ],
+    "recommendation_position": "alternative",
+    "citations_to_official": [
+      "https://www.mindspore.cn/serving/docs/zh-CN/master/index.html",
+      "https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/export.html"
+    ]
+  },
+  {
+    "question_id": "q_007",
+    "platform": "doubao",
+    "query": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+    "timestamp": "2026-03-30T10:09:38.865773+00:00",
+    "raw_response": "要使用vLLM框架部署MindSpore模型并实现流式异步推理服务，可按照以下流程操作，当前方案优先适配昇腾Ascend 910系列硬件，vLLM 0.4.2+、MindSpore 2.3.0+版本已原生支持相关能力：\n\n### 一、前置环境准备\n1. **安装MindSpore**：根据硬件类型安装对应版本的MindSpore，推荐昇腾版2.3.1以上，可参考[MindSpore官方安装指南](https://www.mindspore.cn/install)。\n2. **安装带MindSpore后端的vLLM**：目前MindSpore后端已合入vLLM主线，可通过源码安装最新版本：\n```bash\npip install git+https://github.com/vllm-project/vllm.git@main\n# 配置昇腾推理优化环境变量\nexport MS_ENABLE_GE=1 MS_GE_TRAIN=0 MS_DEV_ENABLE_FALLBACK=0\n```\n\n### 二、模型准备\n你可以选择两种方式获取适配的MindSpore大模型：\n1. 直接使用MindFormers生态提供的预训练MindSpore大模型，比如Llama2、Qwen、GLM等系列的MindSpore权重，可从[MindSpore Hub](https://www.mindspore.cn/resources/hub)下载。\n2. 自定义模型适配：如果是自研MindSpore大模型，需要按照vLLM的模型注册规范，实现对应推理接口并注册到vLLM的模型注册表中，适配方法可参考[vLLM自定义模型接入文档](https://docs.vllm.ai/en/latest/models/adding_model.html)。\n\n### 三、启动流式异步推理服务\nvLLM原生提供兼容OpenAI协议的API服务，启动时指定`--backend mindspore`即可切换为MindSpore后端，支持异步调度和SSE流式输出：\n```bash\nvllm serve \\\n  --backend mindspore \\\n  --model /path/to/your/mindspore_model_dir \\ # 本地MindSpore模型路径，也可填MindFormers模型名\n  --tensor-parallel-size 1 \\ # 分布式推理卡数\n  --trust-remote-code \\\n  --host 0.0.0.0 \\\n  --port 8000\n```\n服务启动后默认会开启连续批处理（Continuous Batching）能力，自动处理异步并发请求，吞吐量相比原生MindSpore推理提升3-5倍。\n\n### 四、异步流式客户端调用\n可以使用AsyncOpenAI SDK实现异步流式调用，示例代码如下：\n```python\nimport asyncio\nfrom openai import AsyncOpenAI\n\n# 初始化异步客户端，适配vLLM的OpenAI兼容接口\nclient = AsyncOpenAI(\n    base_url=\"http://localhost:8000/v1\",\n    api_key=\"dummy\" # vLLM默认不需要鉴权，可随意填写\n)\n\nasync def async_stream_infer():\n    response = await client.chat.completions.create(\n        model=\"your_model_name\", # 和启动服务时的模型名对应\n        messages=[{\"role\": \"user\", \"content\": \"请介绍一下vLLM框架\"}],\n        stream=True, # 开启流式输出\n        max_tokens=500,\n        temperature=0.7\n    )\n    # 异步迭代流式返回的chunk\n    async for chunk in response:\n        content = chunk.choices[0].delta.content\n        if content:\n            print(content, end=\"\", flush=True)\n\nif __name__ == \"__main__\":\n    asyncio.run(async_stream_infer())\n```\n\n参考链接：\n- https://www.mindspore.cn/mindformers/docs/zh-CN/r1.0/use_cases/infer_acceleration/vllm_infer.html\n- https://docs.vllm.ai/en/latest/getting_started/backend.html\n- https://github.com/vllm-project/vllm/tree/main/examples/mindspore",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个AI框架，支持昇腾Ascend硬件，拥有MindFormers生态和MindSpore Hub，提供大模型预训练权重和推理能力。",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install",
+      "https://www.mindspore.cn/resources/hub",
+      "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.0/use_cases/infer_acceleration/vllm_infer.html"
+    ]
+  },
+  {
+    "question_id": "q_007",
+    "platform": "qwen",
+    "query": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+    "timestamp": "2026-03-30T10:10:33.502540+00:00",
+    "raw_response": "目前，**vLLM 框架原生并不支持直接部署 MindSpore 模型**。vLLM 是一个专为 PyTorch 模型设计的高吞吐量推理引擎，其核心优化（如 PagedAttention）紧密依赖于 PyTorch 生态。MindSpore 是华为推出的独立深度学习框架，其模型格式（如 `.mindir`）与 vLLM 不兼容，无法直接加载。\n\n如果您希望实现类似 vLLM 的高效流式异步推理服务，可以根据您的具体需求选择以下两种方案：\n\n### 方案一：使用 MindSpore 原生推理引擎（推荐用于 MindSpore 模型）\n如果您必须使用 MindSpore 训练的模型，建议使用华为官方推出的 **MindIE (Mind Inference Engine)** 或 **MindSpore Serving**。MindIE 是华为针对大模型推理优化的引擎，功能定位与 vLLM 类似，支持在昇腾（Ascend）硬件上进行高并发、流式异步推理。\n- **流式支持**：MindIE LLM 服务原生支持 SSE (Server-Sent Events) 流式输出。\n- **异步推理**：支持批量请求处理和异步回调。\n- **文档参考**：您可以查阅 MindSpore 官方推理文档了解部署细节 [2]。\n\n### 方案二：转换模型后使用 vLLM（推荐用于通用 GPU 环境）\n如果您希望使用 vLLM 的特性（如极高的吞吐优化），则需要将模型权重和架构转换为 **PyTorch 格式**（例如 HuggingFace Transformers 格式）。\n- **前提**：模型架构必须受 vLLM 支持，且权重可转换。\n- **硬件适配**：如果您是在昇腾硬件上使用 vLLM，目前社区有 `vllm-ascend` 等适配项目，但这依然是基于 **PyTorch + torch_npu** 的运行方式，而非原生 MindSpore 框架 [1]。\n- **部署流程**：转换模型 -> 使用 vLLM API 启动服务 -> 启用 `--enable-chunked-prefill` 等参数优化流式性能。\n\n### 总结\n| 特性 | vLLM | MindIE / MindSpore Serving |\n| :--- | :--- | :--- |\n| **支持框架** | PyTorch | MindSpore |\n| **模型格式** | .bin, .safetensors (HF) | .mindir, .ckpt |\n| **流式推理** | 支持 (SSE/WebSocket) | 支持 (SSE) |\n| **适用硬件** | NVIDIA GPU (主流), Ascend (适配中) | Ascend NPU (原生) |\n\n建议您根据模型来源和硬件资源选择合适的推理引擎。如果是 MindSpore 原生模型，请优先选用 MindIE 以获得最佳兼容性和性能。\n\n参考链接：\n- https://docs.vllm.ai/\n- https://www.mindspore.cn/infer",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "华为推出的独立深度学习框架",
+    "competitors_mentioned": [
+      "PyTorch"
+    ],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/infer"
+    ]
+  },
+  {
+    "question_id": "q_008",
+    "platform": "deepseek",
+    "query": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+    "timestamp": "2026-03-30T10:11:57.310863+00:00",
+    "raw_response": "要将 MindSpore 应用打包成 Docker 镜像进行部署，可以遵循以下核心步骤：\n\n1. **创建 Dockerfile**  \n   在项目根目录编写 Dockerfile，基于合适的官方镜像（如 Ubuntu 或 MindSpore 官方镜像）构建。例如：\n   ```dockerfile\n   # 使用 MindSpore 官方 CPU 版本镜像作为基础\n   FROM mindspore/mindspore-cpu:2.0.0\n   # 或自定义基础镜像：FROM ubuntu:20.04\n   \n   # 设置工作目录\n   WORKDIR /app\n   \n   # 复制应用代码和依赖文件\n   COPY requirements.txt .\n   COPY src/ ./src/\n   \n   # 安装 Python 依赖（若需额外依赖）\n   RUN pip install --no-cache-dir -r requirements.txt\n   \n   # 设置启动命令\n   CMD [\"python\", \"src/main.py\"]\n   ```\n\n2. **构建和测试镜像**  \n   - 使用 `docker build -t my-mindspore-app:latest .` 构建镜像。  \n   - 运行容器测试：`docker run --rm my-mindspore-app`。\n\n3. **部署与优化**  \n   - 推送镜像到仓库（如 Docker Hub）。  \n   - 根据硬件选择 MindSpore 版本（CPU/GPU/Ascend），GPU 需在 Docker 运行时添加 `--gpus all` 并安装 CUDA 依赖。  \n   - 生产环境建议使用轻量基础镜像（如 Alpine）以减少镜像大小。\n\n### 关键注意事项：\n- **硬件兼容性**：  \n  若使用 GPU 或昇腾芯片，需选择对应版本的 MindSpore 镜像，并在 Dockerfile 中配置驱动和工具链。  \n  GPU 示例：`FROM mindspore/mindspore-gpu:2.0.0`，运行需添加 `--runtime=nvidia` 或 `--gpus` 参数。  \n- **性能优化**：  \n  通过多阶段构建减少镜像层，或使用 `pip install --no-cache-dir` 避免缓存占用空间。  \n- 对于昇腾（Ascend）芯片，需参考华为官方指南配置 Docker 环境与驱动映射。  \n\n参考链接：\n- https://www.mindspore.cn/install （MindSpore 官方安装指南，含 Docker 镜像列表）\n- https://hub.docker.com/r/mindspore/mindspore-cpu/tags （MindSpore CPU 镜像仓库）\n- https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_gpu_install_docker.md （GPU 版 Docker 安装指南）\n- https://docs.docker.com/engine/reference/builder/ （Dockerfile 官方文档）",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI framework/platform (implicitly from context of application deployment and hardware support for Ascend chips)",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install",
+      "https://hub.docker.com/r/mindspore/mindspore-cpu/tags",
+      "https://gitee.com/mindspore/docs/blob/r2.0/install/mindspore_gpu_install_docker.md"
+    ]
+  },
+  {
+    "question_id": "q_008",
+    "platform": "doubao",
+    "query": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+    "timestamp": "2026-03-30T10:12:21.422180+00:00",
+    "raw_response": "将MindSpore应用打包为Docker镜像部署的步骤如下，可根据硬件环境（CPU/GPU/Ascend）选择对应方案：\n\n### 一、前置准备\n1. 安装Docker环境，GPU环境还需额外安装`nvidia-container-toolkit`并配置Docker runtime；\n2. 整理待部署的MindSpore应用：包含推理/训练入口脚本、依赖声明`requirements.txt`、模型权重文件、静态资源等。\n\n### 二、编写Dockerfile\nMindSpore官方已经提供了不同硬件、不同版本的预构建基础镜像，无需手动编译安装MindSpore，可直接基于官方镜像二次打包：\n#### 示例1：CPU版本应用Dockerfile\n```dockerfile\n# 选择对应版本的MindSpore CPU基础镜像，版本号需和开发环境对齐\nFROM mindspore/mindspore-cpu:2.3.0\n\n# 设置工作目录\nWORKDIR /app\n\n# 复制应用代码和依赖文件到容器内\nCOPY . /app\n\n# 安装第三方依赖\nRUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple\n\n# 暴露服务端口（如果是HTTP服务的话，按需修改）\nEXPOSE 8080\n\n# 配置启动命令\nCMD [\"python\", \"main.py\"]\n```\n\n#### 示例2：GPU版本应用Dockerfile\n```dockerfile\n# 选择和宿主机CUDA版本匹配的MindSpore GPU基础镜像，比如CUDA11.7对应镜像如下\nFROM mindspore/mindspore-gpu-cu117:2.3.0\n\nWORKDIR /app\nCOPY . /app\nRUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple\nEXPOSE 8080\nCMD [\"python\", \"main.py\"]\n```\n\n### 三、构建和测试镜像\n1. 执行构建命令，在Dockerfile所在目录运行：\n```bash\ndocker build -t my-mindspore-app:v1 .\n```\n2. 本地测试运行\n- CPU环境运行：\n```bash\ndocker run -d -p 8080:8080 -v /宿主机/数据目录:/app/data my-mindspore-app:v1\n```\n- GPU环境运行：\n```bash\ndocker run --gpus all -d -p 8080:8080 -v /宿主机/数据目录:/app/data my-mindspore-app:v1\n```\n启动后验证功能（如调用推理接口）正常即可。\n\n### 四、生产部署\n可将构建好的镜像推送到私有镜像仓库，在目标服务器拉取后直接运行，也可配合Kubernetes实现多实例弹性部署。\n\n### 注意事项\n1. 基础镜像的MindSpore版本、CUDA版本（GPU场景）必须和开发环境完全对齐，避免算子兼容性问题；\n2. 模型、日志、用户上传数据等需要持久化的内容，必须通过挂载数据卷的方式映射到宿主机，避免容器销毁后数据丢失；\n3. 敏感配置（如密钥、数据库账号）不要硬编码到镜像中，推荐通过环境变量或者配置中心注入。\n\n参考链接：\n- https://www.mindspore.cn/install/zh-CN/r2.3/docker.html\n- https://hub.docker.com/u/mindspore",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install/zh-CN/r2.3/docker.html",
+      "https://hub.docker.com/u/mindspore"
+    ]
+  },
+  {
+    "question_id": "q_008",
+    "platform": "qwen",
+    "query": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+    "timestamp": "2026-03-30T10:13:20.402018+00:00",
+    "raw_response": "将 MindSpore 应用打包成 Docker 镜像进行部署，可以实现环境的一致性隔离，便于在不同机器上迁移和运行。以下是具体的操作步骤指南：\n\n### 1. 选择基础镜像\nMindSpore 官方提供了预装好依赖的 Docker 镜像，支持 CPU、GPU 以及 Ascend 昇腾处理器。你可以根据硬件环境选择合适的镜像版本。官方镜像通常托管在 Docker Hub 上，具体的镜像标签和版本信息可以参考官方安装指南 [1]。\n\n例如，拉取 CPU 版本的 MindSpore 镜像：\n```bash\ndocker pull mindspore/mindspore:latest\n```\n\n### 2. 编写 Dockerfile\n在项目根目录下创建 `Dockerfile`，基于官方镜像构建应用环境。以下是一个简单的示例：\n\n```dockerfile\n# 基于 MindSpore 官方镜像\nFROM mindspore/mindspore:latest\n\n# 设置工作目录\nWORKDIR /app\n\n# 将本地代码复制到容器中\nCOPY . /app\n\n# 安装项目额外的依赖（如果有）\n# RUN pip install -r requirements.txt\n\n# 设置启动命令\nCMD [\"python\", \"train.py\"]\n```\n\n### 3. 构建 Docker 镜像\n在 `Dockerfile` 所在目录下执行构建命令，生成自定义镜像：\n\n```bash\ndocker build -t my-mindspore-app:1.0 .\n```\n\n### 4. 运行容器\n使用构建好的镜像启动容器。如果应用需要访问宿主机的数据目录或端口，可以使用 `-v` 挂载卷和 `-p` 映射端口：\n\n```bash\n# 挂载数据目录并运行\ndocker run -it -v /host/data:/app/data my-mindspore-app:1.0\n```\n\n### 5. 注意事项\n- **硬件匹配**：确保拉取的镜像版本（CPU/GPU/Ascend）与宿主机硬件及驱动版本兼容。\n- **权限问题**：在某些情况下，挂载卷可能需要处理文件权限问题。\n- **资源限制**：生产环境中建议使用 `--gpus` 参数启用 GPU 支持，并限制容器资源使用。\n\n详细的安装配置和镜像说明可查阅 MindSpore 官方文档 [1]。\n\n参考链接：\n- https://www.mindspore.cn/install",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI 计算框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install"
+    ]
+  },
+  {
+    "question_id": "q_027",
+    "platform": "deepseek",
+    "query": "MindSpore 的版本发布节奏是怎样的？",
+    "timestamp": "2026-03-30T10:20:39.526650+00:00",
+    "raw_response": "MindSpore 的版本发布遵循**每半年一个主要版本（Major Release）**的节奏，同时会定期发布功能更新或补丁版本。具体来说：\n\n1. **主要版本（如 2.0 、3.0）**：通常每半年发布一次，包含重大功能升级、架构改进和新特性。例如，MindSpore 2.0 于 2023 年发布，引入了动态图优先等重大变化。\n   \n2. **次要版本与修订版本（如 2.1、2.2 或 2.2.10）**：在主要版本之间，会定期发布功能增强、性能优化和问题修复的更新版本，频率可能为每 1-3 个月一次。\n\n3. **长期支持版本（LTS）**：部分主要版本会被标记为长期支持版本，提供更长时间（如 2-3 年）的维护更新，适合企业生产环境。\n\n4. **发布计划公开**：华为 MindSpore 社区通常会在 GitHub 或官网公开版本路线图，开发者可以关注其更新动态。\n\n参考链接：\n- https://www.mindspore.cn/news/newschildren?id=521 （MindSpore 官方新闻，介绍版本发布动态）\n- https://github.com/mindspore-ai/mindspore/releases （GitHub 发布页面，展示历史版本记录）\n- https://www.mindspore.cn/docs/zh-CN/r2.2/index.html （MindSpore 2.2 文档，体现版本更新内容）",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "华为推出的深度学习框架，2.0版本引入动态图优先等重大变化",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/news/newschildren?id=521",
+      "https://github.com/mindspore-ai/mindspore/releases",
+      "https://www.mindspore.cn/docs/zh-CN/r2.2/index.html"
+    ]
+  },
+  {
+    "question_id": "q_027",
+    "platform": "doubao",
+    "query": "MindSpore 的版本发布节奏是怎样的？",
+    "timestamp": "2026-03-30T10:21:10.884586+00:00",
+    "raw_response": "MindSpore的版本发布遵循固定周期迭代+差异化维护的规则，官方公开的发布节奏如下：\n### 1. 版本分类与发布周期\n- **长期支持版本（LTS）**：每18个月左右发布一个新的LTS大版本，该类版本优先保障稳定性，提供至少24个月的长期维护支持，维护期间仅推送安全补丁、严重缺陷修复，不引入破坏性功能变更，适合生产环境部署使用。\n- **社区功能迭代版（Feature Release）**：每3个月发布一个次版本迭代，该类版本会同步最新的功能特性、性能优化、新硬件适配、场景化套件更新等内容，适合需要体验前沿能力的开发者使用。\n- **补丁修复版（Patch Release）**：针对处于维护期的LTS版本和最新的功能迭代版，每1~2个月按需发布补丁版本，仅修复问题不新增功能，保证版本向前兼容。\n- **每日构建版（Nightly）**：每日自动构建生成，同步最新的代码提交，用于功能提前验证，稳定性无保障，不推荐生产使用。\n### 2. 版本维护规则\n仅最新的2个功能迭代版、以及处于维护生命周期内的LTS版本会获得官方的补丁维护支持，超出维护周期的版本不再提供官方更新。版本命名采用`X.Y.Z`规则：X为主版本号（对应重大架构升级）、Y为次版本号（对应功能迭代）、Z为补丁版本号（对应缺陷修复）。\n\n参考链接：\n- https://www.mindspore.cn/versions\n- https://github.com/mindspore-ai/mindspore/blob/master/RELEASE.md\n- https://support.huaweicloud.com/productdesc-mindspore/mindspore_0003.html\n- https://blog.csdn.net/MindSpore/article/details/130897468",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "采用LTS+功能迭代+补丁修复+Nightly四类版本的AI计算框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/versions",
+      "https://github.com/mindspore-ai/mindspore/blob/master/RELEASE.md"
+    ]
+  },
+  {
+    "question_id": "q_027",
+    "platform": "qwen",
+    "query": "MindSpore 的版本发布节奏是怎样的？",
+    "timestamp": "2026-03-30T10:22:04.213304+00:00",
+    "raw_response": "MindSpore 作为华为推出的全场景 AI 计算框架，其版本发布节奏具有一定的规律性，旨在快速响应 AI 领域的最新发展并满足社区需求。通常情况下，MindSpore 会保持每 2 到 3 个月发布一个新版本的频率，具体的版本列表和下载资源可以在 [官方安装页面](https://www.mindspore.cn/install) 查询。\n\n除了常规的功能更新版本外，MindSpore 还会规划长期支持版本（LTS），为企业级用户提供更稳定的支持周期和更长的维护时间。具体的版本发布信息、下载链接以及详细的变更日志（Release Notes），开发者可以在代码托管平台的 Release 板块中查询，这些平台会同步更新最新的发布包和源代码，例如 [Gitee 发布页](https://gitee.com/mindspore/mindspore/releases) 和 [GitHub 发布页](https://github.com/mindspore-ai/mindspore/releases) 都会实时记录每个版本的发布时间和特性。\n\n参考链接：\n- https://www.mindspore.cn/install\n- https://gitee.com/mindspore/mindspore/releases\n- https://github.com/mindspore-ai/mindspore/releases",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "华为推出的全场景AI计算框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/install",
+      "https://gitee.com/mindspore/mindspore/releases",
+      "https://github.com/mindspore-ai/mindspore/releases"
+    ]
+  },
+  {
+    "question_id": "q_032",
+    "platform": "deepseek",
+    "query": "MindSpore 2026 年有哪些活动规划？",
+    "timestamp": "2026-03-30T10:25:34.879677+00:00",
+    "raw_response": "截至 2025 年 10 月，MindSpore 尚未发布 2026 年的具体活动规划。通常，华为 MindSpore 社区的活动安排（如开发者峰会、技术沙龙、黑客松等）会提前数月通过官方渠道公布。建议通过以下方式获取最新信息：\n\n1. **关注 MindSpore 官网**：活动信息通常会在官网的\"新闻\"或\"活动\"板块发布。\n2. **加入社区渠道**：GitHub、Gitee、技术论坛及社交媒体（如微信公众号）会推送活动通知。\n3. **参考往期活动规律**：MindSpore 每年会举办品牌活动（如 MindSpore Dev Meetup），可基于历史时间推测未来安排。\n\n参考链接：\n- https://www.mindspore.cn/（MindSpore 官网）\n- https://github.com/mindspore-ai（GitHub 官方仓库）\n- https://gitee.com/mindspore（Gitee 官方仓库）",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "华为旗下的AI计算框架社区，定期举办开发者峰会、技术沙龙、黑客松等活动",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/",
+      "https://github.com/mindspore-ai",
+      "https://gitee.com/mindspore"
+    ]
+  },
+  {
+    "question_id": "q_032",
+    "platform": "doubao",
+    "query": "MindSpore 2026 年有哪些活动规划？",
+    "timestamp": "2026-03-30T10:25:59.661350+00:00",
+    "raw_response": "截至2025年6月，昇思MindSpore官方尚未公开发布2026年的具体活动规划，以下内容是结合MindSpore历年活动惯例、已公开的长期生态发展战略梳理的预期活动方向，2026年最终活动安排请以官方后续发布的正式通知为准：\n1. 旗舰品牌活动：大概率将延续举办年度「MindSpore Summit（昇思开发者大会）」，这是MindSpore每年最重要的开发者盛会，通常会发布年度重大版本更新、前沿技术进展、生态合作成果、行业落地案例，面向全球AI开发者开放参与，举办地多为国内核心科技城市。\n2. 大众开发者生态活动：预计将持续举办覆盖全国多个城市的MindSpore技术沙龙、高校行系列活动，也会继续参与「开源之夏」等全国性开源贡献激励活动，还将自主举办MindSpore Hackathon黑客松大赛，为开发者提供技术培训、实操实践、奖金激励，挖掘优质的开源创新项目。\n3. 垂直行业专题活动：围绕大模型开发落地、AI for Science、端边云全场景推理、AI安全等热门技术方向，举办细分领域的专题论坛、企业实操培训、行业解决方案分享会，推动MindSpore在工业、医疗、金融、科研等垂直领域的落地应用。\n4. 教育培育类活动：预计将持续开展高校AI师资培训、基于MindSpore的全国大学生AI算法竞赛、开源贡献者激励计划等活动，拓展高校层面的用户生态，培育青年AI开发者群体。\n\n你可以通过以下官方渠道获取2026年活动的最新官方通知：\n参考链接：\n- https://www.mindspore.cn/\n- https://github.com/mindspore-ai/mindspore/blob/master/ROADMAP.md\n- https://www.hiascend.com/zh/community/activity/mindspore\n- https://www.mindspore.cn/news/events",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "昇思MindSpore，每年举办开发者大会、技术沙龙、黑客松、高校行等系列活动的AI框架社区",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/",
+      "https://github.com/mindspore-ai/mindspore/blob/master/ROADMAP.md",
+      "https://www.mindspore.cn/news/events"
+    ]
+  },
+  {
+    "question_id": "q_032",
+    "platform": "qwen",
+    "query": "MindSpore 2026 年有哪些活动规划？",
+    "timestamp": "2026-03-30T10:29:47.164535+00:00",
+    "raw_response": "截至当前，MindSpore 官方尚未发布详细的 2026 年全年具体活动日程表。通常，具体的年度活动规划（如开发者大会、技术沙龙、竞赛等）会在临近年份时通过官方渠道正式公布。不过，根据 MindSpore 的长期发展战略及过往年度规划，2026 年的活动预计将围绕以下几个核心方向展开：\n\n1.  **版本迭代与技术峰会**：MindSpore 通常会每年发布多个大版本，并配合举办技术峰会或参与华为开发者大会（HDC），分享其在人工智能全场景、科学计算及大模型领域的最新进展。您可以关注 [MindSpore 官网](https://www.mindspore.cn/) 获取最新的版本发布计划和峰会信息。\n2.  **社区生态建设**：包括线下 Meetup、线上技术研讨会以及高校合作项目。这些活动旨在促进开发者交流，推动算子开发和模型适配。具体的活动报名和日程通常会在 [MindSpore 社区论坛](https://forum.mindspore.cn/) 上发布。\n3.  **开源协作与竞赛**：MindSpore 持续鼓励开源贡献，可能会举办代码贡献竞赛或 AI 应用创新大赛。相关的开源路线图和任务列表可以在 [MindSpore GitHub 仓库](https://github.com/mindspore-ai/mindspore) 中追踪。\n\n建议您定期访问上述官方渠道，以便在 2025 年底或 2026 年初获取最准确的活动规划详情。\n\n参考链接：\n- https://www.mindspore.cn/\n- https://forum.mindspore.cn/\n- https://github.com/mindspore-ai/mindspore",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "华为推出的全场景AI计算框架，定期举办技术峰会、Meetup和开源协作竞赛",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/",
+      "https://forum.mindspore.cn/",
+      "https://github.com/mindspore-ai/mindspore"
+    ]
+  },
+  {
+    "question_id": "q_035",
+    "platform": "deepseek",
+    "query": "新手如何加入 MindSpore 社区并参与开源贡献？",
+    "timestamp": "2026-03-30T10:27:10.458967+00:00",
+    "raw_response": "欢迎加入 MindSpore 社区！作为新手，你可以通过以下步骤参与开源贡献：\n\n1. **了解 MindSpore**  \n   首先，建议访问 MindSpore 官网和 GitHub 仓库，阅读文档和项目概览，了解其框架特性、开发目标和代码结构。官方提供入门指南、安装教程和模型示例。\n\n2. **选择贡献方向**  \n   MindSpore 的贡献包括代码开发、文档改进、测试、问题修复、社区答疑等。新手可以从简单的任务开始，如修改文档错别字、测试案例、报告 Bug 或解决标记为 \"good first issue\" 的问题。\n\n3. **加入社区沟通**  \n   - 订阅邮件列表、加入 Slack 或钉钉群组，与开发者交流。  \n   - 参与技术讨论，提出想法或寻求指导。\n\n4. **动手贡献流程**  \n   - **Fork 仓库**：在 GitHub 上 fork MindSpore 项目到个人账户。  \n   - **克隆代码**：本地克隆 fork 的仓库，创建分支进行修改。  \n   - **提交 Pull Request (PR)**：完成修改后，提交 PR 并描述变更内容。核心团队会审核并提供反馈，根据建议迭代直至合并。\n\n5. **学习资源**  \n   参考贡献者指南、开发规范，并参与线上新手培训或开源之夏等活动，加速成长。\n\n参考链接：  \n- https://www.mindspore.cn/ （官网与文档）  \n- https://github.com/mindspore-ai/mindspore （GitHub 主仓库）  \n- https://gitee.com/mindspore/community （社区与贡献指南）  \n- https://www.mindspore.cn/community （社区活动与资源）",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个深度学习框架，提供入门指南、安装教程和模型示例",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/",
+      "https://github.com/mindspore-ai/mindspore",
+      "https://gitee.com/mindspore/community",
+      "https://www.mindspore.cn/community"
+    ]
+  },
+  {
+    "question_id": "q_035",
+    "platform": "doubao",
+    "query": "新手如何加入 MindSpore 社区并参与开源贡献？",
+    "timestamp": "2026-03-30T10:27:50.132987+00:00",
+    "raw_response": "新手加入MindSpore社区参与开源贡献可按照以下步骤操作：\n### 1. 完成前期基础准备\n首先注册Gitee账号（MindSpore核心仓库优先托管在Gitee平台，GitHub仅为镜像仓库），首次提交PR前需要按照系统提示签署个人/企业贡献者许可协议（CLA），只有签署完成后贡献内容才可以被合入。之后通读官方贡献指南，了解社区行为准则、代码规范、PR提交规则、合入流程等基础规则，避免贡献过程中踩坑。\n### 2. 熟悉社区生态与交流渠道\n先通过MindSpore官方文档、入门教程熟悉框架基本使用，同时加入官方公布的开发者交流渠道：包括钉钉/微信开发者群、官方论坛、社区公开例会等，遇到问题可以在交流群或Issue区提问，社区资深开发者会提供对应指导。\n### 3. 选择低门槛新手任务切入\n新手优先选择社区标记了`good first issue`、`easy fix`标签的任务入手，常见的新手友好贡献类型包括：\n- 文档类贡献：修正官方文档错别字、补充缺失的参数说明、优化教程表述逻辑等；\n- 测试/样例类贡献：修复模型样例bug、补充算子测试用例、小算子适配需求等；\n- 轻量代码类贡献：小型已知bug修复、小功能体验优化等；\n- 非代码类贡献：输出技术博客、参与社区用户答疑、线上/线下活动布道等也属于社区认可的贡献范畴，会被社区记录贡献积分。\n### 4. 按照标准流程提交贡献\n确定要参与的任务后，先在对应Issue下留言认领，再按照标准流程操作：\n1. Fork目标仓库到自己的Gitee账号下；\n2. 克隆自己账号下的fork仓库到本地，创建独立的开发分支；\n3. 按照规范完成代码/文档修改，提交符合规范的commit信息；\n4. 本地自测通过后，向官方原仓库提交PR，按照模板填写PR信息，关联对应认领的Issue；\n5. 等待社区维护者评审，根据评审意见修改内容直到通过审核，最终内容合入即完成一次贡献。\n\n参考链接：\n- https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md\n- https://www.mindspore.cn/community/zh-CN/master/contribution\n- https://gitee.com/mindspore/mindspore/issues?labels=good%20first%20issue\n- https://www.mindspore.cn/community/zh-CN/master/contact",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "核心仓库优先托管在Gitee平台的深度学习开源框架社区",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md",
+      "https://www.mindspore.cn/community/zh-CN/master/contribution",
+      "https://gitee.com/mindspore/mindspore/issues?labels=good%20first%20issue",
+      "https://www.mindspore.cn/community/zh-CN/master/contact"
+    ]
+  },
+  {
+    "question_id": "q_035",
+    "platform": "qwen",
+    "query": "新手如何加入 MindSpore 社区并参与开源贡献？",
+    "timestamp": "2026-03-30T10:29:07.541009+00:00",
+    "raw_response": "新手加入 MindSpore 社区并参与开源贡献，可以按照以下步骤进行：\n\n1.  **了解社区与项目**\n    首先，访问 MindSpore 的官方网站，了解框架的核心特性、应用场景以及社区动态。官网提供了丰富的教程、API 文档以及社区活动信息，是新手入门的第一站 [1]。\n\n2.  **获取源代码**\n    MindSpore 的代码托管在 Gitee 和 GitHub 上。你可以通过克隆仓库获取源代码。对于国内开发者，Gitee 通常访问速度更快；国际开发者则常用 GitHub。建议关注主仓库 `mindspore` 以及相关的生态仓库 [2]。\n\n3.  **阅读贡献指南**\n    在提交任何代码之前，务必仔细阅读仓库中的 `CONTRIBUTING.md` 文件。该文档详细说明了代码风格、提交规范、PR（Pull Request）流程以及测试要求。遵守这些规范能大大提高你的贡献被合并的概率 [3]。\n\n4.  **寻找适合的任务**\n    在仓库的 Issue 列表中，筛选标签为 `good first issue` 或 `beginner` 的任务。这些任务通常难度较低，适合新手熟悉流程。你也可以在社区论坛或邮件列表中询问是否有适合新手的任务。\n\n5.  **提交贡献与交流**\n    完成代码修改后，按照指南提交 PR。社区维护者会进行 Code Review，你可能需要根据反馈进行修改。此外，加入社区的 Slack、微信群或邮件列表，与其他贡献者保持沟通，能帮助你更快解决问题。\n\n参考链接：\n- https://www.mindspore.cn/\n- https://github.com/mindspore-ai/mindspore\n- https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "一个提供丰富教程、API文档及社区活动信息的深度学习开源框架",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/",
+      "https://github.com/mindspore-ai/mindspore",
+      "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
+    ]
+  },
+  {
+    "question_id": "q_036",
+    "platform": "deepseek",
+    "query": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+    "timestamp": "2026-03-30T10:29:00.133071+00:00",
+    "raw_response": "根据 MindSpore 社区官方信息，MindSpore Transformers SIG 的周例会通常安排如下：  \n\n- **时间**：每周四晚上 20:00-21:00（北京时间）。  \n- **参与方式**：通过腾讯会议线上进行，会议链接和议程会提前在社区渠道公布。  \n- **内容**：主要包括项目进展同步、技术讨论、任务规划等。  \n\n具体时间或形式可能有临时调整，建议关注 MindSpore 社区官网或 GitHub 仓库获取最新安排。  \n\n参考链接：  \n- https://mindspore.cn/  \n- https://github.com/mindspore-lab/mindformers  \n- https://gitee.com/mindspore/community/tree/master/sigs/transformers",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore 社区的 Transformers SIG，负责项目进展同步、技术讨论和任务规划",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://mindspore.cn/",
+      "https://gitee.com/mindspore/community/tree/master/sigs/transformers"
+    ]
+  },
+  {
+    "question_id": "q_036",
+    "platform": "doubao",
+    "query": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+    "timestamp": "2026-03-30T10:29:28.941962+00:00",
+    "raw_response": "MindSpore Transformers SIG 周例会的常规安排如下，若遇法定节假日或特殊事项会提前在SIG仓库、社区交流群发布调整公告：\n1. 会议时间：每周四 16:00-17:00（北京时间）\n2. 参会规则：面向所有感兴趣的开发者免费开放，无需提前报名，可直接通过固定腾讯会议（会议号：983 305 309）接入，部分场次还会同步在MindSpore官方B站账号直播。\n3. 议题申报：开发者若有技术方案讨论、新特性提案、使用问题反馈等需求，可提前1-2天在SIG仓库提交带「例会议题」标签的Issue，或在SIG交流群告知维护者，提前纳入会议议程。\n4. 纪要归档：每次会议的讨论内容、决策结论、后续任务安排会在会后1-2个工作日内同步到SIG仓库的meetings目录，供开发者公开查阅回溯。\n\n参考链接：\n- https://www.mindspore.cn/community/SIG/zh-CN/master/transformers/\n- https://gitee.com/mindspore/community/blob/master/sigs/transformers/README.md\n- https://gitee.com/mindspore/community/tree/master/sigs/transformers/meetings\n- https://www.mindspore.cn/community/calendar/zh-CN",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore Transformers SIG，面向所有开发者开放的技术小组",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community/SIG/zh-CN/master/transformers/",
+      "https://gitee.com/mindspore/community/blob/master/sigs/transformers/README.md",
+      "https://gitee.com/mindspore/community/tree/master/sigs/transformers/meetings",
+      "https://www.mindspore.cn/community/calendar/zh-CN"
+    ]
+  },
+  {
+    "question_id": "q_036",
+    "platform": "qwen",
+    "query": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+    "timestamp": "2026-03-30T10:33:22.565014+00:00",
+    "raw_response": "MindSpore Transformers SIG 的周例会安排通常由 MindSpore 社区统一协调，并在官方社区页面及 SIG 专属页面进行发布。具体的会议时间、频率（如每周或每两周）以及会议链接可能会根据社区活动计划进行调整，因此建议开发者直接关注官方渠道获取最新日程。\n\n一般来说，会议信息会通过以下渠道同步：\n1.  **MindSpore 社区官网**：社区活动板块会更新各类 SIG 的会议日历和纪要 [1]。\n2.  **SIG 专属页面**：特定的 SIG 介绍页面可能会列出该组的定期会议安排 [2]。\n3.  **社区代码仓库**：相关的会议记录和通知有时也会维护在 Gitee 的社区仓库中 [3]。\n\n如果您计划参加或列席会议，建议提前访问上述链接确认具体的会议时间和接入方式，以免因时间安排变动而错过。\n\n参考链接：\n- https://www.mindspore.cn/community\n- https://www.mindspore.cn/community/sig\n- https://gitee.com/mindspore/community",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore 社区统一协调的 SIG 技术小组",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community",
+      "https://www.mindspore.cn/community/sig",
+      "https://gitee.com/mindspore/community"
+    ]
+  },
+  {
+    "question_id": "q_038",
+    "platform": "deepseek",
+    "query": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+    "timestamp": "2026-03-30T10:34:08.681101+00:00",
+    "raw_response": "MindSpore 的 LLM Inference Serving SIG（Special Interest Group，特别兴趣小组）主要专注于 **大型语言模型（LLM）推理服务** 相关的技术讨论、方案设计与开源协作。其核心目标是构建高效、易用、可扩展的 LLM 推理服务框架，并推动其在 MindSpore 生态中的落地与应用。\n\n具体工作方向通常包括：\n1.  **推理性能优化**：研究模型压缩、量化、动态批处理、连续批处理、PagedAttention 等技术，以提升吞吐量和降低延迟。\n2.  **服务化框架开发**：设计和实现高性能、高并发的推理服务端，支持多模型管理、动态加载、API 服务（如 OpenAI 兼容接口）等。\n3.  **部署与生态集成**：探索与 MindSpore、MindSpore Lite 等工具的集成，以及在不同硬件（如昇腾 Ascend、GPU）上的部署方案。\n4.  **前沿特性支持**：跟进并实现如流式输出、多模态推理、长上下文处理等关键特性。\n\n**关于例会频率**：\n根据该 SIG 在开源社区（如 Gitee）公开的会议记录和章程，**LLM Inference Serving SIG 通常每周举行一次例会**。会议主要用于同步进展、讨论技术议题、评审代码和规划下一步工作。具体的会议时间、议程和链接会在其公开的社区页面（如 Gitee SIG 仓库或 Wiki）上发布。\n\n参考链接：\n- https://gitee.com/mindspore/community/tree/master/sigs/llm-inference-serving\n- https://gitee.com/mindspore/community/blob/master/sigs/llm-inference-serving/sig_llm_inference_serving_cn.md\n- https://gitee.com/mindspore/community/issues?label_ids=39474055",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore社区下设的LLM推理服务特别兴趣小组，专注大模型推理服务框架构建",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://gitee.com/mindspore/community/tree/master/sigs/llm-inference-serving",
+      "https://gitee.com/mindspore/community/blob/master/sigs/llm-inference-serving/sig_llm_inference_serving_cn.md"
+    ]
+  },
+  {
+    "question_id": "q_038",
+    "platform": "doubao",
+    "query": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+    "timestamp": "2026-03-30T10:34:45.775966+00:00",
+    "raw_response": "MindSpore LLM Inference Serving SIG是MindSpore社区下设的领域特别兴趣小组，核心聚焦大语言模型（含多模态大模型）的推理部署、服务化相关的技术构建与生态运营，核心工作范围包括：\n1. 技术栈迭代：负责MindSpore生态下大模型推理服务体系的架构设计与功能迭代，覆盖大模型推理性能优化（量化压缩、KV缓存优化、动态Shape适配等）、服务化能力建设（动态批处理、流量调度、多模型混合部署、弹性扩缩容等）、多硬件部署适配（昇腾、GPU、CPU等异构硬件的推理服务兼容）等方向。\n2. 生态落地建设：推动Llama、通义千问、智谱GLM等主流开源大模型在MindSpore推理服务框架上的适配，输出标准化部署流程、行业最佳实践，降低开发者落地大模型应用的技术门槛。\n3. 社区协作运营：收集全球开发者、企业用户的大模型推理部署需求，对接LangChain、向量数据库等上下游生态组件，组织开发者共建相关技术能力，同步输出技术教程、案例、问题答疑等内容。\n\n关于例会频率，该SIG按照社区规则每双周召开1次公开例会，会议议题、参会方式、往期会议材料都会提前在SIG官方仓库、社区通知渠道同步，所有社区开发者均可免费报名参会、提交讨论议题。\n\n参考链接：\n- https://www.mindspore.cn/community/zh-CN/master/sig/list\n- https://gitee.com/mindspore/community/tree/master/sigs/llm-inference-serving\n- https://www.mindspore.cn/community/zh-CN/master/meeting/calendar",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore社区下设的LLM推理部署与服务化特别兴趣小组",
+    "competitors_mentioned": [
+      "Llama",
+      "LangChain"
+    ],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community/zh-CN/master/sig/list",
+      "https://gitee.com/mindspore/community/tree/master/sigs/llm-inference-serving",
+      "https://www.mindspore.cn/community/zh-CN/master/meeting/calendar"
+    ]
+  },
+  {
+    "question_id": "q_038",
+    "platform": "qwen",
+    "query": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+    "timestamp": "2026-03-30T10:36:15.963242+00:00",
+    "raw_response": "MindSpore 的 LLM Inference Serving SIG（特殊兴趣小组）主要专注于大语言模型（LLM）推理服务化的技术研发与社区生态建设。其核心工作内容围绕 MindIE（Mind Inference Engine）推理引擎的优化，旨在提升 LLM 在 Ascend 硬件上的推理性能、降低延迟并提高吞吐量，同时推动模型在 MindSpore 生态中的高效部署与落地 [1]。该 SIG 为开发者提供了一个协作平台，共同解决推理过程中的资源调度、算子适配及服务化架构等关键问题。\n\n关于例会频率，MindSpore 社区下的 SIG 通常采用双周会的机制进行技术同步与议题讨论，LLM Inference Serving 相关小组一般也遵循这一惯例，即每两周召开一次例会 [2]。具体的会议时间、接入方式及议程通常会提前在社区的 Gitee 仓库或邮件列表中发布，开发者可以通过关注官方社区页面获取最新的会议通知与纪要 [3]。\n\n参考链接：\n- https://www.mindspore.cn/community/sig\n- https://gitee.com/mindspore/community\n- https://gitee.com/mindspore/mindie",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore社区下专注LLM推理服务化的特殊兴趣小组，围绕MindIE推理引擎优化",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community/sig",
+      "https://gitee.com/mindspore/community",
+      "https://gitee.com/mindspore/mindie"
+    ]
+  },
+  {
+    "question_id": "q_040",
+    "platform": "deepseek",
+    "query": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+    "timestamp": "2026-03-30T10:36:20.208944+00:00",
+    "raw_response": "MindSpore Parallel Training System SIG（Special Interest Group，特别兴趣小组）的工作范围主要围绕 **MindSpore 深度学习框架的分布式并行训练技术**，旨在通过社区协作推动大规模分布式训练的性能优化、易用性提升和生态扩展。  \n\n具体工作范围包括：  \n\n1. **分布式并行训练架构设计与优化**  \n   - 研究并优化数据并行、模型并行、流水线并行及混合并行等分布式策略。  \n   - 改进通信库（如集合通信）与计算图的协同性能，降低训练时延。  \n\n2. **自动并行与性能调优**  \n   - 开发自动并行切分与调度策略，降低用户手动配置复杂度。  \n   - 提供性能分析工具，优化资源利用率与训练效率。  \n\n3. **大规模训练扩展性与稳定性**  \n   - 支持超大规模模型（如千亿参数）的高效训练，解决内存和通信瓶颈。  \n   - 提升分布式训练的容错与弹性调度能力。  \n\n4. **异构计算与跨平台支持**  \n   - 优化 CPU/GPU/Ascend 等异构硬件的并行训练适配。  \n   - 探索跨集群、跨云环境的分布式训练方案。  \n\n5. **社区协作与生态建设**  \n   - 通过开源社区收集需求、评审代码、维护文档。  \n   - 推动与其他开源项目（如数据集、调度系统）的集成。  \n\n参考链接：  \n- https://www.mindspore.cn/news/newschildren?id=1056  \n- https://www.mindspore.cn/community/sigs/detail/92  \n- https://gitee.com/mindspore/community/tree/master/sigs/parallel",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "深度学习框架，聚焦分布式并行训练技术",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/news/newschildren?id=1056",
+      "https://www.mindspore.cn/community/sigs/detail/92",
+      "https://gitee.com/mindspore/community/tree/master/sigs/parallel"
+    ]
+  },
+  {
+    "question_id": "q_040",
+    "platform": "doubao",
+    "query": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+    "timestamp": "2026-03-30T10:37:05.181236+00:00",
+    "raw_response": "MindSpore Parallel Training System SIG（并行训练系统特别兴趣小组）是MindSpore社区聚焦分布式并行训练领域的专项技术小组，其核心工作范围如下：\n1. **并行训练核心架构研发**：负责分布式并行训练基础框架的设计、迭代与维护，实现并优化数据并行、张量并行、流水线并行、混合并行、异构并行等多种并行策略，降低并行训练的使用门槛，提升分布式场景下的计算效率、通信效率与内存利用率。\n2. **大模型训练场景技术攻坚**：面向大语言模型、多模态大模型等超大规模模型训练需求，研发MoE专家并行、序列并行、3D并行、训练容错、弹性训练、动态并行等定制化特性，支撑万卡级大规模集群训练的稳定性与性能表现。\n3. **并行工具链体系建设**：开发并行策略自动搜索、分布式任务调度、并行训练性能 profiling、可视化调优等配套工具，帮助用户快速定位并行训练性能瓶颈，自动化匹配最优并行方案。\n4. **跨环境适配优化**：对接昇腾、GPU、CPU等不同硬件架构，适配Kubernetes、Slurm等主流集群调度平台，保障并行训练能力在不同软硬件环境下的兼容性与性能表现。\n5. **社区生态运营**：输出并行训练相关的官方教程、最佳实践、落地案例，响应社区用户在并行训练场景的问题反馈，联合产业伙伴共建并行训练技术生态，推动相关技术标准落地。\n\n参考链接：\n- https://www.mindspore.cn/community/zh/sigs\n- https://gitee.com/mindspore/community/tree/master/sigs/parallel\n- https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/parallel_introduction.html\n- https://www.mindspore.cn/docs/zh-CN/r2.3/design/distributed_training/overview.html",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore社区聚焦分布式并行训练领域的专项技术小组",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community/zh/sigs",
+      "https://gitee.com/mindspore/community/tree/master/sigs/parallel",
+      "https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/parallel_introduction.html",
+      "https://www.mindspore.cn/docs/zh-CN/r2.3/design/distributed_training/overview.html"
+    ]
+  },
+  {
+    "question_id": "q_040",
+    "platform": "qwen",
+    "query": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+    "timestamp": "2026-03-30T10:37:51.184590+00:00",
+    "raw_response": "MindSpore 社区中涉及平行训练系统（Parallel Training System）的相关 SIG（Special Interest Group，特别兴趣小组）主要致力于推动 MindSpore 框架在分布式训练、自动并行及大模型支持方面的技术发展。其工作范围通常涵盖以下几个核心领域：\n\n1.  **自动并行技术（Auto Parallel）**：研发和优化自动并行策略，旨在降低用户进行分布式编程的门槛，使模型能够自动切分并在多卡或多机环境下高效运行 [1]。\n2.  **大规模模型训练支持**：针对千亿级参数的大模型提供高效的训练解决方案，包括显存优化、通信优化以及断点续训等功能，确保大模型训练的稳定性 [2]。\n3.  **性能优化与系统演进**：持续提升分布式训练的执行效率和资源利用率，解决并行训练中的性能瓶颈，并协同社区开发者完善相关的工具链和文档 [3]。\n4.  **社区生态建设**：通过 SIG 机制聚集社区力量，共同讨论并行训练的技术路线图，处理相关 Issue 和 PR，促进生态繁荣。\n\n这些工作内容旨在确保 MindSpore 在 AI 计算领域，特别是在大规模深度学习训练场景下保持竞争力和易用性。\n\n参考链接：\n- https://mindspore.cn/community/sig\n- https://mindspore.cn/docs/zh-CN/r2.3.0/parallel/parallel_overview.html\n- https://gitee.com/mindspore/community",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "AI计算领域深度学习框架，聚焦分布式训练、自动并行及大模型支持",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://mindspore.cn/community/sig",
+      "https://mindspore.cn/docs/zh-CN/r2.3.0/parallel/parallel_overview.html",
+      "https://gitee.com/mindspore/community"
+    ]
+  },
+  {
+    "question_id": "q_055",
+    "platform": "deepseek",
+    "query": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+    "timestamp": "2026-03-30T10:40:58.093363+00:00",
+    "raw_response": "MindSpore 官方主要维护以下几个邮件列表，面向不同技术需求的开发者和用户：\n\n1. **mindspore-issues**\n   - 面向群体：主要用于提交和讨论 MindSpore 的使用问题、Bug 报告或功能请求。\n   - 参考链接：https://mailweb.mindspore.cn/postorius/lists/mindspore-issues.mindspore.cn/\n\n2. **mindspore-announce**\n   - 面向群体：面向所有 MindSpore 用户，用于接收官方的重要公告。\n   - 参考链接：https://mailweb.mindspore.cn/postorius/lists/mindspore-announce.mindspore.cn/\n\n3. **mindspore-sig**（Special Interest Groups）\n   - 面向群体：针对特定技术领域的兴趣小组。\n   - 参考链接：https://mailweb.mindspore.cn/postorius/lists/mindspore-sig.mindspore.cn/\n\n参考链接：\n- https://mailweb.mindspore.cn/postorius/lists/mindspore-issues.mindspore.cn/\n- https://mailweb.mindspore.cn/postorius/lists/mindspore-announce.mindspore.cn/\n- https://mailweb.mindspore.cn/postorius/lists/mindspore-sig.mindspore.cn/",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore官方社区，通过邮件列表系统管理问题反馈、公告和SIG讨论",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://mailweb.mindspore.cn/postorius/lists/mindspore-issues.mindspore.cn/",
+      "https://mailweb.mindspore.cn/postorius/lists/mindspore-announce.mindspore.cn/",
+      "https://mailweb.mindspore.cn/postorius/lists/mindspore-sig.mindspore.cn/"
+    ]
+  },
+  {
+    "question_id": "q_055",
+    "platform": "doubao",
+    "query": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+    "timestamp": "2026-03-30T10:41:29.932193+00:00",
+    "raw_response": "MindSpore官方目前主要设置了3类面向不同受众的邮件列表：\n1. 用户邮件列表（users@mindspore.cn）：面向所有使用MindSpore的受众。\n2. 开发者邮件列表（dev@mindspore.cn）：面向参与MindSpore开源社区建设的贡献者群体。\n3. 安全专项邮件列表（security@mindspore.cn）：面向发现MindSpore产品安全漏洞的安全研究人员。\n\n参考链接：\n- https://www.mindspore.cn/community/zh-CN/mailing-list/\n- https://www.mindspore.cn/docs/zh-CN/r2.2/community/contribution/how_to_contribute.html\n- https://www.mindspore.cn/security/zh-CN/security-process",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore开源社区，设置users/dev/security三类邮件列表服务不同受众",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community/zh-CN/mailing-list/",
+      "https://www.mindspore.cn/docs/zh-CN/r2.2/community/contribution/how_to_contribute.html",
+      "https://www.mindspore.cn/security/zh-CN/security-process"
+    ]
+  },
+  {
+    "question_id": "q_055",
+    "platform": "qwen",
+    "query": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+    "timestamp": "2026-03-30T10:42:21.613125+00:00",
+    "raw_response": "MindSpore 社区主要维护了以下几个核心邮件列表：\n1. users@mindspore.cn：面向普通用户和框架使用者。\n2. dev@mindspore.cn：面向开发者和贡献者。\n3. commits@mindspore.cn：面向关注代码变更的人员。\n\n参考链接：\n- https://www.mindspore.cn/community\n- https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md\n- https://www.mindspore.cn/community/contact",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore社区，维护users/dev/commits三个核心邮件列表",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community",
+      "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md",
+      "https://www.mindspore.cn/community/contact"
+    ]
+  },
+  {
+    "question_id": "q_048",
+    "platform": "deepseek",
+    "query": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+    "timestamp": "2026-03-30T10:40:04.622049+00:00",
+    "raw_response": "是的，**MindSpore 曾多次参加 KubeCon + CloudNativeCon 等国际开源峰会**，并作为重要参与者进行技术分享和社区推广。\n\n具体来说，MindSpore 团队主要通过以下几种方式参与：\n\n1.  **发表主题演讲和技术分享**：MindSpore 的开发者多次在 KubeCon 等大会上发表演讲，介绍其在云原生AI、与Kubernetes集成、大规模分布式训练等方面的最新进展和实践。例如，分享 MindSpore 在 Kubernetes 上的弹性调度、自动并行等特性。\n2.  **设立展台和进行演示**：在峰会展览区，MindSpore 团队通常会设立展台，向全球开发者展示其技术，进行现场代码演示和答疑，并与生态伙伴互动。\n3.  **参与相关开源项目社区活动**：作为云原生计算基金会（CNCF）生态中的重要AI框架，MindSpore 也会参与与Kubernetes、KubeEdge等项目的联合讨论或活动。\n\n**关键参与实例**：\n*   在 **KubeCon + CloudNativeCon Europe 2021** 上，华为（MindSpore 的主要贡献者）发表了题为《MindSpore：一种适用于云、边、端全场景的新一代AI计算框架》的演讲，深入探讨了其云原生设计。\n*   在 **KubeCon + CloudNativeCon North America 2020** 上，也有关于 MindSpore 与 Kubernetes 结合实现高效训练的主题分享。\n\n这些参与表明 MindSpore 积极融入全球开源生态，特别是云原生技术社区，致力于推动AI与云原生技术的融合发展。\n\n参考链接：\n- https://www.cncf.io/blog/2021/05/14/mindspore-a-new-generation-ai-computing-framework-for-all-scenarios/\n- https://kccnceu2021.sched.com/event/iE6V/mindspore-a-new-generation-ai-computing-framework-for-all-scenarios-cloud-edge-and-device-huawei\n- https://www.lfasiallc.com/kubecon-cloudnativecon-open-source-summit-china-2020/",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore 是云原生计算基金会（CNCF）生态中的重要AI框架，适用于云、边、端全场景的新一代AI计算框架",
+    "competitors_mentioned": [
+      "Kubernetes",
+      "KubeEdge"
+    ],
+    "recommendation_position": "primary",
+    "citations_to_official": []
+  },
+  {
+    "question_id": "q_048",
+    "platform": "doubao",
+    "query": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+    "timestamp": "2026-03-30T10:41:02.388777+00:00",
+    "raw_response": "昇思MindSpore多次参与KubeCon + CloudNativeCon（简称KubeCon）等国际顶级开源峰会，具体情况如下：\n### KubeCon参与情况\n作为云原生AI领域的核心开源项目，MindSpore多次亮相KubeCon全球各站点会议：\n1. 2023年KubeCon + CloudNativeCon + Open Source Summit中国站（上海），MindSpore团队发表了《云原生场景下基于MindSpore的大模型高效分布式训练实践》正式议题，分享了MindSpore适配Kubernetes生态的大模型训练调度、弹性资源管理、故障容错等技术方案。\n2. 2024年KubeCon + CloudNativeCon北美站（盐湖城），MindSpore团队带来了云原生场景下大模型分布式训练、轻量化Serverless推理部署的相关技术分享与Demo展示，和全球云原生开发者交流生态共建方案。\n### 其他国际开源峰会参与情况\n除KubeCon外，MindSpore还多次参与Linux基金会主办的Open Source Summit（开源峰会）、ApacheCon、OSADL等国际开源行业会议，覆盖北美、欧洲、亚太等多个区域，推进AI开源技术的全球协作。\n\n参考链接：\n- https://kccncosschn2023.sched.com/event/1PteK/yun-yuan-sheng-chang-jing-xia-ji-yu-mindsporede-da-mo-xing-gao-xiao-fen-bu-shi-xun-lian-shi-jian-zhong-hua-wei-yu-zhong-huawei\n- https://www.mindspore.cn/news/newschildren?id=2735\n- https://www.mindspore.cn/news/newschildren?id=2431",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "昇思MindSpore，云原生AI领域的核心开源项目",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/news/newschildren?id=2735",
+      "https://www.mindspore.cn/news/newschildren?id=2431"
+    ]
+  },
+  {
+    "question_id": "q_048",
+    "platform": "qwen",
+    "query": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+    "timestamp": "2026-03-30T10:42:06.352530+00:00",
+    "raw_response": "是的，MindSpore 已经参加过 KubeCon 等国际开源峰会及相关生态活动。\n\nMindSpore 作为昇腾 AI 生态的核心开源框架，自开源以来积极参与国际开源社区建设。它是 Linux Foundation AI & Data 基金会的项目成员，因此经常亮相于该基金会主办的 **Open Source Summit（开源峰会）** 以及 **LF AI & Data Day** 等活动 [1]。此外，在 **KubeCon + CloudNativeCon** 峰会中，MindSpore 也常作为云原生 AI 解决方案的一部分，与 Volcano、Kubernetes 等技术联合展示，探讨 AI 框架在云原生环境下的部署与优化 [2]。国内外的技术媒体（如开源中国、InfoQ 等）也对 MindSpore 参与这些国际峰会的情况进行过报道，记录了其在国际开源舞台上的活跃表现 [3]。\n\n通过这些峰会，MindSpore 社区与全球开发者分享了其在自动并行、动静结合语法以及端边云协同等方面的技术进展，推动了 AI 框架与云原生技术的融合。\n\n参考链接：\n- https://www.mindspore.cn/news\n- https://lfaidata.foundation/projects/mindspore\n- https://www.oschina.net/news/tag/mindspore",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "MindSpore 是昇腾 AI 生态的核心开源框架，Linux Foundation AI & Data 基金会项目成员",
+    "competitors_mentioned": [
+      "Volcano",
+      "Kubernetes"
+    ],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/news"
+    ]
+  },
+  {
+    "question_id": "q_059",
+    "platform": "deepseek",
+    "query": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
+    "timestamp": "2026-03-30T10:41:49.533224+00:00",
+    "raw_response": "MindSpore 社区会议的流程通常遵循开源社区的标准实践，以确保高效协作和透明度。会议纪要则用于记录讨论要点和决策结果。以下是基于公开社区资料的概括：\n\n### 会议流程\n1. **会前准备**：\n   - 会议议题通过 GitHub Issue 或邮件列表提前收集和公示，社区成员可添加讨论项目。\n   - 会议时间和链接在社区日历或论坛（如 MindSpore 官网、Gitee 等）公布。\n\n2. **会议进行**：\n   - 主持人开场，介绍议程和目标。\n   - 按议题顺序讨论，包括技术分享、问题反馈、提案评审等。\n   - 社区成员（如开发者、用户）可自由发言，通常通过视频会议工具（如 Zoom）进行。\n   - 会议注重实践，例如针对 PR 代码审查、版本规划或故障排查的实时讨论。\n\n3. **会后跟进**：\n   - 行动项（Action Items）会被明确分配并记录在纪要中。\n   - 会议纪要和录播（如有）在会后公开发布，便于未参会者查阅。\n\n### 会议纪要内容\n会议纪要通常包含以下要素：\n- **基础信息**：会议主题、日期、时间、参会人员列表。\n- **议题讨论摘要**：每个议题的讨论要点、不同观点和结论。\n- **决策记录**：社区达成的共识或投票结果（如 API 修改、版本发布计划）。\n- **行动项**：具体任务、负责人和截止日期。\n- **参考资料**：相关 PR、Issue 或文档的链接。\n- **下次会议安排**：暂定时间和主题。\n\n### 参考链接\n- https://www.mindspore.cn/community （MindSpore 社区首页，包含会议信息）\n- https://gitee.com/mindspore/community/tree/master/meetings （MindSpore 社区会议记录仓库示例）\n- https://www.mindspore.cn/news/newschildren/390 （MindSpore 社区活动与会议公告示例）",
+    "citations": [],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "遵循开源社区标准实践的深度学习框架社区",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://www.mindspore.cn/community",
+      "https://gitee.com/mindspore/community/tree/master/meetings",
+      "https://www.mindspore.cn/news/newschildren/390"
+    ]
+  },
+  {
+    "question_id": "q_059",
+    "platform": "doubao",
+    "query": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
+    "timestamp": "2026-03-30T10:42:19.361141+00:00",
+    "raw_response": "### MindSpore社区组织会议的标准流程\nMindSpore社区的公开会议（包括技术委员会TC会议、各SIG专项兴趣组例会、专项工作组会议等）统一遵循官方发布的会议管理规范，流程如下：\n1. **议题征集申报**：通常提前3-5个工作日开放议题征集，社区贡献者可以通过对应SIG的Gitee仓库提交Issue、或直接向SIG维护者/会议主持人申请议题，申报时需说明议题背景、讨论目标、预计时长、主讲人信息。\n2. **议程确认与通知**：会议主持人提前1-2个工作日汇总有效议题形成最终议程，通过社区邮件列表、SIG专属交流群、社区公开日历等渠道同步给所有社区成员，同时开放会议参会入口。\n3. **会前筹备**：议题主讲人需提前将分享材料（PPT、设计文档等）上传到对应议题Issue或社区共享目录，方便参会者提前预习、预提交疑问，提高会议效率。\n4. **会议召开**：开场由主持人说明会议规则和议程安排，按议程逐项开展讨论，单个议题严格控制时长，会议过程安排专人记录讨论要点，无敏感内容的公开会议全程录屏。\n5. **会后跟进**：会议结束后3个工作日内完成会议纪要整理，同步所有行动项，并且将纪要、录屏、分享材料同步到社区公开渠道，定期跟进行动项落地进度。\n\n### 会议纪要的核心内容\n根据社区官方发布的会议纪要模板，通常包含以下模块：\n1. **基础信息**：会议全称、举办时间、主持人、记录人、参会人员名单、会议录屏/回放链接入口。\n2. **议程执行情况**：本次会议原定议程列表，以及实际执行的调整说明。\n3. **议题讨论详情**：每个议题的核心分享内容、讨论过程中达成的共识、尚未达成一致的分歧点、相关参考文档链接。\n4. **行动项列表（核心模块）**：每条行动项明确具体任务、对应责任人、预期完成时间，作为后续落地跟踪的核心依据。\n5. **后续安排**：下次会议的拟举办时间、议题征集方向等提示信息。\n\n参考链接：\n- https://gitee.com/mindspore/community/blob/master/governance/meeting-management.md\n- https://gitee.com/mindspore/community/blob/master/templates/meeting-minutes-template.md\n- https://www.mindspore.cn/community/zh-CN/participate#%E4%BC%9A%E8%AE%AE%E5%8F%82%E4%B8%8E\n- https://www.mindspore.cn/news/newschildren?id=4402",
+    "citations": [],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "遵循官方会议管理规范的开源深度学习框架社区",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://gitee.com/mindspore/community/blob/master/governance/meeting-management.md",
+      "https://gitee.com/mindspore/community/blob/master/templates/meeting-minutes-template.md",
+      "https://www.mindspore.cn/community/zh-CN/participate#%E4%BC%9A%E8%AE%AE%E5%8F%82%E4%B8%8E",
+      "https://www.mindspore.cn/news/newschildren?id=4402"
+    ]
+  },
+  {
+    "question_id": "q_059",
+    "platform": "qwen",
+    "query": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
+    "timestamp": "2026-03-30T10:44:22.832143+00:00",
+    "raw_response": "MindSpore 社区的组织会议通常围绕特别兴趣小组（SIG, Special Interest Group）或特定技术议题展开，其流程遵循开源社区的标准协作规范，旨在促进开发者之间的沟通与协作。以下是会议组织流程及会议纪要内容的详细说明：\n\n### 1. 会议组织流程\n\nMindSpore 社区会议的组织通常包含以下几个关键步骤，具体规范可参考社区仓库中的相关指引：\n\n1.  **议题征集与提案**：会议发起人（通常是 SIG 负责人或核心贡献者）会在社区仓库或邮件列表中提出会议议题，明确会议目标和讨论范围。相关信息常发布在 [MindSpore Community Gitee 仓库](https://gitee.com/mindspore/community) 中。\n2.  **时间与平台预定**：确定会议的具体时间、持续时长以及会议平台（如腾讯会议、Zoom 等）。时间选择通常会考虑全球不同时区的参与者。\n3.  **会议通知**：通过邮件列表（Mailing List）、社区微信群或 Gitee Issue 等方式发布会议通知，包含会议链接和议程草案。官方社区入口 [MindSpore 官方网站社区页](https://www.mindspore.cn/community) 也会同步相关活动信息。\n4.  **会议执行**：按时召开会议，由主持人引导讨论，记录员负责记录关键讨论点和决策。\n5.  **纪要发布与归档**：会后整理会议纪要，并提交至社区仓库的特定目录（如 `meeting-notes`）进行归档，以便未参会者查阅和跟进。\n\n### 2. 会议纪要通常包含的内容\n\n为了保证会议成果的可追溯性和执行力，MindSpore 社区的会议纪要通常包含以下核心要素，这也是贡献者参与社区协作的重要参考，相关规范可见 [贡献指南](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING_CN.md)：\n\n*   **基本信息**：包括会议主题、日期、时间、时区、会议链接以及参会人员列表（主持人和记录员）。\n*   **议程回顾**：列出会议预定讨论的主要议题。\n*   **讨论内容摘要**：记录每个议题的主要观点、争议点及讨论过程，确保信息透明。\n*   **决议与结论**：明确会议达成的共识、通过的技术方案或否决的提议。\n*   **行动项（Action Items）**：列出会后需要执行的任务，明确责任人（Owner）和预计完成时间（Deadline）。\n*   **下次会议计划**：如有需要，预告下次会议的时间或待定议题。\n\n通过规范的会议流程和详细的纪要，MindSpore 社区确保了技术决策的透明度和社区协作的高效性。\n\n参考链接：\n- https://gitee.com/mindspore/community\n- https://www.mindspore.cn/community\n- https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING_CN.md",
+    "citations": [],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "mentions_community": true,
+    "community_description": "围绕SIG和技术议题展开协作的开源深度学习框架社区",
+    "competitors_mentioned": [],
+    "recommendation_position": "primary",
+    "citations_to_official": [
+      "https://gitee.com/mindspore/community",
+      "https://www.mindspore.cn/community",
+      "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING_CN.md"
+    ]
+  },
+  {
+    "question_id": "q_063",
+    "platform": "chatgpt",
+    "query": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+    "timestamp": "2026-03-30T10:52:28.179987+00:00",
+    "raw_response": "",
+    "citations": [],
+    "model": "gpt-5.4",
+    "status": "error",
+    "error": "Error code: 401 - {'error': {'code': '', 'message': '未提供令牌 (request id: 20260330185230383188225BT124DtU)', 'type': 'packy_api_error'}}",
+    "metadata": {
+      "mentions_community": false,
+      "community_description": "",
+      "competitors_mentioned": [],
+      "recommendation_position": "not_mentioned",
+      "citations_to_official": []
+    }
+  },
+  {
+    "question_id": "q_063",
+    "platform": "deepseek",
+    "query": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+    "timestamp": "2026-03-30T10:55:49.201525+00:00",
+    "raw_response": "MindSpore 的安全 SIG（Security Special Interest Group）通过公开的流程处理漏洞报告和安全问题，主要遵循 **负责任披露（Responsible Disclosure）原则** 和 **分层响应机制**。具体步骤如下：\n\n### 1. **漏洞报告渠道**\n   - 安全问题应通过 **特定安全邮箱**（如 `security@mindspore.cn`）或 **GitHub Security Advisories**（在 MindSpore 仓库中）进行报告，而非公开的 Issue 或讨论区，以避免漏洞过早暴露。\n   - 报告需包含详细的漏洞描述、复现步骤、影响版本及潜在风险（例如 CVSS 评分建议）。\n\n### 2. **漏洞评估与分类**\n   - 安全 SIG 维护者会对报告进行初步分析，评估漏洞的真实性、严重等级（如高危、中危、低危）和影响范围。\n   - 参考标准包括 **CVE（通用漏洞披露）** 和行业安全规范，确保漏洞分类与业界实践一致。\n\n### 3. **修复与协调披露**\n   - 确认为有效漏洞后，安全 SIG 会协调开发团队在私有分支中开发补丁，并通知受影响的上下游生态（如依赖库或合作方）。\n   - 修复完成后，会安排同步发布 **安全公告**（Security Advisory）和 **版本更新**，确保用户在补丁可用后再公开漏洞细节。\n\n### 4. **公开披露与归档**\n   - 漏洞修复后，安全 SIG 会在 **MindSpore 官方公告渠道**（如官网安全页面、GitHub Release 说明）中公开漏洞信息，并为严重漏洞申请 **CVE 编号**，以方便社区跟踪。\n   - 所有处理记录会归档至安全 SIG 的知识库，用于后续审计和改进流程。\n\n### 5. **社区协作与预防**\n   - 安全 SIG 定期组织 **安全代码审查**、**渗透测试** 和 **漏洞赏金计划**（如有），鼓励社区参与安全建设。\n   - 通过文档和培训提升开发者对安全实践（如依赖检查、输入验证）的认知。\n\n**注意事项**：  \n- 漏洞报告者通常会被邀请参与修复验证，并可能在安全公告中被致谢（除非匿名）。  \n- MindSpore 遵循开源社区标准（如 OpenSSF 指南），确保流程透明且高效。\n\n参考链接：\n- https://www.mindspore.cn/resources/security  \n- https://github.com/mindspore-ai/community/tree/master/security  \n- https://www.mindspore.cn/news/newschildren?id=471  \n- https://www.cve.org/About/Overview",
+    "citations": [
+      "https://www.mindspore.cn/resources/security",
+      "https://github.com/mindspore-ai/community/tree/master/security",
+      "https://www.mindspore.cn/news/newschildren?id=471",
+      "https://www.cve.org/About/Overview"
+    ],
+    "model": "deepseek-v3.2",
+    "status": "success",
+    "metadata": {
+      "mentions_community": true,
+      "community_description": "MindSpore 的安全 SIG（Security Special Interest Group）通过公开的流程处理漏洞报告和安全问题，主要遵循 **负责任披露（Responsible Disclosure）原则** 和 **分层响应机制**",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.mindspore.cn/resources/security",
+        "https://github.com/mindspore-ai/community/tree/master/security",
+        "https://www.mindspore.cn/news/newschildren?id=471"
+      ]
+    }
+  },
+  {
+    "question_id": "q_063",
+    "platform": "doubao",
+    "query": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+    "timestamp": "2026-03-30T10:56:45.438761+00:00",
+    "raw_response": "MindSpore 安全SIG是负责社区安全治理、漏洞全生命周期响应的专项小组，漏洞报告和安全问题的处理流程如下：\n1. 漏洞接收\n安全SIG提供专属的非公开上报渠道：官方指定上报邮箱为security@mindspore.cn，也可通过MindSpore安全中心的线上入口提交漏洞信息。要求上报者提供完整的漏洞佐证材料，包括影响版本、复现步骤、POC、危害评估等，禁止在公开Issue、社区论坛等公共渠道披露未修复的漏洞细节。符合条件的漏洞上报可参与MindSpore安全悬赏计划，获取对应奖励。\n2. 漏洞验证与分级\nSIG安全响应团队会在3个工作日内向上报者发送回执，随后开展漏洞真实性核验、重复上报排查，按照CVSS 3.1标准评估漏洞严重等级，同步告知上报者初步处理结论。\n3. 漏洞修复\n确认有效的漏洞会按严重等级分配处理优先级，调度对应模块维护者产出修复方案，修复完成后需通过内部安全测试、兼容性校验，同时会将修复方案同步给上报者确认修复有效性。\n4. 补丁发布与公开披露\n修复完成后，安全SIG会随官方版本推送安全补丁，同时在MindSpore安全中心发布正式安全公告，公告包含漏洞影响范围、修复方案、CVE编号（SIG可协助上报者申请CVE编号），若上报者同意，公告中会对上报者署名致谢。\n5. 后续治理\n漏洞披露后，安全SIG会排查同类衍生漏洞，更新社区安全开发规范，避免同类问题重复出现。\n整个处理周期内，所有参与人员需遵守保密约定，在补丁正式发布前不得泄露漏洞细节，避免被恶意利用。\n\n参考链接：\n- https://www.mindspore.cn/security/zh-CN\n- https://gitee.com/mindspore/community/tree/master/sigs/security\n- https://gitee.com/mindspore/community/blob/master/security/security-vulnerability-management.md\n- https://www.mindspore.cn/security/zh-CN/disclosure",
+    "citations": [
+      "https://www.mindspore.cn/security/zh-CN",
+      "https://gitee.com/mindspore/community/tree/master/sigs/security",
+      "https://gitee.com/mindspore/community/blob/master/security/security-vulnerability-management.md",
+      "https://www.mindspore.cn/security/zh-CN/disclosure"
+    ],
+    "model": "doubao-seed-2.0-pro",
+    "status": "success",
+    "metadata": {
+      "mentions_community": true,
+      "community_description": "MindSpore 安全SIG是负责社区安全治理、漏洞全生命周期响应的专项小组，漏洞报告和安全问题的处理流程如下：",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.mindspore.cn/security/zh-CN",
+        "https://gitee.com/mindspore/community/tree/master/sigs/security",
+        "https://gitee.com/mindspore/community/blob/master/security/security-vulnerability-management.md",
+        "https://www.mindspore.cn/security/zh-CN/disclosure"
+      ]
+    }
+  },
+  {
+    "question_id": "q_063",
+    "platform": "qwen",
+    "query": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+    "timestamp": "2026-03-30T10:58:02.716519+00:00",
+    "raw_response": "MindSpore 社区设立了安全特别兴趣小组（Security SIG），专门负责协调和处理框架的安全漏洞及相关安全问题。该小组遵循严格的安全策略，旨在确保用户报告的漏洞能够得到及时、保密且有效的响应。以下是 Security SIG 处理漏洞报告和安全问题的主要流程与机制：\n\n1.  **漏洞报告渠道**：\n    为了保障安全性，MindSpore 建议用户不要直接在公共 Issue  tracker 中披露漏洞细节。用户可以通过发送电子邮件至官方指定的安全联系邮箱，或者通过代码托管平台（如 GitHub 或 Gitee）的私有漏洞报告功能提交问题。具体的报告指南和安全政策可以在官方文档中找到 [1]。\n\n2.  **处理与响应流程**：\n    安全 SIG 成员在收到报告后，会首先进行初步评估以确认漏洞的有效性。一旦验证属实，团队会内部协调制定修复方案，并在修复完成后通过安全公告的形式向社区披露。整个过程遵循“负责任披露”（Responsible Disclosure）原则，以确保用户在补丁发布前不会受到潜在攻击 [2]。\n\n3.  **社区协作与治理**：\n    安全 SIG 是 MindSpore 社区组织架构的重要组成部分，其工作流程和职责定义在社区仓库中公开可见。社区欢迎安全研究人员和开发者参与 SIG 的工作，共同维护框架的安全性，相关的社区组织和 SIG 信息可通过社区仓库获取 [3]。\n\n参考链接：\n- https://www.mindspore.cn/docs/zh-CN/master/security/security_policy.html\n- https://github.com/mindspore-ai/mindspore/blob/master/SECURITY.md\n- https://gitee.com/mindspore/community",
+    "citations": [
+      "https://www.mindspore.cn/docs/zh-CN/master/security/security_policy.html",
+      "https://github.com/mindspore-ai/mindspore/blob/master/SECURITY.md",
+      "https://gitee.com/mindspore/community"
+    ],
+    "model": "qwen3.5-plus",
+    "status": "success",
+    "metadata": {
+      "mentions_community": true,
+      "community_description": "MindSpore 社区设立了安全特别兴趣小组（Security SIG），专门负责协调和处理框架的安全漏洞及相关安全问题",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.mindspore.cn/docs/zh-CN/master/security/security_policy.html",
+        "https://github.com/mindspore-ai/mindspore/blob/master/SECURITY.md",
+        "https://gitee.com/mindspore/community"
+      ]
+    }
+  }
+]

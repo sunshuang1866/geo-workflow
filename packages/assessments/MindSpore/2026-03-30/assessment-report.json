@@ -1,26 +1,26 @@
 {
   "metadata": {
     "community": "MindSpore",
-    "generated_at": "2026-03-30T12:44:47.472566+00:00",
+    "generated_at": "2026-03-30T16:37:35.641527+00:00",
     "total_questions": 18,
     "total_platforms": 4,
     "citation_threshold": 0.9,
     "source_files": {
       "scoring": "packages/assessments/MindSpore/2026-03-30/scoring-results.json",
-      "labels": "packages/assessments/MindSpore/content-labels.json",
+      "questions": "packages/assessments/MindSpore/questions.json",
       "issue_map": "packages/assessments/MindSpore/issue-map.json"
     }
   },
   "summary": {
     "by_category": {
       "no_official_content": 2,
-      "not_cited": 7,
-      "satisfied": 9
+      "not_cited": 16,
+      "satisfied": 0
     },
     "by_severity": {
-      "P0": 7,
+      "P0": 16,
       "P1": 2,
-      "OK": 9
+      "OK": 0
     }
   },
   "categories": {
@@ -35,7 +35,7 @@
           "status": "no_official_content",
           "description": "官方内容缺失",
           "severity": "P1",
-          "citation_rate": null,
+          "citation_rate": 0.0,
           "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
@@ -73,7 +73,7 @@
           "status": "no_official_content",
           "description": "官方内容缺失",
           "severity": "P1",
-          "citation_rate": null,
+          "citation_rate": 0.0,
           "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
@@ -109,143 +109,6 @@
     "not_cited": {
       "title": "有内容未被引用",
       "description": "官方内容已存在，但未达到 90% 平台引用阈值",
-      "unique_question_count": 7,
-      "action_groups": [
-        {
-          "action_key": "restructure_content",
-          "action_title": "重构内容结构与关键词",
-          "action_description": "文档页面存在但内容层级不清晰、关键词与用户搜索意图不匹配，导致 AI 平台无法准确提取。",
-          "avg_citation_rate": 0.0,
-          "issue_refs": [
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
-              "issue_number": 1,
-              "title_summary": "ARM 架构安装文档未被 AI 平台引用（引用率 0%）"
-            }
-          ],
-          "questions": [
-            "q_001"
-          ]
-        },
-        {
-          "action_key": "optimize_structured_data",
-          "action_title": "添加结构化数据标记",
-          "action_description": "页面缺少 Schema.org / JSON-LD 标记，AI 平台无法解析内容语义关系。",
-          "avg_citation_rate": 0.3333333333333333,
-          "issue_refs": [
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
-              "issue_number": 1,
-              "title_summary": "ARM 架构安装文档未被 AI 平台引用（引用率 0%）"
-            },
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
-              "issue_number": 2,
-              "title_summary": "MindNLP 相关问题官方链接未被引用（引用率 0%~67%）"
-            },
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
-              "issue_number": 3,
-              "title_summary": "推理排障 FAQ 页面未被 qwen 引用（引用率 67%）"
-            },
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
-              "issue_number": 5,
-              "title_summary": "SIG 和社区活动页面未被 deepseek 引用（引用率 67%）"
-            }
-          ],
-          "questions": [
-            "q_001",
-            "q_005",
-            "q_004",
-            "q_038"
-          ]
-        },
-        {
-          "action_key": "create_dedicated_doc",
-          "action_title": "补充专题文档页面",
-          "action_description": "官方内容分散在新闻、Issue、邮件列表中，缺少独立的文档/教程/FAQ 页面，AI 平台难以定位和引用。",
-          "avg_citation_rate": 0.3333333333333333,
-          "issue_refs": [
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
-              "issue_number": 2,
-              "title_summary": "MindNLP 相关问题官方链接未被引用（引用率 0%~67%）"
-            }
-          ],
-          "questions": [
-            "q_005",
-            "q_002"
-          ]
-        },
-        {
-          "action_key": "improve_seo_metadata",
-          "action_title": "优化 SEO 元数据",
-          "action_description": "页面 title/description/canonical URL 不准确或缺失，影响搜索引擎和 AI 平台的索引质量。",
-          "avg_citation_rate": 0.6666666666666666,
-          "issue_refs": [
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
-              "issue_number": 2,
-              "title_summary": "MindNLP 相关问题官方链接未被引用（引用率 0%~67%）"
-            },
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
-              "issue_number": 5,
-              "title_summary": "SIG 和社区活动页面未被 deepseek 引用（引用率 67%）"
-            }
-          ],
-          "questions": [
-            "q_002",
-            "q_048"
-          ]
-        },
-        {
-          "action_key": "submit_to_platforms",
-          "action_title": "针对特定平台提交收录",
-          "action_description": "多数平台已引用但个别平台漏引，需分析目标平台的索引机制并主动提交内容。",
-          "avg_citation_rate": 0.6875,
-          "issue_refs": [
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
-              "issue_number": 3,
-              "title_summary": "推理排障 FAQ 页面未被 qwen 引用（引用率 67%）"
-            },
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
-              "issue_number": 5,
-              "title_summary": "SIG 和社区活动页面未被 deepseek 引用（引用率 67%）"
-            },
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
-              "issue_number": 6,
-              "title_summary": "安全 SIG 页面未被 chatgpt 引用（引用率 75%）"
-            }
-          ],
-          "questions": [
-            "q_004",
-            "q_038",
-            "q_048",
-            "q_063"
-          ]
-        },
-        {
-          "action_key": "add_multilingual",
-          "action_title": "添加多语言页面",
-          "action_description": "仅有中文页面，国际化 AI 平台（如 ChatGPT）倾向引用英文源，需补充英文版本。",
-          "avg_citation_rate": 0.75,
-          "issue_refs": [
-            {
-              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
-              "issue_number": 6,
-              "title_summary": "安全 SIG 页面未被 chatgpt 引用（引用率 75%）"
-            }
-          ],
-          "questions": [
-            "q_063"
-          ]
-        }
-      ],
       "questions": [
         {
           "question_id": "q_001",
@@ -285,6 +148,127 @@
           },
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
           "issue_number": 1,
+          "issue_created_at": "2026-03-30",
+          "issue_iterations": 1
+        },
+        {
+          "question_id": "q_002",
+          "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+          "official_urls": [
+            "https://www.mindspore.cn/news/detail?id=3610",
+            "https://www.mindspore.cn/news/detail?id=3867"
+          ],
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
+          "total_platforms": 3,
+          "platforms": {
+            "deepseek": {
+              "display_name": "DeepSeek",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "doubao": {
+              "display_name": "豆包",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "qwen": {
+              "display_name": "Qwen",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            }
+          },
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
+          "issue_number": 2,
+          "issue_created_at": "2026-03-30",
+          "issue_iterations": 1
+        },
+        {
+          "question_id": "q_003",
+          "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+          "official_urls": [
+            "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
+          ],
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
+          "total_platforms": 3,
+          "platforms": {
+            "deepseek": {
+              "display_name": "DeepSeek",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "doubao": {
+              "display_name": "豆包",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "qwen": {
+              "display_name": "Qwen",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            }
+          },
+          "issue_url": null,
+          "issue_number": null,
+          "issue_created_at": null,
+          "issue_iterations": null
+        },
+        {
+          "question_id": "q_004",
+          "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+          "official_urls": [
+            "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html"
+          ],
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
+          "total_platforms": 3,
+          "platforms": {
+            "deepseek": {
+              "display_name": "DeepSeek",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "doubao": {
+              "display_name": "豆包",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "qwen": {
+              "display_name": "Qwen",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            }
+          },
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
+          "issue_number": 3,
           "issue_created_at": "2026-03-30",
           "issue_iterations": 1
         },
@@ -329,299 +313,38 @@
           "issue_iterations": 1
         },
         {
-          "question_id": "q_002",
-          "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
-          "official_urls": [
-            "https://www.mindspore.cn/news/detail?id=3610",
-            "https://www.mindspore.cn/news/detail?id=3867"
-          ],
-          "status": "not_cited",
-          "description": "有内容未被引用",
-          "severity": "P0",
-          "citation_rate": 0.6666666666666666,
-          "cited_count": 2,
-          "total_platforms": 3,
-          "platforms": {
-            "deepseek": {
-              "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "doubao": {
-              "display_name": "豆包",
-              "cited": false,
-              "indicator": "❌",
-              "match_type": null,
-              "matched_urls": []
-            },
-            "qwen": {
-              "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            }
-          },
-          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
-          "issue_number": 2,
-          "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
-        },
-        {
-          "question_id": "q_004",
-          "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
-          "official_urls": [
-            "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html"
-          ],
-          "status": "not_cited",
-          "description": "有内容未被引用",
-          "severity": "P0",
-          "citation_rate": 0.6666666666666666,
-          "cited_count": 2,
-          "total_platforms": 3,
-          "platforms": {
-            "deepseek": {
-              "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "doubao": {
-              "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "qwen": {
-              "display_name": "Qwen",
-              "cited": false,
-              "indicator": "❌",
-              "match_type": null,
-              "matched_urls": []
-            }
-          },
-          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
-          "issue_number": 3,
-          "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
-        },
-        {
-          "question_id": "q_038",
-          "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
-          "official_urls": [
-            "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
-            "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving"
-          ],
-          "status": "not_cited",
-          "description": "有内容未被引用",
-          "severity": "P0",
-          "citation_rate": 0.6666666666666666,
-          "cited_count": 2,
-          "total_platforms": 3,
-          "platforms": {
-            "deepseek": {
-              "display_name": "DeepSeek",
-              "cited": false,
-              "indicator": "❌",
-              "match_type": null,
-              "matched_urls": []
-            },
-            "doubao": {
-              "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "qwen": {
-              "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            }
-          },
-          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
-          "issue_number": 5,
-          "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
-        },
-        {
-          "question_id": "q_048",
-          "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
-          "official_urls": [
-            "https://www.mindspore.cn/activities",
-            "https://www.mindspore.cn/news/detail?id=3290&type=news"
-          ],
-          "status": "not_cited",
-          "description": "有内容未被引用",
-          "severity": "P0",
-          "citation_rate": 0.6666666666666666,
-          "cited_count": 2,
-          "total_platforms": 3,
-          "platforms": {
-            "deepseek": {
-              "display_name": "DeepSeek",
-              "cited": false,
-              "indicator": "❌",
-              "match_type": null,
-              "matched_urls": []
-            },
-            "doubao": {
-              "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "qwen": {
-              "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            }
-          },
-          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
-          "issue_number": 5,
-          "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
-        },
-        {
-          "question_id": "q_063",
-          "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
-          "official_urls": [
-            "https://www.mindspore.cn/security",
-            "https://atomgit.com/mindspore/community/tree/master/sigs/security",
-            "https://gitee.com/mindspore/community/tree/master/sigs/security"
-          ],
-          "status": "not_cited",
-          "description": "有内容未被引用",
-          "severity": "P0",
-          "citation_rate": 0.75,
-          "cited_count": 3,
-          "total_platforms": 4,
-          "platforms": {
-            "chatgpt": {
-              "display_name": "ChatGPT",
-              "cited": false,
-              "indicator": "❌",
-              "match_type": null,
-              "matched_urls": []
-            },
-            "deepseek": {
-              "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "doubao": {
-              "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "exact_url",
-              "matched_urls": [
-                "https://www.mindspore.cn/security",
-                "https://gitee.com/mindspore/community/tree/master/sigs/security"
-              ]
-            },
-            "qwen": {
-              "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            }
-          },
-          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
-          "issue_number": 6,
-          "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
-        }
-      ]
-    },
-    "satisfied": {
-      "title": "引用了官方内容",
-      "description": "≥90% 平台引用了官方链接，状态健康",
-      "questions": [
-        {
-          "question_id": "q_003",
-          "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
-          "official_urls": [
-            "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
-          ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
-          "total_platforms": 3,
-          "platforms": {
-            "deepseek": {
-              "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "doubao": {
-              "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            },
-            "qwen": {
-              "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
-              "matched_urls": []
-            }
-          },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
-        },
-        {
           "question_id": "q_008",
           "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
           "official_urls": [
             "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html",
             "https://www.mindspore.cn/news/detail/?id=2561&type=blogs"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -636,32 +359,32 @@
           "official_urls": [
             "https://www.mindspore.cn/version-updates/"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -676,32 +399,32 @@
           "official_urls": [
             "https://www.mindspore.cn/activities"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -719,25 +442,25 @@
             "https://www.mindspore.cn/doc/note/zh-CN/r1.0/community.html",
             "https://www.mindspore.cn/contribution?type=word"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.6667,
+          "cited_count": 2,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
               "cited": true,
               "indicator": "✅",
-              "match_type": "exact_url",
+              "match_type": null,
               "matched_urls": [
                 "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
               ]
@@ -746,7 +469,7 @@
               "display_name": "Qwen",
               "cited": true,
               "indicator": "✅",
-              "match_type": "exact_url",
+              "match_type": null,
               "matched_urls": [
                 "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
               ]
@@ -764,32 +487,32 @@
             "https://www.mindspore.cn/sig/MindSpore%20Transformers",
             "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -797,6 +520,47 @@
           "issue_number": null,
           "issue_created_at": null,
           "issue_iterations": null
+        },
+        {
+          "question_id": "q_038",
+          "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+          "official_urls": [
+            "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
+            "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving"
+          ],
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
+          "total_platforms": 3,
+          "platforms": {
+            "deepseek": {
+              "display_name": "DeepSeek",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "doubao": {
+              "display_name": "豆包",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "qwen": {
+              "display_name": "Qwen",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            }
+          },
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+          "issue_number": 5,
+          "issue_created_at": "2026-03-30",
+          "issue_iterations": 1
         },
         {
           "question_id": "q_040",
@@ -805,32 +569,32 @@
             "https://www.mindspore.cn/sig/Parallel%20Training%20System",
             "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -840,38 +604,79 @@
           "issue_iterations": null
         },
         {
-          "question_id": "q_055",
-          "question": "MindSpore 有哪些邮件列表?",
+          "question_id": "q_048",
+          "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
           "official_urls": [
-            "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
-            "https://www.mindspore.cn/sig"
+            "https://www.mindspore.cn/activities",
+            "https://www.mindspore.cn/news/detail?id=3290&type=news"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            }
+          },
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+          "issue_number": 5,
+          "issue_created_at": "2026-03-30",
+          "issue_iterations": 1
+        },
+        {
+          "question_id": "q_055",
+          "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+          "official_urls": [
+            "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
+            "https://www.mindspore.cn/sig"
+          ],
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
+          "total_platforms": 3,
+          "platforms": {
+            "deepseek": {
+              "display_name": "DeepSeek",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "doubao": {
+              "display_name": "豆包",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "qwen": {
+              "display_name": "Qwen",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -886,32 +691,32 @@
           "official_urls": [
             "https://www.mindspore.cn/sig/meeting-guide"
           ],
-          "status": "satisfied",
-          "description": "引用了官方内容",
-          "severity": "OK",
-          "citation_rate": 1.0,
-          "cited_count": 3,
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.0,
+          "cited_count": 0,
           "total_platforms": 3,
           "platforms": {
             "deepseek": {
               "display_name": "DeepSeek",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "doubao": {
               "display_name": "豆包",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             },
             "qwen": {
               "display_name": "Qwen",
-              "cited": true,
-              "indicator": "✅",
-              "match_type": "domain",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
               "matched_urls": []
             }
           },
@@ -919,8 +724,65 @@
           "issue_number": null,
           "issue_created_at": null,
           "issue_iterations": null
+        },
+        {
+          "question_id": "q_063",
+          "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+          "official_urls": [
+            "https://www.mindspore.cn/security",
+            "https://atomgit.com/mindspore/community/tree/master/sigs/security",
+            "https://gitee.com/mindspore/community/tree/master/sigs/security"
+          ],
+          "status": "not_cited",
+          "description": "有内容未被引用",
+          "severity": "P0",
+          "citation_rate": 0.25,
+          "cited_count": 1,
+          "total_platforms": 4,
+          "platforms": {
+            "chatgpt": {
+              "display_name": "ChatGPT",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "deepseek": {
+              "display_name": "DeepSeek",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            },
+            "doubao": {
+              "display_name": "豆包",
+              "cited": true,
+              "indicator": "✅",
+              "match_type": null,
+              "matched_urls": [
+                "https://www.mindspore.cn/security",
+                "https://gitee.com/mindspore/community/tree/master/sigs/security"
+              ]
+            },
+            "qwen": {
+              "display_name": "Qwen",
+              "cited": false,
+              "indicator": "❌",
+              "match_type": null,
+              "matched_urls": []
+            }
+          },
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
+          "issue_number": 6,
+          "issue_created_at": "2026-03-30",
+          "issue_iterations": 1
         }
       ]
+    },
+    "satisfied": {
+      "title": "引用了官方内容",
+      "description": "≥90% 平台引用了官方链接，状态健康",
+      "questions": []
     }
   }
 }

@@ -1,15 +1,10 @@
 {
   "metadata": {
-    "scored_at": "2026-03-30T11:08:26.061032+00:00",
-    "community": "MindSpore",
+    "scored_at": "2026-03-30T16:36:26.290762+00:00",
     "total_questions": 18,
     "total_platforms": 4,
     "citation_threshold": 0.9,
-    "match_mode": "url+domain",
-    "source_files": {
-      "responses": "packages/assessments/MindSpore/2026-03-30/responses.json",
-      "content_labels": "packages/assessments/MindSpore/content-labels.json"
-    }
+    "match_mode": "exact_url"
   },
   "results": [
     {
@@ -29,19 +24,16 @@
         {
           "platform": "deepseek",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "doubao",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "qwen",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         }
       ]
@@ -56,26 +48,23 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.6666666666666666,
-      "cited_count": 2,
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -86,29 +75,26 @@
       "official_urls": [
         "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -122,26 +108,23 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.6666666666666666,
-      "cited_count": 2,
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         }
       ]
@@ -162,81 +145,16 @@
         {
           "platform": "deepseek",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "doubao",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "qwen",
           "cited": false,
-          "match_type": null,
-          "matched_urls": []
-        }
-      ]
-    },
-    {
-      "question_id": "q_006",
-      "question": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
-      "official_urls": [],
-      "status": "no_official_content",
-      "description": "官方内容缺失",
-      "severity": "P1",
-      "citation_rate": null,
-      "cited_count": 0,
-      "total_platforms": 3,
-      "platforms": [
-        {
-          "platform": "deepseek",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
-        },
-        {
-          "platform": "doubao",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
-        },
-        {
-          "platform": "qwen",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
-        }
-      ]
-    },
-    {
-      "question_id": "q_007",
-      "question": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
-      "official_urls": [],
-      "status": "no_official_content",
-      "description": "官方内容缺失",
-      "severity": "P1",
-      "citation_rate": null,
-      "cited_count": 0,
-      "total_platforms": 3,
-      "platforms": [
-        {
-          "platform": "deepseek",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
-        },
-        {
-          "platform": "doubao",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
-        },
-        {
-          "platform": "qwen",
-          "cited": false,
-          "match_type": null,
           "matched_urls": []
         }
       ]
@@ -248,29 +166,26 @@
         "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html",
         "https://www.mindspore.cn/news/detail/?id=2561&type=blogs"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -281,29 +196,26 @@
       "official_urls": [
         "https://www.mindspore.cn/version-updates/"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -314,29 +226,26 @@
       "official_urls": [
         "https://www.mindspore.cn/activities"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -350,23 +259,21 @@
         "https://www.mindspore.cn/doc/note/zh-CN/r1.0/community.html",
         "https://www.mindspore.cn/contribution?type=word"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.6667,
+      "cited_count": 2,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
           "cited": true,
-          "match_type": "exact_url",
           "matched_urls": [
             "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
           ]
@@ -374,7 +281,6 @@
         {
           "platform": "qwen",
           "cited": true,
-          "match_type": "exact_url",
           "matched_urls": [
             "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
           ]
@@ -388,29 +294,26 @@
         "https://www.mindspore.cn/sig/MindSpore%20Transformers",
         "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -425,26 +328,23 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.6666666666666666,
-      "cited_count": 2,
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -456,29 +356,26 @@
         "https://www.mindspore.cn/sig/Parallel%20Training%20System",
         "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -493,60 +390,54 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.6666666666666666,
-      "cited_count": 2,
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
     },
     {
       "question_id": "q_055",
-      "question": "MindSpore 有哪些邮件列表?",
+      "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
       "official_urls": [
         "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
         "https://www.mindspore.cn/sig"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -557,29 +448,26 @@
       "official_urls": [
         "https://www.mindspore.cn/sig/meeting-guide"
       ],
-      "status": "satisfied",
-      "description": "引用了官方内容",
-      "severity": "OK",
-      "citation_rate": 1.0,
-      "cited_count": 3,
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
       "total_platforms": 3,
       "platforms": [
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -595,26 +483,23 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.75,
-      "cited_count": 3,
+      "citation_rate": 0.25,
+      "cited_count": 1,
       "total_platforms": 4,
       "platforms": [
         {
           "platform": "chatgpt",
           "cited": false,
-          "match_type": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
           "matched_urls": []
         },
         {
           "platform": "doubao",
           "cited": true,
-          "match_type": "exact_url",
           "matched_urls": [
             "https://www.mindspore.cn/security",
             "https://gitee.com/mindspore/community/tree/master/sigs/security"
@@ -622,8 +507,63 @@
         },
         {
           "platform": "qwen",
-          "cited": true,
-          "match_type": "domain",
+          "cited": false,
+          "matched_urls": []
+        }
+      ]
+    },
+    {
+      "question_id": "q_006",
+      "question": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
+      "official_urls": [],
+      "status": "no_official_content",
+      "description": "官方内容缺失",
+      "severity": "P1",
+      "citation_rate": 0.0,
+      "cited_count": 0,
+      "total_platforms": 3,
+      "platforms": [
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": []
+        },
+        {
+          "platform": "doubao",
+          "cited": false,
+          "matched_urls": []
+        },
+        {
+          "platform": "qwen",
+          "cited": false,
+          "matched_urls": []
+        }
+      ]
+    },
+    {
+      "question_id": "q_007",
+      "question": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+      "official_urls": [],
+      "status": "no_official_content",
+      "description": "官方内容缺失",
+      "severity": "P1",
+      "citation_rate": 0.0,
+      "cited_count": 0,
+      "total_platforms": 3,
+      "platforms": [
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": []
+        },
+        {
+          "platform": "doubao",
+          "cited": false,
+          "matched_urls": []
+        },
+        {
+          "platform": "qwen",
+          "cited": false,
           "matched_urls": []
         }
       ]
@@ -631,21 +571,14 @@
   ],
   "summary": {
     "by_status": {
-      "satisfied": 9,
-      "not_cited": 7,
+      "satisfied": 0,
+      "not_cited": 16,
       "no_official_content": 2
     },
     "by_severity": {
-      "P0": 7,
+      "P0": 16,
       "P1": 2,
-      "OK": 9
-    },
-    "citation_rate_distribution": {
-      "1.0": 9,
-      "0.75": 1,
-      "0.67": 4,
-      "0.0": 2
+      "OK": 0
     }
-  },
-  "suggestions": []
+  }
 }

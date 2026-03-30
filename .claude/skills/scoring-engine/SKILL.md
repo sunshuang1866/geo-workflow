@@ -47,21 +47,18 @@ For each (question, platform) pair, run a binary URL match check:
 
 3. **If `official_urls` is non-empty**, check the platform's `response_text`:
 
-   a. **Exact URL match**: For each URL in `official_urls`, check if it appears in `response_text` (case-insensitive).
-      - Normalize before matching: strip trailing slashes, treat `http://` and `https://` as equivalent, strip `www.` prefix.
-      - Example: `"https://www.mindspore.cn/install"` matches `mindspore.cn/install` in response text.
+   **Exact URL match only**: For each URL in `official_urls`, check if it appears in `response_text` (case-insensitive).
+   - Normalize before matching: strip trailing slashes, treat `http://` and `https://` as equivalent, strip `www.` prefix.
+   - Example: `"https://www.mindspore.cn/install"` matches `mindspore.cn/install` in response text.
+   - **No domain-level matching**: checking only for the domain (e.g. `mindspore.cn`) produces false positives when all official URLs share a single domain — any mention of any page on that domain would incorrectly mark the question as cited.
 
-   b. **Domain-level match**: Extract domain from each `official_url` (strip `www.`, ignore path), check if domain appears in `response_text`.
-      - Example: `"https://www.mindspore.cn/install"` → domain `mindspore.cn` → matches if `mindspore.cn` appears anywhere in response text.
-
-   c. **Result**: If any match found (exact or domain), mark pair as `cited`. Record `match_type` (`exact_url` or `domain`) and which URLs matched. If no match, mark as `not_cited`.
+   **Result**: If any normalized URL match found, mark pair as `cited`. Record `matched_urls`. If no match, mark as `not_cited`.
 
 4. Build a per-platform record for each pair:
    ```json
    {
      "platform": "qwen",
      "cited": true,
-     "match_type": "exact_url",
      "matched_urls": ["https://www.mindspore.cn/install"]
    }
    ```
@@ -165,7 +162,7 @@ For each question, aggregate the per-platform results from Step 2 to determine t
        "total_questions": 47,
        "total_platforms": 4,
        "citation_threshold": 0.9,
-       "match_mode": "url+domain"
+       "match_mode": "exact_url"
      },
      "results": [
        {

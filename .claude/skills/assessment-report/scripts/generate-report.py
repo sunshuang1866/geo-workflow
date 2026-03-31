@@ -73,7 +73,11 @@ def issue_cell(record: dict) -> str:
 
 def issue_created_cell(record: dict) -> str:
     created = record.get("issue_created_at")
-    return created if created else "—"
+    if not created:
+        return "—"
+    # Keep only MM-DD (drop the year prefix "YYYY-")
+    parts = created.split("-")
+    return "-".join(parts[1:]) if len(parts) >= 3 else created
 
 
 def issue_comments_cell(record: dict) -> str:
@@ -255,15 +259,6 @@ def render_grouped_not_cited(not_cited_records: list, platforms_present: list,
             lines.append("| " + " | ".join(cells) + " |")
 
         # Collect all official URLs for questions in this group
-        all_urls = []
-        for r in g["questions"]:
-            for u in r.get("official_urls", []):
-                if u not in all_urls:
-                    all_urls.append(u)
-        if all_urls:
-            lines.append("")
-            lines.append("> **官方链接**: " + " · ".join(f"`{u}`" for u in all_urls[:3])
-                         + (" ..." if len(all_urls) > 3 else ""))
         lines.append("")
 
     return "\n".join(lines)

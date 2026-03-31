@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "community": "MindSpore",
+    "sampled_at": "2026-03-31T01:35:30+00:00",
+    "platforms": [
+      "deepseek",
+      "doubao",
+      "qwen"
+    ],
+    "skipped_platforms": [
+      {
+        "platform": "chatgpt",
+        "reason": "API error 404"
+      },
+      {
+        "platform": "gemini",
+        "reason": "API key invalid"
+      }
+    ],
+    "total_questions": 1,
+    "total_responses": 3
+  },
+  "responses": [
+    {
+      "question_id": "q_043",
+      "platform": "deepseek",
+      "query": "如何向 MindSpore TSC 申请成立新的 SIG？",
+      "timestamp": "2026-03-31T01:32:54.361652+00:00",
+      "raw_response": "向 MindSpore TSC（技术指导委员会）申请成立新的 SIG（特别兴趣小组），通常需要遵循以下流程，该流程借鉴了开源社区（尤其是华为 MindSpore 社区）的常见模式：\n\n### 一、核心步骤\n1. **初步讨论与提案**：在社区公共渠道（如邮件列表、GitHub Discussions）发起讨论，说明 SIG 的目标、范围、计划贡献等，收集反馈。\n2. **编写正式提案**：按照 MindSpore 社区要求的模板，撰写详细的 SIG 提案文档，通常包括：\n   - SIG 名称、目标与范围\n   - 预期工作内容与路线图\n   - 初始成员与维护者名单\n   - 沟通渠道（如邮件列表、会议安排）\n   - 与现有 SIG/TSC 的协作关系\n3. **提交提案评审**：将提案提交至 TSC 的会议或指定平台（如 GitHub），由 TSC 成员审议。\n4. **TSC 审议与投票**：TSC 会议讨论提案，并投票决定是否通过。通过后，社区将分配资源（如仓库、沟通频道等）。\n\n### 二、关键注意事项\n- **符合社区战略**：SIG 需符合 MindSpore 整体技术方向，避免与现有 SIG 重叠。\n- **活跃贡献基础**：建议已有初步贡献者或持续开发计划，以证明可持续性。\n- **开放治理**：SIG 需遵循开源治理原则，公开运作并接纳新成员。\n\n### 三、参考资源\n由于 MindSpore 社区的具体流程可能更新，建议直接查阅其官方文档和仓库：\n\n参考链接：\n- https://mindspore.cn/community（MindSpore 官方社区入口）\n- https://github.com/mindspore-community（MindSpore 社区组织 GitHub）\n- https://gitee.com/mindspore/community（MindSpore 社区 Gitee 仓库，含 SIG 治理文档）",
+      "citations": [],
+      "model": "deepseek-v3.2",
+      "status": "success",
+      "response_text": "向 MindSpore TSC（技术指导委员会）申请成立新的 SIG（特别兴趣小组），通常需要遵循以下流程，该流程借鉴了开源社区（尤其是华为 MindSpore 社区）的常见模式：\n\n### 一、核心步骤\n1. **初步讨论与提案**：在社区公共渠道（如邮件列表、GitHub Discussions）发起讨论，说明 SIG 的目标、范围、计划贡献等，收集反馈。\n2. **编写正式提案**：按照 MindSpore 社区要求的模板，撰写详细的 SIG 提案文档，通常包括：\n   - SIG 名称、目标与范围\n   - 预期工作内容与路线图\n   - 初始成员与维护者名单\n   - 沟通渠道（如邮件列表、会议安排）\n   - 与现有 SIG/TSC 的协作关系\n3. **提交提案评审**：将提案提交至 TSC 的会议或指定平台（如 GitHub），由 TSC 成员审议。\n4. **TSC 审议与投票**：TSC 会议讨论提案，并投票决定是否通过。通过后，社区将分配资源（如仓库、沟通频道等）。\n\n### 二、关键注意事项\n- **符合社区战略**：SIG 需符合 MindSpore 整体技术方向，避免与现有 SIG 重叠。\n- **活跃贡献基础**：建议已有初步贡献者或持续开发计划，以证明可持续性。\n- **开放治理**：SIG 需遵循开源治理原则，公开运作并接纳新成员。\n\n### 三、参考资源\n由于 MindSpore 社区的具体流程可能更新，建议直接查阅其官方文档和仓库：\n\n参考链接：\n- https://mindspore.cn/community（MindSpore 官方社区入口）\n- https://github.com/mindspore-community（MindSpore 社区组织 GitHub）\n- https://gitee.com/mindspore/community（MindSpore 社区 Gitee 仓库，含 SIG 治理文档）"
+    },
+    {
+      "question_id": "q_043",
+      "platform": "doubao",
+      "query": "如何向 MindSpore TSC 申请成立新的 SIG？",
+      "timestamp": "2026-03-31T01:33:24.074419+00:00",
+      "raw_response": "向MindSpore TSC申请成立新SIG可以按照以下官方流程执行：\n### 1. 前期筹备\n- 排查现有SIG：访问MindSpore社区SIG列表，确认没有定位重叠的同类SIG，避免重复建设。\n- 组建初始团队：至少征集3名及以上来自不同组织、有MindSpore社区贡献记录的活跃开发者作为初始核心维护者，明确成员分工。\n- 梳理SIG核心信息：确定SIG名称、使命边界、短中长期工作规划、例会机制、沟通渠道等内容，同时明确该SIG对MindSpore生态的价值。\n### 2. 提交申请提案\n登录Gitee的MindSpore community仓库，按照官方SIG申请模板提交Issue说明申请诉求，同时提交PR，在仓库`sigs`目录下新增对应SIG的介绍文档，包含上述筹备完成的全部核心信息。\n### 3. TSC评审表决\nTSC秘书处收到申请后会将提案排入最近一次TSC例会的评审议程，通知申请人参会做提案汇报，汇报后接受TSC委员质询，最终由TSC委员投票，获得三分之二以上赞成票即可通过评审。\n### 4. 正式成立运营\n评审通过后，社区运营团队会协助完成SIG基础设施搭建，包括开通专属代码仓权限、邮件列表、例会会议室、开发者沟通群等，同时社区会在官网、官方公众号等渠道公示新SIG成立信息，后续SIG即可按照规划开展运营，定期向TSC同步工作进度即可。\n\n参考链接：\n- https://www.mindspore.cn/community/zh/governance/sig\n- https://gitee.com/mindspore/community/blob/master/sigs/README.md\n- https://www.mindspore.cn/community/zh/governance/tsc\n- https://www.mindspore.cn/community/zh/contribution/participate",
+      "citations": [],
+      "model": "doubao-seed-2.0-pro",
+      "status": "success",
+      "response_text": "向MindSpore TSC申请成立新SIG可以按照以下官方流程执行：\n### 1. 前期筹备\n- 排查现有SIG：访问MindSpore社区SIG列表，确认没有定位重叠的同类SIG，避免重复建设。\n- 组建初始团队：至少征集3名及以上来自不同组织、有MindSpore社区贡献记录的活跃开发者作为初始核心维护者，明确成员分工。\n- 梳理SIG核心信息：确定SIG名称、使命边界、短中长期工作规划、例会机制、沟通渠道等内容，同时明确该SIG对MindSpore生态的价值。\n### 2. 提交申请提案\n登录Gitee的MindSpore community仓库，按照官方SIG申请模板提交Issue说明申请诉求，同时提交PR，在仓库`sigs`目录下新增对应SIG的介绍文档，包含上述筹备完成的全部核心信息。\n### 3. TSC评审表决\nTSC秘书处收到申请后会将提案排入最近一次TSC例会的评审议程，通知申请人参会做提案汇报，汇报后接受TSC委员质询，最终由TSC委员投票，获得三分之二以上赞成票即可通过评审。\n### 4. 正式成立运营\n评审通过后，社区运营团队会协助完成SIG基础设施搭建，包括开通专属代码仓权限、邮件列表、例会会议室、开发者沟通群等，同时社区会在官网、官方公众号等渠道公示新SIG成立信息，后续SIG即可按照规划开展运营，定期向TSC同步工作进度即可。\n\n参考链接：\n- https://www.mindspore.cn/community/zh/governance/sig\n- https://gitee.com/mindspore/community/blob/master/sigs/README.md\n- https://www.mindspore.cn/community/zh/governance/tsc\n- https://www.mindspore.cn/community/zh/contribution/participate"
+    },
+    {
+      "question_id": "q_043",
+      "platform": "qwen",
+      "query": "如何向 MindSpore TSC 申请成立新的 SIG？",
+      "timestamp": "2026-03-31T01:34:12.034090+00:00",
+      "raw_response": "向 MindSpore TSC（Technical Steering Committee，技术指导委员会）申请成立新的 SIG（Special Interest Group，特别兴趣小组）通常需要遵循 MindSpore 社区的治理规范。以下是申请成立新 SIG 的一般流程和注意事项：\n\n1.  **准备 SIG 提案**\n    申请人需要准备一份详细的 SIG 提案，内容通常包括 SIG 的名称、目标、范围（Scope）、初始成员列表（包括负责人）、会议计划以及与现有 SIG 的关系等。提案旨在证明该 SIG 的必要性和可持续性。相关治理文档和模板可以在 MindSpore 社区仓库中找到 [1]。\n\n2.  **提交提案审查**\n    完成提案后，需要通过 Pull Request (PR) 或 Issue 的形式提交到 MindSpore 的社区治理仓库（community repository）。社区维护者和 TSC 成员会对提案进行审查，确保其符合社区发展方向和技术规范。官方社区页面提供了加入社区和参与贡献的入口 [2]。\n\n3.  **TSC 投票与批准**\n    提案经过社区讨论修改完善后，将提交给 TSC 进行最终投票。如果获得 TSC 批准，新的 SIG 正式成立，并会被列入官方 SIG 列表中。由于 MindSpore 社区同时在 Gitee 和 GitHub 上维护，建议参考多个平台的 社区仓库以获取最新信息 [3]。\n\n在整个过程中，保持与现有社区成员的沟通至关重要，确保新 SIG 的工作不与现有小组重复，并能切实推动 MindSpore 生态的发展。\n\n参考链接：\n- https://www.mindspore.cn/community\n- https://gitee.com/mindspore/community\n- https://github.com/mindspore-ai/community",
+      "citations": [],
+      "model": "qwen3.5-plus",
+      "status": "success",
+      "response_text": "向 MindSpore TSC（Technical Steering Committee，技术指导委员会）申请成立新的 SIG（Special Interest Group，特别兴趣小组）通常需要遵循 MindSpore 社区的治理规范。以下是申请成立新 SIG 的一般流程和注意事项：\n\n1.  **准备 SIG 提案**\n    申请人需要准备一份详细的 SIG 提案，内容通常包括 SIG 的名称、目标、范围（Scope）、初始成员列表（包括负责人）、会议计划以及与现有 SIG 的关系等。提案旨在证明该 SIG 的必要性和可持续性。相关治理文档和模板可以在 MindSpore 社区仓库中找到 [1]。\n\n2.  **提交提案审查**\n    完成提案后，需要通过 Pull Request (PR) 或 Issue 的形式提交到 MindSpore 的社区治理仓库（community repository）。社区维护者和 TSC 成员会对提案进行审查，确保其符合社区发展方向和技术规范。官方社区页面提供了加入社区和参与贡献的入口 [2]。\n\n3.  **TSC 投票与批准**\n    提案经过社区讨论修改完善后，将提交给 TSC 进行最终投票。如果获得 TSC 批准，新的 SIG 正式成立，并会被列入官方 SIG 列表中。由于 MindSpore 社区同时在 Gitee 和 GitHub 上维护，建议参考多个平台的 社区仓库以获取最新信息 [3]。\n\n在整个过程中，保持与现有社区成员的沟通至关重要，确保新 SIG 的工作不与现有小组重复，并能切实推动 MindSpore 生态的发展。\n\n参考链接：\n- https://www.mindspore.cn/community\n- https://gitee.com/mindspore/community\n- https://github.com/mindspore-ai/community"
+    }
+  ]
+}

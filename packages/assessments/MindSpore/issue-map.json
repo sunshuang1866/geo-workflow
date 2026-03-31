@@ -3,7 +3,9 @@
     "s_001": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
       "issue_number": 1,
-      "question_ids": ["q_001"],
+      "question_ids": [
+        "q_001"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -15,7 +17,10 @@
     "s_002": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
       "issue_number": 2,
-      "question_ids": ["q_002", "q_005"],
+      "question_ids": [
+        "q_002",
+        "q_005"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -27,7 +32,9 @@
     "s_003": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
       "issue_number": 3,
-      "question_ids": ["q_004"],
+      "question_ids": [
+        "q_004"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -39,7 +46,10 @@
     "s_004": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/4",
       "issue_number": 4,
-      "question_ids": ["q_006", "q_007"],
+      "question_ids": [
+        "q_006",
+        "q_007"
+      ],
       "status": "no_official_content",
       "severity": "P1",
       "citation_rate": null,
@@ -51,7 +61,10 @@
     "s_005": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
       "issue_number": 5,
-      "question_ids": ["q_038", "q_048"],
+      "question_ids": [
+        "q_038",
+        "q_048"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -63,7 +76,9 @@
     "s_006": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
       "issue_number": 6,
-      "question_ids": ["q_063"],
+      "question_ids": [
+        "q_063"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.25,
@@ -75,7 +90,9 @@
     "s_007": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/7",
       "issue_number": 7,
-      "question_ids": ["q_003"],
+      "question_ids": [
+        "q_003"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -87,7 +104,9 @@
     "s_008": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/8",
       "issue_number": 8,
-      "question_ids": ["q_008"],
+      "question_ids": [
+        "q_008"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -99,7 +118,9 @@
     "s_009": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/9",
       "issue_number": 9,
-      "question_ids": ["q_027"],
+      "question_ids": [
+        "q_027"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -111,7 +132,9 @@
     "s_010": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/10",
       "issue_number": 10,
-      "question_ids": ["q_032"],
+      "question_ids": [
+        "q_032"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -123,7 +146,9 @@
     "s_011": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/11",
       "issue_number": 11,
-      "question_ids": ["q_035"],
+      "question_ids": [
+        "q_035"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.6667,
@@ -135,7 +160,10 @@
     "s_012": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
       "issue_number": 12,
-      "question_ids": ["q_036", "q_040"],
+      "question_ids": [
+        "q_036",
+        "q_040"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
@@ -147,11 +175,28 @@
     "s_013": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
       "issue_number": 13,
-      "question_ids": ["q_055", "q_059"],
+      "question_ids": [
+        "q_055",
+        "q_059"
+      ],
       "status": "not_cited",
       "severity": "P0",
       "citation_rate": 0.0,
       "title_summary": "邮件列表和会议流程指南页面未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_014": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/14",
+      "issue_number": 14,
+      "question_ids": [
+        "q_043"
+      ],
+      "status": "no_official_content",
+      "severity": "P1",
+      "citation_rate": null,
+      "title_summary": "TSC 申请成立新 SIG 的流程页面缺失",
       "created_at": "2026-03-31",
       "created_in_run": "2026-03-31",
       "last_updated_run": "2026-03-31"

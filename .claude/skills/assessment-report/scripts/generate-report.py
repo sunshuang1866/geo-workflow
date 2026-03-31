@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
 generate-report.py — Generate assessment-report.json and assessment-report.md
-from scoring-results.json, questions.json, and issue-map.json.
+from scoring-results.json, questions.json, issue-map.json, and the previous
+run's assessment-report.json (for trend comparison).
 
 Usage:
-  python3 generate-report.py <scoring_file> <questions_file> <issue_map_file> <output_dir>
+  python3 generate-report.py <scoring_file> <questions_file> <issue_map_file> <output_dir> <prev_report_file>
+
+  Pass "none" for <prev_report_file> on the first run.
 """
 
 import json
@@ -17,6 +20,14 @@ PLATFORM_ORDER = ["doubao", "qwen", "chatgpt", "deepseek"]
 PLATFORM_DISPLAY = {"doubao": "豆包", "qwen": "Qwen", "chatgpt": "ChatGPT", "deepseek": "DeepSeek"}
 CITATION_THRESHOLD = 0.9
 SCRIPT_DIR = Path(__file__).parent
+
+TREND_INDICATOR = {
+    "improved": "↑",
+    "regressed": "↓",
+    "stable": "→",
+    "new": "★",
+    "resolved": "✓",
+}
 
 # Improvement action taxonomy
 ACTION_TAXONOMY = [
@@ -63,6 +74,63 @@ def load_json(path: str):
     return json.loads(p.read_text(encoding="utf-8"))
 
 
+def load_prev_report(prev_report_file: str) -> dict:
+    """Load previous report and build {question_id -> record} lookup."""
+    if not prev_report_file or prev_report_file.lower() == "none":
+        return {}
+    p = Path(prev_report_file)
+    if not p.exists():
+        print(f"WARNING: prev_report_file not found: {prev_report_file} — treating as first run",
+              file=sys.stderr)
+        return {}
+    data = json.loads(p.read_text(encoding="utf-8"))
+    prev_map = {}
+    for cat in data.get("categories", {}).values():
+        for q in cat.get("questions", []):
+            prev_map[q["question_id"]] = q
+    return prev_map
+
+
+def compute_trend(record: dict, prev_map: dict) -> dict:
+    """Compute trend fields by comparing current record against previous run."""
+    qid = record["question_id"]
+    if qid not in prev_map:
+        return {
+            "trend": "new",
+            "prev_status": None,
+            "prev_citation_rate": None,
+            "citation_rate_delta": None,
+        }
+
+    prev = prev_map[qid]
+    prev_status = prev.get("status")
+    prev_rate = prev.get("citation_rate")
+    curr_status = record["status"]
+    curr_rate = record.get("citation_rate")
+
+    delta = None
+    if curr_rate is not None and prev_rate is not None:
+        delta = round(curr_rate - prev_rate, 4)
+
+    if curr_status == "satisfied" and prev_status != "satisfied":
+        trend = "resolved"
+    elif prev_status == "no_official_content" and curr_status == "not_cited":
+        trend = "improved"  # official content was added
+    elif delta is not None and delta > 0:
+        trend = "improved"
+    elif delta is not None and delta < 0:
+        trend = "regressed"
+    else:
+        trend = "stable"
+
+    return {
+        "trend": trend,
+        "prev_status": prev_status,
+        "prev_citation_rate": prev_rate,
+        "citation_rate_delta": delta,
+    }
+
+
 def issue_cell(record: dict) -> str:
     url = record.get("issue_url")
     num = record.get("issue_number")
@@ -89,6 +157,13 @@ def issue_comments_cell(record: dict) -> str:
     return str(comments)
 
 
+def trend_id_cell(record: dict) -> str:
+    """Return the ID cell prefixed with trend indicator."""
+    trend = record.get("trend", "stable")
+    indicator = TREND_INDICATOR.get(trend, "→")
+    return f"{indicator} {record['question_id']}"
+
+
 def platform_cells(record: dict, platforms_present: list) -> list:
     cells = []
     for p in platforms_present:
@@ -101,7 +176,7 @@ def platform_cells(record: dict, platforms_present: list) -> list:
 
 
 def build_table_row(record: dict, platforms_present: list, show_citation: bool = False) -> str:
-    qid = record["question_id"]
+    qid = trend_id_cell(record)
     question = record["question"]
     pcells = platform_cells(record, platforms_present)
     issue = issue_cell(record)
@@ -156,16 +231,13 @@ def assign_action_keys(record: dict) -> list:
 
     if citation_rate == 0.0:
         if is_non_doc:
-            # Content is in news/issues/activities - needs dedicated doc
             action_keys.append("create_dedicated_doc")
             action_keys.append("optimize_structured_data")
         else:
-            # Proper doc exists but not cited at all
             action_keys.append("restructure_content")
             action_keys.append("optimize_structured_data")
     elif citation_rate > 0.0:
         not_cited_count = total - cited_count
-        # Check if mostly international platforms are missing
         intl_platforms = {"chatgpt", "gemini"}
         intl_missing = intl_platforms.intersection(set(not_cited_platforms))
 
@@ -185,13 +257,11 @@ def assign_action_keys(record: dict) -> list:
 
 def build_action_groups(not_cited_records: list) -> list:
     """Build action groups for P0 not_cited questions."""
-    # Assign action keys to each record
     enriched = []
     for r in not_cited_records:
         keys = assign_action_keys(r)
         enriched.append({**r, "action_keys": keys})
 
-    # Group by action key
     groups_map = {}
     for r in enriched:
         for key in r["action_keys"]:
@@ -199,7 +269,6 @@ def build_action_groups(not_cited_records: list) -> list:
                 groups_map[key] = []
             groups_map[key].append(r)
 
-    # Build group list in taxonomy order
     groups = []
     for key in ACTION_KEY_ORDER:
         if key not in groups_map:
@@ -208,7 +277,6 @@ def build_action_groups(not_cited_records: list) -> list:
         rates = [q["citation_rate"] or 0.0 for q in qs]
         avg_rate = sum(rates) / len(rates) if rates else 0.0
 
-        # Collect deduplicated issue refs
         issue_refs = {}
         for q in qs:
             num = q.get("issue_number")
@@ -227,7 +295,6 @@ def build_action_groups(not_cited_records: list) -> list:
             "unique_question_count": len(qs),
         })
 
-    # Sort by avg_citation_rate ascending (worst first)
     groups.sort(key=lambda g: g["avg_citation_rate"])
     return groups
 
@@ -255,24 +322,50 @@ def render_grouped_not_cited(not_cited_records: list, platforms_present: list,
             issue = issue_cell(r)
             created = issue_created_cell(r)
             comments = issue_comments_cell(r)
-            cells = [r["question_id"], r["question"]] + pcells + [rate, issue, created, comments]
+            qid = trend_id_cell(r)
+            cells = [qid, r["question"]] + pcells + [rate, issue, created, comments]
             lines.append("| " + " | ".join(cells) + " |")
 
-        # Collect all official URLs for questions in this group
         lines.append("")
 
     return "\n".join(lines)
 
 
+def build_changes_summary(records: list, prev_report_file: str) -> dict:
+    """Aggregate trend counts across all records."""
+    counts = {"improved": 0, "regressed": 0, "resolved": 0, "new": 0, "stable": 0}
+    for r in records:
+        trend = r.get("trend", "stable")
+        if trend in counts:
+            counts[trend] += 1
+
+    # Extract prev run date from file path (e.g. .../2026-03-23/assessment-report.json)
+    prev_run_date = None
+    if prev_report_file and prev_report_file.lower() != "none":
+        parts = Path(prev_report_file).parts
+        for part in reversed(parts):
+            if len(part) == 10 and part.count("-") == 2:
+                prev_run_date = part
+                break
+
+    return {"prev_run_date": prev_run_date, **counts}
+
+
 def main():
-    if len(sys.argv) != 5:
-        print("Usage: generate-report.py <scoring_file> <questions_file> <issue_map_file> <output_dir>",
+    if len(sys.argv) != 6:
+        print("Usage: generate-report.py <scoring_file> <questions_file> <issue_map_file> "
+              "<output_dir> <prev_report_file>",
               file=sys.stderr)
+        print("  Pass 'none' for prev_report_file on the first run.", file=sys.stderr)
         sys.exit(1)
 
-    scoring_file, questions_file, issue_map_file, output_dir = sys.argv[1:]
+    scoring_file, questions_file, issue_map_file, output_dir, prev_report_file = sys.argv[1:]
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Load previous report for trend comparison
+    prev_map = load_prev_report(prev_report_file)
+    is_first_run = len(prev_map) == 0
 
     # Run build-report.py to get merged records
     result = subprocess.run(
@@ -284,6 +377,10 @@ def main():
         print(f"ERROR: build-report.py failed:\n{result.stderr}", file=sys.stderr)
         sys.exit(1)
     records = json.loads(result.stdout)
+
+    # Enrich each record with trend fields
+    for r in records:
+        r.update(compute_trend(r, prev_map))
 
     questions_data = load_json(questions_file)
     community = questions_data.get("community", "Unknown")
@@ -311,6 +408,9 @@ def main():
         keys = assign_action_keys(r)
         not_cited_with_actions.append({**r, "action_keys": keys})
 
+    # Changes summary
+    changes = build_changes_summary(records, prev_report_file)
+
     # ── JSON output ──────────────────────────────────────────────────────────
     json_output = {
         "metadata": {
@@ -323,8 +423,10 @@ def main():
                 "scoring": scoring_file,
                 "questions": questions_file,
                 "issue_map": issue_map_file,
+                "prev_report": prev_report_file,
             },
         },
+        "changes": changes,
         "summary": {
             "by_category": {
                 "no_official_content": len(no_official),
@@ -368,6 +470,20 @@ def main():
         sep = ["-" * max(3, len(c)) for c in cols]
         return "| " + " | ".join(cols) + " |\n" + "|-" + "-|-".join(sep) + "-|"
 
+    # Build changes summary line
+    if is_first_run:
+        changes_line = "> 首次运行，无历史基线"
+    else:
+        prev_date = changes.get("prev_run_date") or "上次"
+        changes_line = (
+            f"> 对比 {prev_date}："
+            f"↑ 改善 {changes['improved']} · "
+            f"↓ 退步 {changes['regressed']} · "
+            f"✓ 已解决 {changes['resolved']} · "
+            f"★ 新增 {changes['new']} · "
+            f"→ 持平 {changes['stable']}"
+        )
+
     question_index = build_question_index(records)
     rows_no = "\n".join(build_table_row(r, platforms_present) for r in no_official)
     grouped_not_cited_md = render_grouped_not_cited(not_cited, platforms_present, platform_headers)
@@ -379,6 +495,13 @@ def main():
         f"> 生成时间：{generated_at}",
         f"> 引用阈值：≥{pct}% 平台引用视为「满足」",
         f"> 数据来源：`{scoring_file}` · `{questions_file}` · `{issue_map_file}`",
+        f"> 上一版本：`{prev_report_file}`",
+        "",
+        "---",
+        "",
+        "### 本次变化",
+        "",
+        changes_line,
         "",
         "---",
         "",
@@ -412,6 +535,16 @@ def main():
         "| — | 官方站点尚无相关内容，不适用 |",
         "",
         "平台顺序：" + "· ".join(platform_headers),
+        "",
+        "### 趋势图例",
+        "",
+        "| 标记 | 含义 |",
+        "|------|------|",
+        "| ↑ | 较上次改善（引用率提升或状态好转） |",
+        "| ↓ | 较上次退步（引用率下降） |",
+        "| ✓ | 本次已解决（引用率达标） |",
+        "| ★ | 本次新增问题 |",
+        "| → | 与上次持平 |",
         "",
         "---",
         "",
@@ -457,6 +590,11 @@ def main():
     print(f"  官方内容缺失:    {len(no_official)} questions (P1)")
     print(f"  有内容未被引用:  {len(not_cited)} questions (P0)")
     print(f"  引用了官方内容:  {len(satisfied)} questions (OK)")
+    if is_first_run:
+        print(f"  变化摘要:        首次运行，无历史基线")
+    else:
+        print(f"  变化摘要:        ↑{changes['improved']} ↓{changes['regressed']} "
+              f"✓{changes['resolved']} ★{changes['new']} →{changes['stable']}")
     print(f"  Output: {json_path}")
     print(f"          {md_path}")
 

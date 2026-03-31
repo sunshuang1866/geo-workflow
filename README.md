@@ -349,7 +349,7 @@ geo-workflow/
 ```bash
 openclaw trigger \
   --agent "AGENT.md" \
-  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://gitcode.com/mindspore/mindspore-portal/"}' \
+  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://github.com/opensourceways/geo-workflow/"}' \
   --schedule "0 9 * * 1"   # 每周一 9:00
 ```
 

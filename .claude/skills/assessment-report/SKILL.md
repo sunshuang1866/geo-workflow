@@ -20,6 +20,7 @@ Compile a structured question assessment report from scoring and issue data. Eac
 | `scoring_file` | no | `scoring-results.json` | Path to scoring results |
 | `questions_file` | no | `packages/assessments/{community}/questions.json` | Path to questions file |
 | `issue_map_file` | no | `issue-map.json` | Path to issue map |
+| `prev_report_file` | **yes** | — | Path to previous run's `assessment-report.json`. Pass `"none"` on first run — all questions will be marked as `new` and no trend delta is computed. |
 | `output_dir` | no | same directory as `scoring_file` | Where to write output files |
 | `community` | no | auto-detected from path | Community name for report header |
 
@@ -32,19 +33,21 @@ Compile a structured question assessment report from scoring and issue data. Eac
 3. Read `issue_map_file`. Build a lookup map `{question_id → {issue_url, issue_number, created_at, last_updated_run, update_count}}`.
    - Derive `update_count` for each question: count how many entries in `issue-map.json` reference this `question_id`, or read the `last_updated_run` vs `created_at` diff as iteration count. Use the number of times `last_updated_run` has changed as the iteration count (if not tracked, default to 1 for entries that exist).
    - If `issue_map_file` does not exist, proceed with empty issue data.
-4. Run `python3 scripts/build-report.py {scoring_file} {questions_file} {issue_map_file}` to merge all three sources into a unified per-question record list. The script outputs JSON to stdout.
-5. Print load summary:
+4. Read `prev_report_file`. If `"none"` or the file does not exist, treat as first run: `prev_map = {}`. Otherwise parse the JSON and build `prev_map = {question_id → record}` by iterating all `categories.*.questions` arrays.
+5. Run `python3 scripts/build-report.py {scoring_file} {questions_file} {issue_map_file}` to merge all three sources into a unified per-question record list. The script outputs JSON to stdout.
+6. Print load summary:
    ```
    Inputs loaded:
      Questions: {n}
      Platforms: {platform_list}
      Questions with Issues: {n}
      Questions without Issues: {n}
+     Previous report: {prev_report_file | "none (first run)"}
    ```
 
 **Step 2: Build Per-Question Records**
 
-For each question in `scoring-results.json`, construct a record:
+For each question in `scoring-results.json`, construct a record. After building the base record, enrich it with trend fields by comparing against `prev_map`:
 
 ```json
 {
@@ -64,9 +67,34 @@ For each question in `scoring-results.json`, construct a record:
   "issue_url": "https://gitcode.com/.../issues/45",
   "issue_number": 45,
   "issue_created_at": "2026-03-30",
-  "issue_iterations": 2
+  "issue_iterations": 2,
+  "trend": "improved",
+  "prev_status": "not_cited",
+  "prev_citation_rate": 0.0,
+  "citation_rate_delta": 0.25
 }
 ```
+
+**Trend computation rules** (compare current record against `prev_map[question_id]`):
+
+| Condition | `trend` value |
+|-----------|--------------|
+| `question_id` not in `prev_map` | `new` |
+| current `satisfied`, prev was not | `resolved` |
+| prev was `no_official_content`, current is `not_cited` | `improved` (content added) |
+| `citation_rate_delta > 0` | `improved` |
+| `citation_rate_delta < 0` | `regressed` |
+| everything else | `stable` |
+
+**Trend indicators** used in Markdown tables (prefix the ID cell):
+
+| `trend` | Indicator |
+|---------|-----------|
+| `improved` | `↑` |
+| `regressed` | `↓` |
+| `stable` | `→` |
+| `new` | `★` |
+| `resolved` | `✓` |
 
 Platform indicator rules (read from `references/indicator-rules.md`):
 - `cited: true` → `✅`
@@ -141,8 +169,17 @@ Write `assessment-report.json` to `output_dir`:
     "source_files": {
       "scoring": "runs/2026-03-30/scoring-results.json",
       "questions": "packages/assessments/{community}/questions.json",
-      "issue_map": "issue-map.json"
+      "issue_map": "issue-map.json",
+      "prev_report": "packages/assessments/MindSpore/2026-03-23/assessment-report.json"
     }
+  },
+  "changes": {
+    "prev_run_date": "2026-03-23",
+    "improved": 3,
+    "regressed": 1,
+    "resolved": 2,
+    "new": 0,
+    "stable": 41
   },
   "summary": {
     "by_category": {
@@ -180,10 +217,17 @@ Write `assessment-report.json` to `output_dir`:
 
 Write `assessment-report.md` to `output_dir`. Read `assets/report-template.md` for the layout and fill in:
 
-1. **Report header**: community name, generation date, scoring threshold, source files.
-2. **Summary table**: counts by category and severity.
-3. **Platform legend**: list all platforms with their indicator meanings.
-4. **Per-category sections**: one `##` section per category.
+1. **Report header**: community name, generation date, scoring threshold, source files, and prev report reference.
+2. **变化摘要 section** (immediately after header, before the summary table): show counts from `changes`. On first run, show "首次运行，无历史基线". Example:
+   ```
+   ### 本次变化（对比 2026-03-23）
+   ↑ 改善 3 · ↓ 退步 1 · ✓ 已解决 2 · ★ 新增 0 · → 持平 41
+   ```
+3. **Summary table**: counts by category and severity.
+4. **Platform legend**: list all platforms with their indicator meanings, plus trend indicator legend.
+5. **Per-category sections**: one `##` section per category.
+
+   **Trend indicator in all tables**: prefix the ID cell with the question's trend indicator. Example: `↑ q_001`, `★ q_048`, `→ q_003`.
 
    For `no_official_content` and `satisfied`, render a flat table as before.
 
@@ -240,5 +284,6 @@ Output:
 - If `scoring_file` is missing, abort: `"scoring-results.json not found. Run scoring-engine first."`
 - If `questions_file` is missing, continue with empty `official_urls` for all questions and log a warning.
 - If `issue_map_file` is missing, continue with empty issue data — `issue_url` and `issue_iterations` will be `null`.
+- If `prev_report_file` is `"none"` or the file does not exist, treat as first run: all questions get `trend: "new"`, `prev_status: null`, `prev_citation_rate: null`. The changes summary shows "首次运行，无历史基线".
 - If a question in `scoring-results.json` has no matching entry in `questions.json`, use `official_urls: []`.
 - If `build-report.py` fails, abort with the stderr output.

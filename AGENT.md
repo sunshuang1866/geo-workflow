@@ -7,8 +7,8 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 | Input | Required | Description |
 |-------|----------|-------------|
 | `community_dir` | Yes | Path to community directory, e.g. `packages/assessments/MindSpore/` |
-| `repo_url` | Yes | Target repo for issue creation, e.g. `https://gitcode.com/mindspore/mindspore-portal/` |
-| `version_label` | No | Round label, e.g. `V4`. Default: auto-increment from latest `runs/` subdirectory |
+| `repo_url` | Yes | Target repo for issue creation, e.g. `https://github.com/opensourceways/geo-workflow` |
+| `version_label` | No | Round label, e.g. `V2`. Default: auto-increment from existing date subdirectories |
 | `dry_run` | No | If `true`, skip actual issue creation. Default: `false` |
 | `steps` | No | Comma-separated list of steps to execute. Default: `0,1,2,3,4,5` (all). Accepts step numbers or names: `init,sample,score,issue,report,finalize`. Also accepts `update_questions` to only confirm question set changes. |
 | `scope` | No | Controls which questions Step 1 (sampling) processes. Default: `all`. Options: `all` \| `p0` \| comma-separated question IDs (e.g. `q_001,q_005`). |
@@ -27,9 +27,9 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 
 > Skip this step if `steps` is specified and does not include `0` or `init`.
 
-1. Determine today's date as `YYYY-MM-DD` (e.g. `2026-03-28`).
+1. Determine today's date as `YYYY-MM-DD` (e.g. `2026-03-31`).
 2. **Question set change detection**:
-   a. Find the latest `runs/` subdirectory (if any). Load its `questions.json` as `prev_questions`.
+   a. Find the latest date subdirectory under `{community_dir}/` (if any). Load its `questions.json` as `prev_questions`.
    b. Load `{community_dir}/questions.json` as `current_questions`.
    c. If `prev_questions` exists, diff the two by `question_id`:
       - Compute `added` (IDs in current but not prev) and `removed` (IDs in prev but not current).
@@ -42,37 +42,37 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
         ```
    d. If diff is non-empty AND `accept_question_update=true`, log the changes and continue.
    e. If no previous run exists, treat as first run and proceed without diff check.
-3. Create `{community_dir}/runs/{date}/` directory.
-4. Copy `{community_dir}/questions.json` to `{community_dir}/runs/{date}/questions.json`.
-5. If `version_label` is not provided, derive it: count existing `runs/` subdirectories + 1, format as `V{n}`.
-7. Record run metadata:
+3. Create `{community_dir}/{date}/` directory.
+4. Copy `{community_dir}/questions.json` to `{community_dir}/{date}/questions.json`.
+5. If `version_label` is not provided, derive it: count existing date subdirectories + 1, format as `V{n}`.
+6. Record run metadata:
    ```json
    {
-     "run_date": "2026-03-28",
-     "version_label": "V4",
+     "run_date": "2026-03-31",
+     "version_label": "V2",
      "community_dir": "packages/assessments/MindSpore/",
-     "repo_url": "https://gitcode.com/mindspore/mindspore-portal/",
+     "repo_url": "https://github.com/opensourceways/geo-workflow",
      "dry_run": false,
-     "started_at": "2026-03-28T10:00:00Z"
+     "started_at": "2026-03-31T10:00:00Z"
    }
    ```
-   Write to `{community_dir}/runs/{date}/run-meta.json`.
+   Write to `{community_dir}/{date}/run-meta.json`.
 
 ### Step 1: Platform Sampling (`sample`)
 
 > Skip this step if `steps` is specified and does not include `1` or `sample`.
 
 1. Resolve the question IDs to sample based on `scope`:
-   - `all` (default): use all question IDs in `{community_dir}/runs/{date}/questions.json`.
-   - `p0`: read the latest `runs/` directory's `scoring-results.json`, collect all question IDs whose highest severity across platforms is `P0`. If no prior run exists, fall back to `all` and log a warning.
+   - `all` (default): sample all questions in `{community_dir}/questions.json`.
+   - `p0`: read the latest date subdirectory's `scoring-results.json`, collect all question IDs with severity `P0`. If no prior run exists, fall back to `all` and log a warning.
    - Comma-separated IDs (e.g. `q_001,q_005`): use exactly those IDs. Abort if any ID is not found in `questions.json`.
 2. Invoke `/platform-sampler` with:
-   - `questions.json` path: `{community_dir}/runs/{date}/questions.json`
-   - `question_ids`: resolved list from step above (empty = all)
-   - Output directory: `{community_dir}/runs/{date}/`
+   - `community`: derived from `community_dir` name (e.g. `MindSpore`)
+   - `questions`: resolved IDs from step above (omit to sample all)
+   - `output_mode`: `new_run` for a fresh run; `append` to add to the current day's existing folder
 3. The skill reads `.env` for platform API tokens, samples all available platforms, and produces:
-   - `{community_dir}/runs/{date}/responses.json`
-4. If a platform API fails, the skill logs the error and continues. Check the sampling summary printed to stdout for coverage gaps.
+   - `{community_dir}/{date}/responses.json`
+4. If a platform API fails (e.g. 404, invalid key), the skill logs the error, records the platform in `skipped_platforms`, and continues with the remaining platforms. Partial coverage is acceptable as long as ≥1 platform succeeds. The `skipped_platforms` list is written into `run-meta.json` during Step 5.
 5. Verify output: `responses.json` must exist and contain at least 1 response per sampled question.
 
 ### Step 2: Scoring (`score`)
@@ -80,125 +80,95 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 > Skip this step if `steps` is specified and does not include `2` or `score`.
 
 1. Invoke `/scoring-engine` with:
-   - `responses.json` path: `{community_dir}/runs/{date}/responses.json`
+   - `responses.json` path: `{community_dir}/{date}/responses.json`
    - `questions.json` path: `{community_dir}/questions.json`
-   - Output directory: `{community_dir}/runs/{date}/`
 2. The skill produces:
-   - `{community_dir}/runs/{date}/scoring-results.json`
-3. Verify output: `scoring-results.json` must exist and contain `results` array.
+   - `{community_dir}/{date}/scoring-results.json`
+3. Verify output: `scoring-results.json` must exist and contain a `results` array.
 
 ### Step 3: Issue Creation / Update (`issue`)
 
 > Skip this step if `steps` is specified and does not include `3` or `issue`.
 
-This step uses `{community_dir}/issue-map.json` to determine whether to create new issues or append comments to existing ones.
+Invoke `/issue-creator` with:
+- `input_file`: `{community_dir}/{date}/scoring-results.json`
+- `repo_url`: from caller input
+- `issue_map_file`: `{community_dir}/issue-map.json`
+- `community`: derived from `community_dir` name
+- `version_label`: from Step 0
+- `run_date`: today's date
+- `dry_run`: from caller input
 
-1. Read `{community_dir}/issue-map.json` (create empty `{"issues": {}}` if not exists).
-2. Read `{community_dir}/runs/{date}/scoring-results.json` and extract suggestions.
-3. For each suggestion group:
-   - **Match key**: Use `suggestion_id` or the combination of `question_ids` + `status` to look up in `issue-map.json`.
-   - **If match found** (issue already exists):
-     - The issue is still relevant: append a **comment** to the existing issue via API with this run's updated scoring data (score change, current status, date).
-     - Comment format:
-       ```
-       ## GEO 复检更新 — {date}
-
-       **版本**: {version_label}
-       **评分变化**: {old_score} → {new_score}
-       **严重级别**: {old_severity} → {new_severity}
-       **影响平台**: {platforms}
-
-       ### 本次发现
-       {brief_findings}
-
-       ---
-       > 此评论由 GEO Search Assessment 系统自动生成
-       ```
-     - If the issue was previously P0 and is now OK/P2, add a note suggesting the issue may be ready to close.
-   - **If no match** (new issue):
-     - Invoke `/issue-creator` with:
-       - `input_file`: `{community_dir}/runs/{date}/scoring-results.json`
-       - `repo_url`: from caller input
-       - `community`: derived from `community_dir` name
-       - `version_label`: from Step 0
-       - `dry_run`: from caller input
-     - After creation, update `issue-map.json` with the new mapping:
-       ```json
-       {
-         "issues": {
-           "s_001": {
-             "issue_url": "https://gitcode.com/.../issues/45",
-             "issue_number": 45,
-             "question_ids": ["q_036", "q_037"],
-             "statuses": ["not_cited"],
-             "created_at": "2026-03-28",
-             "created_in_run": "2026-03-28",
-             "last_updated_run": "2026-03-28"
-           }
-         }
-       }
-       ```
-4. Write updated `issue-map.json` back to `{community_dir}/`.
-5. Record issue activity in `run-meta.json`: issues created count, comments added count.
+The skill handles everything internally:
+- Parses scoring results and extracts actionable suggestions
+- Matches against `issue-map.json` (by `question_ids` overlap ≥50%): creates new issues or appends update comments
+- Detects `satisfied` questions and appends resolution comments suggesting close
+- Writes updated `{community_dir}/issue-map.json`
+- Writes `{community_dir}/{date}/created-issues.json` with a full activity log
 
 ### Step 4: Assessment Report (`report`)
 
 > Skip this step if `steps` is specified and does not include `4` or `report`.
 
-1. Invoke `/assessment-report` with:
-   - `scoring_file`: `{community_dir}/runs/{date}/scoring-results.json`
-   - `questions_file`: `{community_dir}/questions.json`
-   - `issue_map_file`: `{community_dir}/issue-map.json`
-   - `output_dir`: `{community_dir}/runs/{date}/`
-   - `community`: derived from `community_dir` name
-2. The skill produces:
-   - `{community_dir}/runs/{date}/assessment-report.json`
-   - `{community_dir}/runs/{date}/assessment-report.md`
-3. Verify output: both files must exist.
+Invoke `/assessment-report` with:
+- `scoring_file`: `{community_dir}/{date}/scoring-results.json`
+- `questions_file`: `{community_dir}/questions.json`
+- `issue_map_file`: `{community_dir}/issue-map.json`
+- `output_dir`: `{community_dir}/{date}/`
+- `community`: derived from `community_dir` name
+- `prev_report_file`: path to the previous run's `assessment-report.json`. Scan all date subdirectories under `{community_dir}/` sorted ascending; take the one immediately before `{date}`. Pass `{community_dir}/{prev_date}/assessment-report.json`. If no previous date directory exists (first run), pass `"none"` — the skill will mark all questions as `new` and generate a baseline report.
+
+The skill produces:
+- `{community_dir}/{date}/assessment-report.json`
+- `{community_dir}/{date}/assessment-report.md`
 
 ### Step 5: Finalize (`finalize`)
 
-> Skip this step if `steps` is specified and does not include `4` or `finalize`.
+> Skip this step if `steps` is specified and does not include `5` or `finalize`.
 
 1. Update `run-meta.json` with completion data:
    ```json
    {
-     "completed_at": "2026-03-28T10:15:00Z",
+     "completed_at": "2026-03-31T10:15:00Z",
      "status": "success",
+     "skipped_platforms": [
+       {"platform": "chatgpt", "reason": "API error 404"},
+       {"platform": "gemini",  "reason": "API key invalid"}
+     ],
      "summary": {
-       "questions": 47,
+       "questions": 18,
        "platforms": 4,
-       "satisfied": 23,
-       "not_cited": 20,
-       "no_official_content": 4,
-       "issues_created": 3,
-       "issues_updated": 7,
-       "issues_resolved": 1
+       "satisfied": 0,
+       "not_cited": 16,
+       "no_official_content": 2,
+       "issues_created": 7,
+       "issues_updated": 6,
+       "issues_resolved": 0
      }
    }
    ```
+   `skipped_platforms` is an empty array `[]` if all platforms succeeded.
 2. **Check for questions.json update actions**:
-   a. Read `{community_dir}/runs/{date}/scoring-results.json`.
+   a. Read `{community_dir}/{date}/scoring-results.json`.
    b. Collect all questions with `status = "no_official_content"`.
    c. If any exist, print a human action prompt:
       ```
       ⚠️  ACTION REQUIRED — questions.json 需要人工检查
       以下 {n} 个问题当前标记为「官方内容缺失」。
+
       如果官方已补充相关文档，请更新 {community_dir}/questions.json，
-      在对应问题的 official_urls 字段中填入新页面 URL，
-      然后重新运行 scoring-engine（steps=2,3,4,5）以更新评分。
+      在对应问题的 official_urls 字段中填入新页面 URL，然后重新运行 scoring-engine（steps=2,3,4,5）以更新评分。
 
       待检查问题：
       {list of question_id + question_text, one per line}
       ```
-   d. Collect all questions with `status = "satisfied"` that have a matching entry in `issue-map.json` (i.e., they were previously `not_cited` or `no_official_content` but now improved).
+   d. Collect all questions with `status = "satisfied"` that have a matching entry in `issue-map.json`.
    e. If any exist, print:
       ```
       ✅  已改善问题 — 可考虑关闭 Issue
       以下 {n} 个问题本次引用率已达 ≥90%，对应 Issue 已收到关闭建议评论：
       {list of question_id + issue_url}
       ```
-
 3. Print final summary to stdout:
    ```
    GEO Assessment Run Complete
@@ -206,7 +176,6 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
    Community: {community}
    Version: {version_label}
    Date: {date}
-   Duration: {duration}
 
    Scoring: {scored}/{total} questions
      引用了官方内容 (OK): {satisfied}
@@ -216,9 +185,9 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
    Issues: {created} created, {updated} updated, {resolved} resolved
 
    Outputs:
-     {community_dir}/runs/{date}/scoring-results.json
-     {community_dir}/runs/{date}/assessment-report.json
-     {community_dir}/runs/{date}/assessment-report.md
+     {community_dir}/{date}/scoring-results.json
+     {community_dir}/{date}/assessment-report.json
+     {community_dir}/{date}/assessment-report.md
      {community_dir}/issue-map.json
    ```
 
@@ -226,7 +195,7 @@ This step uses `{community_dir}/issue-map.json` to determine whether to create n
 
 > Triggered only when `steps=update_questions`. Does not run the normal pipeline.
 
-Use this to explicitly confirm and record a question set update without running sampling or scoring. Useful when `questions.json` has changed and you want to review the diff before committing to a full run.
+Use this to explicitly confirm and record a question set update without running sampling or scoring.
 
 1. Perform the same diff as Step 0 step 2.
 2. Print the full diff (added/removed question IDs and their text).
@@ -248,9 +217,9 @@ Use this to explicitly confirm and record a question set update without running 
 | 0 | `init` | Initialize run directory, detect question set changes |
 | 1 | `sample` | Platform sampling (respects `scope`) |
 | 2 | `score` | Scoring and diagnosis |
-| 3 | `issue` | Create / update GitHub/GitCode Issues |
+| 3 | `issue` | Create / update GitHub/GitCode Issues via `/issue-creator` |
 | 4 | `report` | Generate assessment-report.json + assessment-report.md |
-| 5 | `finalize` | Write run-meta.json, print summary |
+| 5 | `finalize` | Write run-meta.json, print summary, prompt for manual actions |
 | — | `update_questions` | Confirm question set changes only (special, non-pipeline) |
 
 **Examples**:
@@ -280,20 +249,20 @@ After multiple runs, the community directory looks like:
 
 ```
 packages/assessments/MindSpore/
-  questions.json                <- question set with official_urls (from /get-question, human-filled)
-  questions.md                  <- human-readable questions (from /get-question)
-  issue-map.json                <- cumulative issue mapping (auto-maintained)
-  question-update-log.md        <- record of confirmed question set changes (auto-maintained)
-  runs/
-    2026-03-28/
-      questions.json            <- copy of questions.json for this run
-      responses.json            <- platform sampling output
-      scoring-results.json      <- scoring output
-      assessment-report.json    <- per-question report (machine-readable)
-      assessment-report.md      <- per-question report (human-readable)
-      run-meta.json             <- run metadata and summary
-    2026-04-04/
-      ...
+  questions.json                  <- question set with official_urls (source of truth)
+  questions.md                    <- human-readable questions (from /get-question)
+  issue-map.json                  <- cumulative issue mapping (auto-maintained by /issue-creator)
+  question-update-log.md          <- record of confirmed question set changes (auto-maintained)
+  2026-03-30/                     <- date directory for each run
+    questions.json                <- snapshot of questions.json at run time
+    responses.json                <- platform sampling output
+    scoring-results.json          <- scoring output
+    created-issues.json           <- issue creation/update activity log
+    assessment-report.json        <- per-question report (machine-readable)
+    assessment-report.md          <- per-question report (human-readable)
+    run-meta.json                 <- run metadata and summary
+  2026-04-07/
+    ...
 ```
 
 ## Error Handling
@@ -315,7 +284,7 @@ This workflow is designed to be triggered by OpenClaw as a single agent invocati
 ```
 openclaw trigger \
   --agent "AGENT.md" \
-  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://gitcode.com/mindspore/mindspore-portal/"}' \
+  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://github.com/opensourceways/geo-workflow"}' \
   --schedule "0 9 * * 1"  # Every Monday at 9:00 AM
 ```
 
@@ -323,5 +292,5 @@ Requirements for automated execution:
 - All inputs (`questions.json`, `.env`) must be pre-provisioned
 - `dry_run` defaults to `false` in automated mode
 - `version_label` auto-increments
-- `issue-map.json` and `tracking-log.md` are persistent across runs
-- No human-in-the-loop steps — all checkpoints (question review, content labeling, spot-check) are handled offline between scheduled runs
+- `issue-map.json` is persistent across runs
+- No human-in-the-loop steps — all checkpoints (question review, content labeling) are handled offline between scheduled runs

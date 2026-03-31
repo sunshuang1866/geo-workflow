@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "scored_at": "2026-03-31T01:36:44.531952+00:00",
+    "total_questions": 1,
+    "total_platforms": 3,
+    "citation_threshold": 0.9,
+    "match_mode": "exact_url"
+  },
+  "results": [
+    {
+      "question_id": "q_043",
+      "question": "如何向 MindSpore TSC 申请成立新的 SIG？",
+      "official_urls": [],
+      "status": "no_official_content",
+      "description": "官方内容缺失",
+      "severity": "P1",
+      "citation_rate": 0.0,
+      "cited_count": 0,
+      "total_platforms": 3,
+      "platforms": [
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": []
+        },
+        {
+          "platform": "doubao",
+          "cited": false,
+          "matched_urls": []
+        },
+        {
+          "platform": "qwen",
+          "cited": false,
+          "matched_urls": []
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "by_status": {
+      "satisfied": 0,
+      "not_cited": 0,
+      "no_official_content": 1
+    },
+    "by_severity": {
+      "P0": 0,
+      "P1": 1,
+      "OK": 0
+    }
+  }
+}

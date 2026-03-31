@@ -1,6 +1,6 @@
 # GEO 问题集评估报告 — MindSpore
 
-> 生成时间：2026-03-31T00:21:44.674527+00:00
+> 生成时间：2026-03-31T00:31:08.881490+00:00
 > 引用阈值：≥90% 平台引用视为「满足」
 > 数据来源：`packages/assessments/MindSpore/2026-03-30/scoring-results.json` · `packages/assessments/MindSpore/questions.json` · `packages/assessments/MindSpore/issue-map.json`
 
@@ -64,10 +64,10 @@
 
 > 官方站点尚无覆盖此问题的内容，建议补充文档。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 严重级别 | Issue |
-|-----|-----|-----|------|---------|----------|------|-------|
-| q_006 | 在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？ | — | — | — | — | P1 | [#4](https://github.com/opensourceways/geo-workflow/issues/4) ×2 |
-| q_007 | 如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？ | — | — | — | — | P1 | [#4](https://github.com/opensourceways/geo-workflow/issues/4) ×2 |
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 严重级别 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|------|-------|------|-----|
+| q_006 | 在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？ | — | — | — | — | P1 | [#4](https://github.com/opensourceways/geo-workflow/issues/4) | 2026-03-30 | 1 |
+| q_007 | 如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？ | — | — | — | — | P1 | [#4](https://github.com/opensourceways/geo-workflow/issues/4) | 2026-03-30 | 1 |
 
 ---
 
@@ -79,19 +79,19 @@
 
 > 官方内容分散在新闻、Issue、邮件列表中，缺少独立的文档/教程/FAQ 页面，AI 平台难以引用。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue |
-|-----|-----|-----|------|---------|----------|-----|-------|
-| q_002 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) ×2 |
-| q_005 | MindNLP 在昇腾设备上自动下载模型时出错，如何解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) ×2 |
-| q_008 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | ❌ | ❌ | — | ❌ | 0% | [#8](https://github.com/opensourceways/geo-workflow/issues/8) ×1 |
-| q_027 | MindSpore 的版本发布节奏是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#9](https://github.com/opensourceways/geo-workflow/issues/9) ×1 |
-| q_032 | MindSpore 2026 年有哪些活动规划？ | ❌ | ❌ | — | ❌ | 0% | [#10](https://github.com/opensourceways/geo-workflow/issues/10) ×1 |
-| q_036 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) ×1 |
-| q_038 | MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) ×2 |
-| q_040 | MindSpore Parallel Training System SIG 的工作范围是什么？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) ×1 |
-| q_048 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) ×2 |
-| q_055 | MindSpore 有哪些邮件列表，它们分别面向什么受众？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) ×1 |
-| q_059 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) ×1 |
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|-----|-------|------|-----|
+| q_002 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) | 2026-03-30 | 1 |
+| q_005 | MindNLP 在昇腾设备上自动下载模型时出错，如何解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) | 2026-03-30 | 1 |
+| q_008 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | ❌ | ❌ | — | ❌ | 0% | [#8](https://github.com/opensourceways/geo-workflow/issues/8) | 2026-03-31 | 0 |
+| q_027 | MindSpore 的版本发布节奏是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#9](https://github.com/opensourceways/geo-workflow/issues/9) | 2026-03-31 | 0 |
+| q_032 | MindSpore 2026 年有哪些活动规划？ | ❌ | ❌ | — | ❌ | 0% | [#10](https://github.com/opensourceways/geo-workflow/issues/10) | 2026-03-31 | 0 |
+| q_036 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) | 2026-03-31 | 0 |
+| q_038 | MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) | 2026-03-30 | 1 |
+| q_040 | MindSpore Parallel Training System SIG 的工作范围是什么？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) | 2026-03-31 | 0 |
+| q_048 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) | 2026-03-30 | 1 |
+| q_055 | MindSpore 有哪些邮件列表，它们分别面向什么受众？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) | 2026-03-31 | 0 |
+| q_059 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) | 2026-03-31 | 0 |
 
 > **官方链接**: `https://www.mindspore.cn/news/detail?id=3610` · `https://www.mindspore.cn/news/detail?id=3867` · `https://gitee.com/mindspore/community/issues?q=MindNLP` ...
 
@@ -99,22 +99,22 @@
 
 > 页面存在但缺少 Schema.org / JSON-LD 结构化标记，AI 平台无法解析内容语义，降低引用概率。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue |
-|-----|-----|-----|------|---------|----------|-----|-------|
-| q_001 | 如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？ | ❌ | ❌ | — | ❌ | 0% | [#1](https://github.com/opensourceways/geo-workflow/issues/1) ×2 |
-| q_002 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) ×2 |
-| q_003 | 如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？ | ❌ | ❌ | — | ❌ | 0% | [#7](https://github.com/opensourceways/geo-workflow/issues/7) ×1 |
-| q_004 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | ❌ | ❌ | — | ❌ | 0% | [#3](https://github.com/opensourceways/geo-workflow/issues/3) ×2 |
-| q_005 | MindNLP 在昇腾设备上自动下载模型时出错，如何解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) ×2 |
-| q_008 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | ❌ | ❌ | — | ❌ | 0% | [#8](https://github.com/opensourceways/geo-workflow/issues/8) ×1 |
-| q_027 | MindSpore 的版本发布节奏是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#9](https://github.com/opensourceways/geo-workflow/issues/9) ×1 |
-| q_032 | MindSpore 2026 年有哪些活动规划？ | ❌ | ❌ | — | ❌ | 0% | [#10](https://github.com/opensourceways/geo-workflow/issues/10) ×1 |
-| q_036 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) ×1 |
-| q_038 | MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) ×2 |
-| q_040 | MindSpore Parallel Training System SIG 的工作范围是什么？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) ×1 |
-| q_048 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) ×2 |
-| q_055 | MindSpore 有哪些邮件列表，它们分别面向什么受众？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) ×1 |
-| q_059 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) ×1 |
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|-----|-------|------|-----|
+| q_001 | 如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？ | ❌ | ❌ | — | ❌ | 0% | [#1](https://github.com/opensourceways/geo-workflow/issues/1) | 2026-03-30 | 1 |
+| q_002 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) | 2026-03-30 | 1 |
+| q_003 | 如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？ | ❌ | ❌ | — | ❌ | 0% | [#7](https://github.com/opensourceways/geo-workflow/issues/7) | 2026-03-31 | 0 |
+| q_004 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | ❌ | ❌ | — | ❌ | 0% | [#3](https://github.com/opensourceways/geo-workflow/issues/3) | 2026-03-30 | 1 |
+| q_005 | MindNLP 在昇腾设备上自动下载模型时出错，如何解决？ | ❌ | ❌ | — | ❌ | 0% | [#2](https://github.com/opensourceways/geo-workflow/issues/2) | 2026-03-30 | 1 |
+| q_008 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | ❌ | ❌ | — | ❌ | 0% | [#8](https://github.com/opensourceways/geo-workflow/issues/8) | 2026-03-31 | 0 |
+| q_027 | MindSpore 的版本发布节奏是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#9](https://github.com/opensourceways/geo-workflow/issues/9) | 2026-03-31 | 0 |
+| q_032 | MindSpore 2026 年有哪些活动规划？ | ❌ | ❌ | — | ❌ | 0% | [#10](https://github.com/opensourceways/geo-workflow/issues/10) | 2026-03-31 | 0 |
+| q_036 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) | 2026-03-31 | 0 |
+| q_038 | MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) | 2026-03-30 | 1 |
+| q_040 | MindSpore Parallel Training System SIG 的工作范围是什么？ | ❌ | ❌ | — | ❌ | 0% | [#12](https://github.com/opensourceways/geo-workflow/issues/12) | 2026-03-31 | 0 |
+| q_048 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | ❌ | ❌ | — | ❌ | 0% | [#5](https://github.com/opensourceways/geo-workflow/issues/5) | 2026-03-30 | 1 |
+| q_055 | MindSpore 有哪些邮件列表，它们分别面向什么受众？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) | 2026-03-31 | 0 |
+| q_059 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | ❌ | ❌ | — | ❌ | 0% | [#13](https://github.com/opensourceways/geo-workflow/issues/13) | 2026-03-31 | 0 |
 
 > **官方链接**: `https://www.mindspore.cn/install/` · `https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/custom_program/operation/op_custom_ascendc.html#%E6%8A%A5%E9%94%99%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E7%AE%97%E5%AD%90%E7%B1%BB%E5%9E%8B` · `https://www.mindspore.cn/news/detail?id=3610` ...
 
@@ -122,12 +122,12 @@
 
 > 页面存在但内容层级混乱、关键词不匹配用户搜索意图，AI 平台难以识别为权威来源。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue |
-|-----|-----|-----|------|---------|----------|-----|-------|
-| q_001 | 如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？ | ❌ | ❌ | — | ❌ | 0% | [#1](https://github.com/opensourceways/geo-workflow/issues/1) ×2 |
-| q_003 | 如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？ | ❌ | ❌ | — | ❌ | 0% | [#7](https://github.com/opensourceways/geo-workflow/issues/7) ×1 |
-| q_004 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | ❌ | ❌ | — | ❌ | 0% | [#3](https://github.com/opensourceways/geo-workflow/issues/3) ×2 |
-| q_063 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | ✅ | ❌ | ❌ | ❌ | 25% | [#6](https://github.com/opensourceways/geo-workflow/issues/6) ×2 |
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|-----|-------|------|-----|
+| q_001 | 如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？ | ❌ | ❌ | — | ❌ | 0% | [#1](https://github.com/opensourceways/geo-workflow/issues/1) | 2026-03-30 | 1 |
+| q_003 | 如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？ | ❌ | ❌ | — | ❌ | 0% | [#7](https://github.com/opensourceways/geo-workflow/issues/7) | 2026-03-31 | 0 |
+| q_004 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | ❌ | ❌ | — | ❌ | 0% | [#3](https://github.com/opensourceways/geo-workflow/issues/3) | 2026-03-30 | 1 |
+| q_063 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | ✅ | ❌ | ❌ | ❌ | 25% | [#6](https://github.com/opensourceways/geo-workflow/issues/6) | 2026-03-30 | 1 |
 
 > **官方链接**: `https://www.mindspore.cn/install/` · `https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/custom_program/operation/op_custom_ascendc.html#%E6%8A%A5%E9%94%99%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E7%AE%97%E5%AD%90%E7%B1%BB%E5%9E%8B` · `https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html` ...
 
@@ -135,9 +135,9 @@
 
 > 页面 title/description/canonical URL 不准确或缺失，影响搜索引擎和 AI 平台的索引质量。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue |
-|-----|-----|-----|------|---------|----------|-----|-------|
-| q_063 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | ✅ | ❌ | ❌ | ❌ | 25% | [#6](https://github.com/opensourceways/geo-workflow/issues/6) ×2 |
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|-----|-------|------|-----|
+| q_063 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | ✅ | ❌ | ❌ | ❌ | 25% | [#6](https://github.com/opensourceways/geo-workflow/issues/6) | 2026-03-30 | 1 |
 
 > **官方链接**: `https://www.mindspore.cn/security` · `https://atomgit.com/mindspore/community/tree/master/sigs/security` · `https://gitee.com/mindspore/community/tree/master/sigs/security`
 
@@ -145,9 +145,9 @@
 
 > 多数平台已引用，但个别平台漏引，需向目标平台主动提交站点地图或内容收录申请。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue |
-|-----|-----|-----|------|---------|----------|-----|-------|
-| q_035 | 新手如何加入 MindSpore 社区并参与开源贡献？ | ✅ | ✅ | — | ❌ | 67% | [#11](https://github.com/opensourceways/geo-workflow/issues/11) ×1 |
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|-----|-------|------|-----|
+| q_035 | 新手如何加入 MindSpore 社区并参与开源贡献？ | ✅ | ✅ | — | ❌ | 67% | [#11](https://github.com/opensourceways/geo-workflow/issues/11) | 2026-03-31 | 0 |
 
 > **官方链接**: `https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md` · `https://gitee.com/mindspore/docs/blob/master/CONTRIBUTING_DOC_CN.md` · `https://www.mindspore.cn/doc/note/zh-CN/r1.0/community.html` ...
 
@@ -157,8 +157,8 @@
 
 > ≥90% 平台已引用官方链接，状态健康，持续监控即可。
 
-| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | 严重级别 | Issue |
-|-----|-----|-----|------|---------|----------|-----|------|-------|
+| ID | 问题 | 豆包 | Qwen | ChatGPT | DeepSeek | 引用率 | 严重级别 | Issue | 创建时间 | 评论数 |
+|-----|-----|-----|------|---------|----------|-----|------|-------|------|-----|
 *(无)*
 
 ---

@@ -66,10 +66,23 @@ def load_json(path: str):
 def issue_cell(record: dict) -> str:
     url = record.get("issue_url")
     num = record.get("issue_number")
-    iters = record.get("issue_iterations") or 1
     if url and num:
-        return f"[#{num}]({url}) ×{iters}"
+        return f"[#{num}]({url})"
     return "—"
+
+
+def issue_created_cell(record: dict) -> str:
+    created = record.get("issue_created_at")
+    return created if created else "—"
+
+
+def issue_comments_cell(record: dict) -> str:
+    iters = record.get("issue_iterations")
+    if iters is None:
+        return "—"
+    # iterations: 1 = created only (0 comments), 2+ = has updates
+    comments = max(0, iters - 1)
+    return str(comments)
 
 
 def platform_cells(record: dict, platforms_present: list) -> list:
@@ -88,14 +101,16 @@ def build_table_row(record: dict, platforms_present: list, show_citation: bool =
     question = record["question"]
     pcells = platform_cells(record, platforms_present)
     issue = issue_cell(record)
+    created = issue_created_cell(record)
+    comments = issue_comments_cell(record)
     severity = record["severity"]
     rate = f"{record['citation_rate']*100:.0f}%" if record.get("citation_rate") is not None else "—"
 
     cells = [qid, question] + pcells
     if show_citation:
-        cells += [rate, severity, issue]
+        cells += [rate, severity, issue, created, comments]
     else:
-        cells += [severity, issue]
+        cells += [severity, issue, created, comments]
     return "| " + " | ".join(cells) + " |"
 
 
@@ -220,7 +235,7 @@ def render_grouped_not_cited(not_cited_records: list, platforms_present: list,
     lines = []
 
     def table_header_nc() -> str:
-        cols = ["ID", "问题"] + platform_headers + ["引用率", "Issue"]
+        cols = ["ID", "问题"] + platform_headers + ["引用率", "Issue", "创建时间", "评论数"]
         sep = ["-" * max(3, len(c)) for c in cols]
         return "| " + " | ".join(cols) + " |\n" + "|-" + "-|-".join(sep) + "-|"
 
@@ -234,7 +249,9 @@ def render_grouped_not_cited(not_cited_records: list, platforms_present: list,
             rate = f"{r['citation_rate']*100:.0f}%" if r.get("citation_rate") is not None else "—"
             pcells = platform_cells(r, platforms_present)
             issue = issue_cell(r)
-            cells = [r["question_id"], r["question"]] + pcells + [rate, issue]
+            created = issue_created_cell(r)
+            comments = issue_comments_cell(r)
+            cells = [r["question_id"], r["question"]] + pcells + [rate, issue, created, comments]
             lines.append("| " + " | ".join(cells) + " |")
 
         # Collect all official URLs for questions in this group
@@ -407,7 +424,7 @@ def main():
         "",
         "> 官方站点尚无覆盖此问题的内容，建议补充文档。",
         "",
-        table_header(["严重级别", "Issue"]),
+        table_header(["严重级别", "Issue", "创建时间", "评论数"]),
     ]
     if rows_no:
         md_lines.append(rows_no)
@@ -428,7 +445,7 @@ def main():
         "",
         f"> ≥{pct}% 平台已引用官方链接，状态健康，持续监控即可。",
         "",
-        table_header(["引用率", "严重级别", "Issue"]),
+        table_header(["引用率", "严重级别", "Issue", "创建时间", "评论数"]),
     ]
     if rows_ok:
         md_lines.append(rows_ok)

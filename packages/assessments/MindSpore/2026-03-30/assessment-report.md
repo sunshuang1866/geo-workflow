@@ -1,8 +1,8 @@
 # GEO 问题集评估报告 — MindSpore
 
-> 生成时间：2026-03-31T00:34:48.734610+00:00
+> 生成时间：2026-03-31
 > 引用阈值：≥90% 平台引用视为「满足」
-> 数据来源：`packages/assessments/MindSpore/2026-03-30/scoring-results.json` · `packages/assessments/MindSpore/questions.json` · `packages/assessments/MindSpore/issue-map.json`
+
 
 ---
 

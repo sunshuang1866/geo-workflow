@@ -10,7 +10,7 @@
       "title_summary": "ARM 架构安装文档未被 AI 平台引用（引用率 0%）",
       "created_at": "2026-03-30",
       "created_in_run": "2026-03-30",
-      "last_updated_run": "2026-03-30"
+      "last_updated_run": "2026-03-31"
     },
     "s_002": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
@@ -18,11 +18,11 @@
       "question_ids": ["q_002", "q_005"],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.33,
-      "title_summary": "MindNLP 相关问题官方链接未被引用（引用率 0%~67%）",
+      "citation_rate": 0.0,
+      "title_summary": "MindNLP 相关问题官方链接未被引用（引用率 0%）",
       "created_at": "2026-03-30",
       "created_in_run": "2026-03-30",
-      "last_updated_run": "2026-03-30"
+      "last_updated_run": "2026-03-31"
     },
     "s_003": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
@@ -30,11 +30,11 @@
       "question_ids": ["q_004"],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.67,
-      "title_summary": "推理排障 FAQ 页面未被 qwen 引用（引用率 67%）",
+      "citation_rate": 0.0,
+      "title_summary": "推理排障 FAQ 页面未被 AI 平台引用（引用率 0%，较上次退步）",
       "created_at": "2026-03-30",
       "created_in_run": "2026-03-30",
-      "last_updated_run": "2026-03-30"
+      "last_updated_run": "2026-03-31"
     },
     "s_004": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/4",
@@ -46,7 +46,7 @@
       "title_summary": "容器部署和 vLLM 集成文档缺失",
       "created_at": "2026-03-30",
       "created_in_run": "2026-03-30",
-      "last_updated_run": "2026-03-30"
+      "last_updated_run": "2026-03-31"
     },
     "s_005": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
@@ -54,11 +54,11 @@
       "question_ids": ["q_038", "q_048"],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.67,
-      "title_summary": "SIG 和社区活动页面未被 deepseek 引用（引用率 67%）",
+      "citation_rate": 0.0,
+      "title_summary": "SIG 和社区活动页面未被 AI 平台引用（引用率 0%，较上次退步）",
       "created_at": "2026-03-30",
       "created_in_run": "2026-03-30",
-      "last_updated_run": "2026-03-30"
+      "last_updated_run": "2026-03-31"
     },
     "s_006": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
@@ -66,11 +66,95 @@
       "question_ids": ["q_063"],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.75,
-      "title_summary": "安全 SIG 页面未被 chatgpt 引用（引用率 75%）",
+      "citation_rate": 0.25,
+      "title_summary": "安全 SIG 页面引用率下降（25%，较上次 75% 退步）",
       "created_at": "2026-03-30",
       "created_in_run": "2026-03-30",
-      "last_updated_run": "2026-03-30"
+      "last_updated_run": "2026-03-31"
+    },
+    "s_007": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/7",
+      "issue_number": 7,
+      "question_ids": ["q_003"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "MindSpore 2.6.0 GPU 安装教程未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_008": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/8",
+      "issue_number": 8,
+      "question_ids": ["q_008"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "Docker 部署文档未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_009": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/9",
+      "issue_number": 9,
+      "question_ids": ["q_027"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "版本发布节奏页面未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_010": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/10",
+      "issue_number": 10,
+      "question_ids": ["q_032"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "社区活动规划页面未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_011": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/11",
+      "issue_number": 11,
+      "question_ids": ["q_035"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.6667,
+      "title_summary": "贡献指南覆盖率不足 90%，deepseek 未引用（引用率 67%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_012": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+      "issue_number": 12,
+      "question_ids": ["q_036", "q_040"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "SIG 会议安排和职责页面未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
+    },
+    "s_013": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+      "issue_number": 13,
+      "question_ids": ["q_055", "q_059"],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "邮件列表和会议流程指南页面未被 AI 平台引用（引用率 0%）",
+      "created_at": "2026-03-31",
+      "created_in_run": "2026-03-31",
+      "last_updated_run": "2026-03-31"
     }
   }
 }

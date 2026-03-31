@@ -1,7 +1,7 @@
 {
   "metadata": {
     "community": "MindSpore",
-    "generated_at": "2026-03-30T16:37:35.641527+00:00",
+    "generated_at": "2026-03-31T00:21:44.674527+00:00",
     "total_questions": 18,
     "total_platforms": 4,
     "citation_threshold": 0.9,
@@ -64,7 +64,7 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/4",
           "issue_number": 4,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2
         },
         {
           "question_id": "q_007",
@@ -102,7 +102,7 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/4",
           "issue_number": 4,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2
         }
       ]
     },
@@ -149,7 +149,11 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
           "issue_number": 1,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "restructure_content",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_002",
@@ -190,7 +194,11 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
           "issue_number": 2,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_003",
@@ -227,10 +235,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/7",
+          "issue_number": 7,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "restructure_content",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_004",
@@ -270,7 +282,11 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
           "issue_number": 3,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "restructure_content",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_005",
@@ -310,7 +326,11 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
           "issue_number": 2,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_008",
@@ -348,10 +368,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/8",
+          "issue_number": 8,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_027",
@@ -388,10 +412,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/9",
+          "issue_number": 9,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_032",
@@ -428,10 +456,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/10",
+          "issue_number": 10,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_035",
@@ -475,10 +507,13 @@
               ]
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/11",
+          "issue_number": 11,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "submit_to_platforms"
+          ]
         },
         {
           "question_id": "q_036",
@@ -516,10 +551,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+          "issue_number": 12,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_038",
@@ -560,7 +599,11 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
           "issue_number": 5,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_040",
@@ -598,10 +641,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+          "issue_number": 12,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_048",
@@ -642,7 +689,11 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
           "issue_number": 5,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_055",
@@ -680,10 +731,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+          "issue_number": 13,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_059",
@@ -720,10 +775,14 @@
               "matched_urls": []
             }
           },
-          "issue_url": null,
-          "issue_number": null,
-          "issue_created_at": null,
-          "issue_iterations": null
+          "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+          "issue_number": 13,
+          "issue_created_at": "2026-03-31",
+          "issue_iterations": 1,
+          "action_keys": [
+            "create_dedicated_doc",
+            "optimize_structured_data"
+          ]
         },
         {
           "question_id": "q_063",
@@ -775,7 +834,1570 @@
           "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
           "issue_number": 6,
           "issue_created_at": "2026-03-30",
-          "issue_iterations": 1
+          "issue_iterations": 2,
+          "action_keys": [
+            "improve_seo_metadata",
+            "restructure_content"
+          ]
+        }
+      ],
+      "action_groups": [
+        {
+          "action_key": "create_dedicated_doc",
+          "action_title": "补充专题文档页面",
+          "action_description": "官方内容分散在新闻、Issue、邮件列表中，缺少独立的文档/教程/FAQ 页面，AI 平台难以引用。",
+          "questions": [
+            {
+              "question_id": "q_002",
+              "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+              "official_urls": [
+                "https://www.mindspore.cn/news/detail?id=3610",
+                "https://www.mindspore.cn/news/detail?id=3867"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
+              "issue_number": 2,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_005",
+              "question": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+              "official_urls": [
+                "https://gitee.com/mindspore/community/issues?q=MindNLP"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
+              "issue_number": 2,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_008",
+              "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+              "official_urls": [
+                "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html",
+                "https://www.mindspore.cn/news/detail/?id=2561&type=blogs"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/8",
+              "issue_number": 8,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_027",
+              "question": "MindSpore 的版本发布节奏是怎样的？",
+              "official_urls": [
+                "https://www.mindspore.cn/version-updates/"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/9",
+              "issue_number": 9,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_032",
+              "question": "MindSpore 2026 年有哪些活动规划？",
+              "official_urls": [
+                "https://www.mindspore.cn/activities"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/10",
+              "issue_number": 10,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_036",
+              "question": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/MindSpore%20Transformers",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+              "issue_number": 12,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_038",
+              "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+              "issue_number": 5,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_040",
+              "question": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/Parallel%20Training%20System",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+              "issue_number": 12,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_048",
+              "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+              "official_urls": [
+                "https://www.mindspore.cn/activities",
+                "https://www.mindspore.cn/news/detail?id=3290&type=news"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+              "issue_number": 5,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_055",
+              "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+              "official_urls": [
+                "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
+                "https://www.mindspore.cn/sig"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+              "issue_number": 13,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_059",
+              "question": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/meeting-guide"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+              "issue_number": 13,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            }
+          ],
+          "issue_refs": [
+            {
+              "number": 2,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/2"
+            },
+            {
+              "number": 5,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/5"
+            },
+            {
+              "number": 8,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/8"
+            },
+            {
+              "number": 9,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/9"
+            },
+            {
+              "number": 10,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/10"
+            },
+            {
+              "number": 12,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/12"
+            },
+            {
+              "number": 13,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/13"
+            }
+          ],
+          "avg_citation_rate": 0.0,
+          "unique_question_count": 11
+        },
+        {
+          "action_key": "optimize_structured_data",
+          "action_title": "添加结构化数据标记",
+          "action_description": "页面存在但缺少 Schema.org / JSON-LD 结构化标记，AI 平台无法解析内容语义，降低引用概率。",
+          "questions": [
+            {
+              "question_id": "q_001",
+              "question": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+              "official_urls": [
+                "https://www.mindspore.cn/install/",
+                "https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/custom_program/operation/op_custom_ascendc.html#%E6%8A%A5%E9%94%99%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E7%AE%97%E5%AD%90%E7%B1%BB%E5%9E%8B"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
+              "issue_number": 1,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "restructure_content",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_002",
+              "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
+              "official_urls": [
+                "https://www.mindspore.cn/news/detail?id=3610",
+                "https://www.mindspore.cn/news/detail?id=3867"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
+              "issue_number": 2,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_003",
+              "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+              "official_urls": [
+                "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/7",
+              "issue_number": 7,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "restructure_content",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_004",
+              "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+              "official_urls": [
+                "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
+              "issue_number": 3,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "restructure_content",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_005",
+              "question": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
+              "official_urls": [
+                "https://gitee.com/mindspore/community/issues?q=MindNLP"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/2",
+              "issue_number": 2,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_008",
+              "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
+              "official_urls": [
+                "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html",
+                "https://www.mindspore.cn/news/detail/?id=2561&type=blogs"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/8",
+              "issue_number": 8,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_027",
+              "question": "MindSpore 的版本发布节奏是怎样的？",
+              "official_urls": [
+                "https://www.mindspore.cn/version-updates/"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/9",
+              "issue_number": 9,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_032",
+              "question": "MindSpore 2026 年有哪些活动规划？",
+              "official_urls": [
+                "https://www.mindspore.cn/activities"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/10",
+              "issue_number": 10,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_036",
+              "question": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/MindSpore%20Transformers",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+              "issue_number": 12,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_038",
+              "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+              "issue_number": 5,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_040",
+              "question": "MindSpore Parallel Training System SIG 的工作范围是什么？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/Parallel%20Training%20System",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/12",
+              "issue_number": 12,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_048",
+              "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
+              "official_urls": [
+                "https://www.mindspore.cn/activities",
+                "https://www.mindspore.cn/news/detail?id=3290&type=news"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/5",
+              "issue_number": 5,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_055",
+              "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
+              "official_urls": [
+                "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
+                "https://www.mindspore.cn/sig"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+              "issue_number": 13,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_059",
+              "question": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
+              "official_urls": [
+                "https://www.mindspore.cn/sig/meeting-guide"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/13",
+              "issue_number": 13,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "create_dedicated_doc",
+                "optimize_structured_data"
+              ]
+            }
+          ],
+          "issue_refs": [
+            {
+              "number": 1,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/1"
+            },
+            {
+              "number": 2,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/2"
+            },
+            {
+              "number": 3,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/3"
+            },
+            {
+              "number": 5,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/5"
+            },
+            {
+              "number": 7,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/7"
+            },
+            {
+              "number": 8,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/8"
+            },
+            {
+              "number": 9,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/9"
+            },
+            {
+              "number": 10,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/10"
+            },
+            {
+              "number": 12,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/12"
+            },
+            {
+              "number": 13,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/13"
+            }
+          ],
+          "avg_citation_rate": 0.0,
+          "unique_question_count": 14
+        },
+        {
+          "action_key": "restructure_content",
+          "action_title": "重构内容结构与关键词",
+          "action_description": "页面存在但内容层级混乱、关键词不匹配用户搜索意图，AI 平台难以识别为权威来源。",
+          "questions": [
+            {
+              "question_id": "q_001",
+              "question": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
+              "official_urls": [
+                "https://www.mindspore.cn/install/",
+                "https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/custom_program/operation/op_custom_ascendc.html#%E6%8A%A5%E9%94%99%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E7%AE%97%E5%AD%90%E7%B1%BB%E5%9E%8B"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/1",
+              "issue_number": 1,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "restructure_content",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_003",
+              "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+              "official_urls": [
+                "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/7",
+              "issue_number": 7,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "restructure_content",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_004",
+              "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+              "official_urls": [
+                "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.0,
+              "cited_count": 0,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/3",
+              "issue_number": 3,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "restructure_content",
+                "optimize_structured_data"
+              ]
+            },
+            {
+              "question_id": "q_063",
+              "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+              "official_urls": [
+                "https://www.mindspore.cn/security",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/security",
+                "https://gitee.com/mindspore/community/tree/master/sigs/security"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.25,
+              "cited_count": 1,
+              "total_platforms": 4,
+              "platforms": {
+                "chatgpt": {
+                  "display_name": "ChatGPT",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": true,
+                  "indicator": "✅",
+                  "match_type": null,
+                  "matched_urls": [
+                    "https://www.mindspore.cn/security",
+                    "https://gitee.com/mindspore/community/tree/master/sigs/security"
+                  ]
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
+              "issue_number": 6,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "improve_seo_metadata",
+                "restructure_content"
+              ]
+            }
+          ],
+          "issue_refs": [
+            {
+              "number": 1,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/1"
+            },
+            {
+              "number": 3,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/3"
+            },
+            {
+              "number": 6,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/6"
+            },
+            {
+              "number": 7,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/7"
+            }
+          ],
+          "avg_citation_rate": 0.0625,
+          "unique_question_count": 4
+        },
+        {
+          "action_key": "improve_seo_metadata",
+          "action_title": "优化 SEO 元数据",
+          "action_description": "页面 title/description/canonical URL 不准确或缺失，影响搜索引擎和 AI 平台的索引质量。",
+          "questions": [
+            {
+              "question_id": "q_063",
+              "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
+              "official_urls": [
+                "https://www.mindspore.cn/security",
+                "https://atomgit.com/mindspore/community/tree/master/sigs/security",
+                "https://gitee.com/mindspore/community/tree/master/sigs/security"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.25,
+              "cited_count": 1,
+              "total_platforms": 4,
+              "platforms": {
+                "chatgpt": {
+                  "display_name": "ChatGPT",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": true,
+                  "indicator": "✅",
+                  "match_type": null,
+                  "matched_urls": [
+                    "https://www.mindspore.cn/security",
+                    "https://gitee.com/mindspore/community/tree/master/sigs/security"
+                  ]
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/6",
+              "issue_number": 6,
+              "issue_created_at": "2026-03-30",
+              "issue_iterations": 2,
+              "action_keys": [
+                "improve_seo_metadata",
+                "restructure_content"
+              ]
+            }
+          ],
+          "issue_refs": [
+            {
+              "number": 6,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/6"
+            }
+          ],
+          "avg_citation_rate": 0.25,
+          "unique_question_count": 1
+        },
+        {
+          "action_key": "submit_to_platforms",
+          "action_title": "针对特定平台提交收录",
+          "action_description": "多数平台已引用，但个别平台漏引，需向目标平台主动提交站点地图或内容收录申请。",
+          "questions": [
+            {
+              "question_id": "q_035",
+              "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
+              "official_urls": [
+                "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md",
+                "https://gitee.com/mindspore/docs/blob/master/CONTRIBUTING_DOC_CN.md",
+                "https://www.mindspore.cn/doc/note/zh-CN/r1.0/community.html",
+                "https://www.mindspore.cn/contribution?type=word"
+              ],
+              "status": "not_cited",
+              "description": "有内容未被引用",
+              "severity": "P0",
+              "citation_rate": 0.6667,
+              "cited_count": 2,
+              "total_platforms": 3,
+              "platforms": {
+                "deepseek": {
+                  "display_name": "DeepSeek",
+                  "cited": false,
+                  "indicator": "❌",
+                  "match_type": null,
+                  "matched_urls": []
+                },
+                "doubao": {
+                  "display_name": "豆包",
+                  "cited": true,
+                  "indicator": "✅",
+                  "match_type": null,
+                  "matched_urls": [
+                    "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
+                  ]
+                },
+                "qwen": {
+                  "display_name": "Qwen",
+                  "cited": true,
+                  "indicator": "✅",
+                  "match_type": null,
+                  "matched_urls": [
+                    "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md"
+                  ]
+                }
+              },
+              "issue_url": "https://github.com/opensourceways/geo-workflow/issues/11",
+              "issue_number": 11,
+              "issue_created_at": "2026-03-31",
+              "issue_iterations": 1,
+              "action_keys": [
+                "submit_to_platforms"
+              ]
+            }
+          ],
+          "issue_refs": [
+            {
+              "number": 11,
+              "url": "https://github.com/opensourceways/geo-workflow/issues/11"
+            }
+          ],
+          "avg_citation_rate": 0.6667,
+          "unique_question_count": 1
         }
       ]
     },

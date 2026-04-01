@@ -103,7 +103,7 @@ For each group of 5 questions (or fewer for the last group):
        --question-id {id}
      ```
    - The script auto-loads `.env` from the project root and reads `{PLATFORM}_API_KEY` and `{PLATFORM}_BASE_URL`.
-   - The script always instructs the model to include reference links in its response (via system prompt).
+   - The script always instructs the model to include reference links in its response (via system prompt, minimum 7 links required).
    - The script returns a JSON object to stdout:
      ```json
      {

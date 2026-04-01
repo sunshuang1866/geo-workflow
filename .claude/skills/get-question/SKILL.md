@@ -15,7 +15,7 @@ description: Generates and incrementally appends to a structured question set fo
 | `sig_url` | no | `https://www.mindspore.cn/sig` | Entry point for SIG data (maillist path) |
 | `forum_url` | no | `GEO_FORUM_URL` from `.env` | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
 | `source_repo_url` | no | `GEO_SOURCE_REPO_URL` from `.env` | GitCode repo URL for issue path, e.g. `https://gitcode.com/mindspore/mindspore/`. Owner and repo name are parsed from this URL. |
-| `limit` | no | `50` | Chinese format ok: "前10" → `10` |
+| `limit` | no | `80` | Chinese format ok: "前10" → `10` |
 
 **Outputs**: `questions.json`, `questions.md` in `assessments/{community}/` — appended in-place, never overwritten
 

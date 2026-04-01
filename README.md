@@ -26,13 +26,13 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌────────────────┐     ┌───────────────┐     ┌───────────────────┐
 │  get-question   │────▶│ platform-sampler │────▶│ scoring-engine │────▶│ issue-creator │────▶│ assessment-report │
-│  生成问题集      │     │  采样 AI 平台     │     │  评分 + 诊断   │     │ 创建/更新Issue │     │  生成评估报告      │
+│  生成问题集       │     │  采样 AI 平台     │     │  评分 + 诊断    │     │ 创建/更新Issue  │     │  生成评估报告       │
 └─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘     └───────────────────┘
-       ↓                        ↓                        │                      ↓                       ↓
-  questions.json          responses.json                 │               created-issues.json   assessment-report.json
-  questions.md                                                           issue-map.json        assessment-report.md
-                                                         ↓
-                                                 scoring-results.json
+       ↓                        ↓                        ↓                       ↓                       ↓
+  questions.json          responses.json         scoring-results.json      created-issues.json   assessment-report.json
+  questions.md                                   issue-map.json            assessment-report.md
+                                                
+                                                
 ```
 
 运行模式有两种：

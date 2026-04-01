@@ -209,19 +209,6 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | 采样指定问题 | `steps=1, scope=q_048,q_049` |
 | 仅重新生成报告 | `steps=4` |
 
-
-### 每次运行的输出
-
-| 输出文件 | 位置 | 说明 |
-|----------|------|------|
-| `responses.json` | `runs/{date}/` | 本次平台采样原始数据 |
-| `scoring-results.json` | `runs/{date}/` | 本次评分结果 |
-| `assessment-report.json` | `runs/{date}/` | 问题集评估报告（机器可读） |
-| `assessment-report.md` | `runs/{date}/` | 问题集评估报告（人工可读） |
-| `run-meta.json` | `runs/{date}/` | 运行元数据（耗时、平台、统计） |
-| `created-issues.json` | `runs/{date}/` | 本次 Issue 创建/更新记录 |
-| `issue-map.json` | 社区目录根 | 累积 Issue 映射（跨运行持久化） |
-
 ---
 
 ## 各步骤详解
@@ -236,6 +223,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | Path 2 | `issue` | GitCode 仓库 Issue | 使用阶段 |
 | Path 3 | `maillist` | SIG 邮件列表归档 | 使用阶段 |
 | Path 4 | `website` | 官网站内搜索热词 | 使用阶段 |
+| Path 5 | `manual-questions.md`（项目根目录） | 补充自动路径未覆盖的问题 | 使用阶段 |
 
 ```
 /get-question paths=forum,issue
@@ -351,7 +339,7 @@ geo-workflow/
 | 文件 | 生成时机 | 说明 |
 |------|----------|------|
 | `issue-map.json` | 每次 issue-creator 运行后 | 累积的 suggestion → issue 映射 |
-| `runs/{date}/*` | 每次复检运行时 | 本次运行的所有中间和最终数据 |
+| `{community_dir}/{date}/*` | 每次复检运行时 | 本次运行的所有中间和最终数据 |
 | `run-meta.json` | 每次复检运行时 | 运行元数据和统计摘要 |
 | `created-issues.json` | 每次 issue-creator 运行后 | 本次创建/更新的 Issue 记录 |
 | `assessment-report.json` | 每次 assessment-report 运行后 | 问题集评估报告（机器可读） |

@@ -1,6 +1,6 @@
 ---
 name: get-question
-description: Generates a structured question set for GEO search assessment. Supports 4 source paths (forum, issue, maillist, website) — select individually or all. Reads manual questions from Markdown, fetches real data from forum/issues/SIG mailing lists/website search logs, merges and deduplicates, then outputs questions.json and questions.md. Use when starting a new GEO assessment or refreshing the question set. Do not use for platform sampling, scoring, or improvement suggestions.
+description: Generates and incrementally appends to a structured question set for GEO search assessment. Supports 4 source paths (forum, issue, maillist, website) — select individually or all. Loads existing questions.json (if any) and appends only new, deduplicated questions. Preserves existing official_urls and notes. Outputs questions.json and questions.md. Use when starting or refreshing a GEO assessment. Do not use for platform sampling, scoring, or improvement suggestions.
 ---
 
 # Get Question
@@ -9,16 +9,15 @@ description: Generates a structured question set for GEO search assessment. Supp
 
 | Param | Required | Default | Notes |
 |---|---|---|---|
-| `community` | yes | — | e.g. "MindSpore" |
+| `community` | no | `GEO_COMMUNITY` from `.env` | e.g. "MindSpore" |
 | `seed_keywords` | no | LLM-derived | comma-separated |
-| `paths` | no | `all` | `forum` / `issue` / `maillist` / `website` / `all` |
+| `paths` | no | `GEO_PATHS` from `.env` → `all` | `forum` / `issue` / `maillist` / `website` / `all` |
 | `sig_url` | no | `https://www.mindspore.cn/sig` | Entry point for SIG data (maillist path) |
-| `forum_url` | no | — | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
-| `repo_owner` | no | — | GitCode repo owner/org for issue path |
-| `repo_name` | no | — | GitCode repo name for issue path |
+| `forum_url` | no | `GEO_FORUM_URL` from `.env` | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
+| `source_repo_url` | no | `GEO_SOURCE_REPO_URL` from `.env` | GitCode repo URL for issue path, e.g. `https://gitcode.com/mindspore/mindspore/`. Owner and repo name are parsed from this URL. |
 | `limit` | no | `50` | Chinese format ok: "前10" → `10` |
 
-**Outputs**: `questions.json`, `questions.md` in project root
+**Outputs**: `questions.json`, `questions.md` in `assessments/{community}/` — appended in-place, never overwritten
 
 **Constant**: `SD=.claude/skills/get-question`
 
@@ -27,8 +26,18 @@ description: Generates a structured question set for GEO search assessment. Supp
 ## Step 1 — Init
 
 1. Load `.env` from project root.
-2. Resolve inputs. If `seed_keywords` missing → LLM: `"List 3-5 comma-separated technical keywords for '{community}'. Keywords only."`
-3. Log: `Community={community} keywords={seed_keywords} paths={paths} limit={limit}`
+2. Resolve inputs with priority (explicit caller arg > `.env` var > default):
+   - `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if still unresolved: `"community not set. Provide as argument or set GEO_COMMUNITY in .env."`
+   - `paths`: caller arg → `GEO_PATHS` from `.env` → `all`
+   - `forum_url`: caller arg → `GEO_FORUM_URL` from `.env`
+   - `source_repo_url`: caller arg → `GEO_SOURCE_REPO_URL` from `.env`. Parse `repo_owner` and `repo_name` from the URL path (e.g. `https://gitcode.com/{owner}/{repo}/`).
+3. If `seed_keywords` missing → LLM: `"List 3-5 comma-separated technical keywords for '{community}'. Keywords only."`
+4. **Load existing question set**: If `assessments/{community}/questions.json` exists, parse it:
+   - `existing_questions`: the `questions` array (preserve `official_urls`, `notes`, `official_domains` as-is)
+   - `last_id_num`: parse the numeric suffix of the highest `id` (e.g. `"q_031"` → `31`). New questions will be numbered from `last_id_num + 1`.
+   - `existing_texts`: set of lowercased question strings for deduplication
+   If the file does not exist, set `existing_questions=[]`, `last_id_num=0`, `existing_texts=set()`.
+5. Log: `Community={community} existing={len(existing_questions)} keywords={seed_keywords} paths={paths} limit={limit}`
 
 ---
 
@@ -55,6 +64,7 @@ Skip if `paths` excludes `issue`.
 1. Pre-validate: `curl -s -o /dev/null -w "%{http_code}" -H "private-token: {GITCODE_TOKEN}" "https://api.gitcode.com/api/v5/user"`.
    - **≠ 200** → log `SKIP: GITCODE_TOKEN invalid (HTTP {status})`, set `path2_questions=[]`, go to Step 5.
 2. Run `GITCODE_TOKEN={GITCODE_TOKEN} python3 $SD/scripts/fetch-repo-issues.py --owner {repo_owner} --repo {repo_name} --limit {limit}`.
+   - `repo_owner` and `repo_name` are parsed from `source_repo_url`.
 3. **success** → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply issue variant, send LLM call. Capture → `path2_questions`.
 4. **failure** → log warning, set `path2_questions=[]`. No LLM fallback.
 
@@ -91,18 +101,22 @@ Skip if `paths` excludes `website`.
 
 ## Step 7 — Merge & Deduplicate
 
-1. Combine: `all_questions = manual_questions + path1_questions + path2_questions + path3_questions + path4_questions`.
-2. Read `$SD/assets/prompt-templates.md` section `MERGE_DEDUP`, send LLM call with combined data.
-3. Validate: `echo '{merged_json}' | python3 $SD/scripts/validate-questions.py`.
+1. Combine new candidates: `new_candidates = manual_questions + path1_questions + path2_questions + path3_questions + path4_questions`.
+2. **Filter against existing**: Remove any candidate whose lowercased question text has cosine similarity ≥90% with any entry in `existing_texts`. Pass `new_candidates` and `existing_texts` to LLM for semantic dedup.
+   - Result: `truly_new_questions` (candidates not already covered by existing questions).
+3. Read `$SD/assets/prompt-templates.md` section `MERGE_DEDUP`, send LLM call with `truly_new_questions` only (no need to re-dedup existing ones).
+4. Validate: `echo '{merged_json}' | python3 $SD/scripts/validate-questions.py`.
    - **errors** → show errors, LLM fixes JSON, re-validate once.
    - **still invalid** → abort.
-4. If total < 30 (all paths) or < 10 (subset) → LLM fills gaps in underrepresented intents.
+5. Assign IDs to new questions starting from `last_id_num + 1`, zero-padded to 3 digits (e.g. `q_032`, `q_033`, ...).
+6. If `len(truly_new_questions) == 0` → print `No new questions found. Existing set unchanged.` and exit cleanly.
 
 ---
 
 ## Step 8 — Output
 
-1. Write `questions.json` to `packages/assessments/{community}/` with the following structure:
+1. Build final question list: `final_questions = existing_questions + truly_new_questions`.
+2. Write `questions.json` to `assessments/{community}/` with the following structure:
    ```json
    {
      "community": "{community}",
@@ -118,14 +132,12 @@ Skip if `paths` excludes `website`.
      ]
    }
    ```
-   - `official_domains`: top-level list of the community's official domains — leave empty `[]` for human to fill.
-   - `official_urls`: per-question list of authoritative URLs for scoring — leave empty `[]` for human to fill.
-   - `notes`: optional human annotation per question — leave empty `""`.
+   - **Preserve** `official_domains` from the existing file if it was non-empty; only reset to `[]` on first run.
+   - **Preserve** each existing question's `official_urls` and `notes` exactly as-is.
+   - New questions get `official_urls: []` and `notes: ""`.
 
-2. **Human action required after generation**: Before running scoring-engine, a human must populate:
-   - `official_domains` (once per community, e.g. `["mindspore.cn", "gitcode.com/mindspore"]`)
-   - `official_urls` per question (e.g. `["https://www.mindspore.cn/install/"]`); leave `[]` if no official content exists for that question.
+3. **Human action required for new questions**: After each run, populate `official_urls` for newly appended questions (those with empty `official_urls`). Existing annotated questions are unaffected.
 
-3. Render `questions.md` using `$SD/assets/questions-template.md` — group by intent, include summary table, mark source per question. `questions.md` does not include `official_urls` or `notes`.
+4. Render `questions.md` using `$SD/assets/questions-template.md` — regenerate from `final_questions`, group by intent, include summary table, mark source per question. `questions.md` does not include `official_urls` or `notes`.
 
-4. Print: `Generated {total} questions | Sources: manual={n} forum={n} issue={n} maillist={n} website={n} | Paths: {paths_run}`.
+5. Print: `Added {n_new} questions (total {len(final_questions)}) | New sources: manual={n} forum={n} issue={n} maillist={n} website={n} | Paths: {paths_run}`.

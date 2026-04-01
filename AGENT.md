@@ -6,8 +6,8 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 
 | Input | Required | Description |
 |-------|----------|-------------|
-| `community_dir` | Yes | Path to community directory, e.g. `packages/assessments/MindSpore/` |
-| `repo_url` | Yes | Target repo for issue creation, e.g. `https://github.com/opensourceways/geo-workflow` |
+| `community_dir` | No | Path to community directory, e.g. `assessments/MindSpore/`. Default: `GEO_COMMUNITY_DIR` from `.env` |
+| `repo_url` | No | Target repo for issue creation. Default: `GEO_REPO_URL` from `.env` |
 | `version_label` | No | Round label, e.g. `V2`. Default: auto-increment from existing date subdirectories |
 | `dry_run` | No | If `true`, skip actual issue creation. Default: `false` |
 | `steps` | No | Comma-separated list of steps to execute. Default: `0,1,2,3,4,5` (all). Accepts step numbers or names: `init,sample,score,issue,report,finalize`. Also accepts `update_questions` to only confirm question set changes. |
@@ -28,7 +28,12 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 > Skip this step if `steps` is specified and does not include `0` or `init`.
 
 1. Determine today's date as `YYYY-MM-DD` (e.g. `2026-03-31`).
-2. **Question set change detection**:
+2. Read `.env` from project root. Resolve inputs with the following priority (explicit caller arg > `.env` var > abort):
+   - `community_dir`: caller arg → `GEO_COMMUNITY_DIR` from `.env`
+   - `repo_url`: caller arg → `GEO_REPO_URL` from `.env`
+   - `dry_run`: caller arg → `GEO_DRY_RUN` from `.env` → `false`
+   If `community_dir` is still unresolved after checking `.env`, abort: `"community_dir not set. Provide as argument or set GEO_COMMUNITY_DIR in .env."`
+3. **Question set change detection**:
    a. Find the latest date subdirectory under `{community_dir}/` (if any). Load its `questions.json` as `prev_questions`.
    b. Load `{community_dir}/questions.json` as `current_questions`.
    c. If `prev_questions` exists, diff the two by `question_id`:
@@ -50,7 +55,7 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
    {
      "run_date": "2026-03-31",
      "version_label": "V2",
-     "community_dir": "packages/assessments/MindSpore/",
+     "community_dir": "assessments/MindSpore/",
      "repo_url": "https://github.com/opensourceways/geo-workflow",
      "dry_run": false,
      "started_at": "2026-03-31T10:00:00Z"
@@ -92,12 +97,12 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 
 Invoke `/issue-creator` with:
 - `input_file`: `{community_dir}/{date}/scoring-results.json`
-- `repo_url`: from caller input
+- `repo_url`: from caller input → `GEO_REPO_URL` from `.env`
 - `issue_map_file`: `{community_dir}/issue-map.json`
 - `community`: derived from `community_dir` name
 - `version_label`: from Step 0
 - `run_date`: today's date
-- `dry_run`: from caller input
+- `dry_run`: from caller input → `GEO_DRY_RUN` from `.env` → `false`
 
 The skill handles everything internally:
 - Parses scoring results and extracts actionable suggestions
@@ -248,7 +253,7 @@ steps=update_questions, accept_question_update=true
 After multiple runs, the community directory looks like:
 
 ```
-packages/assessments/MindSpore/
+assessments/MindSpore/
   questions.json                  <- question set with official_urls (source of truth)
   questions.md                    <- human-readable questions (from /get-question)
   issue-map.json                  <- cumulative issue mapping (auto-maintained by /issue-creator)
@@ -284,7 +289,7 @@ This workflow is designed to be triggered by OpenClaw as a single agent invocati
 ```
 openclaw trigger \
   --agent "AGENT.md" \
-  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://github.com/opensourceways/geo-workflow"}' \
+  --inputs '{"community_dir": "assessments/MindSpore/", "repo_url": "https://github.com/opensourceways/geo-workflow"}' \
   --schedule "0 9 * * 1"  # Every Monday at 9:00 AM
 ```
 

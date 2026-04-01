@@ -13,7 +13,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
   - `GITHUB_TOKEN` — GitHub Personal Access Token with `issues:write` scope (for GitHub repos)
   - `GITCODE_TOKEN` — GitCode personal access token with `read_projects` + `write_issues` scopes (for GitCode repos)
 - `scoring-results.json` (output from scoring-engine skill)
-- `questions.json` in `packages/assessments/{community}/` (used to enrich root-cause analysis with `official_urls` and `notes`)
+- `questions.json` in `assessments/{community}/` (used to enrich root-cause analysis with `official_urls` and `notes`)
 - Human review of scoring results completed
 
 ## Procedures
@@ -22,13 +22,13 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
 
 1. Read `.env` from the project root.
 2. Accept required and optional inputs from the caller:
-   - `repo_url` (required): Full repository URL, e.g. `https://github.com/opensourceways/portal-mcp-servers` or `https://gitcode.com/mindspore/mindspore-portal/`
+   - `repo_url` (optional): Full repository URL. Default: `GEO_REPO_URL` from `.env`. Abort if still unresolved: `"repo_url not set. Provide as argument or set GEO_REPO_URL in .env."`
    - `input_file` (optional): Path to scoring results. Default: `scoring-results.json`
    - `issue_map_file` (optional): Path to issue-map.json. Default: `{community_dir}/issue-map.json`
    - `community` (optional): Community name for the Issue title prefix, e.g. `MindSpore`. Default: auto-read from `scoring-results.json` metadata field `community`, or inferred from the `input_file` path.
    - `version_label` (optional): Assessment round label, e.g. `V2`. Default: derived from the `input_file` directory name.
    - `run_date` (optional): Current run date for comment headers. Default: today's date `YYYY-MM-DD`.
-   - `dry_run` (optional): If `true`, generate Issue payloads but do not POST to API. Default: `false`
+   - `dry_run` (optional): If `true`, generate Issue payloads but do not POST to API. Default: `GEO_DRY_RUN` from `.env` → `false`
 3. **Auto-detect platform** from `repo_url`:
    - URL contains `github.com` → platform = `github`, load `GITHUB_TOKEN`
    - URL contains `gitcode.com` → platform = `gitcode`, load `GITCODE_TOKEN`
@@ -42,7 +42,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
 **Step 2: Parse Scoring Results**
 
 1. Read the `input_file` (default: `scoring-results.json`).
-2. Also read `questions.json` from `packages/assessments/{community}/` if it exists — its `notes` and `official_urls` fields enrich root-cause analysis.
+2. Also read `questions.json` from `assessments/{community}/` if it exists — its `notes` and `official_urls` fields enrich root-cause analysis.
 3. Run `python3 scripts/parse-suggestions.py {input_file}` to extract actionable items.
 4. The script outputs a JSON array of suggestion objects to stdout — one per question with `not_cited` or `no_official_content` status:
    ```json

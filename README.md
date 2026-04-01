@@ -40,7 +40,7 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 | 模式 | 场景 | 人工介入 | 触发方式 |
 |------|------|----------|----------|
 | **首次运行** | 建立基线，准备问题集和标注 | 需要多步人工操作 | 手动 |
-| **定期复检** | 周期性检测分数变化，更新 Issue | 无需人工介入 | 手动 / OpenClaw |
+| **定期复检** | 周期性检测分数变化，更新 Issue | 无需人工介入 | ClaudeCode / OpenClaw |
 
 ---
 
@@ -70,14 +70,26 @@ cp .env.example .env
 | `GITCODE_TOKEN` | GitCode Issue 创建 | Issue 创建时必需 |
 | `GITHUB_TOKEN` | GitHub Issue 创建 | 用 GitHub 时必需 |
 
+**工作流配置**（每次切换社区时更新）：
+
+| 变量 | 用途 | 示例值 |
+|------|------|--------|
+| `GEO_COMMUNITY` | 社区名称，供所有 Skill 读取 | `MindSpore` |
+| `GEO_COMMUNITY_DIR` | 社区数据目录路径 | `assessments/MindSpore/` |
+| `GEO_REPO_URL` | Issue 创建目标仓库 URL | `https://gitcode.com/mindspore/mindspore-portal/` |
+| `GEO_FORUM_URL` | 社区 Discourse 论坛地址 | `https://discuss.mindspore.cn` |
+| `GEO_SOURCE_REPO_URL` | 问题来源仓库地址（get-question issue 路径） | `https://gitcode.com/mindspore/mindspore/` |
+| `GEO_PATHS` | get-question 默认来源路径 | `all` |
+| `GEO_DRY_RUN` | 全局 dry-run 开关 | `false` |
+
 > 至少需要 **2 个平台** 的 API Key 才能运行采样。
 
 ### 3. 创建社区目录
 
-社区数据统一存放在 `packages/assessments/` 下：
+社区数据统一存放在 `assessments/` 下：
 
 ```bash
-mkdir -p packages/assessments/MindSpore/
+mkdir -p assessments/MindSpore/
 ```
 
 ---
@@ -91,8 +103,10 @@ mkdir -p packages/assessments/MindSpore/
 在 Claude Code 中执行：
 
 ```
-/get-question community=MindSpore
+/get-question
 ```
+
+> 社区名称、论坛 URL、问题来源路径等已从 `.env` 中的 `GEO_COMMUNITY`、`GEO_FORUM_URL`、`GEO_PATHS` 等变量自动读取，无需手动输入。
 
 **输出**：
 - `questions.json` — 结构化问题集
@@ -142,12 +156,12 @@ mkdir -p packages/assessments/MindSpore/
 ### Step E: 首次创建 Issue
 
 ```
-/issue-creator repo_url=https://github.com/opensourceways/geo-workflow/ dry_run=true
+/issue-creator dry_run=true
 ```
 
-> 建议先用 `dry_run=true` 预览 Issue 内容，确认无误后去掉 `dry_run` 正式创建。
+> `repo_url` 自动从 `.env` 的 `GEO_REPO_URL` 读取。`dry_run=true` 覆盖 `.env` 中的 `GEO_DRY_RUN`。
 
-**首次运行完成后**，`packages/assessments/MindSpore/` 目录下应有：
+**首次运行完成后**，`assessments/MindSpore/` 目录下应有：
 - `questions.json` — 问题集（`/get-question` 生成，含人工填写的 `official_urls`）
 - `issue-map.json` — Issue 映射（自动生成）
 
@@ -162,9 +176,10 @@ mkdir -p packages/assessments/MindSpore/
 在 Claude Code 中直接描述意图即可，Claude 会按照 `AGENT.md` 执行：
 
 ```
-请按照 AGENT.md 对 MindSpore 社区执行一次 GEO 复检，
-repo_url=https://github.com/opensourceways/geo-workflow/
+请按照 AGENT.md 对 MindSpore 社区执行一次 GEO 复检
 ```
+
+> `community_dir` 和 `repo_url` 自动从 `.env` 的 `GEO_COMMUNITY_DIR` 和 `GEO_REPO_URL` 读取，无需每次传入。
 
 ### 自动化执行流程
 
@@ -212,9 +227,9 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 
 ## 各步骤详解
 
-### get-question — 生成问题集
+### get-question — 生成/追加问题集
 
-5 个数据来源路径，可单独选择或全选：
+4 个数据来源路径，可单独选择或全选：
 
 | 路径 | 参数值 | 数据来源 | 场景 |
 |------|--------|----------|------|
@@ -222,12 +237,14 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | Path 2 | `issue` | GitCode 仓库 Issue | 使用阶段 |
 | Path 3 | `maillist` | SIG 邮件列表归档 | 使用阶段 |
 | Path 4 | `website` | 官网站内搜索热词 | 使用阶段 |
-| Path 5 | `industry` | LLM 生成行业问题 | 了解阶段 |
 
 ```
-/get-question community=MindSpore paths=forum,issue,industry
-/get-question community=MindSpore paths=all
+/get-question paths=forum,issue
+/get-question paths=all
+/get-question                           # 全部默认从 .env 读取
 ```
+
+> 每次执行自动加载 `assessments/{community}/questions.json`，将新问题**追加**到现有问题集末尾，语义重复的问题自动过滤。已填写的 `official_urls` 和 `notes` 保将原样保留。`community`、`forum_url`、`source_repo_url` 均从 `.env` 对应变量读取，owner/repo 自动解析；`paths` 未传时取 `GEO_PATHS`。
 
 ### platform-sampler — 采样 AI 平台
 
@@ -245,6 +262,8 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | `satisfied` | 引用了官方内容 | OK | 回答中包含官方 URL 或域名 |
 | `not_cited` | 有内容未被引用 | P0 | 官方已有内容但 AI 平台未引用 |
 | `no_official_content` | 官方内容缺失 | P1 | 官方本身无对应内容 |
+
+评分完成后，自动将 `questions.json` 中已标注的 `official_urls` 同步回 `questions.md`，在每行问题后新增「官方链接」列。
 
 ### issue-creator — 创建/更新 Issue
 
@@ -290,18 +309,17 @@ geo-workflow/
 ├── .gitignore
 ├── docs/
 │   └── GEO搜索能力检测和优化改进-初步设计方案.md  # 完整设计文档
-├── packages/
-│   └── assessments/                # 社区评估数据
-│       └── MindSpore/              # MindSpore 社区
-│           ├── questions.json           # 问题集 + official_urls（人工填写，source of truth）
-│           ├── questions.md             # 问题集（人工可读）
-│           ├── issue-map.json           # Issue 映射（自动维护）
-│           └── 2026-03-30/             # 运行数据（按日期命名）
-│               ├── responses.json
-│               ├── scoring-results.json
-│               ├── assessment-report.json
-│               ├── assessment-report.md
-│               └── created-issues.json
+├── assessments/                    # 社区评估数据
+│   └── MindSpore/                  # MindSpore 社区
+│       ├── questions.json               # 问题集 + official_urls（人工填写，source of truth）
+│       ├── questions.md                 # 问题集（人工可读）
+│       ├── issue-map.json               # Issue 映射（自动维护）
+│       └── 2026-03-30/                 # 运行数据（按日期命名）
+│           ├── responses.json
+│           ├── scoring-results.json
+│           ├── assessment-report.json
+│           ├── assessment-report.md
+│           └── created-issues.json
 └── .claude/
     └── skills/                     # Skill 定义
         ├── get-question/
@@ -349,9 +367,11 @@ geo-workflow/
 ```bash
 openclaw trigger \
   --agent "AGENT.md" \
-  --inputs '{"community_dir": "packages/assessments/MindSpore/", "repo_url": "https://github.com/opensourceways/geo-workflow/"}' \
+  --inputs '{}' \
   --schedule "0 9 * * 1"   # 每周一 9:00
 ```
+
+> `community_dir`、`repo_url`、`dry_run` 均从 `.env` 读取，`.inputs` 只需在需要临时覆盖时传入。
 
 **前提条件**：
 - `questions.json` 已就位（含人工填写的 `official_urls`）
@@ -366,7 +386,7 @@ openclaw trigger \
 
 ### Q: 如何更新问题集？
 
-重新运行 `/get-question` 或直接编辑 `packages/assessments/MindSpore/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
+重新运行 `/get-question` 或直接编辑 `assessments/MindSpore/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
 
 ### Q: 某个平台 API Key 过期了怎么办？
 
@@ -382,10 +402,10 @@ openclaw trigger \
 
 ### Q: 如何新增一个社区（如 openEuler）？
 
-1. 创建目录 `packages/assessments/openEuler/`
-2. 运行 `/get-question community=openEuler paths=all` 生成 `questions.json`
+1. 创建目录 `assessments/openEuler/`
+2. 运行 `/get-question paths=all` 生成 `questions.json`（需先把 `.env` 中 `GEO_COMMUNITY=openEuler`、`GEO_COMMUNITY_DIR=assessments/openEuler/`、`GEO_FORUM_URL`、`GEO_SOURCE_REPO_URL`、`GEO_REPO_URL` 更新为 openEuler 对应值）
 3. 审核 `questions.md`，直接编辑 `questions.json` 做必要调整
-4. 在 `packages/assessments/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
+4. 在 `assessments/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
 5. 在 `.env` 中配置该社区的平台 API Keys
 6. 按正常流程运行
 
@@ -398,7 +418,7 @@ openclaw trigger \
 
 ### Q: 评分结果不准怎么办？
 
-打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `packages/assessments/{community}/questions.json` 中对应问题的 `official_urls`，然后重新运行 scoring-engine（`steps=2,3,4,5`）。
+打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `assessments/{community}/questions.json` 中对应问题的 `official_urls`，然后重新运行 scoring-engine（`steps=2,3,4,5`）。
 
 ---
 

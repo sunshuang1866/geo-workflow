@@ -10,13 +10,13 @@ Collect raw AI platform responses for each question in the question set, across 
 ## Prerequisites
 
 - `.env` file with API tokens (at least one platform required)
-- `packages/assessments/{community}/questions.json` (output from get-question skill)
+- `assessments/{community}/questions.json` (output from get-question skill)
 
 ## Inputs
 
 | Param | Required | Default | Notes |
 |-------|----------|---------|-------|
-| `community` | Yes | — | Community name, e.g. `MindSpore`. Determines the data path under `packages/assessments/`. |
+| `community` | No | `GEO_COMMUNITY` from `.env` | Community name, e.g. `MindSpore`. Determines the data path under `assessments/`. |
 | `platforms` | No | all detected | Comma-separated list of platforms to sample: `chatgpt`, `deepseek`, `doubao`, `qwen`, `gemini` |
 | `questions` | No | all | Comma-separated list of question IDs to sample: e.g. `q_001,q_005,q_012` |
 | `output_mode` | No | `new_run` | `append` — write into the latest existing date folder; `new_run` — create a new `{YYYY-MM-DD}` date folder |
@@ -25,14 +25,15 @@ Collect raw AI platform responses for each question in the question set, across 
 
 | Mode | Behavior |
 |------|----------|
-| `append` | Find the latest date subfolder under `packages/assessments/{community}/` (e.g. `2026-03-28/`). Load its `responses.json`, merge new results (replace entries with same `question_id` + `platform`, append the rest). If no date folder exists, fall back to `new_run`. |
-| `new_run` | Create `packages/assessments/{community}/{YYYY-MM-DD}/` and write a fresh `responses.json` there. If the folder already exists (same-day re-run), append to the existing file. |
+| `append` | Find the latest date subfolder under `assessments/{community}/` (e.g. `2026-03-28/`). Load its `responses.json`, merge new results (replace entries with same `question_id` + `platform`, append the rest). If no date folder exists, fall back to `new_run`. |
+| `new_run` | Create `assessments/{community}/{YYYY-MM-DD}/` and write a fresh `responses.json` there. If the folder already exists (same-day re-run), append to the existing file. |
 
 ## Procedures
 
 **Step 1: Load Configuration**
 
-1. Read `.env` from the project root. Each platform is configured by two vars:
+1. Read `.env` from the project root. Resolve `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if still unresolved: `"community not set. Provide as argument or set GEO_COMMUNITY in .env."`
+2. Each platform is configured by two vars:
    - `{PLATFORM}_API_KEY` — required for the platform to be active
    - `{PLATFORM}_BASE_URL` — optional; overrides the built-in default endpoint
 2. Detect available platforms by checking which API keys are non-empty:
@@ -44,8 +45,8 @@ Collect raw AI platform responses for each question in the question set, across 
 3. If the `platforms` param is provided, filter detected platforms to only those listed. If a requested platform has no token, warn and skip it.
 4. If no platforms remain after filtering, abort: `"No configured platforms available. Check .env tokens."`
 5. Resolve output path based on `output_mode`:
-   - `append`: scan `packages/assessments/{community}/` for date-named subfolders (`YYYY-MM-DD`), pick the latest one. Target: `{latest_date_folder}/responses.json`. If no date folder exists, fall back to `new_run`.
-   - `new_run`: target is `packages/assessments/{community}/{YYYY-MM-DD}/responses.json`. Create the date folder if it does not exist. If it already exists (same-day re-run), load existing file as `existing_responses` for merging.
+   - `append`: scan `assessments/{community}/` for date-named subfolders (`YYYY-MM-DD`), pick the latest one. Target: `{latest_date_folder}/responses.json`. If no date folder exists, fall back to `new_run`.
+   - `new_run`: target is `assessments/{community}/{YYYY-MM-DD}/responses.json`. Create the date folder if it does not exist. If it already exists (same-day re-run), load existing file as `existing_responses` for merging.
    - If `output_mode=append` and the target file exists, load its contents as `existing_responses` for later merging.
 6. Print active platforms and output target to stdout:
    ```
@@ -55,7 +56,7 @@ Collect raw AI platform responses for each question in the question set, across 
 
 **Step 2: Load Question Set**
 
-1. Read `packages/assessments/{community}/questions.json`.
+1. Read `assessments/{community}/questions.json`.
 2. Run `python3 scripts/validate-input.py < questions.json` to verify the input format.
 3. If validation fails, display the error and abort.
 4. If the `questions` param is provided, filter the question list to only the specified IDs. If any requested ID is not found in the file, warn and skip it.
@@ -163,6 +164,6 @@ For each group of 5 questions (or fewer for the last group):
 
 * If a platform API call fails (timeout, auth error, rate limit), log the error to stderr, mark the response as `"status": "error"` with the error message, and continue with the next call. Do not abort the entire sampling run.
 * If a platform returns an empty response, mark it as `"status": "empty"` and continue.
-* If `packages/assessments/{community}/questions.json` is missing, abort with a clear error: "questions.json not found for community '{community}'. Run get-question skill first."
+* If `assessments/{community}/questions.json` is missing, abort with a clear error: "questions.json not found for community '{community}'. Run get-question skill first."
 * If rate-limited by a platform (HTTP 429), wait 30 seconds and retry once. If still rate-limited, mark as error and continue.
 * After all sampling, if more than 50% of responses are errors, warn the user and suggest checking API tokens.

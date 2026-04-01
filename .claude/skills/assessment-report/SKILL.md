@@ -10,7 +10,7 @@ Compile a structured question assessment report from scoring and issue data. Eac
 ## Prerequisites
 
 - `scoring-results.json` — output from scoring-engine
-- `questions.json` — source of `official_urls` and `notes` per question (from `packages/assessments/{community}/`)
+- `questions.json` — source of `official_urls` and `notes` per question (from `assessments/{community}/`)
 - `issue-map.json` — Issue URL, creation date, and update history from issue-creator
 
 ## Inputs
@@ -18,11 +18,11 @@ Compile a structured question assessment report from scoring and issue data. Eac
 | Param | Required | Default | Notes |
 |-------|----------|---------|-------|
 | `scoring_file` | no | `scoring-results.json` | Path to scoring results |
-| `questions_file` | no | `packages/assessments/{community}/questions.json` | Path to questions file |
+| `questions_file` | no | `assessments/{GEO_COMMUNITY}/questions.json` | Path to questions file; `{GEO_COMMUNITY}` resolved from `.env` |
 | `issue_map_file` | no | `issue-map.json` | Path to issue map |
 | `prev_report_file` | **yes** | — | Path to previous run's `assessment-report.json`. Pass `"none"` on first run — all questions will be marked as `new` and no trend delta is computed. |
 | `output_dir` | no | same directory as `scoring_file` | Where to write output files |
-| `community` | no | auto-detected from path | Community name for report header |
+| `community` | no | `GEO_COMMUNITY` from `.env`, then auto-detected from path | Community name for report header |
 
 ## Procedures
 
@@ -168,9 +168,9 @@ Write `assessment-report.json` to `output_dir`:
     "citation_threshold": 0.9,
     "source_files": {
       "scoring": "runs/2026-03-30/scoring-results.json",
-      "questions": "packages/assessments/{community}/questions.json",
+      "questions": "assessments/{community}/questions.json",
       "issue_map": "issue-map.json",
-      "prev_report": "packages/assessments/MindSpore/2026-03-23/assessment-report.json"
+      "prev_report": "assessments/MindSpore/2026-03-23/assessment-report.json"
     }
   },
   "changes": {

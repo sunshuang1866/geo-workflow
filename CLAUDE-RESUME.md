@@ -18,7 +18,7 @@ The system is a **skill chain orchestrated by AGENT.md**, not a web application.
 
 3-step pipeline + issue creation, each step is a separate skill:
 
-1. **get-question** — Generate question set from manual input + 3 auto paths (forum, issue, industry)
+1. **get-question** — Incrementally append new questions to existing `questions.json`; never overwrites. Deduplicates new candidates against existing questions. Preserves `official_urls`/`notes`.
 2. **platform-sampler** — Call 4 AI platform APIs with questions, collect responses
 3. **scoring-engine** — Multi-layer evaluation (content completeness + citation accuracy + optional fact coverage), cross-platform pattern analysis, catalog-based suggestion matching (72-item GEO catalog), generate P0-P2 improvement suggestions with execution roadmap
 4. **issue-creator** — Auto-create GitCode Issues from improvement suggestions
@@ -27,14 +27,13 @@ Data flows as JSON between skills, with Markdown output for human review.
 
 ## Step 1 Design (get-question) — AGREED
 
-Question sources: manual input + 5 selectable auto-generation paths (`paths` param: `forum`, `issue`, `maillist`, `website`, `industry`, `all`)
+Question sources: manual input + 4 selectable auto-generation paths (`paths` param: `forum`, `issue`, `maillist`, `website`, `all`)
 
 - **Manual input**: Community operators write questions in `manual-questions.md` (Markdown), skill auto-parses to structured JSON. No YAML needed.
 - **Path 1 (PRIMARY): Forum usage question extraction (使用阶段)** — Fetch top topics from MindSpore Discourse forum (`https://discuss.mindspore.cn`) via API. Fetches from 问题求助 Help + MindSpore Lite categories + global top. LLM rewrites titles to search questions, filters pure bugs. Forum + issues are the primary question source.
 - **Path 2 (PRIMARY): Repo issue question extraction (使用阶段)** — Fetch issues from GitCode (`https://gitcode.com/mindspore/mindspore/issues`) via API (`api.gitcode.com/api/v5`). Requires `GITCODE_TOKEN`. Sorted by comments, LLM rewrites to search questions. No LLM fallback — skip if no token.
 - **Path 3: Maillist (SIG) question extraction (使用阶段)** — Two-step: MagicAPI fetches SIG list → HyperKitty API fetches email archives from mailweb.mindspore.cn. Active lists: dev(71), tsc(53), discuss(49), infra(8). LLM filters/rewrites to search questions.
 - **Path 4: Website search keywords (使用阶段)** — Calls official website's internal search hot-words API (`WEBSITE_SEARCH_URL`, must be provided by community ops). Filters navigation/brand terms. LLM rewrites raw search terms into natural language questions. No fallback — skip if `WEBSITE_SEARCH_URL` not set. Optional auth via `WEBSITE_SEARCH_TOKEN`.
-- **Path 5: Industry question discovery (了解阶段)** — LLM determines community's domain hierarchy (industry → sub-domain → positioning → competitors), then generates questions by user intent (认知/选型/趋势/场景). Uses competitors for reverse expansion.
 Merge (manual + selected paths) → semantic dedup → classify → output `questions.json` + `questions.md`.
 
 Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
@@ -65,9 +64,9 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | `README.md` | Usage rules for developers |
 | `.env.example` | API token template (6 platforms) |
 | `.gitignore` | Excludes `.env` from git |
-| `packages/assessments/` | Community assessment data root |
-| `packages/assessments/MindSpore/` | MindSpore community data (questions, labels, runs) |
-| `packages/assessments/openUBMC/` | openUBMC community data |
+| `assessments/` | Community assessment data root |
+| `assessments/MindSpore/` | MindSpore community data (questions, labels, runs) |
+| `assessments/openUBMC/` | openUBMC community data |
 
 ## Skills Created
 
@@ -81,7 +80,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | ~~improvement-advisor~~ | merged into scoring-engine (2026-03-19) | ❌ Deleted |
 
 ### get-question
-- 9-step procedure: Load config → Parse manual → Path 1 (forum) → Path 2 (issue) → Path 3 (maillist/SIG) → Path 4 (website search keywords) → Path 5 (industry LLM) → Merge & dedup → Output
+- 8-step procedure: Load config → Parse manual → Path 1 (forum) → Path 2 (issue) → Path 3 (maillist/SIG) → Path 4 (website search keywords) → Merge & dedup → Output
 - Maillist path: two-step flow — (1) MagicAPI fetches SIG list → extracts mailing_list addresses, (2) HyperKitty API fetches email archives from mailweb.mindspore.cn → thread subjects + email content. Active lists: dev(71), tsc(53), discuss(49), infra(8).
 - Forum: all content types included (technical, events, blogs, announcements) — views are relevance filter, not content type
 - Forum endpoint: `/c/{slug}/{id}/l/top.json?period=all` (views-sorted, not latest activity)
@@ -120,9 +119,9 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 ## Current Status
 
 - **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize. assessment-tracker.md and tracking-log.md removed from workflow.
-- **Directory structure**: Community data lives under `packages/assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
-- **MindSpore**: `packages/assessments/MindSpore/` — has `questions.json` (with official_urls merged in), `questions.md`. Ready for first full pipeline run.
-- **openUBMC**: `packages/assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
+- **Directory structure**: Community data lives under `assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
+- **MindSpore**: `assessments/MindSpore/` — has `questions.json` (with official_urls merged in), `questions.md`. Ready for first full pipeline run.
+- **openUBMC**: `assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
 - **issue-creator skill**: Updated SKILL.md (community/version_label inputs, richer LLM prompt with causal_chain/cross_platform_section/action_items) and issue-template.md (matches real-world issue.md format)
 - **Branch**: `main`
 - **Last updated**: 2026-03-26
@@ -204,7 +203,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | 2026-03-28 | accuracy_score hidden from output: remains internal for D-type severity判定, removed from scoring-results.json and suggestion objects |
 | 2026-03-28 | Added assessment-tracker.md: question-level priority & suggestion tracking table, updated per workflow run. AGENT.md now 7 steps (was 6), new Step 3 before issue creation |
 | 2026-03-28 | Created scripts/update-tracker.py: parses existing tracker, appends new rows, regroups by priority, marks digested suggestions |
-| 2026-03-28 | Fixed directory typo: `asssessments` → `assessments`. All paths now use `packages/assessments/{community}/` |
+| 2026-03-28 | Fixed directory typo: `asssessments` → `assessments`. All paths now use `assessments/{community}/` |
 | 2026-03-28 | Created `.env.example` with 6 API key placeholders |
 | 2026-03-28 | Updated README.md, AGENT.md, CLAUDE-RESUME.md to match actual directory structure. Removed references to non-existent files (VERSION, CHANGELOG.md, WORKFLOW.md, INPUT.md) |
 | 2026-03-30 | Removed `approved-questions.json`: `questions.json` is now source of truth. AGENT.md Step 0 detects changes and requires `accept_question_update=true` to proceed. |
@@ -225,14 +224,13 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - Target community: MindSpore (AI computing framework, competitors: TensorFlow/PyTorch/PaddlePaddle/JAX)
 - Data format: JSON between skills, Markdown for human review
 - Manual questions: write in `manual-questions.md` (Markdown), skill auto-converts to JSON
-- Community data path: `packages/assessments/{community}/` (e.g. `packages/assessments/MindSpore/`)
+- Community data path: `assessments/{community}/` (e.g. `assessments/MindSpore/`)
 - `approved-questions.json` removed: `questions.json` is the source of truth. AGENT.md Step 0 diffs against the last run's snapshot; if changed, aborts unless `accept_question_update=true` is set.
 - AGENT.md supports `steps` (select which steps to run), `scope` (which questions to sample: `all`/`p0`/IDs), `accept_question_update` parameters.
 - New skills must use `/skill-creator` and conform to agentskills.io spec
 - MVP platforms (5): ChatGPT + DeepSeek + 豆包 + Qwen + Gemini
 - API tokens stored in `.env`, template in `.env.example`
-- Two scenarios in parallel: 了解阶段 (industry discovery) + 使用阶段 (usage extraction)
-- Forum (Discourse API) is primary question source; all 5 paths selectable via `paths` param (forum, issue, maillist, website, industry)
+- Forum (Discourse API) is primary question source; all 4 paths selectable via `paths` param (forum, issue, maillist, website)
 - Path 4 (AI reverse extraction) permanently removed — circular reasoning risk; real data only
 - Forum includes all content types (not filtered by category type); views = relevance signal
 - Forum URL: https://discuss.mindspore.cn/ (Discourse, public API, no auth needed)

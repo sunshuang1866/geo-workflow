@@ -208,8 +208,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | 只重检 P0 问题 | `steps=1,2, scope=p0` |
 | 采样指定问题 | `steps=1, scope=q_048,q_049` |
 | 仅重新生成报告 | `steps=4` |
-| 接受问题集变更并继续 | `accept_question_update=true` |
-| 查看问题集变更详情 | `steps=update_questions` |
+
 
 ### 每次运行的输出
 

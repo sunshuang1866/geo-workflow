@@ -10,7 +10,7 @@ GEO (Generative Engine Optimization) Search Assessment — a system that automat
 
 **Core workflow**: Define questions → Sample AI platforms → Score & diagnose → Output suggestions
 
-**Design doc**: `docs/GEO搜索能力检测和优化改进-初步设计方案.md` contains the full specification.
+**Design doc**: See `README.md` + `AGENT.md` for the current executable specification.
 
 ## Architecture
 
@@ -44,7 +44,7 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 ## Design Doc Structure
 
-`docs/GEO搜索能力检测和优化改进-初步设计方案.md` sections:
+Current docs focus:
 
 - **总览**: 系统架构 + 执行步骤(1-4) + 总体开发路线 + 待讨论问题汇总
 - **第一部分(一~五)**: 主流 AI 搜索平台分析 — 平台分类、优先级、API 可用性、MVP 结论
@@ -57,7 +57,6 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 | File | Purpose |
 |------|---------|
-| `docs/GEO搜索能力检测和优化改进-初步设计方案.md` | Full design specification |
 | `CLAUDE.md` | Development rules (11 rules) |
 | `AGENT.md` | Workflow orchestrator (periodic re-check entry point) |
 | `CLAUDE-RESUME.md` | Session recovery (this file) |
@@ -66,7 +65,6 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 | `.gitignore` | Excludes `.env` from git |
 | `assessments/` | Community assessment data root |
 | `assessments/MindSpore/` | MindSpore community data (questions, labels, runs) |
-| `assessments/openUBMC/` | openUBMC community data |
 
 ## Skills Created
 
@@ -121,7 +119,6 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 - **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize. assessment-tracker.md and tracking-log.md removed from workflow.
 - **Directory structure**: Community data lives under `assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
 - **MindSpore**: `assessments/MindSpore/` — has `questions.json` (with official_urls merged in), `questions.md`. Ready for first full pipeline run.
-- **openUBMC**: `assessments/openUBMC/` — has `questions.json`, `questions.md`, `version1/` with responses data.
 - **issue-creator skill**: Updated SKILL.md (community/version_label inputs, richer LLM prompt with causal_chain/cross_platform_section/action_items) and issue-template.md (matches real-world issue.md format)
 - **Branch**: `main`
 - **Last updated**: 2026-03-26
@@ -142,6 +139,9 @@ Priority: manual > forum (path1) / issue (path2) > multi-source > single-source.
 
 | Date | Change |
 |------|--------|
+| 2026-04-01 | Implemented `.claude/skills/platform-sampler/scripts/run-sampler.py` as the concrete batch entry for multi-question x multi-platform sampling (grouped parallel questions, sequential per-platform calls, per-question flush, append/new_run merge by `(question_id, platform)`) and documented usage in platform-sampler SKILL.md. |
+| 2026-04-01 | AGENT.md Step 5 enhanced with issue activity consistency validation: when Step 3 runs, `created-issues.json` must exist and its activity counts must match `run-meta.json.summary` (`issues_created/updated/resolved`); mismatch now marked as `partial_success` with warning and re-run hint `steps=3,4,5`. |
+| 2026-04-01 | Housekeeping cleanup: fixed `assessments/MindSpore/2026-03-31/run-meta.json` community_dir path, removed stale `docs/` and `openUBMC` references from README/CLAUDE-RESUME, and deleted tracked Python cache file with `.gitignore` rules for `__pycache__/`, `*.pyc`, `.claude/settings.local.json`. |
 | 2026-03-10 | Initialized repository with design doc |
 | 2026-03-10 | Installed release-skills and skill-creator to `.claude/skills/` |
 | 2026-03-10 | Configured CLAUDE.md development rules (rules 1-11) |

@@ -30,6 +30,22 @@ Collect raw AI platform responses for each question in the question set, across 
 
 ## Procedures
 
+### CLI Batch Entry (implemented)
+
+Use the batch runner to execute multi-question x multi-platform sampling directly:
+
+```bash
+python3 .claude/skills/platform-sampler/scripts/run-sampler.py --community MindSpore
+python3 .claude/skills/platform-sampler/scripts/run-sampler.py --community MindSpore --questions q_001,q_005 --platforms deepseek,qwen
+python3 .claude/skills/platform-sampler/scripts/run-sampler.py --community MindSpore --output-mode append
+```
+
+Notes:
+- Runs up to 5 questions in parallel per group (`--group-size`, default 5).
+- Calls platforms sequentially within each question task, with same-platform rate-limit spacing.
+- Writes to `{community}/{date}/responses.json` in object format: `{ metadata, responses }`.
+- Merges by `(question_id, platform)` to support append and same-day reruns.
+
 **Step 1: Load Configuration**
 
 1. Read `.env` from the project root. Resolve `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if still unresolved: `"community not set. Provide as argument or set GEO_COMMUNITY in .env."`

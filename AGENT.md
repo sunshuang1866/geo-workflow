@@ -174,7 +174,24 @@ The skill produces:
       以下 {n} 个问题本次引用率已达 ≥90%，对应 Issue 已收到关闭建议评论：
       {list of question_id + issue_url}
       ```
-3. Print final summary to stdout:
+3. **Validate issue activity consistency**:
+   a. If Step 3 (`issue`) was executed, require `{community_dir}/{date}/created-issues.json` to exist.
+   b. Read `created-issues.json` and compute actual counts:
+      - `actual_created`
+      - `actual_updated`
+      - `actual_resolved`
+   c. Compare with `run-meta.json.summary`:
+      - `issues_created`
+      - `issues_updated`
+      - `issues_resolved`
+   d. If any mismatch is found, update `run-meta.json` status to `partial_success`, add a `consistency_warnings` array, and print:
+      ```
+      ⚠️  CONSISTENCY WARNING — issue activity mismatch
+      run-meta summary and created-issues.json are inconsistent.
+      Please re-run steps=3,4,5 after checking issue-creator outputs.
+      ```
+   e. If Step 3 was skipped, skip this validation without warning.
+4. Print final summary to stdout:
    ```
    GEO Assessment Run Complete
    ===========================
@@ -280,6 +297,8 @@ assessments/MindSpore/
 - If platform-sampler produces zero responses, abort before scoring.
 - If scoring-engine fails (>50% pairs failed), abort before issue creation.
 - If issue creation API fails, log errors but do not abort — run-meta.json is still updated.
+- If Step 3 (`issue`) was executed and `created-issues.json` is missing, mark run as `partial_success` and include a consistency warning in run-meta.
+- If `run-meta.json.summary` issue counters do not match `created-issues.json` activity counts, mark run as `partial_success` and print a warning with a re-run hint (`steps=3,4,5`).
 - Each step validates the previous step's output before proceeding.
 
 ## OpenClaw Compatibility

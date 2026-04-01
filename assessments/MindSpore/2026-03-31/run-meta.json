@@ -1,7 +1,7 @@
 {
   "run_date": "2026-03-31",
   "version_label": "V2",
-  "community_dir": "packages/assessments/MindSpore/",
+  "community_dir": "assessments/MindSpore/",
   "repo_url": "https://github.com/opensourceways/geo-workflow/",
   "scope": "q_043",
   "dry_run": false,

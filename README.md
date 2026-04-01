@@ -294,8 +294,6 @@ geo-workflow/
 ├── .env.example                    # API Key 模板
 ├── .env                            # API Keys（不入库）
 ├── .gitignore
-├── docs/
-│   └── GEO搜索能力检测和优化改进-初步设计方案.md  # 完整设计文档
 ├── assessments/                    # 社区评估数据
 │   └── MindSpore/                  # MindSpore 社区
 │       ├── questions.json               # 问题集 + official_urls（人工填写，source of truth）

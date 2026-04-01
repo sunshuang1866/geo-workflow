@@ -30,7 +30,7 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 └─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘     └───────────────────┘
        ↓                        ↓                        │                      ↓                       ↓
   questions.json          responses.json                 │               created-issues.json   assessment-report.json
-  questions.md                                            │               issue-map.json        assessment-report.md
+  questions.md                                                           issue-map.json        assessment-report.md
                                                          ↓
                                                  scoring-results.json
 ```
@@ -76,11 +76,11 @@ cp .env.example .env
 |------|------|--------|
 | `GEO_COMMUNITY` | 社区名称，供所有 Skill 读取 | `MindSpore` |
 | `GEO_COMMUNITY_DIR` | 社区数据目录路径 | `assessments/MindSpore/` |
-| `GEO_REPO_URL` | Issue 创建目标仓库 URL | `https://gitcode.com/mindspore/mindspore-portal/` |
 | `GEO_FORUM_URL` | 社区 Discourse 论坛地址 | `https://discuss.mindspore.cn` |
 | `GEO_SOURCE_REPO_URL` | 问题来源仓库地址（get-question issue 路径） | `https://gitcode.com/mindspore/mindspore/` |
 | `GEO_PATHS` | get-question 默认来源路径 | `all` |
 | `GEO_DRY_RUN` | 全局 dry-run 开关 | `false` |
+| `GEO_REPO_URL` | Issue 创建目标仓库 URL | `https://github.com/opensourceways/geo-workflow/` |
 
 > 至少需要 **2 个平台** 的 API Key 才能运行采样。
 

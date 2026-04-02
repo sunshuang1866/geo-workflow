@@ -1,0 +1,223 @@
+{
+  "issues": {
+    "g_001": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/15",
+      "issue_number": 15,
+      "question_ids": [
+        "q_001",
+        "q_004",
+        "q_011",
+        "q_017"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "openEuler 安装部署相关页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_002": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/16",
+      "issue_number": 16,
+      "question_ids": [
+        "q_002",
+        "q_003",
+        "q_015"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "虚拟机网卡与驱动安装相关页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_003": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/17",
+      "issue_number": 17,
+      "question_ids": [
+        "q_006",
+        "q_019",
+        "q_025",
+        "q_031"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "硬件兼容性（鲲鹏/飞腾/英伟达显卡）相关页面未被引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_004": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/18",
+      "issue_number": 18,
+      "question_ids": [
+        "q_009",
+        "q_010",
+        "q_013",
+        "q_023",
+        "q_024",
+        "q_028"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "系统迁移与跨版本升级相关页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_005": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/19",
+      "issue_number": 19,
+      "question_ids": [
+        "q_008",
+        "q_014",
+        "q_018",
+        "q_022",
+        "q_030"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "软件包管理与 DNF 仓库问题页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_006": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/20",
+      "issue_number": 20,
+      "question_ids": [
+        "q_005",
+        "q_012",
+        "q_020",
+        "q_027",
+        "q_029",
+        "q_032"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "系统服务部署与运维（A-Ops/Zabbix/Mail 等）页面未被引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_007": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/21",
+      "issue_number": 21,
+      "question_ids": [
+        "q_016",
+        "q_080"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "安全漏洞修复与 CVE 报告流程页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_008": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/22",
+      "issue_number": 22,
+      "question_ids": [
+        "q_007",
+        "q_021"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "内核升级与 OBS 软件包构建相关页面未被引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_009": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/23",
+      "issue_number": 23,
+      "question_ids": [
+        "q_033",
+        "q_034",
+        "q_035",
+        "q_037",
+        "q_038",
+        "q_040",
+        "q_060",
+        "q_078",
+        "q_081"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "社区 SIG 参与与贡献相关页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_010": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/24",
+      "issue_number": 24,
+      "question_ids": [
+        "q_026",
+        "q_039"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "openEuler Embedded 嵌入式相关页面未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_011": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/25",
+      "issue_number": 25,
+      "question_ids": [
+        "q_063",
+        "q_079"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.1666,
+      "title_summary": "镜像节点申请与兼容性认证相关页面引用率不足",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_012": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/26",
+      "issue_number": 26,
+      "question_ids": [
+        "q_070",
+        "q_071",
+        "q_073"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "云原生虚拟化与 OpenStack 部署相关文档未被 AI 平台引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    },
+    "g_013": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/27",
+      "issue_number": 27,
+      "question_ids": [
+        "q_074",
+        "q_077"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.1666,
+      "title_summary": "Compass-CI 持续集成与 AI 推理框架相关页面未被引用",
+      "created_at": "2026-04-02",
+      "created_in_run": "2026-04-02",
+      "last_updated_run": "2026-04-02"
+    }
+  }
+}

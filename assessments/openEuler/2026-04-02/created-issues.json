@@ -228,6 +228,20 @@
       ]
     }
   ],
-  "issues_updated": [],
+  "issues_updated": [
+    {
+      "group_id": "g_013",
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/27",
+      "issue_number": 27,
+      "old_severity": "P0",
+      "new_severity": "P0",
+      "old_citation_rate": 0.1666,
+      "new_citation_rate": 0.0,
+      "action": "comment_added",
+      "comment_url": "https://github.com/opensourceways/geo-workflow/issues/27#issuecomment-4181614682",
+      "triggered_by": "q_077",
+      "run_date": "2026-04-03"
+    }
+  ],
   "issues_resolved": []
 }

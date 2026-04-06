@@ -471,7 +471,7 @@
     {
       "question_id": "q_081",
       "platform": "chatgpt",
-      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？如何参与 UI/UX 贡献？",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
       "timestamp": "2026-04-02T03:20:26.772279+00:00",
       "raw_response": "",
       "citations": [],
@@ -482,7 +482,7 @@
     {
       "question_id": "q_081",
       "platform": "deepseek",
-      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？如何参与 UI/UX 贡献？",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
       "timestamp": "2026-04-02T03:32:04.512953+00:00",
       "raw_response": "OpenEuler openDesign SIG（特别兴趣小组）是 openEuler 社区中专门负责视觉与用户体验设计的组织，旨在为 openEuler 及其子项目构建一致、美观且实用的设计体系。其主要角色和参与方式如下：\n\n### 一、openDesign SIG 的核心角色\n\n1.  **建立和维护设计体系**：制定并维护 openEuler 社区项目的视觉设计语言、UI组件库和用户体验规范，确保不同产品间的一致性和专业性。  \n    - 参考链接：https://www.openeuler.org/zh/community/contribution/#/sig/UX\n\n2.  **赋能社区项目**：为 openEuler 其他 SIG（如 openEuler 桌面、文档、官网等）提供设计支持，包括界面设计、交互流程优化、图标设计等，降低项目的设计门槛。  \n    - 参考链接：https://gitee.com/openeuler/community/blob/master/zh/technical-committee/governance/SIG.md\n\n3.  **推动开源设计协作**：通过开放的设计流程（如设计稿评审、设计资源开源等），吸引设计师和开发者共同参与，促进设计资源的共享与复用。  \n    - 参考链接：https://design.openeuler.org/\n\n4.  **孵化和优化用户体验**：针对社区工具（如 CI/CD 界面）、文档站点、活动页面等，进行用户体验研究和持续改进，提升开发者使用体验。  \n    - 参考链接：https://summer-ospp.ac.cn/org/orgdetail/8b5c74db-0d21-4e7f-bd8a-83264e73bc1d?lang=zh\n\n### 二、如何参与 UI/UX 贡献\n\n参与 openDesign SIG 的贡献不仅限于专业设计师，任何对设计感兴趣的开源爱好者均可加入：\n\n1.  **了解并加入 SIG**：\n    - 访问 openDesign SIG 的官方页面，查看任务列表、会议记录和设计资源。  \n    - 参考链接：https://gitee.com/openeuler/design-team\n\n2.  **参与设计讨论与评审**：\n    - 通过邮件列表、Issue 或定期会议（会议信息在 Wiki 公布）提出设计建议或评审现有设计稿。  \n    - 参考链接：https://gitee.com/openeuler/design-team/wikis\n\n3.  **贡献设计产出**：\n    - **界面/交互设计**：根据社区项目需求，使用开放工具（如 Figma）参与设计，输出符合规范的原型或视觉稿。  \n    - **图标/插图制作**：为 openEuler 生态系统创作开源图标、插图或动画资源。  \n    - **设计文档撰写**：帮助完善设计指南、组件说明或用户体验研究报告。  \n    - 参考链接：https://design.openeuler.org/zh-CN/guide\n\n4.  **开发协作**：\n    - 与开发者合作，将设计稿转化为前端代码（如 Vue/React 组件），或参与设计工具链的优化。  \n    - 参考链接：https://gitee.com/openeuler/open-design\n\n5.  **新手入门任务**：\n    - 从简单的任务开始（如优化现有界面细节、翻译设计文档），逐步深入复杂项目。SIG 通常会标注适合新手的 “good first issue”。  \n    - 参考链接：https://gitee.com/openeuler/design-team/issues\n\n### 三、贡献流程要点\n- **开源协议**：所有设计资源需遵循开源协议（如 CC BY-SA 4.0）。  \n- **透明化流程**：设计稿提交、反馈和迭代均在开放平台（如 Gitee Issue）进行。  \n- **跨领域合作**：鼓励设计师与开发者、文档工程师共同协作解决问题。  \n\n通过以上方式，openDesign SIG 不仅提升了 openEuler 社区的整体视觉体验，也构建了一个开放的设计生态系统，让更多人能参与开源设计创新。\n\n参考链接：\n- https://www.openeuler.org/zh/community/contribution/#/sig/UX\n- https://gitee.com/openeuler/community/blob/master/zh/technical-committee/governance/SIG.md\n- https://design.openeuler.org/\n- https://summer-ospp.ac.cn/org/orgdetail/8b5c74db-0d21-4e7f-bd8a-83264e73bc1d?lang=zh\n- https://gitee.com/openeuler/design-team\n- https://gitee.com/openeuler/design-team/wikis\n- https://design.openeuler.org/zh-CN/guide\n- https://gitee.com/openeuler/open-design\n- https://gitee.com/openeuler/design-team/issues",
       "citations": [
@@ -502,7 +502,7 @@
     {
       "question_id": "q_081",
       "platform": "doubao",
-      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？如何参与 UI/UX 贡献？",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
       "timestamp": "2026-04-02T03:20:57.889388+00:00",
       "raw_response": "",
       "citations": [],
@@ -513,7 +513,7 @@
     {
       "question_id": "q_081",
       "platform": "qwen",
-      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？如何参与 UI/UX 贡献？",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
       "timestamp": "2026-04-02T03:32:40.851610+00:00",
       "raw_response": "openEuler 社区中的 openDesign SIG（Special Interest Group，特别兴趣小组）在构建和操作系统的视觉体验方面发挥着核心作用。该小组主要负责定义和维护社区的视觉识别系统、用户界面（UI）标准以及用户体验（UX）指南，确保 openEuler 生态系统在不同发行版和应用场景中保持一致的品牌形象和交互逻辑 [1][2]。\n\n### openDesign SIG 的主要角色\n\n1.  **视觉身份管理**：负责 openEuler 品牌的视觉规范，包括 Logo 使用、色彩体系、字体规范等，确保社区对外形象的专业性和统一性 [3]。\n2.  **UI/UX 标准化**：制定桌面环境、安装程序及系统工具的界面设计标准，提升用户操作的易用性和美观度 [4]。\n3.  **设计资产维护**：管理和分发社区所需的设计源文件、图标库及模板，方便其他 SIG 组或合作伙伴调用 [5]。\n\n### 如何参与 UI/UX 贡献\n\n参与 openDesign SIG 的 UI/UX 贡献通常遵循 openEuler 社区的标准协作流程，具体步骤如下：\n\n1.  **加入社区与 SIG**：首先注册 openEuler 社区账号，并通过邮件列表或社区论坛联系 openDesign SIG 的维护者，申请加入小组 [6]。\n2.  **熟悉贡献指南**：阅读社区的贡献指南和设计规范文档，了解代码提交、设计稿交付的具体要求及许可证协议 [7]。\n3.  **认领任务与提交**：在 Gitee 仓库中查找标有 `design` 或 `ui/ux` 标签的 Issue，完成设计后通过 Pull Request (PR) 提交成果，并参与社区评审 [5][6]。\n4.  **参与讨论**：通过社区论坛或定期会议参与设计决策讨论，反馈用户体验问题并提出改进方案 [4]。\n\n通过上述方式，设计师和开发者可以共同推动 openEuler 在视觉交互层面的持续优化，构建更友好的开源操作系统生态。\n\n参考链接：\n- https://www.openeuler.org/\n- https://www.openeuler.org/zh/community/sig-list/\n- https://www.openeuler.org/zh/community/contribute/\n- https://forum.openeuler.org/\n- https://docs.openeuler.org/\n- https://gitee.com/openeuler\n- https://www.openeuler.org/zh/community/management/",
       "citations": [
@@ -531,7 +531,7 @@
     {
       "question_id": "q_081",
       "platform": "gemini",
-      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？如何参与 UI/UX 贡献？",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
       "timestamp": "2026-04-02T03:33:40.546726+00:00",
       "raw_response": "好的，openEuler 的 openDesign SIG（Special Interest Group，特别兴趣小组）是社区的创意和设计核心，负责塑造和维护 openEuler 社区的整体视觉形象和用户体验。\n\n### openDesign SIG 在社区视觉设计中的角色\n\nopenDesign SIG 扮演着社区“首席设计官”的角色，其职责贯穿于社区的方方面面，主要包括以下几个核心方面：\n\n1.  **品牌视觉识别（VI）体系的建立与维护**：\n    openDesign SIG 负责设计和规范 openEuler 的核心品牌元素，包括 Logo、标准色、标准字体、吉祥物等。他们制定了详细的品牌使用指南，确保所有社区、合作伙伴和用户在使用 openEuler 品牌标识时能够保持统一、专业和规范的形象。这对于建立一个强大、可信赖的开源品牌至关重要。\n\n2.  **UI/UX 设计与规范制定**：\n    该 SIG 为 openEuler 社区的官方网站、开发者工具、社区活动平台以及各种应用提供用户界面（UI）和用户体验（UX）设计。他们致力于创造清晰、直观且用户友好的交互体验，降低用户和开发者的使用门槛。同时，他们也会创建可复用的设计组件和模式，形成社区的设计系统（Design System），以保证不同产品和页面之间体验的一致性。\n\n3.  **社区宣传与活动物料设计**：\n    openDesign SIG 为社区的各种线上线下活动（如峰会、技术沙龙、Meetup）提供全套的视觉设计支持。这包括海报、易拉宝、社交媒体图片、演示文稿（PPT）模板、T恤、贴纸等周边产品的设计，帮助社区更好地进行宣传和推广，增强社区的凝聚力和影响力。\n\n4.  **设计资源与模板的共享**：\n    他们将所有设计源文件、素材和模板都开放出来，存储在社区的代码仓库（如 Gitee）中。这使得社区成员可以轻松获取和使用这些资源，进行二次创作或在自己的项目中应用，极大地促进了设计的复用和社区的协同创作。\n\n5.  **设计评审与指导**：\n    作为社区的设计权威，openDesign SIG 会对其他 SIG 或贡献者提交的涉及视觉设计和用户体验的贡献进行评审（Review）。他们提供专业的反馈和修改建议，确保新的设计能够融入现有的体系，并符合社区的整体设计标准和质量要求。\n\n### 如何参与 UI/UX 贡献\n\n为 openEuler 社区贡献 UI/UX 设计是一个非常受欢迎的参与方式，无论你是专业设计师还是设计爱好者，都可以通过以下步骤加入：\n\n1.  **熟悉社区与设计规范**：\n    在开始之前，首先要了解 openEuler 社区的文化和设计理念。\n    *   **阅读品牌指南**：访问 openEuler 官网的品牌页面，仔细阅读 VI 使用规范，了解 Logo、色彩、字体的正确用法。\n    *   **浏览设计仓库**：访问 openDesign SIG 在 Gitee 上的官方仓库，这里存放了所有的设计资产、源文件和项目文档。\n\n2.  **加入沟通渠道**：\n    融入社区，与大家建立联系是贡献的第一步。\n    *   **订阅邮件列表**：加入 openDesign 的邮件列表（`opendesign@openeuler.org`）是获取最新信息、参与讨论的主要方式。订阅方式可以在 SIG 首页找到。\n    *   **参加双周例会**：openDesign SIG 会定期召开线上会议，讨论当前的设计任务、评审贡献和规划未来工作。会议信息通常会通过邮件列表发布。\n\n3.  **寻找可贡献的任务**：\n    你可以通过多种方式找到自己感兴趣并可以着手的设计任务。\n    *   **查看 Gitee Issues**：openDesign 仓库以及其他需要设计支持的 SIG 仓库中，通常会创建 Issue 来追踪设计需求。你可以筛选带有 `design` 或 `UI/UX` 标签的 Issue。\n    *   **在例会中认领任务**：参加例会是了解最新需求的最好方式，你可以在会议上主动认领感兴趣的任务。\n    *   **提出自己的改进建议**：如果你发现官网、文档或某个工具的 UI/UX 有可以改进的地方，可以主动创建 Issue，并附上你的设计草图或原型，然后提交你的设计方案。\n\n4.  **使用社区推荐的设计工具**：\n    为了方便协作和评审，社区通常会推荐使用特定的设计工具。\n    *   **Figma**：openDesign SIG 主要使用 Figma 进行 UI/UX 设计。你可以在 openEuler 的 Figma 社区空间中找到官方的设计系统、组件库和项目文件，可以在这些文件的基础上进行创作。\n\n5.  **提交你的设计贡献**：\n    贡献流程与其他代码贡献类似，遵循标准的 Fork & Pull Request 模型。\n    *   **Fork 仓库**：将 openDesign 的 Gitee 仓库 Fork 到你自己的账号下。\n    *   **创建你的设计**：完成设计后，将你的设计源文件（如 `.fig` 文件导出图片或链接）、切图等资源整理好。\n    *   **提交 Pull Request (PR)**：将你的文件提交到你的 Fork 仓库，然后向 openEuler 的主仓库发起 Pull Request。在 PR 描述中，清晰地说明你的设计思路、解决了什么问题，并附上预览图。\n    *   **参与评审**：提交 PR 后，SIG 的成员会对你的设计进行评审。你需要根据他们的反馈进行修改，直到设计方案被接受并合并。\n\n通过以上步骤，你就可以成为 openEuler 社区的一名 UI/UX 贡献者，用你的创意和设计能力为社区的发展添砖加瓦。\n\n---\n参考链接：\n- https://www.openeuler.org/zh/community/sig/sig-detail/?name=openDesign\n- https://gitee.com/openeuler/openDesign\n- https://www.openeuler.org/zh/community/brand/\n- https://www.openeuler.org/zh/community/contribution/\n- https://www.figma.com/@openEuler\n- https://gitee.com/openeuler/community/blob/master/zh/sig-scope/openDesign.md\n- https://gitee.com/openeuler/openDesign/tree/master/UI-UX-Design",
       "citations": [

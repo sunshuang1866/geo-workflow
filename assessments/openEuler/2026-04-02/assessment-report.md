@@ -160,7 +160,6 @@
 | ★ q_063 | 如何申请在 openEuler 官方网站添加新的全球镜像节点（public mi… | ✅ | ❌ | ❌ | 33% | [#25](https://github.com/opensourceways/geo-workflow/issues/25) ×1 |
 | ★ q_077 | openEuler AI SIG（ai-infra）在 openEuler 上支… | ✅ | ❌ | ❌ | 33% | [#27](https://github.com/opensourceways/geo-workflow/issues/27) ×1 |
 
-
 ### 针对特定平台提交收录
 
 > 部分平台已引用，但 qwen/gemini 未覆盖，需向目标平台提交 sitemap 或主动收录申请。
@@ -169,7 +168,6 @@
 |----|------|----------|------|--------|--------|-------|
 | ★ q_063 | 如何申请在 openEuler 官方网站添加新的全球镜像节点（public mi… | ✅ | ❌ | ❌ | 33% | [#25](https://github.com/opensourceways/geo-workflow/issues/25) ×1 |
 | ★ q_077 | openEuler AI SIG（ai-infra）在 openEuler 上支… | ✅ | ❌ | ❌ | 33% | [#27](https://github.com/opensourceways/geo-workflow/issues/27) ×1 |
-
 
 
 

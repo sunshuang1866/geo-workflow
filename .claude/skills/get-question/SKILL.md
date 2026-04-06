@@ -104,7 +104,7 @@ Skip if `paths` excludes `website`.
 1. Combine new candidates: `new_candidates = manual_questions + path1_questions + path2_questions + path3_questions + path4_questions`.
 2. **Filter against existing**: Remove any candidate whose lowercased question text has cosine similarity ≥90% with any entry in `existing_texts`. Pass `new_candidates` and `existing_texts` to LLM for semantic dedup.
    - Result: `truly_new_questions` (candidates not already covered by existing questions).
-3. Read `$SD/assets/prompt-templates.md` section `MERGE_DEDUP`, send LLM call with `truly_new_questions` only (no need to re-dedup existing ones).
+3. Read `$SD/assets/prompt-templates.md` section `MERGE_DEDUP`, substitute `{question_target_min}` and `{question_target_max}` from `.env` (`GEO_QUESTION_TARGET_MIN` / `GEO_QUESTION_TARGET_MAX`, defaults 30/40), then send LLM call with `truly_new_questions` only (no need to re-dedup existing ones).
 4. Validate: `echo '{merged_json}' | python3 $SD/scripts/validate-questions.py`.
    - **errors** → show errors, LLM fixes JSON, re-validate once.
    - **still invalid** → abort.

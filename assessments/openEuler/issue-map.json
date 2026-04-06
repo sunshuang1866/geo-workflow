@@ -213,11 +213,11 @@
       ],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.1666,
-      "title_summary": "Compass-CI 持续集成与 AI 推理框架相关页面未被引用",
+      "citation_rate": 0.0,
+      "title_summary": "Compass-CI 持续集成与 AI 推理框架白皮书相关页面未被引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-03"
     }
   }
 }

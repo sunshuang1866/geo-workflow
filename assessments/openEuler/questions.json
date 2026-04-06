@@ -70,8 +70,7 @@
       "id": "q_008",
       "question": "安装 openEuler 后系统中找不到 man 命令，是什么原因？如何安装 man 帮助手册？",
       "official_urls": [
-        "https://forum.openeuler.org/t/topic/220",
-        "https://forum.openeuler.org/t/topic/1028"
+        "https://forum.openeuler.org/t/topic/220"
       ],
       "notes": ""
     },
@@ -330,49 +329,30 @@
     },
     {
       "id": "q_041",
-      "question": "openEuler 社区版本的生命周期是如何规划的？LTS 版本与创新版本在支持周期和适用场景上有何区别？",
-      "official_urls": [],
-      "notes": "来源：infra@openeuler.org 生命周期&发布节奏变更公示"
-    },
-    {
-      "id": "q_042",
-      "question": "A-Tune 自调优工具在分布式场景下如何将客户端和服务端部署在不同机器上？配置文件有哪些关键修改项？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_043",
-      "question": "openEuler A-Tune 如何对 MySQL 数据库进行自动性能调优？",
-      "official_urls": [],
+      "question": "openEuler LTS 版本与创新版本在支持周期和适用场景上有何区别？",
+      "official_urls": [
+        "https://www.openeuler.org/zh/other/lifecycle/",
+        "https://docs.openeuler.org/zh/docs/common/faq/general/general_faq.html"
+      ],
       "notes": ""
     },
     {
       "id": "q_044",
       "question": "如何加入 openEuler A-Tune SIG 组参与系统性能自调优工具的开发？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_045",
-      "question": "openEuler 上如何使用 UADK（User Space Accelerator Development Kit）进行用户态硬件加速开发？",
-      "official_urls": [],
+      "official_urls": [
+        "https://docs.openeuler.org/zh/docs/common/faq/general/general_faq.html",
+        "https://www.openeuler.org/zh/community/contribution/detail.html"],
       "notes": ""
     },
     {
       "id": "q_046",
       "question": "openEuler 鲲鹏 UADK 支持哪些加密算法（SM4、AES、RSA、SHA 等）？如何调用加速接口？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_047",
-      "question": "openEuler 如何查询鲲鹏加速器（hisilicon qm）的硬件故障状态，VF 设备如何获取隔离状态？",
-      "official_urls": [],
+      "official_urls": ["https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/tools/community_tools/uadk/uadk_quick_start.html"],
       "notes": ""
     },
     {
       "id": "q_048",
-      "question": "openEuler BigData SIG 支持哪些大数据组件（Hadoop、Spark、Flink 等）？如何安装部署？",
+      "question": "openEuler BigData SIG 支持哪些大数据组件（Hadoop、Spark、Flink 等）？",
       "official_urls": [],
       "notes": ""
     },
@@ -384,32 +364,34 @@
     },
     {
       "id": "q_050",
-      "question": "如何从头开始本地构建 openEuler ISO 镜像？EulerMaker 构建系统的使用流程是什么？",
-      "official_urls": [],
+      "question": "EulerMaker 构建系统的使用流程是什么？",
+      "official_urls": [
+        "https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/tools/devops/eulermaker/eulermaker_user_guide.html",
+        "https://docs.openeuler.org/zh/docs/22.03_LTS_SP2/docs/EulerMaker/EulerMaker%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.html"
+      ],
       "notes": ""
     },
     {
       "id": "q_052",
       "question": "openEuler RPM 包的 spec 文件在哪个仓库管理？如何为 openEuler 贡献新的软件包？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_053",
-      "question": "openEuler SDS SIG 中 Lustre 文件系统如何适配 openEuler 6.6 内核？当前适配进展如何？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.openeuler.org/zh/wiki/contribution/",
+        "https://www.openeuler.org/zh/blog/gitee-cmd/Guide-for-Uploading-a-Software-Package-to-the-openEuler-Community.html",
+        "https://www.openeuler.org/zh/blog/overweight/2020-06-10-my-traval-of-openeuler.html",
+        "https://www.openeuler.org/zh/community/contribution/detail.html"
+      ],
       "notes": ""
     },
     {
       "id": "q_054",
-      "question": "openEuler 分布式存储（sig-SDS）SIG 支持哪些存储组件（Ceph、Lustre、DBS）？如何参与？",
+      "question": "openEuler 分布式存储（sig-SDS）SIG 支持哪些存储组件（Ceph、Lustre、DBS）？",
       "official_urls": [],
       "notes": ""
     },
     {
       "id": "q_055",
       "question": "如何参与 openEuler 版本 RC 测试阶段，发现问题后的 issue 提交和修复流程是什么？",
-      "official_urls": [],
+      "official_urls": ["https://www.openeuler.org/zh/blog/overweight/2020-06-10-my-traval-of-openeuler.html"],
       "notes": ""
     },
     {
@@ -420,8 +402,8 @@
     },
     {
       "id": "q_057",
-      "question": "openEuler 版本发布前如何处理降级（降低优先级）的 issue？release公告会包含哪些内容？",
-      "official_urls": [],
+      "question": "openEuler 版本发布 release公告会包含哪些内容？",
+      "official_urls": ["https://atomgit.com/openeuler/release-management/blob/master/release-plan.md"],
       "notes": ""
     },
     {
@@ -439,19 +421,19 @@
     {
       "id": "q_060",
       "question": "如何参与 openEuler CloudNative SIG 双周例会？议题如何提交和跟踪？",
-      "official_urls": ["https://atomgit.com/openeuler/cloudnative","https://www.openeuler.org/zh/sig/sig-CloudNative"],
-      "notes": ""
-    },
-    {
-      "id": "q_061",
-      "question": "openEuler 24.03-LTS-SP4 中 OpenSSL 计划升级到 3.5.x，对已有应用兼容性有哪些影响？",
-      "official_urls": [],
+      "official_urls": [
+        "https://atomgit.com/openeuler/cloudnative",
+        "https://www.openeuler.org/zh/sig/sig-CloudNative"
+      ],
       "notes": ""
     },
     {
       "id": "q_062",
       "question": "如何向 openEuler dev 邮件列表提交技术提案（RFC）或发起社区讨论？",
-      "official_urls": [],
+      "official_urls": [
+        "https://www.openeuler.org/zh/blog/20230310-RISC-V/RISC.html",
+        "https://www.openeuler.org/zh/blog/20230630-newcomer/0630-newcomer.html"
+      ],
       "notes": ""
     },
     {
@@ -462,32 +444,17 @@
     },
     {
       "id": "q_064",
-      "question": "openEuler 社区版本生命周期变更和发布节奏调整的公示流程是什么？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_065",
-      "question": "openEuler OLK-6.6 内核中 CPPC 调频驱动使用 ktime 替代 jiffies 计时的原理和改动背景是什么？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_066",
-      "question": "openEuler xSched 调度器的 xcu cmdline 参数如何动态切换 cgroup 调度模式？",
-      "official_urls": [],
+      "question": "openEuler 社区版本生命周期是什么？",
+      "official_urls": ["https://www.openeuler.org/zh/other/lifecycle/"],
       "notes": ""
     },
     {
       "id": "q_067",
-      "question": "向 openEuler OLK 内核树提交补丁的格式要求是什么？如何通过 kernel@openeuler.org 邮件列表投递？",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_068",
-      "question": "openEuler 22.03 LTS-SP3 是否支持 DevStack 部署 OpenStack？有哪些已知兼容性问题？",
-      "official_urls": [],
+      "question": "向 openEuler Kernal SIG 提交补丁的格式要求是什么？",
+      "official_urls": [
+        "https://www.hikunpeng.com/developer/techArticles/20230831-6",
+        "https://atomgit.com/openeuler/community/blob/master/sig/Kernel/%E8%A1%A5%E4%B8%81%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83.md"
+      ],
       "notes": ""
     },
     {
@@ -510,7 +477,7 @@
       "id": "q_073",
       "question": "openEuler 虚拟机如何支持 vNMI（虚拟 NMI）热迁移？",
       "official_urls": [
-      "https://docs.openeuler.org/zh/docs/20.09/docs/Virtualization/%E7%83%AD%E8%BF%81%E7%A7%BB%E8%99%9A%E6%8B%9F%E6%9C%BA.html#:~:text=%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E5%92%8C%E7%BA%A6%E6%9D%9F%E9%99%90%E5%88%B6%20*%20%E7%83%AD%E8%BF%81%E7%A7%BB%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BF%9D%E8%AF%81%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81%E8%89%AF%E5%A5%BD%E3%80%82%20%E5%A6%82%E6%9E%9C%E5%8F%91%E7%94%9F%E7%BD%91%E7%BB%9C%E4%B8%AD%E6%96%AD%EF%BC%8C%E7%83%AD%E8%BF%81%E7%A7%BB%E4%BC%9A%E6%9A%82%E5%81%9C%EF%BC%8C%E7%9B%B4%E5%88%B0%E7%BD%91%E7%BB%9C%E6%81%A2%E5%A4%8D%E5%90%8E%E6%89%8D%E4%BC%9A%E7%BB%A7%E7%BB%AD%EF%BC%8C%E5%BD%93%E5%8F%91%E7%94%9F%E8%B6%85%E6%97%B6%EF%BC%8C%E7%83%AD%E8%BF%81%E7%A7%BB%E4%BC%9A%E5%A4%B1%E8%B4%A5%E3%80%82%20*%20%E8%BF%81%E7%A7%BB%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E4%B8%8D%E5%85%81%E8%AE%B8%E5%AF%B9%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%9B%E8%A1%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%E7%AD%89%E6%93%8D%E4%BD%9C%E3%80%82%20*,%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%AD%A3%E5%9C%A8%E8%BF%81%E7%A7%BB%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E4%B8%8D%E5%85%81%E8%AE%B8%E5%AF%B9%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%81%9A%E5%85%B3%E6%9C%BA%E3%80%81%E9%87%8D%E5%90%AF%E6%88%96%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%90%A6%E5%88%99%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%AF%BC%E8%87%B4%E7%83%AD%E8%BF%81%E7%A7%BB%E5%A4%B1%E8%B4%A5%EF%BC%8C%E5%BD%93%E6%89%A7%E8%A1%8CACPI%E6%96%B9%E5%BC%8F%E9%87%8D%E5%90%AF%E6%97%B6%EF%BC%8C%E5%86%8D%E6%89%A7%E8%A1%8C%E7%83%AD%E8%BF%81%E7%A7%BB%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%B3%E9%97%AD%E3%80%82%20*%20%E5%8F%AA%E6%94%AF%E6%8C%81%E5%90%8C%E6%9E%84%E7%83%AD%E8%BF%81%E7%A7%BB%EF%BC%8C%E5%8D%B3%E6%BA%90%E7%AB%AF%E5%92%8C%E7%9B%AE%E7%9A%84%E7%AB%AFCPU%E5%9E%8B%E5%8F%B7%E9%9C%80%E8%A6%81%E7%9B%B8%E5%90%8C%E3%80%82%20*%20%E8%B7%A8%E4%B8%9A%E5%8A%A1%E7%BD%91%E6%AE%B5%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%81%E7%A7%BB%E5%8F%AF%E4%BB%A5%E6%88%90%E5%8A%9F%EF%BC%8C%E4%BD%86%E6%98%AF%E5%88%B0%E7%9B%AE%E7%9A%84%E7%AB%AF%E5%90%8E%E4%BC%9A%E5%87%BA%E7%8E%B0%E7%BD%91%E7%BB%9C%E5%BC%82%E5%B8%B8%EF%BC%8C%E4%B8%BA%E4%BA%86%E9%98%B2%E6%AD%A2%E8%AF%A5%E6%83%85%E5%86%B5%E5%8F%91%E7%94%9F%EF%BC%8C%E9%9C%80%E8%A6%81%E7%94%A8%E6%88%B7%E4%BF%9D%E8%AF%81%E8%BF%81%E7%A7%BB%E4%B8%9A%E5%8A%A1%E7%BD%91%E6%AE%B5%E4%B8%80%E8%87%B4%E3%80%82%20*%20%E5%A6%82%E6%9E%9C%E6%BA%90%E7%AB%AF%E8%99%9A%E6%8B%9F%E6%9C%BAvCPU%E6%95%B0%E5%A4%A7%E4%BA%8E%E7%9B%AE%E7%9A%84%E7%AB%AF%E7%9A%84%E7%89%A9%E7%90%86%E6%9C%BACPU%E6%A0%B8%E6%95%B0%EF%BC%8C%E5%88%99%E8%BF%81%E7%A7%BB%E5%90%8E%E5%B0%86%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E6%80%A7%E8%83%BD%EF%BC%8C%E5%BA%94%E4%BF%9D%E8%AF%81%E7%9B%AE%E7%9A%84%E7%AB%AF%E7%89%A9%E7%90%86%E6%9C%BACPU%E6%A0%B8%E6%95%B0%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E6%BA%90%E7%AB%AF%E8%99%9A%E6%8B%9F%E6%9C%BAvCPU%E6%95%B0%E3%80%82"
+        "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/virtualization/vm-live-migration.html"
       ],
       "notes": ""
     },
@@ -518,23 +485,15 @@
       "id": "q_074",
       "question": "openEuler Compass-CI 持续集成平台如何使用？如何提交自动化测试任务验证软件包？",
       "official_urls": [
-      "https://atomgit.com/openeuler/compass-ci"
-      ],
-      "notes": ""
-    },
-    {
-      "id": "q_076",
-      "question": "openEuler sig-K8sDistro 如何在 openEuler 上维护和发布 Kubernetes 发行版？支持哪些版本？",
-      "official_urls": [
-    
+        "https://atomgit.com/openeuler/compass-ci"
       ],
       "notes": ""
     },
     {
       "id": "q_077",
-      "question": "openEuler AI SIG（ai-infra）在 openEuler 上支持哪些 AI 推理框架（PyTorch、MindSpore、ONNX Runtime 等）？",
+      "question": "openEuler AI SIG 在 openEuler 上支持哪些 AI 推理框架？",
       "official_urls": [
-        "https://gitee.com/openeuler/community/tree/master/sig/ai-infra"
+        "https://www.openeuler.org/whitepaper/openEuler%2024.03%20LTS%20SP3%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf"
       ],
       "notes": ""
     },
@@ -542,7 +501,7 @@
       "id": "q_078",
       "question": "openEuler 元戎（yuanrong）SIG 的职责是什么？",
       "official_urls": [
-      "https://www.openeuler.org/zh/sig/sig-YuanRong"
+        "https://www.openeuler.org/zh/sig/sig-YuanRong"
       ],
       "notes": ""
     },
@@ -564,11 +523,11 @@
     },
     {
       "id": "q_081",
-      "question": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？如何参与 UI/UX 贡献？",
+      "question": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
       "official_urls": [
-        "https://gitee.com/openeuler/community/tree/master/sig/openDesign"
+        "https://atomgit.com/openeuler/community/tree/master/sig/sig-OpenDesign"
       ],
-      "notes": ""
+      "notes": "https://www.openeuler.org/en/sig/sig-OpenDesign 官网页面需要补充SIG相关说明"
     }
   ]
 }

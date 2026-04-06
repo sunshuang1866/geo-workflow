@@ -95,7 +95,7 @@ Rules:
 - Remove semantic duplicates (similarity > 0.85); keep better-phrased version.
 - Priority order: manual > forum / issue > maillist > website.
 - Keep all manual questions unchanged.
-- Target 30-40 total. If over 40, drop lowest-priority duplicates.
+- Target {question_target_min}-{question_target_max} total. If over {question_target_max}, drop lowest-priority duplicates.
 - Assign each question: intent (认知|选型|趋势|场景|教程|故障|特性|迁移).
 
 {all_questions_json}

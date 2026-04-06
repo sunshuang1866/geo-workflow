@@ -18,6 +18,7 @@ Errors: stderr with descriptive messages, exits with code 1.
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,7 +32,7 @@ except ImportError:
 
 PLATFORM_CONFIG = {
     "chatgpt": {
-        "default_base_url": "https://www.packyapi.com/v1",
+        "default_base_url": "https://api.ikuncode.cc",
         "model": "gpt-5.4",
     },
     "deepseek": {
@@ -47,8 +48,8 @@ PLATFORM_CONFIG = {
         "model": "qwen3.5-plus",
     },
     "gemini": {
-        "default_base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
-        "model": "gemini-2.5-flash",
+        "default_base_url": "https://www.packyapi.com/v1",
+        "model": "gemini-2.5-pro",
     },
 }
 
@@ -81,10 +82,11 @@ def load_dotenv(env_path: Path) -> None:
                 os.environ[key] = value
 
 
-def resolve_config(platform: str) -> tuple[str, str]:
-    """Return (api_key, base_url) for the given platform, reading from env."""
+def resolve_config(platform: str) -> tuple[str, str, str]:
+    """Return (api_key, base_url, model) for the given platform, reading from env."""
     env_key = f"{platform.upper()}_API_KEY"
     env_url = f"{platform.upper()}_BASE_URL"
+    env_model = f"{platform.upper()}_MODEL"
 
     api_key = os.environ.get(env_key, "")
     if not api_key:
@@ -92,7 +94,21 @@ def resolve_config(platform: str) -> tuple[str, str]:
         sys.exit(1)
 
     base_url = os.environ.get(env_url, "") or PLATFORM_CONFIG[platform]["default_base_url"]
-    return api_key, base_url
+    model = os.environ.get(env_model, "") or PLATFORM_CONFIG[platform]["model"]
+    return api_key, base_url, model
+
+
+def extract_citations(text: str) -> list[str]:
+    """Extract all https?:// URLs from the response text, deduplicated, order-preserved."""
+    urls = re.findall(r'https?://[^\s\)\]>\'"，。；、]+', text)
+    seen: set[str] = set()
+    result = []
+    for u in urls:
+        u = u.rstrip('.,;:`')
+        if u not in seen:
+            seen.add(u)
+            result.append(u)
+    return result
 
 
 def sample(platform: str, query: str, question_id: str) -> dict:
@@ -100,8 +116,7 @@ def sample(platform: str, query: str, question_id: str) -> dict:
         print(f"ERROR: Unknown platform '{platform}'. Supported: {list(PLATFORM_CONFIG.keys())}", file=sys.stderr)
         sys.exit(1)
 
-    api_key, base_url = resolve_config(platform)
-    config = PLATFORM_CONFIG[platform]
+    api_key, base_url, model = resolve_config(platform)
 
     client = OpenAI(api_key=api_key, base_url=base_url)
     timestamp = datetime.now(timezone.utc).isoformat()
@@ -113,18 +128,19 @@ def sample(platform: str, query: str, question_id: str) -> dict:
 
     try:
         response = client.chat.completions.create(
-            model=config["model"],
+            model=model,
             messages=messages,
         )
 
+        raw = response.choices[0].message.content
         return {
             "question_id": question_id,
             "platform": platform,
             "query": query,
             "timestamp": timestamp,
-            "raw_response": response.choices[0].message.content,
-            "citations": [],
-            "model": config["model"],
+            "raw_response": raw,
+            "citations": extract_citations(raw),
+            "model": model,
             "status": "success",
         }
 
@@ -136,7 +152,7 @@ def sample(platform: str, query: str, question_id: str) -> dict:
             "timestamp": timestamp,
             "raw_response": "",
             "citations": [],
-            "model": config["model"],
+            "model": model,
             "status": "error",
             "error": str(e),
         }

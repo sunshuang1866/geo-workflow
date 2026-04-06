@@ -1,0 +1,54 @@
+{
+  "chatgpt": {
+    "input_box": "#prompt-textarea",
+    "send_button": "button[data-testid='send-button']",
+    "stop_streaming": "button[aria-label='Stop streaming']",
+    "login_button": "[data-testid='login-button']",
+    "assistant_message": "[data-message-author-role='assistant']",
+    "citation_links": "[data-message-author-role='assistant'] a[href]",
+    "_note": "Update if ChatGPT redesigns its UI. Run ask-chatgpt.py with --screenshot-dir to debug."
+  },
+  "deepseek": {
+    "email_input": "input.ds-input__input[type='text']",
+    "password_input": "input[type='password']",
+    "login_button": "button.ds-basic-button--primary",
+    "textarea": "textarea",
+    "send_button": "._7436101",
+    "send_button_active": "._7436101:not(.bcc55ca1)",
+    "assistant_message": "._4f9bf79",
+    "assistant_message_stable": "div[style*='--assistant-last-margin-bottom']",
+    "citation_links": "._4f9bf79 a[href]",
+    "_note": "send_button and assistant_message use CSS module hashes (from main.*.js bundle). These may change on deployments. Fallback: assistant_message_stable uses a CSS variable selector that is more stable. Run ask-deepseek.py with --screenshot-dir to debug. CSS class discovery: grep sendButton/assistantMessage in main.*.js bundle.",
+    "_discovery_method": "Extracted from https://fe-static.deepseek.com/chat/static/main.cd620c850b.js bundle analysis. Module exports: sendButton='_7436101', disabled='bcc55ca1', assistantMessage='_4f9bf79', textarea='_27c9245'."
+  },
+  "gemini": {
+    "input_editor": "div.ql-editor[contenteditable='true']",
+    "send_button_disabled": "button[aria-label='Send message']",
+    "send_button_enabled": "button[aria-label='Send message']:not([aria-disabled='true'])",
+    "generation_start": "pending-response",
+    "generation_end": "pending-response",
+    "response_element": "model-response",
+    "response_element_alt": "response-container",
+    "citation_links": "model-response a[href]",
+    "_note": "No login required — Gemini permits anonymous usage. Input is a Quill editor; use page.keyboard.type() instead of fill(). Send button starts as aria-disabled='true' (hidden) until text is typed. Response text is in model-response.textContent (not innerText — innerText is layout-truncated). Citations appear as Google search redirect hrefs: https://www.google.com/search?q=<encoded_actual_url> — extract the 'q' query parameter.",
+    "_generation_lifecycle": "1. pending-response element appears in DOM = generation started. 2. pending-response detaches from DOM = generation complete.",
+    "_extraction_method": "document.querySelector('model-response').textContent — strip leading ' Gemini said ' prefix. No shadow DOM pierce needed: model-response is directly accessible in the regular DOM.",
+    "_auth": "none — fully stateless, each invocation starts a fresh anonymous conversation at https://gemini.google.com/app"
+  },
+  "qwen": {
+    "email_input": "input[name='email']",
+    "password_input": "input[name='password']",
+    "submit_button": "button.qwenchat-auth-pc-submit-button",
+    "login_button_home": ".auth-button-ui.login",
+    "textarea": "textarea.message-input-textarea",
+    "send_button": "button.send-button",
+    "stop_button": "button.stop-button",
+    "assistant_message": ".qwen-chat-message-assistant",
+    "citation_links": ".qwen-chat-message-assistant a[href]",
+    "_note": "Login requires email + password; no CAPTCHA. Password is SHA-256 hashed by browser JS before submission — no client-side hashing needed in Playwright. Token is stored in localStorage['token'] and used as 'Authorization: Bearer <token>' header. For token injection, set localStorage.setItem('token', value) and reload. For login success check: URL leaves /auth page within 15s. stop-button is conditionally rendered (not just hidden): appears during generation, detaches when done.",
+    "_auth_modes": "1) Token injection: set localStorage['token'] from DevTools → Application → Local Storage → chat.qwen.ai → 'token' key. 2) Email+password env vars: QWEN_WEB_EMAIL + QWEN_WEB_PASSWORD (no CAPTCHA, auto-login).",
+    "_login_api": "POST https://chat.qwen.ai/api/v2/auths/signin with body {email, password: sha256(password)}. Token returned as response.token or response.user.token → stored to localStorage['token'].",
+    "_generation_lifecycle": "1. button.stop-button appears in DOM = generation started. 2. button.stop-button detaches from DOM = generation complete. Button is conditionally rendered by React (not CSS hidden), so wait_for_selector state='detached' works correctly.",
+    "_discovery_method": "Analyzed https://assets.alicdn.com/g/qwenweb/qwen-chat-fe/0.2.35/js/main.js bundle. send_button, stop_button use stable CSS class names (not CSS module hashes). Auth flow: SHA-256 hashing done by browser React code."
+  }
+}

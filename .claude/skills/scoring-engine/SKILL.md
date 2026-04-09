@@ -1,11 +1,11 @@
 ---
 name: scoring-engine
-description: Evaluates AI platform responses by checking whether they cite official URLs from questions.json. Pure URL string matching (exact + domain-level), no LLM. Scores at question level: if ≥90% of platforms cite official URLs the question is "引用了官方内容" (OK), otherwise "有内容未被引用" (P0), or "官方内容缺失" (P1) when no official URLs exist. After scoring, syncs official_urls back into questions.md as a new column. Use after platform-sampler completes sampling. Do not use for question generation, platform sampling, or issue creation.
+description: Evaluates AI platform responses by checking whether they cite official URLs from questions.json. Pure URL string matching (exact + domain-level), no LLM. Scores at question level: if ≥75% of platforms cite official URLs the question is "引用了官方内容" (OK), otherwise "有内容未被引用" (P0), or "官方内容缺失" (P1) when no official URLs exist. After scoring, syncs official_urls back into questions.md as a new column. Use after platform-sampler completes sampling. Do not use for question generation, platform sampling, or issue creation.
 ---
 
 # Scoring Engine
 
-Evaluate AI platform responses against official content availability. Pure URL string matching — checks whether each platform's response cites any official URL listed in `questions.json`. Final status is determined per question by aggregating across platforms using a 90% citation threshold.
+Evaluate AI platform responses against official content availability. Pure URL string matching — checks whether each platform's response cites any official URL listed in `questions.json`. Final status is determined per question by aggregating across platforms using a 75% citation threshold.
 
 ## Prerequisites
 
@@ -78,12 +78,12 @@ For each question, aggregate the per-platform results from Step 2 to determine t
    - `total_platforms` = total number of platforms with a response for this question
    - `citation_rate` = `cited_count / total_platforms`
 
-   - **If `citation_rate >= 0.9`** (90% or more platforms cited official URLs):
+   - **If `citation_rate >= 0.75`** (75% or more platforms cited official URLs):
      - Status: `satisfied`
      - Description: `引用了官方内容`
      - Severity: `OK`
 
-   - **If `citation_rate < 0.9`**:
+   - **If `citation_rate < 0.75`**:
      - Status: `not_cited`
      - Description: `有内容未被引用`
      - Severity: `P0`
@@ -111,10 +111,10 @@ For each question, aggregate the per-platform results from Step 2 to determine t
 
 4. Print a Step 3 summary:
    ```
-   Question-Level Scoring (threshold: 90%):
+   Question-Level Scoring (threshold: 75%):
      Total questions: {n}
-     引用了官方内容 (OK):  {n}  — citation_rate ≥ 90%
-     有内容未被引用 (P0):  {n}  — citation_rate < 90%
+     引用了官方内容 (OK):  {n}  — citation_rate ≥ 75%
+     有内容未被引用 (P0):  {n}  — citation_rate < 75%
      官方内容缺失 (P1):    {n}  — no official URLs
    ```
 
@@ -162,7 +162,7 @@ For each question, aggregate the per-platform results from Step 2 to determine t
        "scored_at": "2026-03-30T...",
        "total_questions": 47,
        "total_platforms": 4,
-       "citation_threshold": 0.9,
+       "citation_threshold": 0.75,
        "match_mode": "exact_url"
      },
      "results": [
@@ -211,8 +211,8 @@ For each question, aggregate the per-platform results from Step 2 to determine t
    ```
    Scoring complete:
      Questions scored: {scored}/{total}
-     引用了官方内容 (OK):  {n} ({pct}%)  — citation_rate ≥ 90%
-     有内容未被引用 (P0):  {n} ({pct}%)  — citation_rate < 90%
+     引用了官方内容 (OK):  {n} ({pct}%)  — citation_rate ≥ 75%
+     有内容未被引用 (P0):  {n} ({pct}%)  — citation_rate < 75%
      官方内容缺失 (P1):    {n} ({pct}%)
 
      Output: scoring-results.json
@@ -242,4 +242,4 @@ After scoring is complete, regenerate `assessments/{community}/questions.md` so 
 * If all questions have empty `official_urls`, warn: `"No official_urls found in questions.json. Populate them before scoring for meaningful results."`
 * If a question in `responses.json` has no matching entry in `questions.json`, log a warning and skip (do not abort).
 * If `responses.json` contains zero valid pairs after filtering, abort with: `"No valid question-platform pairs to score."`
-* If a question has only 1 platform response, the 90% threshold still applies (1/1 = 100% ≥ 90% → satisfied; 0/1 = 0% < 90% → not_cited).
+* If a question has only 1 platform response, the 75% threshold still applies (1/1 = 100% ≥ 75% → satisfied; 0/1 = 0% < 75% → not_cited).

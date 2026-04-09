@@ -15,7 +15,7 @@
       "title_summary": "openEuler 安装部署相关页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_002": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/16",
@@ -31,7 +31,7 @@
       "title_summary": "虚拟机网卡与驱动安装相关页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_003": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/17",
@@ -48,7 +48,7 @@
       "title_summary": "硬件兼容性（鲲鹏/飞腾/英伟达显卡）相关页面未被引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_004": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/18",
@@ -67,7 +67,7 @@
       "title_summary": "系统迁移与跨版本升级相关页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_005": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/19",
@@ -85,7 +85,7 @@
       "title_summary": "软件包管理与 DNF 仓库问题页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_006": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/20",
@@ -104,7 +104,7 @@
       "title_summary": "系统服务部署与运维（A-Ops/Zabbix/Mail 等）页面未被引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_007": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/21",
@@ -119,7 +119,7 @@
       "title_summary": "安全漏洞修复与 CVE 报告流程页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_008": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/22",
@@ -134,7 +134,7 @@
       "title_summary": "内核升级与 OBS 软件包构建相关页面未被引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_009": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/23",
@@ -152,11 +152,11 @@
       ],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.0,
+      "citation_rate": 0.32,
       "title_summary": "社区 SIG 参与与贡献相关页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-09"
     },
     "g_010": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/24",
@@ -171,7 +171,7 @@
       "title_summary": "openEuler Embedded 嵌入式相关页面未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_011": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/25",
@@ -182,11 +182,11 @@
       ],
       "status": "not_cited",
       "severity": "P0",
-      "citation_rate": 0.1666,
+      "citation_rate": 0.1,
       "title_summary": "镜像节点申请与兼容性认证相关页面引用率不足",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_012": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/26",
@@ -202,7 +202,7 @@
       "title_summary": "云原生虚拟化与 OpenStack 部署相关文档未被 AI 平台引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-02"
+      "last_updated_run": "2026-04-07"
     },
     "g_013": {
       "issue_url": "https://github.com/opensourceways/geo-workflow/issues/27",
@@ -217,7 +217,88 @@
       "title_summary": "Compass-CI 持续集成与 AI 推理框架白皮书相关页面未被引用",
       "created_at": "2026-04-02",
       "created_in_run": "2026-04-02",
-      "last_updated_run": "2026-04-03"
+      "last_updated_run": "2026-04-07"
+    },
+    "g_014": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/31",
+      "issue_number": 31,
+      "question_ids": [
+        "q_041",
+        "q_064"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "openEuler 版本生命周期与 LTS/创新版本信息未被 AI 平台引用",
+      "created_at": "2026-04-07",
+      "created_in_run": "2026-04-07",
+      "last_updated_run": "2026-04-07"
+    },
+    "g_015": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/32",
+      "issue_number": 32,
+      "question_ids": [
+        "q_044",
+        "q_052",
+        "q_055",
+        "q_062",
+        "q_067"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "openEuler 社区贡献与 SIG 参与流程相关页面未被 AI 平台引用",
+      "created_at": "2026-04-07",
+      "created_in_run": "2026-04-07",
+      "last_updated_run": "2026-04-07"
+    },
+    "g_016": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/33",
+      "issue_number": 33,
+      "question_ids": [
+        "q_046",
+        "q_050",
+        "q_057"
+      ],
+      "status": "not_cited",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "title_summary": "UADK 硬件加速/EulerMaker 构建/版本发布公告相关文档未被 AI 平台引用",
+      "created_at": "2026-04-07",
+      "created_in_run": "2026-04-07",
+      "last_updated_run": "2026-04-07"
+    },
+    "g_017": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/34",
+      "issue_number": 34,
+      "question_ids": [
+        "q_048",
+        "q_049"
+      ],
+      "status": "no_official_content",
+      "severity": "P1",
+      "citation_rate": 0.0,
+      "title_summary": "openEuler BigData SIG 大数据组件与集群搭建相关官方文档缺失",
+      "created_at": "2026-04-07",
+      "created_in_run": "2026-04-07",
+      "last_updated_run": "2026-04-07"
+    },
+    "g_018": {
+      "issue_url": "https://github.com/opensourceways/geo-workflow/issues/35",
+      "issue_number": 35,
+      "question_ids": [
+        "q_054",
+        "q_056",
+        "q_058",
+        "q_059"
+      ],
+      "status": "no_official_content",
+      "severity": "P1",
+      "citation_rate": 0.0,
+      "title_summary": "openEuler 分布式存储/SIG PR 流程/云原生组件/composefs 官方文档缺失",
+      "created_at": "2026-04-07",
+      "created_in_run": "2026-04-07",
+      "last_updated_run": "2026-04-07"
     }
   }
 }

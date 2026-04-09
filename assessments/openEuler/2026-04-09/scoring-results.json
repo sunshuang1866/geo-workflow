@@ -1,0 +1,555 @@
+{
+  "metadata": {
+    "scored_at": "2026-04-09T17:00:19Z",
+    "community": "openEuler",
+    "run_dir": "assessments/openEuler/2026-04-09",
+    "total_questions": 9,
+    "total_platforms": 4,
+    "citation_threshold": 0.75,
+    "match_mode": "exact_url"
+  },
+  "results": [
+    {
+      "question_id": "q_033",
+      "question": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "official_urls": [
+        "https://www.openeuler.openatom.cn/zh/sig/sig-list/",
+        "https://www.openeuler.org/en/sig/sig-list/",
+        "https://www.openeuler.org/zh/sig/sig-list/"
+      ],
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 4,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/en/sig/sig-list/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "deepseek",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/sig-list/"
+          ],
+          "match_type": "exact_url",
+          "match_source": "citations"
+        },
+        {
+          "platform": "doubao",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/en/sig/sig-list/",
+            "https://www.openeuler.org/zh/sig/sig-list/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/sig-list/"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_034",
+      "question": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
+      "official_urls": [
+        "https://www.openeuler.openatom.cn/zh/sig/dev-utils",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/en/community/mailing-list/",
+        "https://www.openeuler.org/zh/sig/sig-list/"
+      ],
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 4,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/en/community/mailing-list/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "deepseek",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/community/mailing-list/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "doubao",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/community/mailing-list/",
+            "https://www.openeuler.org/en/community/mailing-list/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/community/mailing-list/",
+            "https://www.openeuler.org/en/community/mailing-list/",
+            "https://www.openeuler.org/zh/sig/sig-list/"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "question": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
+      "official_urls": [
+        "https://www.openeuler.openatom.cn/zh/sig/sig-Migration",
+        "https://atomgit.com/openeuler/community/tree/master/sig/sig-Migration",
+        "https://www.openeuler.org/zh/community/contribution/detail.html"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.25,
+      "cited_count": 1,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "doubao",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://atomgit.com/openeuler/community/tree/master/sig/sig-Migration",
+            "https://www.openeuler.org/zh/community/contribution/detail.html"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_037",
+      "question": "openEuler AI SIG（ai-infra@openeuler.org）的目标是什么？支持哪些 AI 基础设施框架？",
+      "official_urls": [
+        "https://www.openeuler.openatom.cn/zh/sig/ai",
+        "https://www.openeuler.org/zh/sig/ai",
+        "https://atomgit.com/openeuler/community/tree/master/sig/ai"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.5,
+      "cited_count": 2,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "doubao",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/ai"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/ai"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_038",
+      "question": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
+      "official_urls": [
+        "https://www.openeuler.openatom.cn/zh/sig/sig-QA",
+        "https://www.openeuler.org/zh/community/contribution"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.5,
+      "cited_count": 2,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "deepseek",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/community/contribution"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "doubao",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/community/contribution"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_040",
+      "question": "如何向 openEuler TSC 提交 SIG 申请，新建特别兴趣小组的流程是什么？",
+      "official_urls": [
+        "https://www.openeuler.org/en/sig/sig-guidance/",
+        "https://www.openeuler.org/zh/sig/sig-guidance/"
+      ],
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 0.75,
+      "cited_count": 3,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/en/sig/sig-guidance/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "doubao",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/en/sig/sig-guidance/"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/sig-guidance/"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_060",
+      "question": "如何参与 openEuler CloudNative SIG 双周例会？议题如何提交和跟踪？",
+      "official_urls": [
+        "https://atomgit.com/openeuler/cloudnative",
+        "https://www.openeuler.org/zh/sig/sig-CloudNative"
+      ],
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 0.75,
+      "cited_count": 3,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/sig-CloudNative"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "doubao",
+          "cited": true,
+          "matched_urls": [
+            "https://atomgit.com/openeuler/cloudnative"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "qwen",
+          "cited": true,
+          "matched_urls": [
+            "https://atomgit.com/openeuler/cloudnative",
+            "https://www.openeuler.org/zh/sig/sig-CloudNative"
+          ],
+          "match_type": "exact_url"
+        }
+      ]
+    },
+    {
+      "question_id": "q_078",
+      "question": "openEuler 元戎（yuanrong）SIG 的职责是什么？",
+      "official_urls": [
+        "https://www.openeuler.org/zh/sig/sig-YuanRong"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.3333333333333333,
+      "cited_count": 1,
+      "total_platforms": 3,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": true,
+          "matched_urls": [
+            "https://www.openeuler.org/zh/sig/sig-YuanRong"
+          ],
+          "match_type": "exact_url"
+        },
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "qwen",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        }
+      ]
+    },
+    {
+      "question_id": "q_081",
+      "question": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
+      "official_urls": [
+        "https://atomgit.com/openeuler/community/tree/master/sig/sig-OpenDesign"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_count": 0,
+      "total_platforms": 4,
+      "platforms": [
+        {
+          "platform": "chatgpt",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "deepseek",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "doubao",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        },
+        {
+          "platform": "qwen",
+          "cited": false,
+          "matched_urls": [],
+          "match_type": null
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "by_status": {
+      "not_cited": 5,
+      "satisfied": 4
+    },
+    "by_severity": {
+      "P0": 5,
+      "OK": 4
+    },
+    "citation_rate_distribution": {
+      "0.5": 2,
+      "1": 1,
+      "0.25": 1,
+      "0.75": 3,
+      "0.33": 1,
+      "0": 1
+    }
+  },
+  "suggestions": [
+    {
+      "suggestion_id": "s_001",
+      "question_ids": [
+        "q_035"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.25,
+      "cited_platforms": [
+        "qwen"
+      ],
+      "not_cited_platforms": [
+        "chatgpt",
+        "deepseek",
+        "doubao"
+      ],
+      "catalog_refs": [
+        "CTX-02",
+        "SITE-02",
+        "ORG-05"
+      ],
+      "suggestion_text": "引用率 25%，['chatgpt', 'deepseek', 'doubao'] 未引用官方链接。建议补充 SEO 元数据和 Schema.org FAQPage 标记，提升全平台覆盖。"
+    },
+    {
+      "suggestion_id": "s_002",
+      "question_ids": [
+        "q_037"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.5,
+      "cited_platforms": [
+        "doubao",
+        "qwen"
+      ],
+      "not_cited_platforms": [
+        "chatgpt",
+        "deepseek"
+      ],
+      "catalog_refs": [
+        "CTX-02",
+        "SITE-02",
+        "ORG-05"
+      ],
+      "suggestion_text": "引用率 50%，['chatgpt', 'deepseek'] 未引用官方链接。建议补充 SEO 元数据和 Schema.org FAQPage 标记，提升全平台覆盖。"
+    },
+    {
+      "suggestion_id": "s_003",
+      "question_ids": [
+        "q_038"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.5,
+      "cited_platforms": [
+        "deepseek",
+        "qwen"
+      ],
+      "not_cited_platforms": [
+        "chatgpt",
+        "doubao"
+      ],
+      "catalog_refs": [
+        "CTX-02",
+        "SITE-02",
+        "ORG-05"
+      ],
+      "suggestion_text": "引用率 50%，['chatgpt', 'doubao'] 未引用官方链接。建议补充 SEO 元数据和 Schema.org FAQPage 标记，提升全平台覆盖。"
+    },
+    {
+      "suggestion_id": "s_004",
+      "question_ids": [
+        "q_078"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.3333333333333333,
+      "cited_platforms": [
+        "chatgpt"
+      ],
+      "not_cited_platforms": [
+        "deepseek",
+        "qwen"
+      ],
+      "catalog_refs": [
+        "CTX-02",
+        "SITE-02",
+        "ORG-05"
+      ],
+      "suggestion_text": "引用率 33%，['deepseek', 'qwen'] 未引用官方链接。建议补充 SEO 元数据和 Schema.org FAQPage 标记，提升全平台覆盖。"
+    },
+    {
+      "suggestion_id": "s_005",
+      "question_ids": [
+        "q_081"
+      ],
+      "status": "not_cited",
+      "description": "有内容未被引用",
+      "severity": "P0",
+      "citation_rate": 0.0,
+      "cited_platforms": [],
+      "not_cited_platforms": [
+        "chatgpt",
+        "deepseek",
+        "doubao",
+        "qwen"
+      ],
+      "catalog_refs": [
+        "SITE-01",
+        "ORG-05",
+        "CTX-02"
+      ],
+      "suggestion_text": "所有平台均未引用官方链接，建议确认新域名 openeuler.openatom.cn 已被搜索引擎收录，并在页面添加 Schema.org FAQPage 结构化标记。"
+    }
+  ]
+}

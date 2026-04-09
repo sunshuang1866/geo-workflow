@@ -1,0 +1,653 @@
+{
+  "metadata": {
+    "community": "openEuler",
+    "sampled_at": "2026-04-09T14:00:00Z",
+    "platforms": [
+      "chatgpt",
+      "deepseek",
+      "doubao",
+      "qwen"
+    ],
+    "total_questions": 9,
+    "total_responses": 35
+  },
+  "responses": [
+    {
+      "question_id": "q_033",
+      "platform": "chatgpt",
+      "query": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "},\n    chatGPT：\n    openEuler 社区的 SIG（Special Interest Group，特别兴趣小组）非常多，**目前官方明确是 100+ 个 SIG**，覆盖从 OS 内核到 AI、云原生、RISC-V、桌面、社区运营等几乎所有方向。([Document Center][1])\n\n你可以把它理解为：\n\n> **按技术领域和社区职能划分的“自治项目组”**\n\n每个 SIG 都有自己的：\n\n* 技术方向\n* Maintainer / Committer\n* 代码仓库\n* 邮件列表\n* 例会机制\n* 路线图和版本目标\n\n---\n\n# 一、openEuler 常见 SIG 分类\n\n虽然完整列表有 100+，但可以先按“大类”快速理解。官方介绍里主要覆盖这些方向：([openEuler][2])\n\n## 1）基础 OS 与内核\n\n典型包括：\n\n* Kernel SIG\n* Virtualization SIG\n* Embedded SIG\n* Security Facility SIG\n* Base-service SIG\n* Toolchain SIG\n\n适合：\n\n> Linux 内核、驱动、虚拟化、编译链、系统服务方向\n\n---\n\n## 2）多样性算力与架构\n\nopenEuler 很重视多架构支持。\n\n例如：\n\n* AArch64 / ARM\n* x86\n* RISC-V\n* LoongArch\n* PowerPC\n* SW-64\n\n相关 SIG 通常围绕：\n\n* 架构适配\n* 性能优化\n* 指令集增强\n* 编译器支持\n\n---\n\n## 3）云原生与基础设施\n\n这是生态里很活跃的一类。\n\n例如：\n\n* CloudNative SIG\n* iSulad SIG\n* KubeOS SIG\n* Virtualization SIG\n* Container SIG\n\n适合：\n\n> Kubernetes、容器运行时、镜像、节点 OS\n\n---\n\n## 4）AI / 大数据 / HPC\n\n这是你最近很关注的方向。\n\n典型有：\n\n* AI SIG\n* 元戎（YuanRong）SIG\n* BigData SIG\n* HPC SIG\n\n覆盖：\n\n* AI 推理框架\n* 分布式调度\n* 大模型基础设施\n* HPC 计算优化\n\n---\n\n## 5）桌面 / 嵌入式 / 边缘\n\n例如：\n\n* UKUI SIG\n* Embedded SIG\n* Edge Computing 相关 SIG\n\n适合：\n\n> 桌面 Linux、IoT、边缘计算设备\n\n---\n\n## 6）社区运营与非代码贡献\n\n很多人容易忽略，但这类 SIG 非常重要。官方明确列出：([openEuler][3])\n\n* OpenDesign SIG（视觉设计）\n* Doc SIG（文档）\n* G11N SIG（国际化/翻译）\n* Infrastructure SIG（社区基础设施）\n\n非常适合：\n\n> 技术写作、社区运营、品牌传播、国际化\n\n这和你现在做的 **社区内容运营、话题栏目设计、技术传播** 非常贴合。\n\n---\n\n# 二、如何查看完整 SIG 列表（最官方方式）\n\n最推荐直接看官方 **SIG Center / SIG List 页面**：\n\n## 官方 SIG 列表入口\n\n**英文：**\n[openEuler SIG List](https://www.openeuler.org/en/sig/sig-list/?utm_source=chatgpt.com)\n\n**中文：**\n[openEuler SIG 列表](https://www.openeuler.org/zh/sig/sig-list/?utm_source=chatgpt.com)\n\n这里可以查看每个 SIG 的：\n\n* SIG 简介\n* 技术领域\n* Maintainer\n* 仓库列表\n* 联系方式\n* 邮件组\n* 成员\n* 活跃项目\n\n([openEuler][4])\n\n---\n\n# 三、如何更高效地找适合自己的 SIG\n\n如果你想快速定位，建议按目标选择：\n\n## 如果你关注 AI Infra\n\n优先看：\n\n* AI SIG\n* YuanRong SIG\n* CloudNative SIG\n* Virtualization SIG\n\n## 如果你关注数据库生态\n\n优先看：\n\n* Storage\n* Compatibility\n* Migration\n* High Availability\n\n## 如果你关注社区内容运营\n\n优先看：\n\n* OpenDesign SIG\n* Doc SIG\n* G11N SIG\n* Infrastructure SIG\n\n---\n\n# 四、如果找不到目标 SIG\n\n官方也给了标准路径：\n\n> 如果 SIG 列表中没有你感兴趣的方向，可以给社区邮箱发邮件，或者直接申请创建新的 SIG。([openEuler][5])\n\n这对你如果未来想推动：\n\n> **AI Infra 内容运营 SIG / 数据库生态布道 SIG**\n> 很有参考意义。\n\n---\n\n## 一句话总结\n\n**openEuler 当前有 100+ 个 SIG，覆盖内核、虚拟化、AI、云原生、多架构、桌面和社区运营等方向；查看完整列表最直接的方法就是进入官方 SIG Center 的 SIG List 页面。**\n\n如果你愿意，我可以下一步继续帮你做一个：\n\n> **“最适合 AI Infra / 社区运营方向开发者加入的 openEuler SIG 推荐地图”**。",
+      "citations": [
+        "https://docs.openeuler.org/en/docs/common/faq/general/general_faq.html",
+        "https://www.openeuler.org/en/blog/2022-11-12-04/04.html",
+        "https://www.openeuler.org/en/wiki/contribution/",
+        "https://www.openeuler.org/en/sig/sig-list/",
+        "https://www.openeuler.org/en/community/contribution/detail.html"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_033",
+      "platform": "deepseek",
+      "query": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "timestamp": "2026-04-09T11:59:24Z",
+      "raw_response": "在 openEuler 社区中，SIG（Special Interest Group，特别兴趣小组） 是围绕特定技术领域或方向组织起来的开发团队，负责相应子项目的规划、开发与维护。\n\n主要 SIG 组类别（举例）\n\nopenEuler 的 SIG 覆盖多个层面，常见的有：\n\n内核与基础架构：Kernel、Architecture（支持 x86、Arm、RISC-V 等）、Security、Embedded\n\n云原生与虚拟化：CloudNative、Virt、K8s、iSulad\n\n桌面与图形：Desktop、GNOME、UKUI、DDE\n\nAI 与大数据：AI、BigData、Edge\n\n编程语言与运行时：Java、Go、Node.js、LLVM、GCC\n\n系统工具与中间件：SystemTool、Middleware、Database、High Availability\n\nRISC-V 生态：RISC-V SIG（非常活跃）\n\n其他特色：Packaging、Testing、Documentation、Infrastructure\n\n注：SIG 数量众多（目前官方列表有几十到上百个），且随社区发展动态增减。\n\n如何查看完整的 SIG 列表\n\n有两种官方推荐方式：\n\n1. 通过 openEuler 官网查看（推荐）\n\n访问：https://www.openeuler.org/zh/community/sig/\n\n该页面以分类列表形式展示所有 SIG，每个 SIG 有名称、简介、维护者、会议时间、邮件列表等链接。\n\n2. 通过 openEuler Gitee 代码仓查看\n\n进入 openEuler 社区在 Gitee 的组织主页：\nhttps://gitee.com/openeuler\n\n在仓库搜索框中输入 sig/ 或 sig-，可以看到大量以 sig- 开头的仓库（如 sig-Kernel、sig-CloudNative）。\n\n每个 SIG 仓库下的 README.md 或 sig-info.yaml 包含详细成员与职责信息。\n\n补充方式：通过社区文档仓库\n\n在 community 仓库的 sig 目录下，有所有 SIG 的元数据描述：\nhttps://gitee.com/openeuler/community/tree/master/sig\n\n小提示\n\n如果你希望参与某个 SIG，通常可以通过：\n\n订阅该 SIG 的邮件列表\n\n参加其定期公开会议（时间会在 SIG 页面列出）\n\n在对应的 Gitee 仓库提 Issue 或 PR\n\n如果你有明确感兴趣的技术方向（比如 RISC-V、嵌入式、云原生），我可以帮你进一步找出该领域最活跃或最对口的 SIG。",
+      "citations": [
+        "https://openeuler.org/zh/sig/sig-list/",
+        "https://www.openeuler.org/zh/community/sig/",
+        "https://gitee.com/openeuler",
+        "https://gitee.com/openeuler/community/tree/master/sig",
+        "https://www.openeuler.org/zh/community/contribution/",
+        "https://mailweb.openeuler.org/postorius/lists/",
+        "https://openeuler.org/zh/sig/status/",
+        "https://www.openeuler.org/zh/community/events/",
+        "https://space.bilibili.com/527064077",
+        "https://www.youtube.com/@openEuler",
+        "https://gitee.com/organizations/openeuler/board",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://repo.openeuler.org/"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_033",
+      "platform": "doubao",
+      "query": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "openEuler 社区按技术领域划分为**近百个SIG组**（Special Interest Group，特别兴趣小组），覆盖内核、云原生、AI、编译器、嵌入式、安全、桌面、硬件架构等全技术方向。\n\n### 一、openEuler 主要 SIG 组分类（常见类别）\n- **底层系统与内核**\n  - **Kernel**：Linux 内核开发与优化\n  - **Virtualization**：虚拟化（KVM、容器底层）\n  - **Storage**：存储栈、文件系统、Ceph 等\n  - **Networking**：网络协议栈、DPDK、网络虚拟化\n  - **ebpf**：eBPF 技术与工具链\n\n- **编译与开发工具链**\n  - **Compiler**：GCC、LLVM、JDK、编译优化\n  - **DevOps** / **CICD**：CI/CD 基础设施、自动构建\n  - **QA**：质量保证、测试框架\n  - **Base-service**：系统基础服务、库与工具\n\n- **云原生与容器**\n  - **CloudNative**：K8s、容器运行时、云原生应用\n  - **Edge**：边缘计算、轻量化部署\n  - **Security** / **Security-Facility**：安全能力、可信执行、加密\n\n- **AI 与大数据**\n  - **AI** / **Intelligence**：AI 框架、推理优化、算子库\n  - **BigData**：Hadoop、Spark、大数据生态\n  - **AI-Infra**：AI 基础设施、算力调度\n\n- **桌面与应用生态**\n  - **DDE**：深度桌面环境、UI 组件\n  - **QT**：Qt 应用与桌面开发\n  - **Application**：通用应用软件包\n  - **Graphics**：图形、多媒体、音视频\n\n- **硬件架构与嵌入式**\n  - **RISC-V**：RISC-V 架构适配与优化\n  - **ARM**：ARM 服务器/嵌入式支持\n  - **Embedded**：嵌入式、实时、IoT 方向\n  - **Space**：航天、卫星、嵌入式 AI（2026 年新成立）\n\n- **社区治理与兼容性**\n  - **Release-Management**：版本规划、发布流程\n  - **Migration**：迁移工具、兼容性、跨系统适配\n  - **g11n**：国际化、多语言、本地化\n  - **Documentation**：文档、手册、教程\n\n---\n\n### 二、查看完整 SIG 列表（3 种官方方式）\n#### 1. 官网可视化页面（推荐）\n中文：\n- https://www.openeuler.org/zh/sig/sig-list/\n英文：\n- https://www.openeuler.org/en/sig/sig-list/\n\n\n#### 2. Gitee 社区仓库（原始定义文件）\n- 完整 YAML 清单（实时更新）：\n  https://gitee.com/openeuler/community/blob/master/sig/sigs.yaml\n- 目录结构：\n  https://gitee.com/openeuler/community/tree/master/sig\n\n#### 3. 命令行工具（社区内部）\n```bash\n# 安装社区工具\npip install openeuler-sig\n\n# 列出所有 SIG\nsig list\n```\n\n### 三、查看单个 SIG 详情\n在官网 SIG 列表页点击任意 SIG 名称，可查看：\n- 职责与范围\n- Maintainer / 核心成员\n- 邮件列表、会议信息\n- 维护的软件包仓库\n\n需要我帮你把当前所有 **openEuler SIG 名称导出成完整清单** 吗？\n    {",
+      "citations": [
+        "https://www.openeuler.org/en/sig/sig-list/",
+        "https://datastat.openeuler.org/en/overview",
+        "https://www.openeuler.org/zh/sig/sig-list/",
+        "https://gitee.com/openeuler/community/blob/3f8f9a73de9435857ce524e1ce387d2499a51f32/sig/sigs.yaml",
+        "https://www.openeuler.org/en/community/mailing-list/"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_033",
+      "platform": "qwen",
+      "query": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "timestamp": "2026-04-09T12:27:31Z",
+      "raw_response": "Thinking completed\nopenEuler 社区 SIG 组（特别兴趣小组）介绍",
+      "citations": [
+        "https://www.openeuler.org/zh/community/contribution/cla.html",
+        "https://www.openeuler.org/zh/sig/sig-list/",
+        "https://www.openeuler.org/zh/community/contribution/detail.html",
+        "https://www.openeuler.org/zh/sig/sig-guidance/",
+        "https://www.openeuler.org/zh/sig/role-description/",
+        "https://www.openeuler.org/zh/sig/meeting-guide/",
+        "https://www.openeuler.org/zh/community/charter/",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/community/code-of-conduct/",
+        "https://atomgit.com/openeuler/community/blob/master/Governance.md",
+        "https://www.openeuler.org/zh/blog/georgecao/openEuler-sig-member-management.html",
+        "https://datastat.openeuler.org/zh/user/hongyu-shi",
+        "https://issue.openeuler.org/",
+        "https://www.openeuler.org/zh/blog/2022-11-12-04/04.html",
+        "https://www.openeuler.org/zh/news/20260318-Space%20SIG/20260318-%20Space%20SIG"
+      ],
+      "model": "Qwen",
+      "status": "success"
+    },
+    {
+      "question_id": "q_034",
+      "platform": "chatgpt",
+      "query": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "订阅 openEuler 社区邮件列表（例如 `dev@openeuler.org` 或各 SIG 邮件组）最推荐走 **官方 Mailman Web UI（Postorius）**，这是当前最稳定、最标准的方式。官方邮件列表入口已经提供了完整的订阅表单。([Mailweb][1])\n\n---\n\n# 一、最推荐：通过 Web 页面订阅\n\n## 官方邮件列表总入口\n\n直接打开：\n[openEuler Mailing Lists](https://mailweb.openeuler.org/?utm_source=chatgpt.com)\n\n这里可以看到所有列表，例如：\n\n* `ai-infra@openeuler.org`\n* `cloudnative@openeuler.org`\n* `kernel@openeuler.org`\n* `compiler@openeuler.org`\n* `community@openeuler.org`\n\n官方当前是 **分页列表（6 页+）**，可以按 SIG 名称查找。([Mailweb][1])\n\n---\n\n## 订阅步骤（推荐）\n\n以某个具体列表为例（如 compiler）：\n\n1. 打开对应列表详情页\n   例如：[compiler mailing list](https://mailweb.openeuler.org/mailman3/lists/compiler.openeuler.org/?utm_source=chatgpt.com)\n\n2. 在 **Subscription** 区域填写：\n\n   * **Your email address**\n   * **Your name（可选）**\n   * 勾选：\n\n     * Privacy Statement\n     * Community Conduct\n     * 数据存储同意\n\n3. 点击 **Subscribe**\n\n4. 去邮箱收确认邮件\n\n5. 点击确认链接\n\n6. 订阅成功\n\n官方页面明确就是这个流程。([Mailweb][2])\n\n---\n\n# 二、如何订阅类似 [dev@openeuler.org](mailto:dev@openeuler.org)\n\n你提到的 `dev@openeuler.org`，有时实际讨论会拆分到更细 SIG 列表，所以建议：\n\n## 方法 1：先在列表页搜索\n\n进入总入口后搜索更接近方向的列表，例如：\n\n* Kernel → `kernel@openeuler.org`\n* AI Infra → `ai-infra@openeuler.org`\n* 编译器 → `compiler@openeuler.org`\n* 云原生 → `cloudnative@openeuler.org`\n\n很多社区实际上没有单一 “dev” 总表，而是：\n\n> **按 SIG 技术域订阅更精准**\n\n这比泛技术邮件更高效。\n\n---\n\n# 三、如何参与技术讨论（不只是收邮件）\n\n订阅后，直接用你订阅的邮箱发送邮件到该列表地址即可。\n\n例如参与 AI Infra 讨论：\n\n```text\nTo: ai-infra@openeuler.org\nSubject: [Discussion] Best practice for Ray on openEuler\n```\n\n建议标题带标签：\n\n* `[Discussion]`\n* `[RFC]`\n* `[Proposal]`\n* `[Issue]`\n* `[Meeting]`\n\n这样更符合开源社区习惯。\n\n---\n\n# 四、推荐优先订阅哪些列表\n\n结合你最近关注方向，我建议优先：\n\n## AI Infra / 分布式\n\n* `ai-infra@openeuler.org`\n* `cloudnative@openeuler.org`\n\n## OS / 虚拟化\n\n* `virtualization@openeuler.org`\n* `kernel@openeuler.org`\n\n## 社区运营 / 内容传播\n\n* `community@openeuler.org`\n* `doc@openeuler.org`\n* `g11n@openeuler.org`\n\n---\n\n# 五、退订方式（顺手补充）\n\n如果后续邮件太多，可以直接发送空邮件到：\n\n```text\n<list>-leave@openeuler.org\n```\n\n例如：\n\n```text\nai-infra-leave@openeuler.org\n```\n\n官方明确支持这种退订方式。([openEuler][3])\n\n---\n\n## 一句话总结\n\n**订阅 openEuler 邮件列表最简单的方法就是进入官方 Mailweb 列表页 → 找到目标 SIG 邮件组 → 填邮箱并确认订阅；之后即可直接向该列表地址发邮件参与技术讨论。**\n\n结合你在学 **AI Infra**，我非常建议你优先订阅：\n\n> **ai-infra + cloudnative + virtualization**\n\n这几个列表含金量很高。\n\n如果你愿意，我可以继续帮你整理一份：\n\n> **适合 AI Infra 初学者参与 openEuler 邮件列表讨论的发帖模板（首封邮件怎么写）**。",
+      "citations": [
+        "https://mailweb.openeuler.org/",
+        "https://mailweb.openeuler.org/mailman3/lists/compiler.openeuler.org/",
+        "https://www.openeuler.org/en/blog/liuqi/2021-10-14-unsubscribe-mailing-list",
+        "https://www.openeuler.org/en/community/mailing-list/",
+        "https://docs.openeuler.org/en/docs/common/faq/general/general_faq.html",
+        "https://docs.openeuler.org/en/docs/20.03_LTS_SP4/docs/Releasenotes/contribution.html"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_034",
+      "platform": "deepseek",
+      "query": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
+      "timestamp": "2026-04-09T11:59:26Z",
+      "raw_response": "订阅 openEuler 社区邮件列表（如 dev@openeuler.org）并参与技术讨论，主要步骤如下：\n\n1. 订阅邮件列表\n\n访问 openEuler 邮件列表页面：\nhttps://mail.openeuler.org/postorius/lists\n\n找到你想订阅的列表，例如：\n\ndev：技术开发讨论\n\ntc：技术委员会相关\n\ninfra：基础设施相关\n\n点击列表名称进入详情页，在 Subscribing to ... 部分：\n\n输入你的邮箱地址\n\n可选填写姓名\n\n点击 Subscribe\n\n系统会向你的邮箱发送一封确认邮件（标题类似 Confirm subscription to ...）\n\n点击邮件中的确认链接，或回复确认邮件，完成订阅\n\n2. 发送邮件参与讨论\n\n订阅成功后，直接发送邮件到列表地址即可：\n\n开发列表：dev@openeuler.org\n\n其他列表：列表名@openeuler.org\n\n邮件会发送给所有订阅者，并归档在：\nhttps://mail.openeuler.org/hyperkitty/list/dev@openeuler.org/\n\n3. 注意事项\n\n首次发帖可能被暂留：部分列表对新订阅者的首封邮件需要人工审核，防止垃圾邮件。\n\n使用纯文本格式：社区邮件列表通常偏好纯文本邮件，避免 HTML 格式。\n\n主题清晰：建议邮件标题加上 [Topic] 或直接写明问题/建议。\n\n保持礼貌：技术讨论请遵循社区行为守则（Code of Conduct）。\n\n退订：每封邮件末尾有退订链接，或通过列表管理页面操作。\n\n4. 替代方式（通过 openEuler 论坛）\n\n如果你更习惯论坛形式，也可以使用 openEuler 论坛（与邮件列表互通）：\n\n地址：https://forum.openeuler.org/\n\n用同一邮箱登录，选择对应分类发帖，内容会同步到邮件列表。\n\n建议先订阅后观望几天，了解讨论风格再参与。如果需要申请 @openeuler.org 邮箱（贡献者常用），则需先成为社区贡献者并通过相关流程。",
+      "citations": [
+        "https://mail.openeuler.org/postorius/lists",
+        "https://mail.openeuler.org/hyperkitty/list/dev@openeuler.org/",
+        "https://forum.openeuler.org/",
+        "https://mail.openeuler.org/postorius/lists/",
+        "https://mail.openeuler.org/postorius/lists/dev.openeuler.org/",
+        "https://mail.openeuler.org/hyperkitty/list/tc@openeuler.org/",
+        "https://www.openeuler.org/zh/community/contribution/",
+        "https://openeuler.org/",
+        "https://www.openeuler.org/zh/community/code-of-conduct/",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://gitee.com/openeuler/community/blob/master/zh/contributors/mailing-list-instruction.md",
+        "https://www.openeuler.org/zh/community/membership/"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_034",
+      "platform": "doubao",
+      "query": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "订阅 openEuler 社区邮件列表（如 **dev@openeuler.org**）是参与社区技术讨论、获取官方通知的核心方式。整个过程完全公开、免费，只需通过邮件管理后台完成“订阅 → 确认 → 参与讨论”三步。\n\n### 一、openEuler 常用核心邮件列表\n- **dev@openeuler.org**：**核心开发讨论列表**（技术问题、方案设计、贡献交流）\n- **announce@openeuler.org**：社区重要公告（版本发布、会议、安全通告）\n- **user@openeuler.org**：用户使用、问题反馈、经验分享\n- **community@openeuler.org**：社区治理、SIG、贡献流程讨论\n- 各SIG专用列表：如 kernel@openeuler.org、cloudnative@openeuler.org、riscv@openeuler.org 等\n\n### 二、订阅步骤（网页版，推荐）\n#### 1. 进入邮件列表管理页\n- 中文：https://www.openeuler.org/zh/community/mailing-list/\n- 英文：https://www.openeuler.org/en/community/mailing-list/\n- 后台入口：https://mailweb.openeuler.org/postorius/lists/\n\n\n\n#### 2. 选择列表并提交订阅\n- 在列表中找到 **dev**（dev@openeuler.org）或目标列表，点击进入\n- 输入：\n  - **Email Address**：你的常用邮箱（建议与社区Gitee/AtomGit账号一致）\n  - **Name (可选)**：你的姓名/昵称\n- 点击 **Subscribe**\n\n\n\n#### 3. 邮箱确认（关键）\n- 收件箱会收到来自 `dev+confirm@openeuler.org` 的确认邮件\n- 点击邮件内的 **确认链接**，完成订阅激活\n\n\n\n#### 4. 成功订阅\n- 收到欢迎邮件，表示已加入列表\n- 可正常收发讨论邮件\n\n\n\n### 三、直接邮件订阅（极简方式）\n向目标列表发送**空白订阅邮件**：\n- 主题/正文任意，发送至：\n  `dev+subscribe@openeuler.org`\n- 收到确认邮件 → 点链接 → 完成\n\n### 四、如何参与讨论（发邮件）\n- 直接发邮件至：**dev@openeuler.org**\n- 所有订阅成员都会收到\n- 回复即参与线程讨论\n\n### 五、邮件列表使用规范\n- 主题清晰：如 `[Proposal] 优化XX模块`、`[Question] 内核编译问题`\n- 纯文本优先（避免复杂格式/附件过大）\n- 文明、技术导向、英文/中文均可（社区双语）\n\n### 六、退订 / 修改设置\n- 访问：https://mailweb.openeuler.org/postorius/lists/\n- 登录邮箱 → 进入对应列表 → **Unsubscribe** 或修改偏好\n\n### 七、常见问题\n- **收不到确认邮件**：检查垃圾邮件箱；更换邮箱（推荐企业/教育邮箱）\n- **发邮件被退信**：未完成确认；非订阅邮箱发信\n- **如何查看历史邮件**：在列表页点击 **Archives** 查看归档\n\n需要我帮你生成一份可直接复制的 **dev@openeuler.org 订阅与发邮件模板** 吗？ \n    {",
+      "citations": [
+        "https://www.openeuler.org/en/community/mailing-list/",
+        "https://mailweb.openeuler.org/postorius/lists/",
+        "https://www.openeuler.org/en/contact-us/",
+        "https://www.openeuler.org/en/sig/sig-list/",
+        "https://www.openeuler.org/zh/community/user-group/",
+        "https://www.openeuler.org/en/community/mailing-list/"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_034",
+      "platform": "qwen",
+      "query": "",
+      "timestamp": "2026-04-09T12:31:01Z",
+      "raw_response": "",
+      "citations": [
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://mailweb.openeuler.org/",
+        "https://www.openeuler.org/zh/sig/sig-list/",
+        "https://www.openeuler.org/zh/contact-us/",
+        "https://www.openeuler.org/en/community/mailing-list/",
+        "https://www.openeuler.org/zh/wiki/about/quick-start/",
+        "https://www.openeuler.org/whitepaper/openEuler-whitepaper-2103.pdf",
+        "https://docs.openeuler.org/zh/docs/20.03_LTS/docs/Releasenotes/%E5%8F%82%E4%B8%8E%E8%B4%A1%E7%8C%AE.html",
+        "https://www.openeuler.org/zh/blog/liuqi/2021-10-14-unsubscribe-mailing-list.html",
+        "https://forum.openeuler.org/t/topic/806",
+        "https://www.openeuler.org/zh/community/contribution/detail.html",
+        "https://www.openeuler.org/zh/faq/",
+        "https://www.hikunpeng.com/developer/techArticles/20230831-6",
+        "https://blog.csdn.net/openEuler_/article/details/129425472"
+      ],
+      "model": "Qwen",
+      "status": "success"
+    },
+    {
+      "question_id": "q_035",
+      "platform": "chatgpt",
+      "query": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "加入 **openEuler sig-Migration（迁移 SIG）** 并参与跨平台 OS 迁移开发，最有效的路径是按社区标准的 **“CLA → 找 SIG → 邮件列表 → Issue/PR → 迁移案例/工具贡献”** 这条链路走。Migration 方向在 openEuler 社区里非常成熟，既有 **x2openEuler 原地升级工具链**，也有 **迁移最佳实践、适配指南、案例沉淀**。([openEuler][1])\n\n我按 **“怎么加入 + 能做什么 + 最适合你的切入点”** 给你拆开。\n\n---\n\n# 一、先完成加入 SIG 的标准前置\n\n## 1）签署 CLA（必须）\n\n所有代码和文档贡献前，都要先签 openEuler CLA。官方把这一步列为参与社区的第 2 步。([openEuler][1])\n\n可选类型：\n\n* **Individual CLA**：个人贡献\n* **Employee CLA**：以公司员工身份\n* **Corporate CLA**：公司统一贡献\n\n如果你是代表企业做迁移工具、兼容适配，这一步尤其重要。\n\n---\n\n## 2）定位 Migration SIG\n\n在 SIG 列表里找到 **Migration SIG**，这是负责：\n\n* 跨 Linux 发行版迁移\n* CentOS / RHEL → openEuler\n* 原地升级（in-place upgrade）\n* x2openEuler\n* 软件包兼容分析\n* 迁移案例沉淀\n* 迁移 FAQ / 文档\n\n的核心 SIG。社区官方也把 **migration** 单独做成了 Migration Center。([openEuler][2])\n\n---\n\n# 二、真正加入：先进入讨论渠道\n\nSIG 是开放的，**不需要“审批入会”才能开始贡献**。官方明确写了：\n\n> SIGs are open. Anyone is welcome to join and contribute. ([openEuler][3])\n\n最推荐先做这三件事：\n\n---\n\n## 1）订阅 Migration 相关邮件列表\n\n去官方 Mailweb 搜索 migration 相关列表：\n[openEuler Mailing Lists](https://mailweb.openeuler.org/)\n\n建议优先找：\n\n* migration\n* compatibility\n* x2openEuler\n* oec\n\n相关列表。\n\n你可以先发一封 **自我介绍 + 想参与迁移工具贡献** 的邮件。\n\n---\n\n## 2）进入 SIG 仓库看 Issue\n\nopenEuler 代码托管在 AtomGit / Gitee。官方建议从 Issue 开始最容易。([openEuler][1])\n\n优先看几类任务：\n\n* migration bugfix\n* 新发行版支持\n* rollback 异常处理\n* package dependency analysis\n* migration precheck\n* VM upgrade support\n\n---\n\n## 3）参加 SIG 例会\n\nSIG 一般都有：\n\n* 邮件会议通知\n* 腾讯会议 / Zoom\n* 会议纪要\n* roadmap 同步\n\n你可以在邮件列表里直接问：\n\n> “How can I join Migration SIG regular meetings?”\n\n这是最快进入核心开发讨论的方法。\n\n---\n\n# 三、最容易上手的贡献方向（强烈推荐）\n\nMigration SIG 不一定要一开始就改核心代码。\n\n---\n\n## 方向 1：x2openEuler 迁移规则开发（最核心）\n\n这是最技术向、最有价值的贡献。\n\n比如新增：\n\n* 新 OS 源版本支持\n* 软件仓替换规则\n* package mapping\n* repo metadata conversion\n* rpm dependency conflict fix\n\n例如：\n\n> CentOS Stream 9 → openEuler 24.03 LTS SPx\n\n新增迁移支持链路。\n\n这非常适合你现在的 **OS / AI Infra / 数据库生态迁移关注方向**。\n\n---\n\n## 方向 2：迁移前评估能力\n\nMigration Center 非常强调 **precheck / assessment**。([openEuler][4])\n\n你可以贡献：\n\n* 软件包依赖扫描\n* 内核模块兼容扫描\n* systemd service 差异检测\n* Python / Java 运行时检查\n* 容器环境检查\n\n这是企业真实迁移场景非常高频的需求。\n\n---\n\n## 方向 3：迁移最佳实践与案例\n\n这个非常适合你现在擅长的内容运营 + 技术传播能力。\n\n官方专门提供了：\n\n> **Share Your OS Migration Story**\n> 入口就是 Migration Center Contribution。([openEuler][5])\n\n你可以贡献：\n\n* openGauss on CentOS → openEuler 迁移案例\n* AI 推理节点迁移案例\n* GPU 服务器迁移案例\n* VM 原地升级案例\n* 数据库 HA 节点迁移 SOP\n\n这类内容很容易被社区采纳。\n\n---\n\n# 四、建议你的最佳切入点（非常适合你）\n\n结合你最近持续关注：\n\n* openGauss\n* AI Infra\n* 虚拟化\n* 兼容认证\n* 社区内容运营\n\n我非常建议你从这两个子方向切入：\n\n## 1）数据库节点迁移\n\n贡献主题：\n\n> **CentOS + openGauss → openEuler 迁移最佳实践**\n\n很有生态价值。\n\n---\n\n## 2）AI Infra OS 迁移\n\n贡献主题：\n\n> **PyTorch / Ray / Ascend 推理节点迁移到 openEuler**\n\n这个在社区里很容易形成高价值案例。\n\n---\n\n# 五、一个最短参与路径（建议你照着做）\n\n你可以按这个顺序开始：\n\n1. 签 CLA ([openEuler][1])\n2. 订阅 migration 邮件组 ([Mailweb][6])\n3. 找 x2openEuler / migration issue\n4. 先认领一个 precheck 或 doc issue\n5. 提交第一篇迁移 best practice ([openEuler][5])\n6. 再逐步进入 package mapping 和 rollback 逻辑\n\n---\n\n## 一句话总结\n\n**加入 sig-Migration 最佳方式不是“申请加入”，而是先签 CLA、订阅邮件列表、参与 x2openEuler 的 Issue/PR、贡献迁移规则和最佳实践案例，自然进入 SIG 核心协作圈。** ([openEuler][1])\n\n如果你愿意，我可以继续帮你做一份：\n\n> **“面向 openGauss / AI 节点迁移的 Migration SIG 首个 PR 选题清单”**。\n\n    {",
+      "citations": [
+        "https://www.openeuler.org/en/community/contribution/detail.html",
+        "https://www.openeuler.org/en/sig/sig-list",
+        "https://www.openeuler.org/en/blog/20230630-newcomer/0630-newcomer",
+        "https://www.openeuler.org/en/migration/faq/",
+        "https://www.openeuler.org/en/migration/contribution/"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_035",
+      "platform": "deepseek",
+      "query": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
+      "timestamp": "2026-04-09T12:05:02Z",
+      "raw_response": "加入 openEuler 的 sig-Migration（迁移 SIG）并参与跨平台 OS 迁移开发贡献，通常按以下步骤进行：\n\n1. 了解 sig-Migration 的职责\n\n该 SIG 主要负责：\n\n研究从其他 OS（如 CentOS、RHEL、Ubuntu、Debian 等）迁移到 openEuler 的工具、方法和最佳实践\n\n开发迁移辅助工具（如 x2openEuler）\n\n分析兼容性差异（软件包、配置、内核特性等）\n\n撰写迁移指南、案例与自动化脚本\n\n2. 前提准备\n\n注册 Gitee 账号（openEuler 官方代码托管平台）\n\n熟悉基础 Linux 系统管理、Shell/Python 编程\n\n了解 RPM 包管理、系统启动流程、配置差异分析\n\n对迁移场景有基本概念（如从 CentOS 7/8 迁移到 openEuler 22.03 LTS/24.03 LTS）\n\n3. 加入 SIG 的正式步骤\n3.1 查看 SIG 主页\n\n访问：\nhttps://gitee.com/openeuler/sig-migration\n\n3.2 订阅邮件列表\n\n在 openEuler 邮件列表 找到 sig-migration 列表并订阅（用于接收会议邀请、讨论记录）。\n\n3.3 参加 SIG 例会\n\n双周例会（具体时间见 SIG 主页 README 或邮件通知）\n\n可通过 WeLink / Zoom 参加\n\n例会上可介绍自己并认领任务\n\n3.4 在 Gitee 上申请加入 SIG\n\n在 sig-Migration 仓库下提 Issue 或 PR，表达加入意愿\n\n等待 SIG maintainer 邀请你成为 SIG Member（一般需完成一次有效贡献后）\n\n4. 找到适合新人的贡献点\n类型\t示例任务\n文档\t补充迁移指南中某个软件的迁移步骤\n测试\t在本地用虚拟机测试 x2openEuler 工具，反馈 bug\n工具开发\t为迁移脚本增加对新 OS 版本的支持\n兼容性分析\t对比某软件包在两个 OS 的配置差异\n社区答疑\t在 Issue 或邮件列表回复迁移相关问题\n5. 提交第一个贡献（示例）\n\nFork src-openeuler/x2openEuler 或 openeuler/migration-docs 仓库\n\n修改/新增内容（例如修正迁移脚本中的一个小 bug）\n\n在 Gitee 上发起 Pull Request\n\n在 PR 中说明与 sig-Migration 相关，并 @ maintainer\n\n根据 review 意见修改，合入后即完成一次贡献\n\n6. 成为活跃贡献者\n\n持续参与例会与版本规划\n\n认领 migration 工具某个模块的维护\n\n帮助评审其他人的 PR\n\n参与迁移方案设计讨论\n\n7. 参考资料\n\nopenEuler 社区贡献指南\n\nx2openEuler 工具文档\n\n迁移 SIG 会议纪要\n\n如果你已经有想解决的具体迁移场景（例如某企业内部 CentOS 7 迁移），可以直接在 Gitee 上提 Issue 说明，更容易获得 mentor 指导。需要我帮你列出当前 sig-Migration 的待办任务清单吗？",
+      "citations": [
+        "https://gitee.com/openeuler/sig-migration",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/community/contribution/",
+        "https://gitee.com/openeuler/x2openEuler",
+        "https://gitee.com/openeuler/sig-migration/wikis",
+        "https://docs.openeuler.org/zh/docs/",
+        "https://mail.openeuler.org/",
+        "https://gitee.com/openeuler",
+        "https://www.openeuler.org/zh/events/migration-solution/",
+        "https://gitee.com/openeuler/sig-migration/issues",
+        "https://www.openeuler.org/zh/compatibility/",
+        "https://clasign.osinfra.cn/sign/Z2l0ZWUlMkZvcGVldWxlcg==",
+        "https://www.openeuler.org/zh/community/"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_035",
+      "platform": "doubao",
+      "query": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "加入 openEuler sig-Migration SIG（跨平台操作系统迁移特别兴趣小组），核心是**订阅邮件列表、参与例会、提交Issue/PR**，无需复杂审批，直接按以下步骤即可：\n\n### 一、了解 sig-Migration SIG\n**核心职责**：负责跨平台OS迁移工具、兼容性适配、迁移方案与技术标准，聚焦从CentOS/RHEL/Ubuntu等迁移至openEuler。\n**代码仓库**：\n- AtomGit主仓：https://atomgit.com/openeuler/migration-tools\n- GitHub镜像：https://github.com/openeuler-mirror/migration-tools\n\n### 二、加入前准备\n1. **注册账号**\n   - 注册 **AtomGit**（社区主平台）：https://atomgit.com/\n   - 注册 **Gitee**（备用）：https://gitee.com/\n2. **签署CLA**\n   - 首次贡献前，在AtomGit提交PR时，按提示签署 **Contributor License Agreement**（CLA）。\n\n### 三、正式加入步骤\n#### 1. 订阅邮件列表（必做）\n- 发送空邮件至：`dev+subscribe@openeuler.org`\n- 或通过网页订阅：https://mailweb.openeuler.org/postorius/lists/dev.openeuler.org/\n- 邮件标题格式建议：`[SIG-Migration] Join Request`\n\n#### 2. 参加SIG例会（核心）\n- **会议时间**：每双周周三 16:00（北京时间）\n- **会议链接**：https://etherpad.openeuler.org/p/sig-migration-meeting\n- **会议内容**：需求讨论、进度同步、任务分配、代码评审\n\n#### 3. 联系SIG维护者\n- 邮件：`dev@openeuler.org`（标题标注`[sig-Migration]`）\n- 微信/IRC：社区群内@维护者\n\n#### 4. 参与贡献（从简单开始）\n1. **提Issue**：反馈bug、提需求（https://atomgit.com/openeuler/migration-tools/issues）\n2. **改文档**：完善README、用户手册、API文档\n3. **修bug**：认领`good first issue`，提交PR\n4. **代码开发**：参与迁移引擎、适配层、工具链开发\n5. **测试/用例**：补充跨场景迁移测试\n\n### 四、贡献流程（PR提交）\n1. Fork仓库 → 本地修改 → 提交Commit\n2. 发起PR（标题：`[SIG-Migration] 功能/修复：xxx`）\n3. 通过CI检查 → 维护者评审 → 合并入库\n\n### 五、SIG角色与成长\n- **Contributor**：提交Issue/PR/文档 → **Member**（活跃贡献）\n- **Committer**：代码评审、合并权限 → **Maintainer**（SIG治理）\n- 贡献记录纳入社区档案，可获认证、技术支持、活动邀请\n\n### 六、快速入口\n- SIG列表：https://www.openeuler.org/zh/sig/sig-list/\n- 贡献指南：https://www.openeuler.org/zh/community/contribution/\n- 迁移工具文档：https://docs.openeuler.org/zh/docs/24.09/docs/Migration_Tools/\n\n---\n\n要不要我帮你整理一份 **sig-Migration 首次贡献清单**（含3个入门级任务、PR模板、邮件模板），你直接照着提交即可？",
+      "citations": [
+        "https://www.openeuler.org/en/community/contribution/detail.html",
+        "https://www.openeuler.org/en/sig/sig-list",
+        "https://www.openeuler.org/en/blog/20230630-newcomer/0630-newcomer",
+        "https://www.openeuler.org/en/migration/faq/",
+        "https://www.openeuler.org/en/migration/contribution/",
+        "https://mailweb.openeuler.org/"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_035",
+      "platform": "qwen",
+      "query": "",
+      "timestamp": "2026-04-09T12:40:24Z",
+      "raw_response": "",
+      "citations": [
+        "https://atomgit.com/",
+        "https://www.openeuler.org/zh/wiki/contribution/",
+        "https://atomgit.com/openeuler/community/tree/master/sig/sig-Migration",
+        "https://www.openeuler.org/zh/community/contribution/detail.html",
+        "https://www.openeuler.org/zh/migration/",
+        "https://www.openeuler.org/zh/sig/role-description/",
+        "https://www.openeuler.org/zh/sig/sig-guidance/",
+        "https://atomgit.com/openeuler/migration-assistant",
+        "https://docs.openeuler.org/zh/docs/24.03_LTS/docs/x2openEuler/",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/meeting/",
+        "https://forum.openeuler.org/",
+        "https://www.openeuler.org/zh/blog/20251217-openeulerMigrate/20151217-openeulerMigrate.html",
+        "https://docs.openeuler.org/zh/docs/24.09/docs/Migration-tools/%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.html",
+        "https://www.openeuler.org/zh/faq/migration/",
+        "https://www.modb.pro/db/1728949506325684225"
+      ],
+      "model": "Qwen",
+      "status": "success"
+    },
+    {
+      "question_id": "q_037",
+      "platform": "chatgpt",
+      "query": "openEuler AI SIG（ai-infra@openeuler.org）的目标是什么？支持哪些 AI 基础设施框架？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "openEuler **AI SIG（通常通过 `ai-infra@openeuler.org` 邮件列表协作）** 的核心目标，可以概括为一句话：\n\n> **把 openEuler 打造成面向多样化算力、开箱即用、支持训练/推理/Serving 的 AI 基础设施操作系统底座。** ([openEuler][1])\n\n这也是为什么 openEuler 24.03 LTS 被官方定义为 **“首个 AI-Native Open Source Operating System”**。([openEuler][1])\n\n---\n\n# 一、AI SIG 的核心目标是什么\n\n结合官方 AI 特性页和社区 AI-Native 路线，AI SIG 的目标主要有 **4 层**。\n\n---\n\n## 1）建设 OS for AI 的基础软件栈\n\n最核心目标是：\n\n> **让 AI 软件栈在 openEuler 上做到开箱即用（out-of-the-box）**\n\n官方明确写到 **OS for AI** 能提供高效开发和运行环境，并把 AI 平台软件栈容器化。([Document Center][2])\n\n这意味着 AI SIG 负责推进：\n\n* 驱动 + SDK + Runtime 适配\n* 容器镜像标准化\n* AI 节点环境快速初始化\n* 多架构统一体验\n* CPU / GPU / NPU 异构协同\n\n---\n\n## 2）支撑多样化 AI 算力\n\n这是 openEuler AI SIG 很强的一点。\n\n官方明确支持：\n\n* Arm\n* x86\n* RISC-V\n* NVIDIA GPU\n* Ascend NPU ([Document Center][2])\n\n所以 AI SIG 的目标不是只做单一硬件，而是：\n\n> **构建面向 heterogeneous computing 的统一 AI OS 底座**\n\n这对企业级 AI Infra 很关键。\n\n---\n\n## 3）提升大模型推理效率\n\n在 25.09 特性里，官方重点强化了：\n\n> **sysHAX heterogeneous acceleration runtime** ([Document Center][2])\n\n它支持：\n\n* CPU + xPU 协同\n* NUMA-aware scheduling\n* SVE 优化算子\n* 单机多卡异构推理\n\n所以 AI SIG 目标已经不只是框架适配，而是深入到：\n\n> **LLM inference runtime optimization + OS 协同调度**\n\n这和你正在关注的 AI Infra 非常一致。\n\n---\n\n## 4）降低分布式 AI 平台搭建门槛\n\n官方非常强调通过容器镜像快速构建分布式框架，例如：\n\n> **“You can use an AI framework image to quickly build Ray.”** ([Document Center][2])\n\n所以另一个核心目标是：\n\n> **降低 Ray / Serving / 多节点训练平台的部署成本**\n\n---\n\n# 二、AI SIG 支持哪些 AI 基础设施框架\n\n如果从 **AI Infra framework** 角度看，当前重点支持可以分成 **训练框架、推理框架、分布式基础设施、加速软件栈** 四层。\n\n---\n\n## 1）训练 / 推理框架（官方明确）\n\n这是最基础的一层，官方明确支持：([Document Center][2])\n\n* **PyTorch**\n* **TensorFlow**\n* **MindSpore**\n\n这是 AI SIG 最核心的 framework support matrix。\n\n---\n\n## 2）分布式 AI 基础设施框架\n\n官方文档明确点名：\n\n> 可以基于 AI framework images 快速构建 **Ray**。 ([Document Center][2])\n\n因此 AI SIG 实际支持的基础设施框架包括：\n\n* **Ray**\n* Ray Serve\n* 分布式批推理\n* 多节点训练 orchestration\n\n对于你关注的 **LLM Serving / AI Platform**，这一层非常关键。\n\n---\n\n## 3）异构计算 SDK / Runtime\n\n这部分虽然不是“框架”，但属于 AI Infra 核心底座。\n\n官方明确支持：([Document Center][2])\n\n* **CUDA**\n* **CANN**\n* sysHAX runtime\n\n分别对应：\n\n* NVIDIA GPU\n* Ascend NPU\n* heterogeneous inference acceleration\n\n---\n\n## 4）模型服务与大模型容器镜像\n\nopenEuler 还有专门的：\n\n* AI framework images\n* model application images\n* large model service images ([Document Center][3])\n\n面向：\n\n* Baichuan\n* ChatGLM\n* Spark 等大模型服务镜像 ([Document Center][3])\n\n这意味着 AI SIG 也在推动：\n\n> **LLM service image + inference container standardization**\n\n---\n\n# 三、从 AI Infra 视角，最值得关注的技术路线\n\n如果按你正在学习的 **AI Infra 路线**，我建议重点关注这条链：\n\n> **PyTorch / MindSpore → CUDA / CANN → Ray → sysHAX → LLM service image**\n\n这是 openEuler AI SIG 当前最有技术价值的一条主线。 ([Document Center][2])\n\n---\n\n## 一句话总结\n\n**openEuler AI SIG 的目标是把 openEuler 打造成面向异构算力的 AI-Native OS 底座，重点支持 PyTorch、TensorFlow、MindSpore、Ray，以及 CUDA/CANN/sysHAX 等 AI 基础设施框架与运行时。** ([openEuler][1])\n\n如果你愿意，我可以下一步继续帮你深入拆：\n\n> **openEuler AI SIG 在 LLM 推理平台上与 Ray + vLLM + K8s 的结合方式。**\n\n    {",
+      "citations": [
+        "https://www.openeuler.org/en/news/20240612-openEuler%2024.03%20LTS-The%20First%20AI-Native%20Open%20Source%20Operating%20System/",
+        "https://docs.openeuler.org/en/docs/25.09/server/quickstart/releasenotes/key_features.html",
+        "https://docs.openeuler.org/en/docs/25.09/tools/ai/index.html"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_037",
+      "platform": "deepseek",
+      "query": "openEuler AI SIG（ai-infra@openeuler.org）的目标是什么？支持哪些 AI 基础设施框架？",
+      "timestamp": "2026-04-09T12:05:04Z",
+      "raw_response": "openEuler AI SIG（Special Interest Group）的全称是 ai-infra，其核心目标是：围绕 openEuler 操作系统，构建面向 AI 场景的基础软件栈，使 openEuler 成为 AI 基础设施的优选平台。\n\n具体目标包括：\n\nAI 框架与库的集成与优化：确保主流 AI 框架在 openEuler 上能够高效、稳定运行，并进行针对性的性能优化（如利用鲲鹏、昇腾等硬件特性）。\n\nAI 基础软件栈的构建：整合驱动、运行时（如 CUDA、ROCm、CANN）、框架（如 PyTorch、TensorFlow）、工具链（如 ONNX、TVM）等，形成完整的 AI 开发与部署环境。\n\n开发者体验提升：提供一键安装、容器化镜像、示例代码和文档，降低在 openEuler 上使用 AI 技术的门槛。\n\n生态协同：与硬件厂商（如华为昇腾）、框架社区、云原生 AI 项目（如 Kubeflow、Volcano）等协同，推动 openEuler 在数据中心、边缘计算等 AI 场景的落地。\n\n目前支持的 AI 基础设施框架（核心范围）：\n\n类别\t支持的项目 / 框架\nAI 框架\tPyTorch、TensorFlow、MindSpore（华为）、PaddlePaddle（飞桨）\n推理引擎\tTensorRT、Ascend CANN ACL、ONNX Runtime、OpenVINO\n异构计算编程模型\tCUDA（通过兼容层或驱动）、ROCm、OpenCL、SYCL\nAI 加速库\toneDNN、cuDNN（运行时支持）、MKL-DNN、AITemplate\n编译器与中间表示\tTVM、MLIR、BladeDISC（阿里）\n云原生 AI 基础设施\tKubernetes + 设备插件（GPU/NPU）、Volcano（调度）、KubeFlow\n算子开发与调试工具\tAscend CANN 工具链、PyTorch Profiler、Nsight Systems（兼容）\n\n注：具体版本支持情况（如 Python 版本、CUDA 版本、CANN 版本）会随 openEuler 每个 LTS 版本（如 20.03、22.03、24.03）的发布而更新。建议查阅 openEuler AI SIG 的官方仓库或邮件列表获取实时支持矩阵。\n\n如何参与或获取更多信息：\n\n邮件列表：ai-infra@openeuler.org\n\nSIG 主页：https://www.openeuler.org/zh/sig/ai-infra/\n\n代码仓库：https://gitee.com/openeuler/（搜索 AI 相关项目如 python-ai, mindspore, pytorch 等）",
+      "citations": [
+        "https://www.openeuler.org/zh/sig/ai-infra/",
+        "https://gitee.com/openeuler/",
+        "https://mailweb.openeuler.org/hyperkitty/list/ai-infra@openeuler.org/",
+        "https://gitee.com/openeuler/ai-infra",
+        "https://gitee.com/src-openeuler/python-torch",
+        "https://gitee.com/src-openeuler/mindspore",
+        "https://docs.openeuler.org/zh/docs/latest/docs/ai/AI-into.html",
+        "https://www.openeuler.org/zh/compatibility/",
+        "https://gitee.com/openeuler/ai-infra/wikis",
+        "https://www.openeuler.org/",
+        "https://gitee.com/openeuler",
+        "https://hub.docker.com/u/openeuler"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_037",
+      "platform": "doubao",
+      "query": "openEuler AI SIG（ai-infra@openeuler.org）的目标是什么？支持哪些 AI 基础设施框架？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "openEuler AI SIG（邮箱：ai-infra@openeuler.org）的核心目标是**构建面向异构算力的AI基础设施框架**，为训练、推理、云边端协同提供统一、高效、开放的底层支撑。\n\n### 一、SIG核心目标\n- **异构算力统一管理**：实现CPU、GPU、NPU、DPU等XPU的**统一接入、调度与监控**\n- **基础设施能力构建**：提供**异构融合内存、融合虚拟化、算力切分、资源优先级、弹性迁移**\n- **全栈适配与性能优化**：打通OS → 驱动 → 框架 → 模型链路，**开箱即用、性能最优**\n- **场景化解决方案**：支撑**大模型训练/推理、云边协同、混合部署**等企业级场景\n- **生态共建**：标准化AI软件栈，降低迁移与部署门槛\n\n### 二、支持的AI基础设施框架\n#### 1. 主流训练/推理框架\n- **PyTorch**（主流训练/推理）\n- **MindSpore**（昇腾全场景）\n- **PaddlePaddle**（百度飞桨）\n- **TensorFlow**\n- **vLLM / vLLM-Ascend**（大模型推理引擎）\n- **Ray**（分布式训练/推理编排）\n\n#### 2. 异构计算SDK（硬件使能）\n- **CANN**（昇腾NPU，原生深度优化）\n- **CUDA**（NVIDIA GPU）\n- **OneAPI**（Intel CPU/GPU）\n- **KleidiAI**（ARM架构）\n\n#### 3. 系统与调优组件\n- **A-Tune**（AI自动性能调优引擎）\n- **ANNC**（AI编译器，图优化+算子加速）\n- **sysHAX**（大模型推理加速，CPU+XPU协同）\n- **异构调度框架EDA**\n\n### 三、SIG主页与资源\n- **SIG主页**：https://www.openeuler.org/zh/sig/ai\n- **代码仓**：https://atomgit.com/openeuler/sig-ai\n- **邮件列表**：ai-infra@openeuler.org\n- **例会**：双周例会（见SIG主页）\n\n需要我帮你整理一份 **AI SIG 快速贡献指南**（含订阅方式、Good First Issues、PR模板）吗？\n    {",
+      "citations": [
+        "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/releasenotes/releasenotes/key_features.html",
+        "https://gitee.com/openeuler/llm_solution",
+        "https://www.openeuler.org/en/sig/sig-list/",
+        "https://www.openeuler.org/en/projects/intelligence/",
+        "https://docs.openeuler.org/en/docs/22.03_LTS_SP4/server/releasenotes/key_features.html",
+        "https://www.openeuler.org/en/faq/"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_037",
+      "platform": "qwen",
+      "query": "",
+      "timestamp": "2026-04-09T12:45:46Z",
+      "raw_response": "",
+      "citations": [
+        "https://www.openeuler.org/zh/sig/ai",
+        "https://www.openeuler.org/whitepaper/openEuler%2025.03%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf",
+        "https://docs.openeuler.org/zh/docs/25.03/server/releasenotes/releasenotes/key-features.html",
+        "https://www.openeuler.org/zh/projects/intelligence/",
+        "https://mailweb.openeuler.org/hyperkitty/list/ai-infra@openeuler.org/",
+        "https://www.openeuler.org/zh/news/20240412-yuebao/20240412-yuebao.html",
+        "https://forum.openeuler.org/",
+        "https://ascendai.csdn.net/69339c9b2087ae0db79f67ba.html",
+        "https://juejin.cn/post/7581251003330609178",
+        "https://www.openeuler.org/zh/compatibility/",
+        "https://license.coscl.org.cn/MulanPSL2"
+      ],
+      "model": "Qwen",
+      "status": "success"
+    },
+    {
+      "question_id": "q_038",
+      "platform": "chatgpt",
+      "query": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "chatGPT:\nopenEuler **sig-QA（QA SIG）** 是社区版本质量保障的核心组织，职责不是“只做测试执行”，而是覆盖 **版本测试策略、测试框架、缺陷闭环、众测协同、CI 自动化** 的完整质量体系。官方明确指出：\n\n> **QA SIG 是社区版本测试管理的统一负责团队，负责整体测试策略制定与版本测试活动推进。** ([Gitee][1])\n\n你可以把它理解为：\n\n> **Release 质量门禁 + 测试平台 + 社区测试协作中心**\n\n下面我按 **“怎么做版本质量测试” + “如何参与 QA 贡献”** 两部分给你拆解。\n\n---\n\n# 一、sig-QA 如何进行版本质量测试\n\nQA SIG 的测试一般分 **单包级、特性级、版本级、CI 持续测试级** 四层。官方开发者测试贡献指南写得很清楚。 ([Gitee][1])\n\n---\n\n## 1）需求分析：从版本计划开始\n\n测试不是拿到 ISO 才开始，而是从 **Release SIG 的版本计划** 就介入。\n\n流程通常是：\n\n* Release SIG 发布版本 roadmap\n* 各 SIG 提交新特性需求\n* QA SIG 分析风险点\n* 输出测试范围和优先级\n\n重点关注：\n\n* 新增特性\n* 升级风险\n* 架构差异（x86 / Arm / RISC-V）\n* 兼容性变更\n* CVE 修复影响\n\n这一步本质是：\n\n> **test planning before coding freeze**\n\n---\n\n## 2）测试方案设计（最核心）\n\n这是 QA SIG 的核心专业能力。\n\n官方流程明确要求：\n\n> 先做 **测试设计方案评审**，通过后再编码。 ([Gitee][1])\n\n测试方案一般包含：\n\n* 测试目标\n* feature scope\n* 功能点拆解\n* 正向/异常路径\n* 升级回滚\n* 性能基线\n* 安全基线\n* 自动化可行性\n\n例如 AI 特性可能覆盖：\n\n* PyTorch 安装\n* CUDA/CANN 运行\n* Ray 多节点拉起\n* 推理吞吐对比\n* NUMA 调度验证\n\n这和你关注的 **AI Infra 场景测试** 非常契合。\n\n---\n\n## 3）自动化测试代码编写：基于 Mugen\n\n官方开放的主力测试框架是 **Mugen**。\n开发者按规范写测试脚本并本地调试。 ([Gitee][1])\n\n常见内容：\n\n* 安装验证\n* 服务启动验证\n* 命令输出断言\n* 容器/虚拟机场景\n* kernel module 验证\n* 跨版本升级\n* rollback\n\n典型流程：\n\n```bash\ngit clone https://atomgit.com/openeuler/mugen\nbash mugen.sh -f test_suite_name\n```\n\nMugen 更偏：\n\n> **系统级集成测试 / RPM 包验证 / 版本回归**\n\n---\n\n## 4）CI 持续测试：Compass-CI\n\n版本级持续质量主要依赖 **Compass-CI**。官方贡献页明确把它列为社区测试系统核心平台。 ([openEuler][2])\n\n主要承担：\n\n* 每日构建验证\n* 多架构回归\n* kernel / toolchain CI\n* benchmark\n* boot test\n* 性能趋势跟踪\n\n这一步是：\n\n> **continuous regression + milestone gating**\n\n---\n\n## 5）版本交付测试与缺陷闭环\n\n测试完成后，由特性所属 SIG 和 QA SIG 共同输出：\n\n* Feature test report\n* Known issues\n* blocker defects\n* release recommendation\n\n官方缺陷管理明确说明：\n\n> **QA SIG + Release SIG 联合负责版本质量与缺陷优先级推进。** ([openEuler][3])\n\n---\n\n# 二、如何参与社区 QA 贡献\n\n官方明确说：\n\n> **Testing is the responsibility of all contributors.** ([openEuler][2])\n\n也就是说 QA 不只是 QA SIG maintainer 的事，开发者也非常欢迎参与。\n\n---\n\n## 路径 1：提交测试用例（最推荐）\n\n这是最容易开始的方式。\n\n你可以贡献：\n\n* 单包测试\n* 新特性测试\n* regression case\n* migration test\n* virtualization HA case\n\n提交路径通常是：\n\n* **QA**\n* **Mugen**\n* integration-test 仓库\n\n官方流程支持直接 PR。 ([Gitee][1])\n\n---\n\n## 路径 2：参与社区众测\n\n对于即将发布的新版本，QA SIG 会组织：\n\n* feature beta test\n* community crowd test\n* architecture adaptation\n* upgrade rehearsal\n\n你可以报名真实环境测试：\n\n* 物理机\n* VM\n* GPU 节点\n* AI 推理服务器\n\n这对你做 **AI 节点 / openGauss 服务器测试案例** 很有价值。\n\n---\n\n## 路径 3：提交缺陷与复现脚本\n\n很高价值。\n\n建议提交：\n\n* clear repro steps\n* logs\n* minimal testcase\n* kernel panic trace\n* performance regression baseline\n\nQA SIG 很重视 **可自动复现脚本**。\n\n---\n\n## 路径 4：参与测试平台建设（高阶）\n\n如果你偏工程化，非常推荐参与：\n\n* Mugen framework enhancement\n* Compass-CI pipeline\n* flaky case detection\n* benchmark automation\n* test report generation\n\n这非常适合你未来的 **AI Infra 自动化验证平台能力建设**。\n\n---\n\n# 三、最适合你的 QA 切入方向（强烈推荐）\n\n结合你最近关注方向，我最推荐你贡献这 3 类：\n\n## 1）AI Infra 测试\n\n* Ray cluster smoke test\n* PyTorch inference regression\n* Ascend runtime verification\n\n## 2）虚拟化 / 热迁移\n\n* live migration stability\n* vNMI regression\n* NUMA topology consistency\n\n## 3）数据库节点测试\n\n* openGauss HA failover\n* OS migration rollback\n* storage IO regression\n\n这些都很容易成为高价值 PR。\n\n---\n\n## 一句话总结\n\n**sig-QA 通过“版本计划 → 测试方案 → Mugen 自动化 → Compass-CI 持续回归 → 缺陷闭环”保障版本质量；参与贡献最好的方式是提交测试用例、参加众测、贡献复现脚本或增强测试框架。** ([Gitee][1])\n\n如果你愿意，我可以继续帮你设计：\n\n> **一个适合 openEuler AI SIG 的首个 QA 自动化测试 PR（基于 Ray / PyTorch）选题。**\n\n    {",
+      "citations": [
+        "https://gitee.com/openeuler/QA/blob/master/%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%80%85%E6%B5%8B%E8%AF%95%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97.md",
+        "https://www.openeuler.org/en/community/contribution/detail.html",
+        "https://www.openeuler.org/zh/security/management/",
+        "https://gitee.com/openeuler/community/blob/f5cfadd307ddf8c71ea72a036aa6f0db4b2729a7/sig/sig-QA/sig-QA.md"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_038",
+      "platform": "deepseek",
+      "query": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
+      "timestamp": "2026-04-09T12:00:17Z",
+      "raw_response": "Great question! openEuler’s SIG-QA (Special Interest Group for Quality Assurance) is responsible for version quality testing and community quality assurance. Here’s an overview of how they conduct version testing and how you can contribute.\n\n🔍 How SIG-QA Conducts Version Quality Testing\n1. Test Planning\n\nTest Strategy Development: Define test scopes (functional, performance, reliability, security, compatibility)\n\nTest Case Design: Create/update test cases based on new features and bug fixes\n\nResource Allocation: Assign test environments (physical, virtual, cloud)\n\n2. Test Execution Phases\nPhase\tFocus\tTools/Methods\nDaily Build Test\tBasic sanity, smoke tests\tLAVA, Jenkins\nFeature Test\tNew feature verification\tManual + automation (Python, Shell)\nRegression Test\tExisting functionality\tmugen (openEuler’s test framework)\nPerformance Test\tBenchmark, stress\tUnixBench, sysbench, stress-ng\nCompatibility Test\tHW/SW ecosystem\tLTP, OSTest, third-party apps\nSecurity Test\tVulnerability scanning\tLynis, OpenSCAP, CVEs\nLong-run Stability\t7×24 reliability\tStress testing, fault injection\n3. Key Testing Tools in openEuler\n\nmugen – Main automated test framework (supports both container and native testing)\n\navocado – Used for integration testing\n\nEulerTest – Customized for openEuler-specific scenarios\n\nrt-tests – Real-time kernel testing\n\n4. Quality Gates\n\nTest coverage: ≥ 80% for core packages\n\nBug reopening rate: < 5%\n\nCritical bug fix turnaround: ≤ 2 days\n\nRegression pass rate: 100%\n\n5. Release Testing Process\ntext\nCopy\nDownload\nCode Commit → CI (smoke test) → Daily Build Test → Feature Test → \nRegression Test → Performance/Security Test → Beta/Early Access → \nRelease Candidate → Formal Release\n👥 How to Participate in QA Contribution\nLevel 1: Beginner (Testing user-level scenarios)\n\nJoin the Community\n\nRegister on openEuler Community\n\nJoin SIG-QA mailing list: qa@openeuler.org\n\nJoin Slack/WeChat group (see community page)\n\nStart with Easy Tasks\n\nManual testing of desktop applications (GNOME/KDE tools)\n\nInstallation testing on different hardware (x86, ARM, RISC-V)\n\nBug reporting – Verify and reproduce issues\n\nSetup Test Environment\n\nbash\nCopy\nDownload\n# Install openEuler in VM or bare metal\n# Clone test frameworks\ngit clone https://gitee.com/openeuler/mugen.git\ncd mugen\n# Run a simple test suite\n./mugen.sh -f smoke_test\nLevel 2: Intermediate (Automation & framework contribution)\n\nWrite Test Cases\n\nCreate new test cases in mugen framework (YAML + Shell)\n\nSubmit via Pull Request to SIG-QA repository\n\nExample test case structure:\n\nyaml\nCopy\nDownload\ntest_suite: filesystem\ntest_case: ext4_basic_ops\nsteps:\n  - create ext4 partition\n  - mount and write test file\n  - verify file integrity\nexpectation: all operations succeed\n\nImprove Test Coverage\n\nIdentify untested packages (use dnf list installed vs. test database)\n\nFocus on: security updates, kernel modules, virtualization (KVM/StratoVirt)\n\nParticipate in Test Days\n\nOpenEuler holds “Test Days” before each release (every 2-3 months)\n\nSign up to test specific features (e.g., iSulad, A-Tune, secGear)\n\nLevel 3: Advanced (Core QA roles)\n\nMaintain Test Infrastructure\n\nHelp run CI/CD pipelines (Jenkins, GitLab CI)\n\nMaintain test labs (ARM64 servers, RISC-V boards like VisionFive)\n\nDevelop Testing Tools\n\nExtend mugen framework (add new test types, reporters)\n\nContribute to EulerTest or integration with LAVA\n\nLead Testing for a Release\n\nBecome a QA Release Manager for a specific version (e.g., openEuler 24.03 LTS)\n\nCoordinate between SIGs (Kernel, BaseOS, Virtualization)\n\n📋 Step-by-Step: Your First Contribution\nStep 1: Join the mailing list & IRC\n\nMail: qa@openeuler.org (send introduction)\n\nIRC: #openeuler-qa on Freenode (or use Gitee issues)\n\nStep 2: Find a “good first issue”\n\nVisit Gitee SIG-QA Issues and look for label: good-first-issue\n\nExample beginner tasks:\n\nTest a specific package on Raspberry Pi (ARM64)\n\nWrite a test case for ls command\n\nVerify a fixed bug in the latest daily build\n\nStep 3: Setup development environment\nbash\nCopy\nDownload\n# Install openEuler (or use container)\ndocker pull openeuler/openeuler:latest\n\n# Clone QA repository\ngit clone https://gitee.com/openeuler/QA.git\ncd QA\n\n# Run existing tests to understand the framework\n./run_test.sh -l  # list all tests\n./run_test.sh -t basic_system/test_ls.py\nStep 4: Submit your contribution\n\nCreate a Pull Request on Gitee\n\nFollow the PR template (test results, environment details)\n\nWait for review from SIG-QA maintainers (e.g., @lemon-higgins, @wuwei)\n\n🎯 Resources for Contributors\nResource\tLink\nSIG-QA Home\thttps://gitee.com/openeuler/QA\nMugen Framework\thttps://gitee.com/openeuler/mugen\nTest Days Calendar\topenEuler events page\nContributor Guide\tSIG-QA Wiki\nMeeting Schedule\tBi-weekly (Thurs 10:00 UTC+8) – join via WeLink\n💡 Tips for Success\n\nStart small – Run existing tests before writing new ones\n\nDocument everything – Clear test steps help developers fix bugs faster\n\nUse the same version – Always test against the latest master branch\n\nJoin meetings – SIG-QA holds open meetings every two weeks (agenda posted on mailing list)\n\nGet a mentor – Ask in mailing list for a mentor (many experienced testers are happy to help)\n\nWould you like me to provide a concrete example of writing and submitting a test case in mugen, or help you find a specific beginner task from the current issue tracker?",
+      "citations": [
+        "https://www.openeuler.org/",
+        "https://gitee.com/openeuler/QA",
+        "https://gitee.com/openeuler/QA/issues",
+        "https://gitee.com/openeuler/mugen",
+        "https://www.openeuler.org/en/events/",
+        "https://gitee.com/openeuler/QA/wikis",
+        "https://www.openeuler.org/zh/community/sig/",
+        "https://mail.openeuler.org/hyperkitty/list/qa@openeuler.org/",
+        "https://gitee.com/openeuler/EulerTest",
+        "https://gitee.com/src-openeuler/avocado-misc-tests",
+        "https://www.openeuler.org/zh/release/",
+        "https://build.openeuler.org/",
+        "https://gitee.com/openeuler/QA/wikis/%25E8%25B4%25A1%25E7%258C%25AE%25E6%258C%2587%25E5%258D%2597",
+        "https://www.openeuler.org/zh/community/contribution/",
+        "https://gitee.com/openeuler/QA/issues?label=meeting",
+        "https://ci.openeuler.org/",
+        "https://gitee.com/openeuler/lava",
+        "https://www.openeuler.org/zh/events/",
+        "https://space.bilibili.com/527064069"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_038",
+      "platform": "doubao",
+      "query": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "openEuler **sig-QA（Quality Assurance SIG）** 是社区核心的质量保障团队，负责**全版本、全场景的质量管控、测试体系建设与社区测试协同**。\n\n### 一、sig-QA 核心目标\n- **质量标准制定**：建立openEuler版本发布的质量准入与退出标准。\n- **全链路测试覆盖**：从Daily Build到LTS正式版，全流程质量把关。\n- **测试基础设施**：开发、维护测试框架与工具（如Mugen）。\n- **社区测试协同**：组织众测、推动各SIG自测、构建社区质量文化。\n- **缺陷闭环管理**：统一Bug/Security流程，确保版本高质量发布。\n\n### 二、版本质量测试流程（分层分级）\nopenEuler版本分为：**Daily Build → Beta → RC → Release**，测试逐级加严。\n\n#### 1. 每日构建（Daily Build）：自动化冒烟\n- **触发**：每日ISO构建完成后自动执行。\n- **核心范围**：\n  - 系统安装/启动/登录/网络/防火墙基础功能\n  - 核心服务（systemd、kdump、日志）可用性\n  - 软件包安装/卸载/依赖完整性\n  - 内核、容器、虚拟化等关键组件基础冒烟\n- **工具**：CI/CD + Mugen测试框架\n\n#### 2. Beta/RC版本：全面功能验证\n- **功能测试**：新特性、接口、场景用例全量执行。\n- **性能测试**：CPU/内存/IO/网络基准与对比。\n- **升级测试**：跨版本/热升级/回滚验证。\n- **兼容性测试**：硬件/软件/驱动适配。\n- **社区众测**：开放社区用户试用、反馈Bug。\n\n#### 3. Release（正式版）：质量终审\n- **压力/稳定性**：长稳、高并发、极限负载。\n- **安全测试**：CVE扫描、漏洞修复验证、合规检查。\n- **文档测试**：手册/指南准确性、一致性。\n- **回归测试**：全量用例重跑，确保无 regression。\n\n#### 4. 测试交付物\n- 测试方案/用例库（Mugen）\n- 缺陷报告与闭环记录\n- 版本质量报告与发布评估\n- 性能/安全/兼容性数据\n\n### 三、如何参与 sig-QA 社区贡献\n#### 1. 加入前准备\n- 注册 **AtomGit/Gitee** 并签署 **CLA**。\n- 订阅邮件列表：**qa@openeuler.org**。\n- 参加双周例会：**每双周三 16:00-17:00**。\n\n#### 2. 贡献路径（3个层级）\n##### （1）单包级（入门）\n- 为软件包补充单元/功能测试用例。\n- 提交`make check`、自测脚本到OBS构建流程。\n- 报告包依赖、安装、运行时Bug。\n\n##### （2）版本级（核心）\n- 参与**Beta/RC众测**，下载镜像、安装体验、提交Issue。\n- 基于**Mugen**编写/维护系统集成测试用例。\n- 执行性能/压力/安全专项测试。\n- 编写/评审测试报告。\n\n##### （3）工具/框架级（进阶）\n- 开发/优化 **Mugen测试框架**。\n- 构建CI/CD自动化测试流水线。\n- 开发缺陷分析、性能对比、安全扫描工具。\n- 完善测试文档、指南、模板。\n\n#### 3. 标准贡献流程\n1. **认领任务**：在QA仓库找`good first issue`。\n2. **编写用例**：按Mugen规范开发、本地调试通过。\n3. **提交PR**：标题格式`[QA][Mugen] 模块: 功能`。\n4. **评审+CI**：通过门禁检查、维护者Review。\n5. **合入+回归**：用例纳入版本测试集。\n\n### 四、核心资源入口\n- **SIG主页**：https://www.openeuler.org/zh/sig/sig-detail/?name=sig-qa\n- **代码仓（AtomGit）**：https://atomgit.com/openeuler/QA\n- **Mugen测试框架**：https://atomgit.com/openeuler/mugen\n- **邮件列表**：qa@openeuler.org\n- **贡献指南**：https://gitee.com/openeuler/QA/blob/master/贡献指南.md\n---\n\n要不要我帮你整理一份 **sig-QA 新手入门清单**（含3个可直接认领的Good First Issues、Mugen环境搭建步骤、PR提交模板）？\nchatGPT:\nopenEuler **sig-QA（QA SIG）** 是社区版本质量保障的核心组织，职责不是“只做测试执行”，而是覆盖 **版本测试策略、测试框架、缺陷闭环、众测协同、CI 自动化** 的完整质量体系。官方明确指出：\n\n> **QA SIG 是社区版本测试管理的统一负责团队，负责整体测试策略制定与版本测试活动推进。** ([Gitee][1])\n\n你可以把它理解为：\n\n> **Release 质量门禁 + 测试平台 + 社区测试协作中心**\n\n下面我按 **“怎么做版本质量测试” + “如何参与 QA 贡献”** 两部分给你拆解。\n\n---\n\n# 一、sig-QA 如何进行版本质量测试\n\nQA SIG 的测试一般分 **单包级、特性级、版本级、CI 持续测试级** 四层。官方开发者测试贡献指南写得很清楚。 ([Gitee][1])\n\n---\n\n## 1）需求分析：从版本计划开始\n\n测试不是拿到 ISO 才开始，而是从 **Release SIG 的版本计划** 就介入。\n\n流程通常是：\n\n* Release SIG 发布版本 roadmap\n* 各 SIG 提交新特性需求\n* QA SIG 分析风险点\n* 输出测试范围和优先级\n\n重点关注：\n\n* 新增特性\n* 升级风险\n* 架构差异（x86 / Arm / RISC-V）\n* 兼容性变更\n* CVE 修复影响\n\n这一步本质是：\n\n> **test planning before coding freeze**\n\n---\n\n## 2）测试方案设计（最核心）\n\n这是 QA SIG 的核心专业能力。\n\n官方流程明确要求：\n\n> 先做 **测试设计方案评审**，通过后再编码。 ([Gitee][1])\n\n测试方案一般包含：\n\n* 测试目标\n* feature scope\n* 功能点拆解\n* 正向/异常路径\n* 升级回滚\n* 性能基线\n* 安全基线\n* 自动化可行性\n\n例如 AI 特性可能覆盖：\n\n* PyTorch 安装\n* CUDA/CANN 运行\n* Ray 多节点拉起\n* 推理吞吐对比\n* NUMA 调度验证\n\n这和你关注的 **AI Infra 场景测试** 非常契合。\n\n---\n\n## 3）自动化测试代码编写：基于 Mugen\n\n官方开放的主力测试框架是 **Mugen**。\n开发者按规范写测试脚本并本地调试。 ([Gitee][1])\n\n常见内容：\n\n* 安装验证\n* 服务启动验证\n* 命令输出断言\n* 容器/虚拟机场景\n* kernel module 验证\n* 跨版本升级\n* rollback\n\n典型流程：\n\n```bash\ngit clone https://atomgit.com/openeuler/mugen\nbash mugen.sh -f test_suite_name\n```\n\nMugen 更偏：\n\n> **系统级集成测试 / RPM 包验证 / 版本回归**\n\n---\n\n## 4）CI 持续测试：Compass-CI\n\n版本级持续质量主要依赖 **Compass-CI**。官方贡献页明确把它列为社区测试系统核心平台。 ([openEuler][2])\n\n主要承担：\n\n* 每日构建验证\n* 多架构回归\n* kernel / toolchain CI\n* benchmark\n* boot test\n* 性能趋势跟踪\n\n这一步是：\n\n> **continuous regression + milestone gating**\n\n---\n\n## 5）版本交付测试与缺陷闭环\n\n测试完成后，由特性所属 SIG 和 QA SIG 共同输出：\n\n* Feature test report\n* Known issues\n* blocker defects\n* release recommendation\n\n官方缺陷管理明确说明：\n\n> **QA SIG + Release SIG 联合负责版本质量与缺陷优先级推进。** ([openEuler][3])\n\n---\n\n# 二、如何参与社区 QA 贡献\n\n官方明确说：\n\n> **Testing is the responsibility of all contributors.** ([openEuler][2])\n\n也就是说 QA 不只是 QA SIG maintainer 的事，开发者也非常欢迎参与。\n\n---\n\n## 路径 1：提交测试用例（最推荐）\n\n这是最容易开始的方式。\n\n你可以贡献：\n\n* 单包测试\n* 新特性测试\n* regression case\n* migration test\n* virtualization HA case\n\n提交路径通常是：\n\n* **QA**\n* **Mugen**\n* integration-test 仓库\n\n官方流程支持直接 PR。 ([Gitee][1])\n\n---\n\n## 路径 2：参与社区众测\n\n对于即将发布的新版本，QA SIG 会组织：\n\n* feature beta test\n* community crowd test\n* architecture adaptation\n* upgrade rehearsal\n\n你可以报名真实环境测试：\n\n* 物理机\n* VM\n* GPU 节点\n* AI 推理服务器\n\n这对你做 **AI 节点 / openGauss 服务器测试案例** 很有价值。\n\n---\n\n## 路径 3：提交缺陷与复现脚本\n\n很高价值。\n\n建议提交：\n\n* clear repro steps\n* logs\n* minimal testcase\n* kernel panic trace\n* performance regression baseline\n\nQA SIG 很重视 **可自动复现脚本**。\n\n---\n\n## 路径 4：参与测试平台建设（高阶）\n\n如果你偏工程化，非常推荐参与：\n\n* Mugen framework enhancement\n* Compass-CI pipeline\n* flaky case detection\n* benchmark automation\n* test report generation\n\n这非常适合你未来的 **AI Infra 自动化验证平台能力建设**。\n\n---\n\n# 三、最适合你的 QA 切入方向（强烈推荐）\n\n结合你最近关注方向，我最推荐你贡献这 3 类：\n\n## 1）AI Infra 测试\n\n* Ray cluster smoke test\n* PyTorch inference regression\n* Ascend runtime verification\n\n## 2）虚拟化 / 热迁移\n\n* live migration stability\n* vNMI regression\n* NUMA topology consistency\n\n## 3）数据库节点测试\n\n* openGauss HA failover\n* OS migration rollback\n* storage IO regression\n\n这些都很容易成为高价值 PR。\n\n---\n\n## 一句话总结\n\n**sig-QA 通过“版本计划 → 测试方案 → Mugen 自动化 → Compass-CI 持续回归 → 缺陷闭环”保障版本质量；参与贡献最好的方式是提交测试用例、参加众测、贡献复现脚本或增强测试框架。** ([Gitee][1])\n\n如果你愿意，我可以继续帮你设计：\n\n> **一个适合 openEuler AI SIG 的首个 QA 自动化测试 PR（基于 Ray / PyTorch）选题。**\n\n{",
+      "citations": [
+        "https://gitee.com/openeuler/QA/blob/master/%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%80%85%E6%B5%8B%E8%AF%95%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97.md",
+        "https://www.openeuler.org/en/community/contribution/detail.html",
+        "https://www.openeuler.org/zh/security/management/",
+        "https://gitee.com/openeuler/QA/blob/master/%E7%A4%BE%E5%8C%BA%E6%B5%8B%E8%AF%95%E4%BD%93%E7%B3%BB%E4%BB%8B%E7%BB%8D.md",
+        "https://docs.openeuler.org/en/docs/24.09/docs/Releasenotes/contribution.html",
+        "https://gitee.com/openeuler/community/blob/f5cfadd307ddf8c71ea72a036aa6f0db4b2729a7/sig/sig-QA/sig-QA.md"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_038",
+      "platform": "qwen",
+      "query": "",
+      "timestamp": "2026-04-09T14:18:21Z",
+      "raw_response": "",
+      "citations": [
+        "https://gitee.com/openeuler/QA",
+        "https://gitee.com/openeuler/test-tools",
+        "https://www.openeuler.org/zh/sig/sig-QA",
+        "https://gitee.com/openeuler/mugen",
+        "https://www.openeuler.org/zh/community/contribution",
+        "https://atomgit.com/openeuler/test-tools",
+        "https://atomgit.com/openeuler/QA",
+        "https://gitee.com/openeuler/QA/blob/master/%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%80%85%E6%B5%8B%E8%AF%95%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97.md",
+        "https://gitee.com/openeuler/QA/tree/master/Test_Strategy",
+        "https://www.openeuler.org/zh/community/contribution/detail.html"
+      ],
+      "model": "Qwen",
+      "status": "timeout"
+    },
+    {
+      "question_id": "q_040",
+      "platform": "chatgpt",
+      "query": "如何向 openEuler TSC 提交 SIG 申请，新建特别兴趣小组的流程是什么？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "向 openEuler TSC（更准确地说，当前流程里由 **TC/TSC 技术委员会例会评审**）提交 **新 SIG 申请**，官方已经有一套非常标准的 **“模板建 SIG → 提交 community PR → 发邮件给 TC → 例会评审 → 合入生效”** 流程。官方 SIG 指南把它总结为 **6 个阶段：Find → Apply → Discuss → Approve → Operate → Improve**。([openEuler][1])\n\n我给你按 **实操步骤（可直接照着做）** 拆开。\n\n---\n\n# 一、申请前：先满足最基本条件\n\n官方要求至少先找到 **2–3 位有共同目标的个人或公司成员**，一起发起 SIG。这个前置条件非常重要。([openEuler][1])\n\n建议至少具备：\n\n* **明确技术方向**\n\n  * 例如 AI Infra、OS Migration、Database HA、LLM Serving\n* **2–3 位核心成员**\n\n  * 至少 1 位可承担 maintainer\n* **初始仓库或项目规划**\n* **未来 1–2 个版本的 roadmap**\n* **例会和邮件列表运营意愿**\n\n一句话：\n\n> **SIG 不是“兴趣群”，而是要持续产出可交付成果的自治技术组。**\n\n---\n\n# 二、标准流程：新建 SIG 的 8 步\n\n这是最实用的标准路径。\n\n---\n\n## 1）Fork `community` 仓库\n\n所有 SIG 元信息都维护在 community 仓库。\n\n```bash\ngit clone https://gitee.com/YOURID/community.git\ncd community/sig\n```\n\n官方论坛给了完整模板流程。([openEuler 论坛][2])\n\n---\n\n## 2）复制 SIG 模板目录\n\n直接基于官方模板创建：\n\n```bash\ncp -r sig-template sig-yoursig\ncd sig-yoursig\n```\n\n模板入口官方可直接参考：([openEuler][3])\n\n需要修改：\n\n* `README.md`\n* `sig-info.yaml`\n* `sig-yoursig.md`\n* `sig-yoursig_cn.md`\n\n---\n\n## 3）编写 SIG Charter（最关键）\n\n这是 TSC 最关注的部分。\n\n必须写清楚：\n\n### 1. Scope（范围）\n\n例如：\n\n* 负责 AI 推理 runtime\n* 负责跨平台 OS 迁移\n* 负责数据库高可用生态\n\n### 2. Deliverables（交付）\n\n例如：\n\n* 代码仓库\n* 软件包\n* 文档\n* CI 测试\n* benchmark\n\n### 3. Governance（治理）\n\n成员角色参考官方定义：Contributor / Committer / Maintainer。([openEuler][4])\n\n建议至少写：\n\n* Maintainer 名单\n* 决策机制\n* PR review SLA\n* 例会频率\n\n---\n\n## 4）配置成员信息 `sig-info.yaml`\n\n这是权限生效核心文件。\n\n至少配置：\n\n* global maintainer\n* committers\n* contributors\n\n官方明确说明：\n\n> `sig_info.yaml` 是 SIG 成员权限控制核心。([openEuler][5])\n\n建议至少有：\n\n```yaml\nmaintainers:\n  - gitee_id: yourid\ncommitters:\n  - gitee_id: partner1\ncontributors:\n  - gitee_id: partner2\n```\n\n---\n\n## 5）配置仓库信息\n\n如果是源码项目，改：\n\n* `repository/openeuler.yaml`\n\n如果是软件包，改：\n\n* `repository/src-openeuler.yaml`\n\n例如新增：\n\n```yaml\n- repo:\n  - openeuler/your-project\n```\n\n---\n\n## 6）更新 `sigs.yaml`\n\n在 `community/sig/sigs.yaml` 末尾新增：\n\n```yaml\n- name: sig-yoursig\n  repositories:\n    - openeuler/your-project\n```\n\n这是 SIG 出现在官方 SIG List 的关键一步。([openEuler 论坛][2])\n\n---\n\n## 7）提交 PR\n\n提交到 `openeuler/community`：\n\n```bash\ngit add .\ngit commit -m \"add sig-yoursig\"\ngit push\n```\n\n然后发起 PR。\n\n---\n\n## 8）向 TSC/TC 发邮件申请（必须）\n\n这是正式进入评审的关键。\n\n官方论坛建议发到：\n\n**`tc@openeuler.org`** ([openEuler 论坛][2])\n\n主题建议：\n\n```text\n[新SIG提案] SIG for AI Infra Runtime\n```\n\n正文必须包含：\n\n* SIG 目标\n* 技术范围\n* 核心成员\n* roadmap\n* PR 链接\n* 希望安排 TC 例会评审\n\n官方贡献指南也明确：\n\n> 使用 mailing list 安排 Technical Committee regular meeting。([openEuler][6])\n\n---\n\n# 三、TSC/TC 会重点看哪些条件\n\n能不能通过，核心看这 5 点：\n\n## 1）是否与现有 SIG 重复\n\n最容易被 challenge。\n\n例如你要做 AI Infra，就要说明和 AI SIG / CloudNative SIG 的边界。\n\n---\n\n## 2）是否有明确长期产出\n\n至少给出：\n\n* 6 个月 roadmap\n* milestone\n* first release deliverable\n\n---\n\n## 3）是否有持续 maintainer\n\n不是一次性 proposal。\n\n至少 1 位长期 maintainer 很关键。\n\n---\n\n## 4）是否能进入 openEuler release\n\n最好明确：\n\n> 最终交付进入 `openeuler` 或 `src-openeuler`\n\n---\n\n## 5）社区价值是否足够大\n\n比如：\n\n* 多架构\n* AI Native\n* Migration\n* HPC\n* RISC-V\n\n更容易通过。\n\n---\n\n# 四、给你的高通过率建议（非常实战）\n\n结合你最近持续关注：\n\n* AI Infra\n* Migration\n* openGauss\n* QA\n* 社区运营\n\n如果你未来要申请 SIG，我建议优先考虑这类方向：\n\n## 方向 1：AI Infra Serving SIG\n\n聚焦：\n\n* Ray\n* vLLM\n* 推理容器镜像\n* 异构调度\n\n## 方向 2：Database Ecosystem SIG\n\n聚焦：\n\n* openGauss on openEuler\n* HA / migration / benchmark\n\n这两类都很符合社区趋势。\n\n---\n\n## 一句话总结\n\n**新建 openEuler SIG 的标准流程是：找 2–3 位发起人 → Fork community → 基于 sig-template 编写 Charter 和成员配置 → 提交 community PR → 发邮件到 [tc@openeuler.org](mailto:tc@openeuler.org) → 在 TC/TSC 例会上评审通过后合入正式生效。** ([openEuler][1])\n\n如果你愿意，我可以下一步直接帮你起草一份：\n\n> **“AI Infra SIG 新建提案（发给 openEuler TSC 的正式邮件模板 + Charter 模板）”**。\n\n\"https://www.openeuler.org/en/sig/sig-guidance/\",",
+      "citations": [
+        "https://www.openeuler.org/en/sig/sig-guidance/",
+        "https://forum.openeuler.org/t/topic/445",
+        "https://www.openeuler.org/en/sig/sig-template",
+        "https://www.openeuler.org/en/sig/role-description",
+        "https://www.openeuler.org/en/blog/2022-11-12-04/04.html",
+        "https://www.openeuler.org/en/community/contribution/detail.html"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_040",
+      "platform": "deepseek",
+      "query": "如何向 openEuler TSC 提交 SIG 申请，新建特别兴趣小组的流程是什么？",
+      "timestamp": "2026-04-09T12:00:27Z",
+      "raw_response": "在 openEuler 社区中，新建 SIG 需要遵循既定流程，核心是向 TSC 提交申请并获批准。",
+      "citations": [
+        "https://gitee.com/openeuler/tsc",
+        "https://www.openeuler.org/zh/sig/",
+        "https://gitee.com/openeuler/community/blob/master/zh/governance.md",
+        "https://gitee.com/openeuler/tsc/blob/master/proposals/SIG-Template.md",
+        "https://gitee.com/openeuler/tsc#%25E4%25BC%259A%25E8%25AE%25AE",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://gitee.com/openeuler/community/blob/master/zh/sig-governance.md",
+        "https://www.openeuler.org/zh/community/contribution/",
+        "https://gitee.com/openeuler/infrastructure",
+        "https://gitee.com/openeuler/tsc/issues/I5G0KJ",
+        "https://gitee.com/openeuler/tsc/issues"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_040",
+      "platform": "doubao",
+      "query": "如何向 openEuler TSC 提交 SIG 申请，新建特别兴趣小组的流程是什么？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "向 openEuler TSC（技术委员会）申请新建 SIG（特别兴趣小组），核心是 **准备完整提案 → 提交PR → 邮件预约TC会议 → 现场答辩 → 批准建组** 的标准化流程。以下是完整、可直接执行的步骤（2026最新版）。\n\n---\n\n## 一、申请前必备条件\n1. **核心团队**：至少 **2–3名** 社区贡献者（Maintainer/Committer优先），明确 **1名负责人**。\n2. **技术方向**：\n   - 属于 openEuler 生态空白/薄弱领域（如：新硬件、AI框架、迁移工具、安全、嵌入式等）\n   - 不与现有 **100+ SIG** 范围重叠（先查 [SIG列表](sslocal://flow/file_open?url=https%3A%2F%2Fwww.openeuler.org%2Fzh%2Fsig%2Fsig-list%2F&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)）\n3. **目标清晰**：有明确 **工作范围、交付物、 roadmap、计划维护的软件包/仓库**。\n4. **账号准备**：\n   - 注册 **AtomGit**（主仓）并签署 **CLA**\n   - 加入 **openEuler 社区微信/钉钉群**\n\n---\n\n## 二、完整申请流程（6步）\n### 1. 准备提案材料（核心）\n**仓库**：`openeuler/community` → `sig/`\n**模板**：\n- `sig-template.md`（英文）\n- `sig-template_cn.md`（中文）\n\n#### （1）创建SIG目录与文件\n```bash\n# 1. Fork community仓库并clone\ngit clone https://atomgit.com/openeuler/community.git\ncd community/sig\n\n# 2. 新建SIG目录（命名：sig-xxx，小写+短横线）\nmkdir sig-MyTopic\ncd sig-MyTopic\n\n# 3. 从模板生成提案文件\ncp ../sig-template_cn.md ./sig-MyTopic_cn.md\ncp ../sig-template.md ./sig-MyTopic.md\n```\n\n#### （2）填写提案（必填项）\n- **SIG名称**：`sig-xxx`（如：sig-Migration、sig-LLM、sig-RISCV）\n- **SIG描述**：1–2句清晰定位（技术领域+价值）\n- **负责人/Maintainers**：AtomGit ID、姓名、邮箱\n- **Committers**：初始成员列表\n- **工作范围**：\n  - 维护哪些软件包/项目\n  - 负责哪些特性/场景\n  - 跨SIG协作关系\n- **交付物**：\n  - 代码仓、文档、测试用例、SDK、工具\n- **Roadmap**：6个月/1年计划\n- **例会**：时间、平台、会议纪要链接\n- **邮件列表**：`xxx@openeuler.org`（申请后自动开通）\n\n#### （3）配置文件（关键）\n- **`sig-info.yaml`**（成员/权限）\n  ```yaml\n  name: sig-MyTopic\n  description: \"xxx技术方向维护与创新\"\n  mailing_list: xxx@openeuler.org\n  meeting_url: \"https://xxx/meeting\"\n  maintainers:\n    - userid1\n    - userid2\n  committers:\n    - userid3\n  repositories:\n    - openeuler/sig-MyTopic\n    - src-openeuler/pkg1\n    - src-openeuler/pkg2\n  ```\n\n- **`sigs.yaml`**（注册SIG）\n  ```yaml\n  - name: sig-MyTopic\n    repositories:\n      - openeuler/sig-MyTopic\n      - src-openeuler/pkg1\n  ```\n\n- **`README.md`**（SIG首页）\n  - 目标、范围、成员、快速入门、联系方式\n\n### 2. 提交PR（Pull Request）\n- 标题格式：\n  ```\n  [SIG Proposal] Create sig-MyTopic\n  ```\n- 内容：\n  - 附上SIG目标、范围、成员、 roadmap\n  - 说明 **为何需要新建SIG、不并入现有SIG的理由**\n\n### 3. 预约TC会议（必须）\n- **收件人**：`tc@openeuler.org`\n- **标题**：`[新SIG提案] sig-MyTopic 申请TC评审`\n- **正文**：\n  - SIG名称、目标、范围\n  - **PR链接**\n  - 申请参会的 **TC例会时间**（双周周一下午）\n  - 联系人、电话\n\n### 4. TC例会答辩（10–15分钟）\n- **议程**：\n  1. 主讲人介绍：**背景、目标、范围、团队、计划**\n  2. TSC成员提问：\n     - 技术必要性、重叠性、资源保障\n     - 交付物、 roadmap、社区价值\n  3. 投票：**超过半数同意即通过**\n\n### 5. 批准与初始化\n- PR合入 → 系统自动创建：\n  - 邮件列表：`xxx@openeuler.org`\n  - AtomGit仓库：`openeuler/sig-xxx`\n  - SIG主页：openEuler官网可查\n\n### 6. SIG正式运作\n- 召开首次例会\n- 接收社区成员加入\n- 启动特性开发/包维护\n\n---\n\n## 三、SIG提案写作要点（提高通过率）\n### ✅ 必写清楚\n- **问题**：当前社区缺什么\n- **价值**：对版本/生态/用户有什么用\n- **边界**：做什么、**不做什么**（避免重叠）\n- **团队**：成员背景、过往贡献\n- **计划**：3/6/12个月可验收交付物\n\n### ❌ 常见拒签原因\n- 范围模糊、与现有SIG高度重叠\n- 无稳定团队、仅1人支撑\n- 无明确 roadmap与交付物\n- 技术方向与社区主线无关\n\n---\n\n## 四、关键资源链接\n- **TC邮箱**：`tc@openeuler.org`\n- **社区仓库**：https://atomgit.com/openeuler/community\n- **SIG申请指南**：https://atomgit.com/openeuler/community/blob/master/zh/technical-committee/governance/README.md\n- **SIG模板**：https://atomgit.com/openeuler/community/tree/master/sig\n- **TC例会日历**：https://www.openeuler.org/zh/community/meeting/\n\n---\n\n## 五、快速自检清单\n- [ ] 2–3人稳定团队\n- [ ] 无重叠的清晰技术范围\n- [ ] 完整提案文件（中英文+yaml+README）\n- [ ] 已提交PR\n- [ ] 已发邮件预约TC会议\n- [ ] 准备好10分钟答辩PPT\n---\n\n要不要我直接给你一份 **可复制的SIG提案模板（含yaml配置与PR标题/邮件模板）**，你填空即可提交？\n    {",
+      "citations": [
+        "https://www.openeuler.org/en/sig/sig-guidance/"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_040",
+      "platform": "qwen",
+      "query": "",
+      "timestamp": "2026-04-09T14:30:44Z",
+      "raw_response": "",
+      "citations": [
+        "https://www.openeuler.org/zh/sig/sig-guidance/",
+        "https://www.openeuler.org/zh/sig/sig-list/",
+        "https://gitee.com/openeuler/community/blob/master/zh/technical-committee/governance/README.md",
+        "https://www.openeuler.org/",
+        "https://gitee.com/openeuler/community",
+        "https://gitee.com/openeuler/community/blob/master/zh/technical-committee/governance/SIG-governance-requirements.md",
+        "https://www.openeuler.org/zh/sig/role-description/",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/sig/meeting-guide/"
+      ],
+      "model": "Qwen",
+      "status": "success"
+    },
+    {
+      "question_id": "q_060",
+      "platform": "chatgpt",
+      "query": "如何参与 openEuler CloudNative SIG 双周例会？议题如何提交和跟踪？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "参与 openEuler **CloudNative SIG 双周例会**，官方已经把流程写得非常清晰：\n\n> **每两周周二 16:00–17:30（北京时间）固定例会，议题可通过邮件列表或 Etherpad 提前申报。** ([Gitee][1])\n\n这类会议非常开放，**任何开发者都可以旁听、提议题、认领任务、跟进 PR/Issue**。\n\n我给你按 **“怎么参会 → 怎么提议题 → 怎么跟踪落地”** 做一个实操版流程。\n\n---\n\n# 一、如何参与 CloudNative SIG 双周例会\n\n## 1）先确认固定时间\n\nCloudNative SIG 仓库 README 明确写了固定节奏：\n\n> **Biweekly on Tuesdays from 4:00pm - 5:30pm** ([Gitee][1])\n\n也就是：\n\n* **频率：双周一次**\n* **时间：周二 16:00–17:30（北京时间）**\n* **形式：线上会议**\n* **对象：社区开发者 / SIG 成员 / 用户 / 厂商**\n\n---\n\n## 2）订阅邮件列表获取会议通知（强烈推荐）\n\nCloudNative SIG 官方邮件列表是：\n\n> **[cloudnative@openeuler.org](mailto:cloudnative@openeuler.org)** ([Gitee][1])\n\n建议先去官方邮件列表入口订阅： ([openEuler][2])\n\n* 邮件会提前同步：\n\n  * 本次会议链接\n  * 当前议题列表\n  * 主讲人\n  * 历史纪要\n  * 下次 roadmap 讨论方向\n\n这是最稳定的信息源。\n\n---\n\n## 3）从 SIG 中心查看历史会议纪要\n\nSIG 页面明确提供：\n\n> **查看历史会议纪要（公开）** ([openEuler][3])\n\n你可以先快速看最近 3–5 次会议，了解当前热点：\n\n* KubeOS\n* iSulad\n* kata\n* K8s install\n* KubeEdge / MCP\n* NestOS\n* WASM / sandbox\n\n这样第一次参会更容易跟上讨论节奏。\n\n---\n\n# 二、议题如何提交（官方推荐 2 种）\n\n官方 README 写得非常直接：\n\n> **Declare the issue by mail or etherpad** ([Gitee][1])\n\n也就是两种标准方式。\n\n---\n\n## 方式 1：邮件申报（最正式）\n\n直接发邮件到：\n\n> **[cloudnative@openeuler.org](mailto:cloudnative@openeuler.org)**\n\n推荐标题格式：\n\n```text\n[Topic] CloudNative SIG Biweekly - Ray on openEuler AI Node Optimization\n```\n\n正文建议包含：\n\n* **议题标题**\n* **背景**\n* **希望讨论的问题**\n* **是否需要 maintainer 决策**\n* **预计 10–15 分钟**\n* **相关 PR / Issue 链接**\n\n模板示例：\n\nHi CloudNative SIG,\n\nI would like to propose a topic for the next biweekly meeting.\n\nTopic:\nKubeOS + AI inference node runtime optimization on openEuler\n\nDiscussion points:\n\n1. Best practice for Ray worker node OS image\n2. Container runtime choice: iSulad vs containerd\n3. NUMA scheduling for inference workloads\n\nExpected time:\n15 minutes\n\nRelated issues:\n\n* atomgit issue #123\n* draft PR for benchmark scripts\n\nBest,\nshuang\n\n历史邮件里也能看到类似 **“双周例会议题申报”** 的主题格式。 ([Mailweb][4])\n\n---\n\n## 方式 2：Etherpad 直接加议题（最高效）\n\n官方指定 Etherpad 地址：\n\n> **[https://etherpad.openeuler.org/p/sig-CloudNative-meetings](https://etherpad.openeuler.org/p/sig-CloudNative-meetings)** ([Gitee][1])\n\n你可以直接在文档里补充：\n\n* 议题标题\n* 申报人\n* 相关链接\n* 希望输出的决策\n\n这是 SIG 内最常见的协作方式。\n\n---\n\n# 三、议题如何跟踪（最重要）\n\n真正有价值的是 **会后跟踪闭环**。\n\n建议按这条链路：\n\n## 1）会议纪要跟踪\n\nEtherpad 通常会保留：\n\n* 决策结论\n* action item\n* owner\n* due date\n\n重点看：\n\n> **谁认领（owner）**\n\n---\n\n## 2）转成 AtomGit / Gitee Issue\n\nCloudNative SIG 仓库已经迁移到 AtomGit，Gitee 页面也给出了迁移提示。 ([Gitee][1])\n\n建议把会议结论落成：\n\n* feature issue\n* bug issue\n* enhancement\n* RFC proposal\n\n这样方便持续追踪。\n\n---\n\n## 3）PR 挂钩会议 action item\n\n如果你有代码贡献，建议 PR 描述里写：\n\n```text\nDiscussed in CloudNative SIG biweekly meeting 2026-04-xx\nAction owner: shuang\n```\n\n这样 maintainer review 会非常顺畅。\n\n---\n\n# 四、最适合你提交的议题方向（非常推荐）\n\n结合你最近持续关注 **AI Infra + openEuler**，CloudNative SIG 很适合这些议题：\n\n## 1）AI 推理节点 OS 镜像\n\n* KubeOS for Ray worker\n* GPU/NPU runtime image\n* immutable node OS\n\n## 2）LLM Serving\n\n* Ray Serve on openEuler\n* iSulad for inference pods\n* K8s + NUMA tuning\n\n## 3）迁移与兼容\n\n* containerd → iSulad migration\n* CentOS K8s node → openEuler node\n\n这些都和 CloudNative SIG 当前 scope 高度一致。 ([Gitee][1])\n\n---\n\n## 一句话总结\n\n**参与 CloudNative SIG 双周例会的最佳路径是：订阅 `cloudnative@openeuler.org` → 每双周周二 16:00 参会 → 通过邮件或 Etherpad 提交议题 → 会后将 action item 转成 Issue/PR 持续跟踪。** ([Gitee][1])\n\n如果你愿意，我可以继续帮你直接起草一个：\n\n> **“Ray / AI Node Runtime on openEuler” 的 CloudNative SIG 双周例会议题提案邮件**。",
+      "citations": [
+        "https://gitee.com/openeuler/cloudnative",
+        "https://www.openeuler.org/en/community/mailing-list/",
+        "https://www.openeuler.org/zh/sig/sig-CloudNative",
+        "https://mailweb.openeuler.org/archives/list/dev%40openeuler.org/latest?%253Bamp%253Bamp%253Bpage%253D3%253D%2526page%253D6=%253D&count=50&page=66&utm_source=chatgpt.com"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_060",
+      "platform": "deepseek",
+      "query": "如何参与 openEuler CloudNative SIG 双周例会？议题如何提交和跟踪？",
+      "timestamp": "2026-04-09T12:01:36Z",
+      "raw_response": "参与 openEuler CloudNative SIG 双周例会及进行议题管理。",
+      "citations": [
+        "https://gitee.com/openeuler/cloudnative",
+        "https://gitee.com/openeuler/cloudnative/issues",
+        "https://openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/community/calendar/",
+        "https://gitee.com/openeuler/cloudnative/wikis",
+        "https://www.openeuler.org/zh/community/contribution/meeting/",
+        "https://gitee.com/openeuler/cloudnative/issues/I9ABCD",
+        "https://gitee.com/openeuler/cloudnative#",
+        "https://gitee.com/openeuler/meeting"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_060",
+      "platform": "doubao",
+      "query": "如何参与 openEuler CloudNative SIG 双周例会？议题如何提交和跟踪？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "---\n\n### 一、CloudNative SIG 基本信息\n- **SIG全称**：sig-CloudNative（云原生特别兴趣小组）\n- **负责范围**：Kubernetes、iSulad、containerd、podman、NestOS、Kata、Volcano、云原生工具链等\n- **邮件列表**：**cloudnative@openeuler.org**（核心通知渠道）\n- **代码仓**：https://atomgit.com/openeuler/cloudnative\n- **例会周期**：**双周一次**（通常周四/周五 16:00–17:00，以日历为准）\n- **会议平台**：**WeLink（蓝版）** 或 Zoom\n\n---\n\n### 二、如何参与例会（3步）\n#### 1. 订阅邮件列表（必做）\n- 订阅页：https://www.openeuler.org/zh/community/mailing-list/\n- 找到 `cloudnative@openeuler.org` → 输入邮箱 → 点 **Subscribe**\n- 邮箱收确认邮件 → 点链接完成订阅\n- 作用：接收会议邀请、议题征集、纪要、版本通知\n\n#### 2. 获取会议信息（2种方式）\n**方式1：官网开发者日历（推荐）**\n- 地址：https://www.openeuler.org/zh/community/meeting/\n- 搜索 **sig-CloudNative** → 查看时间、**WeLink链接/会议ID**\n\n**方式2：openEuler 微信小程序**\n- 微信搜：**openEuler社区** → 进入 **会议** → 搜 CloudNative\n- 直接点 **加入会议**（免密）\n\n#### 3. 加入会议（WeLink）\n- 方式A：浏览器打开链接 → 选 **浏览器加入**\n- 方式B：安装 **蓝版WeLink** → 输入会议号/点链接\n- 建议改名：`姓名-公司-GiteeID`\n\n---\n\n### 三、议题如何提交（Etherpad）\n#### 1. 会议Etherpad地址\n- CloudNative 例会专用：\n  **https://etherpad.openeuler.org/p/sig-cloudnative-meetings**\n\n#### 2. 提交格式（直接编辑）\n```\n# 议题X：简短标题（如：Kubernetes 1.30 适配进展）\n- 发起人：GiteeID/姓名/公司\n- 背景/问题：1–2句\n- 方案/PR/Issue：链接\n- 预计时长：5/10分钟\n- 期望结论：讨论/决策/评审\n```\n\n#### 3. 提交时机\n- **例会前3天**截止（Maintainer会前整理议程）\n- 紧急议题：邮件 `cloudnative@openeuler.org` 申请加塞\n\n---\n\n### 四、议题与决议跟踪（4种方式）\n1. **Etherpad 实时更新**\n   - 会议中：主持人记录讨论、结论、责任人、截止日\n   - 会后：24小时内更新纪要、Action Item\n\n2. **会议纪要归档**\n   - 纪要页：https://meeting-minutes.openeuler.org/\n   - 搜 `sig-CloudNative` 看历史视频+文字\n\n3. **Issue/PR 跟踪**\n   - 议题关联 Issue：`openeuler/cloudnative` 仓库\n   - 标签：`meeting`、`decision`、`action`\n\n4. **邮件同步**\n   - 纪要+Action发至 `cloudnative@openeuler.org`\n\n---\n\n### 五、参会与贡献要点\n- **签到**：Etherpad 填写 `Attendees`\n- **发言**：举手/文字，主持人按议程顺序\n- **Action认领**：主动接任务，标注 `Assignee`、`Deadline`\n- **角色**：\n  - 普通：参会、提议题、反馈\n  - Committer：评审PR、投票决策\n  - Maintainer：主持、排期、最终决策\n\n---\n\n### 六、快速入门清单\n- [ ] 订阅 `cloudnative@openeuler.org`\n- [ ] 收藏 Etherpad：https://etherpad.openeuler.org/p/sig-cloudnative-meetings\n- [ ] 收藏日历：https://www.openeuler.org/zh/community/meeting/\n- [ ] 下次例会提交1个议题（bug/特性/进展）\n- [ ] 认领1个Action Item\n\n---\n\n要不要我帮你**生成一个可直接复制的议题模板**，并告诉你下一次 CloudNative 例会的具体时间与链接？]\n    {",
+      "citations": [
+        "https://www.openeuler.org/zh/sig/Kernel",
+        "https://gitee.com/openeuler/cloudnative/blob/master/Projects.md",
+        "https://gitee.com/openeuler/release-management/blob/master/openEuler-25.03/release-plan.md",
+        "https://mailweb.openeuler.org/archives/list/dev@openeuler.org/thread/UPT6PCZTGQUEAU7M344NHKCDBNB45LHU/?sort=date"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_060",
+      "platform": "qwen",
+      "query": "",
+      "timestamp": "2026-04-09T14:45:27Z",
+      "raw_response": "",
+      "citations": [
+        "https://gitee.com/openeuler/cloudnative",
+        "https://www.openeuler.org/zh/sig/sig-CloudNative",
+        "https://atomgit.com/openeuler/cloudnative"
+      ],
+      "model": "Qwen",
+      "status": "timeout"
+    },
+    {
+      "question_id": "q_078",
+      "platform": "chatgpt",
+      "query": "openEuler 元戎（yuanrong）SIG 的职责是什么？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "openEuler **元戎（YuanRong）SIG** 的职责，本质上是围绕 **openYuanrong 通用 Serverless 分布式计算引擎**，负责其 **技术研发、版本治理、场景落地和生态建设**。官方对 openYuanrong 的定位非常明确：\n\n> **用统一的 Serverless 架构支持 AI、大数据、微服务、HPC 等各类分布式应用。** ([openEuler][1])\n\n所以从 SIG 职责视角，可以拆成下面 5 个核心方向。\n\n---\n\n# 1）核心技术研发：打造“分布式内核”\n\n这是 YuanRong SIG 最核心的职责。\n\n它的目标不是做一个单点框架，而是构建一种类似 **“把集群变成单机”** 的分布式内核能力。官方最近连续几篇技术文章都在强调这一理念。([openEuler][2])\n\n核心研发职责包括：\n\n* **多语言函数运行时**\n\n  * Python\n  * Java\n  * C++\n* **函数系统**\n\n  * 分布式调用\n  * 状态管理\n  * 长时运行函数\n* **数据系统**\n\n  * Object / Stream 语义\n  * 分布式共享内存\n  * 多级缓存（HBM / DRAM / SSD）\n* **DPOSIX 分布式接口抽象**\n\n  * 类似单机 POSIX 的统一分布式接口\n\n本质目标是：\n\n> **让开发者像写单机程序一样开发复杂分布式系统。** ([openEuler][2])\n\n---\n\n# 2）大规模调度与弹性资源管理\n\nYuanRong SIG 的另一个核心职责是：\n\n> **做大规模分布式动态调度**\n\n官方把这块能力单独定义为 **函数系统（Function System）**。([openEuler][3])\n\n重点职责包括：\n\n* 分级调度\n* 快速冷启动\n* 跨节点迁移\n* 弹性扩缩容\n* 故障自动恢复\n* 数据亲和调度\n* 多租隔离调度\n\n尤其在 AI 推理和 Agent 场景里，这决定了：\n\n> **能否像 Ray 一样高效调度任务，但具备更强系统级能力**\n\n---\n\n# 3）AI / HPC / 大数据场景落地\n\n官方明确把 openYuanrong 定位为：\n\n> **AI 智算与通用计算基础设施** ([OpenEuler][4])\n\n因此 SIG 需要持续推进这些场景：\n\n* **AI 推理**\n\n  * 分布式 KV Cache\n  * 强化学习\n  * Agent runtime\n* **大数据分析**\n\n  * 批处理\n  * 数据流\n* **微服务**\n\n  * 高并发函数服务\n* **HPC**\n\n  * 高性能分布式任务\n\n这说明它不是一个“实验项目”，而是明确面向：\n\n> **AI Infra + 通用分布式平台**\n\n---\n\n# 4）版本治理与社区协作\n\n作为标准 SIG，它也承担治理职责，包括：\n\n* roadmap 制定\n* 版本节奏规划\n* issue / PR review\n* maintainer 培养\n* 邮件列表讨论\n* 双周/月度例会\n* 跨 SIG 协作\n\n常见联动对象：\n\n* CloudNative SIG\n* AI SIG\n* Virtualization SIG\n* Kernel SIG\n\n例如多租隔离、容器沙箱、安全运行时等议题，经常要跨 SIG 协同。([openEuler][5])\n\n---\n\n# 5）开发者体验与文档建设\n\n最近官方已经有完整的：\n\n* 快速入门\n* 安装部署\n* 调试监控\n* 安全规范\n* 使用案例\n\n这意味着 YuanRong SIG 的职责还包括：\n\n> **降低开发者学习分布式系统的门槛** ([openEuler][6])\n\n尤其适合：\n\n* AI Infra 初学者\n* Ray / Spark 用户\n* 分布式应用开发者\n\n---\n\n# 从你关注方向看，YuanRong SIG 最值得关注什么\n\n结合你最近在学 **AI Infra**，我建议重点关注它这条路线：\n\n> **Ray 类调度 + 分布式共享内存 + Serverless + 多租隔离**\n\n尤其是：\n\n* 分布式 KV Cache\n* Agent runtime\n* 强化学习\n* AI 推理集群调度\n\n这些都非常贴近下一代 AI 平台基础设施。\n\n---\n\n## 一句话总结\n\n**YuanRong SIG 的职责，就是在 openEuler 社区中负责 openYuanrong 这一通用 Serverless 分布式计算引擎的研发、调度系统、数据系统、AI/HPC 场景落地、版本治理和开发者体验建设。** ([openEuler][1])\n\n如果你愿意，我可以继续帮你深入拆：\n\n> **YuanRong SIG 和 Ray / Dask / Spark 在 AI Infra 场景下的技术差异与机会点。**\n\n    {",
+      "citations": [
+        "https://www.openeuler.org/en/projects/yuanrong",
+        "https://www.openeuler.org/zh/blog/20260131-openYuanrong_02/20260131-openYuanrong_02",
+        "https://www.openeuler.org/zh/blog/20260225-openYuanrong_03/20260225-openYuanrong_03",
+        "https://pages.openeuler.openatom.cn/openyuanrong/docs/zh-cn/latest/",
+        "https://www.openeuler.org/zh/blog/20260316-openYuanrong_06/20260316-openYuanrong_06.html",
+        "https://www.openeuler.org/zh/blog/20260317-openYuanrong_07/20260317-openYuanrong_07.html",
+        "https://www.openeuler.org/zh/sig/sig-YuanRong"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_078",
+      "platform": "deepseek",
+      "query": "openEuler 元戎（yuanrong）SIG 的职责是什么？",
+      "timestamp": "2026-04-09T12:02:37Z",
+      "raw_response": "关于 openEuler 元戎 SIG，目前公开的 SIG 列表中没有该名称。",
+      "citations": [
+        "https://www.openeuler.org/zh/sig/",
+        "https://gitee.com/openeuler/community/tree/master/sig/Compiler",
+        "https://gitee.com/openeuler/community/tree/master/sig/Runtime",
+        "https://gitee.com/openeuler/community/tree/master/sig/Kernel",
+        "https://gitee.com/openeuler/community/tree/master/sig/CloudNative",
+        "https://www.openeuler.org/zh/community/contribution/",
+        "https://www.hikunpeng.com/",
+        "https://www.openeuler.org/zh/news/20210331/"
+      ],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_078",
+      "platform": "qwen",
+      "query": "openEuler 元戎（yuanrong）SIG 的职责是什么？",
+      "timestamp": "2026-04-09T16:41:50Z",
+      "raw_response": "Thinking completed\nopenEuler 元戎（yuanrong）SIG 的职责\n根据 openEuler 社区官方信息，sig-YuanRong 的核心职责是：\n负责社区内 Serverless 分布式计算引擎的演进与维护（responsible for the evolution and maintenance of the Serverless distributed computing engine within the community）\nopenEuler\n具体工作范围\n元戎 SIG 围绕 openYuanrong 项目开展工作，该项目是一个 Serverless 分布式计算引擎，主要职责包括：\n统一 Serverless 架构支持\n支持 AI、大数据、微服务、HPC 等各类分布式应用 \nopenEuler\n提供多语言函数编程接口（Python/Java/C++），以单机编程体验简化分布式应用开发 \nopenEuler\n核心子系统维护\n多语言函数运行时：实现类单机编程的高性能分布式运行\n函数系统：提供大规模分布式动态调度，支持函数实例极速弹性扩缩和跨节点迁移\n数据系统：提供异构分布式多级缓存，支持 Object/Stream 语义，实现函数实例间高性能数据共享 \nopenEuler\n社区协作与治理\n组织双周例会，议题收集、技术讨论、会议纪要等过程均对外开放 \nopenEuler\n维护 13 个代码仓库（包括 yuanrong 主仓、functionsystem、datasystem、ray-adapter 等）\n通过邮件列表（yuanrong@openeuler.org）与社区成员沟通协作\n开发者生态建设\n由 7 名 Maintainer 和 13 名 Committer 组成的核心成员团队推动项目发展\n鼓励社区贡献，跟踪个人会员的 PR、Issue、Comment 等贡献指标\n项目理念\nopenYuanrong 的核心理念是 \"单机编程体验，分布式运行性能\"，通过将传统 Serverless 函数概念进行通用化扩展，使\"函数\"起到类似单机操作系统中\"进程\"的作用，可表达任意分布式应用的运行实例，同时天然支持相互调用 \nopenEuler\n。\n如果您希望参与该 SIG，可通过以下方式：\n订阅邮件列表：yuanrong@openeuler.org\n参加双周例会（会议链接和纪要公开）\n在 AtomGit 或 Gitee 上浏览/贡献代码仓库",
+      "citations": [],
+      "model": "Qwen (web)",
+      "status": "success"
+    },
+    {
+      "question_id": "q_081",
+      "platform": "chatgpt",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "在 openEuler 社区里，**OpenDesign SIG（你写的 penEuler 应该是 openEuler）就是“社区视觉设计与品牌体验的核心协作团队”**。\n官方贡献指南直接把它定义为：\n\n> **参与社区视觉设计（community visual design）的主要入口** ([openEuler][1])\n\n所以它在社区中的角色，不只是“做海报”，而是承担 **品牌统一、技术内容可视化、活动传播、用户体验设计** 的综合职责。\n\n---\n\n# 1）社区品牌视觉规范的制定者\n\n这是它最核心的角色。\n\nOpenDesign SIG 会负责统一社区的视觉语言，例如：\n\n* openEuler Logo 延展规范\n* 官方活动主视觉（KV）\n* 社区 Banner / 官网专题图\n* PPT 模板\n* 白皮书封面\n* 周边（贴纸、T-shirt、徽章）\n\n它解决的是：\n\n> **不同 SIG、不同厂商、不同活动输出内容时，依然保持 openEuler 一致的品牌识别。**\n\n对于大型开源社区，这一点非常关键。\n\n---\n\n# 2）技术活动的创意传播支持者\n\nopenEuler 有很多开发者活动，例如：\n\n* openEuler Developer Day\n* SIG Gathering\n* Meetup\n* 版本发布直播\n* 技术公开课\n\n这些活动背后的视觉物料，通常都需要 OpenDesign SIG 支持，包括：\n\n* 活动海报\n* 嘉宾介绍卡\n* 直播封面\n* 议程长图\n* 社交媒体宣传图\n* 现场导视设计\n\n所以它本质上承担：\n\n> **社区活动传播效率放大器**\n\n---\n\n# 3）技术内容可视化表达的推动者\n\n这是开发者社区里非常有价值的一层。\n\n很多复杂技术内容，如果只有文字很难传播，OpenDesign SIG 通常会帮助其他技术 SIG 做：\n\n* 架构图优化\n* 流程图美化\n* 版本特性信息图\n* 安装步骤图解\n* 新手 onboarding 图卡\n* 一分钟技术科普图片\n\n例如：\n\n* AI SIG 的推理链路图\n* Migration SIG 的迁移流程图\n* CloudNative SIG 的容器架构图\n\n它本质上是在提升：\n\n> **技术内容理解效率 + 社区传播效果**\n\n这和你最近在做的 **图片型技术栏目、社区话题设计** 很像。\n\n---\n\n# 4）社区体验（UX）优化协作者\n\n除了视觉“好看”，它也会影响社区体验。\n\n例如：\n\n* 官网页面信息层级\n* 文档阅读体验\n* 新手导航流程\n* 活动报名页体验\n* 社区入口可发现性\n\n这类工作通常会和：\n\n* Doc SIG\n* G11N SIG\n* Infrastructure SIG\n\n形成协作。\n\n所以它更像：\n\n> **Design + UX + Community Experience**\n\n---\n\n# 5）非代码贡献的重要入口\n\n官方贡献指南明确把 OpenDesign SIG 列为 **非代码贡献（Non-Code Contribution）** 的重要方向之一。([openEuler][2])\n\n非常适合这些角色参与：\n\n* 设计师\n* 技术运营\n* 开源布道师\n* 社区内容创作者\n* 开发者关系（DevRel）\n\n可贡献内容包括：\n\n* 海报\n* 技术图卡\n* 视频封面\n* 社交媒体栏目视觉\n* 活动物料\n* 品牌模板\n\n---\n\n## 一句话总结\n\n**OpenDesign SIG 在 openEuler 社区中扮演的是“把技术价值转化为统一品牌视觉、技术可视化表达和高质量社区体验”的关键角色。**\n\n它连接的是：\n\n> **技术 SIG × 社区运营 × 品牌传播 × 开发者体验**\n\n结合你现在持续在做的 **openGauss / MindSpore / openEuler 社区内容运营和图片栏目设计**，OpenDesign SIG 的工作模式对你会非常有参考价值。\n\n如果你愿意，我可以继续帮你拆：\n\n> **如何借鉴 openEuler OpenDesign SIG 的模式，为 openGauss 设计一个技术内容视觉栏目体系。**\n\n\n  ]\n}",
+      "citations": [
+        "https://www.openeuler.org/en/wiki/contribution/",
+        "https://www.openeuler.org/en/community/contribution/detail.html"
+      ],
+      "model": "ChatGPT",
+      "status": "success"
+    },
+    {
+      "question_id": "q_081",
+      "platform": "deepseek",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
+      "timestamp": "2026-04-09T12:03:53Z",
+      "raw_response": "openDesign SIG 在社区视觉设计中扮演核心角色。",
+      "citations": [],
+      "model": "DeepSeek",
+      "status": "success"
+    },
+    {
+      "question_id": "q_081",
+      "platform": "doubao",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
+      "timestamp": "2026-04-09T14:00:00Z",
+      "raw_response": "**openEuler openDesign SIG** 是社区的**官方视觉与用户体验（UX）设计中心**，负责定义并维护整个社区的品牌形象、用户界面与交互标准，是连接技术与用户体验的核心桥梁。\n\n### 一、核心角色与定位\n- **社区视觉体系总设计师**：制定并管理 openEuler 的**品牌视觉规范（VI）**，包括 Logo、配色、字体、图标、版式等，确保官网、文档、发布会、周边等所有触点的视觉统一性与专业性。\n- **用户体验（UX）负责人**：主导社区核心平台（官网、开发者门户、文档站、安装器等）的**用户体验设计**，优化信息架构、交互流程与视觉呈现，提升社区整体易用性与吸引力。\n- **跨 SIG 设计协作枢纽**：为其他技术 SIG（如 CloudNative、AI、Kernel 等）提供**设计支持**，包括项目 Logo、宣传物料、技术文档配图、UI 组件等，保障全生态视觉风格一致。\n- **设计资产守护者**：建立并维护社区**公共设计资源库**（如模板、图标库、插画、PPT 母版），供所有贡献者免费使用，降低贡献门槛。\n\n### 二、主要工作范围（视觉设计领域）\n1. **品牌视觉系统（VI）**\n    - 定义 openEuler 主品牌及子品牌（如 openEuler Embedded）的视觉识别系统。\n    - 规范 Logo 使用、标准色（科技蓝为主）、辅助色、标准字体、网格系统等。\n2. **数字产品界面设计**\n    - **官网与门户**：主导 openEuler 官网、开发者社区的页面视觉与交互设计。\n    - **文档系统**：优化基于 HUGO 等框架的文档站前端视觉与阅读体验。\n    - **安装与工具**：为操作系统安装器、配置工具等提供 GUI 视觉设计方案。\n3. **营销与传播物料设计**\n    - 会议/活动：海报、PPT 模板、Banner、背景板、视频包装。\n    - 印刷品：宣传册、白皮书封面、展板、文化周边（T恤、贴纸）。\n    - 数字内容：社交媒体图文、技术博客封面、视频封面。\n4. **项目视觉识别（SIG/项目 Logo）**\n    - 为社区内重要项目、SIG 组设计专属 Logo 与视觉标识，融入主品牌体系。\n5. **设计规范与组件库**\n    - 输出《openEuler 视觉设计规范手册》，建立可复用的 Web/UI 组件库，确保设计一致性。\n\n### 三、运作方式\n- **邮件列表**：`opendesign@openeuler.org`（设计需求与讨论）。\n- **双周例会**：定期召开设计同步会，评审需求、讨论方案、同步进度。\n- **Etherpad**：议题提交与会议纪要：`https://etherpad.openeuler.org/p/sig-opendesign-meetings`。\n- **协作模式**：接收各 SIG 设计需求 → 评估排期 → 设计交付 → 评审确认 → 上线/发布。\n\n### 总结\nopenDesign SIG 不直接开发代码，而是通过**专业的视觉与体验设计**，为 openEuler 社区塑造**统一、专业、友好**的品牌形象，**降低用户理解成本**，**提升社区整体质感与影响力**，是社区不可或缺的“颜值与体验担当”。\n\n需要我帮你整理一份 **openDesign SIG 设计需求提交模板** 或查找其 **视觉规范手册** 吗？",
+      "citations": [
+        "https://www.openeuler.org/en/wiki/contribution/",
+        "https://www.openeuler.org/en/community/contribution/detail.html"
+      ],
+      "model": "Doubao",
+      "status": "success"
+    },
+    {
+      "question_id": "q_081",
+      "platform": "qwen",
+      "query": "openEuler openDesign SIG 在社区视觉设计中扮演什么角色？",
+      "timestamp": "2026-04-09T16:43:46Z",
+      "raw_response": "Thinking completed\nopenEuler openDesign SIG 在社区视觉设计中的角色\n根据 openEuler 社区官方信息，openDesign SIG 在社区视觉设计中扮演着核心统筹与专业支撑的角色，具体体现在以下几个方面：\n🔹 核心定位\n\"The OpenDesign team is responsible for user experience of the openEuler community.\" \nopenEuler\nopenDesign SIG 是 openEuler 社区中专门负责用户体验与视觉设计的特别兴趣组，致力于构建统一、专业的社区视觉体系。\n🔹 主要职责\n1. 品牌视觉规范管理\n制定并维护 openEuler 品牌标识使用规范，包括标志形态、比例网格、最小尺寸、色彩标准等 \nopenEuler\n确保社区内外所有视觉物料（官网、海报、文档、周边等）保持品牌一致性\n提供标准标志源文件下载，禁止自行修改或创造标志 \nopenEuler\n2. 设计资源与组件建设\n通过维护多个设计相关仓库，提供可复用的设计资产\n3. 社区协作与知识共享\n定期召开 SIG 例会，开放议题收集与技术讨论 \nopenEuler\n4. 社区参与入口\n对于希望参与视觉设计贡献的开发者，openEuler 官方明确指引：\n\"参与社区视觉设计，请加入 sig-OpenDesign\" \nopenEuler",
+      "citations": [
+        "https://www.openeuler.org/zh/sig/sig-OpenDesign"
+      ],
+      "model": "Qwen (web)",
+      "status": "success"
+    }
+  ]
+}

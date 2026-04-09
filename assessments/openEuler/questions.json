@@ -275,7 +275,9 @@
       "id": "q_033",
       "question": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
       "official_urls": [
-        "https://www.openeuler.openatom.cn/zh/sig/sig-list/"
+        "https://www.openeuler.openatom.cn/zh/sig/sig-list/",
+        "https://www.openeuler.org/en/sig/sig-list/",
+        "https://www.openeuler.org/zh/sig/sig-list/"
       ],
       "notes": ""
     },
@@ -283,7 +285,10 @@
       "id": "q_034",
       "question": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
       "official_urls": [
-        "https://www.openeuler.openatom.cn/zh/sig/dev-utils"
+        "https://www.openeuler.openatom.cn/zh/sig/dev-utils",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/en/community/mailing-list/",
+        "https://www.openeuler.org/zh/sig/sig-list/"
       ],
       "notes": ""
     },
@@ -291,15 +296,20 @@
       "id": "q_035",
       "question": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
       "official_urls": [
-        "https://www.openeuler.openatom.cn/zh/sig/sig-Migration"
+        "https://www.openeuler.openatom.cn/zh/sig/sig-Migration",
+        "https://atomgit.com/openeuler/community/tree/master/sig/sig-Migration",
+        "https://www.openeuler.org/zh/community/contribution/detail.html"
       ],
-      "notes": ""
+      "notes": "注意，主仓库已经由Gitee迁移到GitCode，sig-Migration的代码仓库地址需要更新为：https://gitcode.com/openeuler/community/tree/master/sig/sig-Migration。若引用到Gitee的链接，需要特殊分析原因。"
     },
     {
       "id": "q_037",
       "question": "openEuler AI SIG（ai-infra@openeuler.org）的目标是什么？支持哪些 AI 基础设施框架？",
       "official_urls": [
-        "https://www.openeuler.openatom.cn/zh/sig/ai"
+        "https://www.openeuler.openatom.cn/zh/sig/ai",
+        "https://www.openeuler.org/zh/sig/ai",
+        "https://www.openeuler.org/zh/sig/ai",
+        "https://atomgit.com/openeuler/community/tree/master/sig/ai"
       ],
       "notes": ""
     },
@@ -307,7 +317,8 @@
       "id": "q_038",
       "question": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
       "official_urls": [
-        "https://www.openeuler.openatom.cn/zh/sig/sig-QA"
+        "https://www.openeuler.openatom.cn/zh/sig/sig-QA",
+        "https://www.openeuler.org/zh/community/contribution"
       ],
       "notes": ""
     },
@@ -323,7 +334,8 @@
       "id": "q_040",
       "question": "如何向 openEuler TSC 提交 SIG 申请，新建特别兴趣小组的流程是什么？",
       "official_urls": [
-        "https://www.openeuler.openatom.cn/zh/sig/sig-list/"
+        "https://www.openeuler.org/en/sig/sig-guidance/",
+        "https://www.openeuler.org/zh/sig/sig-guidance/"
       ],
       "notes": ""
     },
@@ -493,7 +505,10 @@
       "id": "q_077",
       "question": "openEuler AI SIG 在 openEuler 上支持哪些 AI 推理框架？",
       "official_urls": [
-        "https://www.openeuler.org/whitepaper/openEuler%2024.03%20LTS%20SP3%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf"
+        "https://www.openeuler.org/whitepaper/openEuler%2024.03%20LTS%20SP3%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf",
+        "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/releasenotes/releasenotes/key_features.html?f_link_type=f_linkinlinenote&flow_extra=eyJpbmxpbmVfZGlzcGxheV9wb3NpdGlvbiI6MCwiZG9jX3Bvc2l0aW9uIjowLCJkb2NfaWQiOiJjMDY1MDQyMTM4ZGQ2YWI4LTUyMTBhYTU0MjM4ZDdmNTIifQ%3D%3D",
+        "https://docs.openeuler.org/zh/docs/25.09/server/quickstart/releasenotes/key_features.html",
+        "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/releasenotes/releasenotes/key_features.html"
       ],
       "notes": ""
     },
@@ -509,7 +524,9 @@
       "id": "q_079",
       "question": "openEuler 发行版兼容性认证（OS 兼容性认证）的申请流程是什么？需要满足哪些条件？",
       "official_urls": [
-        "https://www.openeuler.org/zh/compatibility/hardware/"
+        "https://www.openeuler.org/zh/compatibility/hardware/",
+        "https://mailweb.openeuler.org/hyperkitty/list/oecompatibility@openeuler.org/message/LNW6LN5QWGA44JN4Z62KT4XPWZPUNJT5/",
+        "https://gitee.com/openeuler/technical-certification/blob/master/%E6%8A%80%E6%9C%AF%E6%B5%8B%E8%AF%84%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.md"
       ],
       "notes": ""
     },

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "scored_at": "2026-04-14T02:25:28Z",
+    "scored_at": "2026-04-14T02:51:43Z",
     "total_questions": 57,
     "total_platforms": 2,
     "platforms": [
@@ -8,7 +8,7 @@
       "qwen-web"
     ],
     "citation_threshold": 0.75,
-    "match_mode": "exact_url",
+    "match_mode": "exact_url+citations",
     "community": "openEuler"
   },
   "results": [
@@ -30,12 +30,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -49,20 +51,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/7378/"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -76,20 +82,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/294"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -105,20 +115,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/2713"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -133,21 +147,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://docs.openeuler.org/zh/docs/25.03/server/maintenance/aops/deploying-aops.html"
+          ]
         }
       ]
     },
@@ -168,12 +186,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -184,24 +204,30 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/875"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/875"
+          ]
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/875"
+          ]
         }
       ]
     },
@@ -211,24 +237,30 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/220"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/220"
+          ]
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/220"
+          ]
         }
       ]
     },
@@ -250,12 +282,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -277,12 +311,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -296,20 +332,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3222"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -323,21 +363,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/246"
+          ]
         }
       ]
     },
@@ -351,20 +395,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4572"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -378,20 +426,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/2200"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -402,23 +454,27 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4549"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.5,
-      "cited_count": 1,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4549"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": true,
           "match_type": "exact_url",
+          "match_source": "response_text",
           "matched_urls": [
             "https://forum.openeuler.org/t/topic/4549"
           ]
@@ -434,20 +490,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4537"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -463,21 +523,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/6270"
+          ]
         }
       ]
     },
@@ -490,20 +554,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/2964"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -525,12 +593,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -552,12 +622,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -579,12 +651,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -606,12 +680,14 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -622,24 +698,30 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/3396"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3396"
+          ]
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3396"
+          ]
         }
       ]
     },
@@ -650,24 +732,30 @@
         "https://forum.openeuler.org/t/topic/3959",
         "https://forum.openeuler.org/t/topic/3745"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3745"
+          ]
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3745"
+          ]
         }
       ]
     },
@@ -680,20 +768,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/6895"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -707,21 +799,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4365"
+          ]
         }
       ]
     },
@@ -734,20 +830,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3612"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -758,24 +858,30 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/3328"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3328"
+          ]
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/3328"
+          ]
         }
       ]
     },
@@ -785,24 +891,30 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4266"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4266"
+          ]
         },
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4266"
+          ]
         }
       ]
     },
@@ -815,21 +927,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/6230"
+          ]
         }
       ]
     },
@@ -842,20 +958,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/6960"
+          ]
         },
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -869,21 +989,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://forum.openeuler.org/t/topic/4337"
+          ]
         }
       ]
     },
@@ -904,12 +1028,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -924,21 +1050,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://docs.openeuler.org/zh/docs/common/faq/general/general_faq.html"
+          ]
         }
       ]
     },
@@ -952,20 +1082,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://www.openeuler.org/zh/community/contribution/detail.html"
+          ]
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -987,12 +1121,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1012,12 +1148,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1037,12 +1175,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1065,12 +1205,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1087,21 +1229,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://www.openeuler.org/zh/wiki/contribution/"
+          ]
         }
       ]
     },
@@ -1120,12 +1266,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1147,12 +1295,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1172,12 +1322,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1199,12 +1351,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1224,12 +1378,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1249,12 +1405,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1269,21 +1427,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://www.openeuler.org/zh/blog/20230630-newcomer/0630-newcomer.html"
+          ]
         }
       ]
     },
@@ -1296,21 +1458,25 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://www.openeuler.org/zh/mirror/list/"
+          ]
         }
       ]
     },
@@ -1331,6 +1497,7 @@
           "platform": "qwen-web",
           "cited": true,
           "match_type": "exact_url",
+          "match_source": "response_text",
           "matched_urls": [
             "https://www.openeuler.org/zh/other/lifecycle/"
           ]
@@ -1339,6 +1506,7 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1361,12 +1529,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1380,20 +1550,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/openstack/install/antelope.html"
+          ]
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1415,12 +1589,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1442,12 +1618,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1469,6 +1647,7 @@
           "platform": "qwen-web",
           "cited": true,
           "match_type": "exact_url",
+          "match_source": "response_text",
           "matched_urls": [
             "https://atomgit.com/openeuler/compass-ci"
           ]
@@ -1477,6 +1656,7 @@
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1493,20 +1673,24 @@
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0,
-      "cited_count": 0,
+      "citation_rate": 0.5,
+      "cited_count": 1,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://www.openeuler.org/whitepaper/openEuler%2024.03%20LTS%20SP3%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf"
+          ]
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1530,12 +1714,14 @@
           "platform": "qwen-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         },
         {
           "platform": "deepseek-web",
           "cited": false,
           "match_type": null,
+          "match_source": null,
           "matched_urls": []
         }
       ]
@@ -1546,107 +1732,105 @@
       "official_urls": [
         "https://www.openeuler.org/zh/security/vulnerability-reporting/"
       ],
-      "status": "not_cited",
-      "description": "有内容未被引用",
-      "severity": "P0",
-      "citation_rate": 0.5,
-      "cited_count": 1,
+      "status": "satisfied",
+      "description": "引用了官方内容",
+      "severity": "OK",
+      "citation_rate": 1.0,
+      "cited_count": 2,
       "total_platforms": 2,
       "platforms": [
         {
           "platform": "qwen-web",
           "cited": true,
           "match_type": "exact_url",
+          "match_source": "response_text",
           "matched_urls": [
             "https://www.openeuler.org/zh/security/vulnerability-reporting/"
           ]
         },
         {
           "platform": "deepseek-web",
-          "cited": false,
-          "match_type": null,
-          "matched_urls": []
+          "cited": true,
+          "match_type": "exact_url",
+          "match_source": "citations",
+          "matched_urls": [
+            "https://www.openeuler.org/zh/security/vulnerability-reporting/"
+          ]
         }
       ]
     }
   ],
   "summary": {
     "by_status": {
-      "satisfied": 0,
-      "not_cited": 51,
+      "satisfied": 8,
+      "not_cited": 43,
       "no_official_content": 6
     },
     "by_severity": {
-      "P0": 51,
+      "P0": 43,
       "P1": 6,
-      "OK": 0
+      "OK": 8
     },
     "citation_rate_distribution": {
-      "0.0": 53,
-      "0.5": 4
+      "0.0": 23,
+      "0.5": 26,
+      "1.0": 8
     }
   },
   "suggestions": [
     {
       "suggestion_id": "s_001",
       "question_ids": [
-        "q_079",
-        "q_071",
-        "q_027",
-        "q_028",
-        "q_005",
-        "q_002",
-        "q_030",
-        "q_044",
-        "q_012",
-        "q_023",
-        "q_070",
-        "q_074",
-        "q_013",
-        "q_003",
-        "q_024",
-        "q_007",
-        "q_062",
-        "q_073",
         "q_001",
-        "q_008",
-        "q_077",
-        "q_019",
-        "q_010",
-        "q_026",
-        "q_021",
-        "q_041",
-        "q_014",
+        "q_002",
+        "q_003",
+        "q_004",
+        "q_005",
         "q_006",
+        "q_009",
+        "q_010",
+        "q_011",
+        "q_012",
+        "q_013",
+        "q_014",
         "q_016",
-        "q_022",
-        "q_032",
         "q_017",
+        "q_018",
+        "q_019",
+        "q_020",
+        "q_021",
+        "q_022",
+        "q_025",
+        "q_026",
+        "q_027",
+        "q_030",
+        "q_031",
+        "q_032",
+        "q_039",
+        "q_041",
+        "q_044",
         "q_046",
         "q_050",
-        "q_025",
-        "q_029",
         "q_052",
-        "q_057",
-        "q_063",
-        "q_020",
         "q_055",
-        "q_080",
-        "q_018",
-        "q_011",
+        "q_057",
+        "q_062",
+        "q_063",
         "q_064",
         "q_067",
-        "q_004",
-        "q_039",
-        "q_009",
-        "q_015",
-        "q_031"
+        "q_070",
+        "q_071",
+        "q_073",
+        "q_074",
+        "q_077",
+        "q_079"
       ],
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0392,
+      "citation_rate": 0.3023,
       "cited_platforms": [
+        "deepseek-web",
         "qwen-web"
       ],
       "not_cited_platforms": [
@@ -1661,63 +1845,56 @@
     {
       "suggestion_id": "s_002",
       "question_ids": [
-        "q_079",
-        "q_071",
-        "q_027",
-        "q_028",
-        "q_005",
-        "q_002",
-        "q_030",
-        "q_044",
-        "q_012",
-        "q_023",
-        "q_070",
-        "q_074",
-        "q_013",
-        "q_003",
-        "q_024",
-        "q_007",
-        "q_062",
-        "q_073",
         "q_001",
-        "q_008",
-        "q_077",
-        "q_019",
-        "q_010",
-        "q_026",
-        "q_021",
-        "q_041",
-        "q_014",
+        "q_002",
+        "q_003",
+        "q_004",
+        "q_005",
         "q_006",
+        "q_009",
+        "q_010",
+        "q_011",
+        "q_012",
+        "q_013",
+        "q_014",
         "q_016",
-        "q_022",
-        "q_032",
         "q_017",
+        "q_018",
+        "q_019",
+        "q_020",
+        "q_021",
+        "q_022",
+        "q_025",
+        "q_026",
+        "q_027",
+        "q_030",
+        "q_031",
+        "q_032",
+        "q_039",
+        "q_041",
+        "q_044",
         "q_046",
         "q_050",
-        "q_025",
-        "q_029",
         "q_052",
-        "q_057",
-        "q_063",
-        "q_020",
         "q_055",
-        "q_080",
-        "q_018",
-        "q_011",
+        "q_057",
+        "q_062",
+        "q_063",
         "q_064",
         "q_067",
-        "q_004",
-        "q_039",
-        "q_009",
-        "q_015",
-        "q_031"
+        "q_070",
+        "q_071",
+        "q_073",
+        "q_074",
+        "q_077",
+        "q_079"
       ],
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0392,
+      "citation_rate": 0.3023,
       "cited_platforms": [
+        "deepseek-web",
         "qwen-web"
       ],
       "not_cited_platforms": [
@@ -1732,63 +1909,56 @@
     {
       "suggestion_id": "s_003",
       "question_ids": [
-        "q_079",
-        "q_071",
-        "q_027",
-        "q_028",
-        "q_005",
-        "q_002",
-        "q_030",
-        "q_044",
-        "q_012",
-        "q_023",
-        "q_070",
-        "q_074",
-        "q_013",
-        "q_003",
-        "q_024",
-        "q_007",
-        "q_062",
-        "q_073",
         "q_001",
-        "q_008",
-        "q_077",
-        "q_019",
-        "q_010",
-        "q_026",
-        "q_021",
-        "q_041",
-        "q_014",
+        "q_002",
+        "q_003",
+        "q_004",
+        "q_005",
         "q_006",
+        "q_009",
+        "q_010",
+        "q_011",
+        "q_012",
+        "q_013",
+        "q_014",
         "q_016",
-        "q_022",
-        "q_032",
         "q_017",
+        "q_018",
+        "q_019",
+        "q_020",
+        "q_021",
+        "q_022",
+        "q_025",
+        "q_026",
+        "q_027",
+        "q_030",
+        "q_031",
+        "q_032",
+        "q_039",
+        "q_041",
+        "q_044",
         "q_046",
         "q_050",
-        "q_025",
-        "q_029",
         "q_052",
-        "q_057",
-        "q_063",
-        "q_020",
         "q_055",
-        "q_080",
-        "q_018",
-        "q_011",
+        "q_057",
+        "q_062",
+        "q_063",
         "q_064",
         "q_067",
-        "q_004",
-        "q_039",
-        "q_009",
-        "q_015",
-        "q_031"
+        "q_070",
+        "q_071",
+        "q_073",
+        "q_074",
+        "q_077",
+        "q_079"
       ],
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0392,
+      "citation_rate": 0.3023,
       "cited_platforms": [
+        "deepseek-web",
         "qwen-web"
       ],
       "not_cited_platforms": [
@@ -1803,63 +1973,56 @@
     {
       "suggestion_id": "s_004",
       "question_ids": [
-        "q_079",
-        "q_071",
-        "q_027",
-        "q_028",
-        "q_005",
-        "q_002",
-        "q_030",
-        "q_044",
-        "q_012",
-        "q_023",
-        "q_070",
-        "q_074",
-        "q_013",
-        "q_003",
-        "q_024",
-        "q_007",
-        "q_062",
-        "q_073",
         "q_001",
-        "q_008",
-        "q_077",
-        "q_019",
-        "q_010",
-        "q_026",
-        "q_021",
-        "q_041",
-        "q_014",
+        "q_002",
+        "q_003",
+        "q_004",
+        "q_005",
         "q_006",
+        "q_009",
+        "q_010",
+        "q_011",
+        "q_012",
+        "q_013",
+        "q_014",
         "q_016",
-        "q_022",
-        "q_032",
         "q_017",
+        "q_018",
+        "q_019",
+        "q_020",
+        "q_021",
+        "q_022",
+        "q_025",
+        "q_026",
+        "q_027",
+        "q_030",
+        "q_031",
+        "q_032",
+        "q_039",
+        "q_041",
+        "q_044",
         "q_046",
         "q_050",
-        "q_025",
-        "q_029",
         "q_052",
-        "q_057",
-        "q_063",
-        "q_020",
         "q_055",
-        "q_080",
-        "q_018",
-        "q_011",
+        "q_057",
+        "q_062",
+        "q_063",
         "q_064",
         "q_067",
-        "q_004",
-        "q_039",
-        "q_009",
-        "q_015",
-        "q_031"
+        "q_070",
+        "q_071",
+        "q_073",
+        "q_074",
+        "q_077",
+        "q_079"
       ],
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0392,
+      "citation_rate": 0.3023,
       "cited_platforms": [
+        "deepseek-web",
         "qwen-web"
       ],
       "not_cited_platforms": [
@@ -1874,63 +2037,56 @@
     {
       "suggestion_id": "s_005",
       "question_ids": [
-        "q_079",
-        "q_071",
-        "q_027",
-        "q_028",
-        "q_005",
-        "q_002",
-        "q_030",
-        "q_044",
-        "q_012",
-        "q_023",
-        "q_070",
-        "q_074",
-        "q_013",
-        "q_003",
-        "q_024",
-        "q_007",
-        "q_062",
-        "q_073",
         "q_001",
-        "q_008",
-        "q_077",
-        "q_019",
-        "q_010",
-        "q_026",
-        "q_021",
-        "q_041",
-        "q_014",
+        "q_002",
+        "q_003",
+        "q_004",
+        "q_005",
         "q_006",
+        "q_009",
+        "q_010",
+        "q_011",
+        "q_012",
+        "q_013",
+        "q_014",
         "q_016",
-        "q_022",
-        "q_032",
         "q_017",
+        "q_018",
+        "q_019",
+        "q_020",
+        "q_021",
+        "q_022",
+        "q_025",
+        "q_026",
+        "q_027",
+        "q_030",
+        "q_031",
+        "q_032",
+        "q_039",
+        "q_041",
+        "q_044",
         "q_046",
         "q_050",
-        "q_025",
-        "q_029",
         "q_052",
-        "q_057",
-        "q_063",
-        "q_020",
         "q_055",
-        "q_080",
-        "q_018",
-        "q_011",
+        "q_057",
+        "q_062",
+        "q_063",
         "q_064",
         "q_067",
-        "q_004",
-        "q_039",
-        "q_009",
-        "q_015",
-        "q_031"
+        "q_070",
+        "q_071",
+        "q_073",
+        "q_074",
+        "q_077",
+        "q_079"
       ],
       "status": "not_cited",
       "description": "有内容未被引用",
       "severity": "P0",
-      "citation_rate": 0.0392,
+      "citation_rate": 0.3023,
       "cited_platforms": [
+        "deepseek-web",
         "qwen-web"
       ],
       "not_cited_platforms": [
@@ -1945,11 +2101,11 @@
     {
       "suggestion_id": "s_006",
       "question_ids": [
-        "q_054",
         "q_048",
         "q_049",
-        "q_058",
+        "q_054",
         "q_056",
+        "q_058",
         "q_059"
       ],
       "status": "no_official_content",
@@ -1969,11 +2125,11 @@
     {
       "suggestion_id": "s_007",
       "question_ids": [
-        "q_054",
         "q_048",
         "q_049",
-        "q_058",
+        "q_054",
         "q_056",
+        "q_058",
         "q_059"
       ],
       "status": "no_official_content",
@@ -1993,11 +2149,11 @@
     {
       "suggestion_id": "s_008",
       "question_ids": [
-        "q_054",
         "q_048",
         "q_049",
-        "q_058",
+        "q_054",
         "q_056",
+        "q_058",
         "q_059"
       ],
       "status": "no_official_content",
@@ -2017,11 +2173,11 @@
     {
       "suggestion_id": "s_009",
       "question_ids": [
-        "q_054",
         "q_048",
         "q_049",
-        "q_058",
+        "q_054",
         "q_056",
+        "q_058",
         "q_059"
       ],
       "status": "no_official_content",
@@ -2041,11 +2197,11 @@
     {
       "suggestion_id": "s_010",
       "question_ids": [
-        "q_054",
         "q_048",
         "q_049",
-        "q_058",
+        "q_054",
         "q_056",
+        "q_058",
         "q_059"
       ],
       "status": "no_official_content",

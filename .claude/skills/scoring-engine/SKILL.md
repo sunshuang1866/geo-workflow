@@ -46,21 +46,29 @@ For each (question, platform) pair, run a binary URL match check:
 
 2. **If `official_urls` is empty (`[]`)**: mark the pair as `no_official_content`. Skip URL matching.
 
-3. **If `official_urls` is non-empty**, check the platform's `response_text`:
+3. **If `official_urls` is non-empty**, check **both** the platform's `response_text` and `citations` fields:
 
-   **Exact URL match only**: For each URL in `official_urls`, check if it appears in `response_text` (case-insensitive).
-   - Normalize before matching: strip trailing slashes, treat `http://` and `https://` as equivalent, strip `www.` prefix.
-   - Example: `"https://www.mindspore.cn/install"` matches `mindspore.cn/install` in response text.
-   - **No domain-level matching**: checking only for the domain (e.g. `mindspore.cn`) produces false positives when all official URLs share a single domain — any mention of any page on that domain would incorrectly mark the question as cited.
+   **Normalization**: strip trailing slashes, treat `http://` and `https://` as equivalent, strip `www.` prefix.
 
-   **Result**: If any normalized URL match found, mark pair as `cited`. Record `matched_urls`. If no match, mark as `not_cited`.
+   **Check 1 — `response_text` substring match**: For each URL in `official_urls`, check if its normalized form appears anywhere in `response_text` (case-insensitive substring search).
+   - Example: `"https://www.mindspore.cn/install"` → normalized to `mindspore.cn/install` → search in response text.
+   - **No domain-level matching**: checking only the domain (e.g. `mindspore.cn`) produces false positives when all official URLs share a single domain.
+
+   **Check 2 — `citations` field exact match**: The `citations` field is a list of URLs extracted from the platform's web UI (e.g. by platform-chat). For each URL in `official_urls`, check if any entry in `citations` normalizes to an equal or longer prefix match.
+   - Normalize both sides before comparing.
+   - A citation URL matches if `normalize(citation_url) == normalize(official_url)` or `normalize(citation_url).startswith(normalize(official_url))`.
+   - Example: official URL `forum.openeuler.org/t/topic/6872` → citation `https://forum.openeuler.org/t/topic/6872` ✅ matches. Citation `https://forum.openeuler.org/` ❌ does not match (root domain only, too short).
+   - **No domain-only citations**: a citation that is just a root domain (no path beyond `/`) must NOT match a specific-path official URL, for the same false-positive reason as domain-level matching.
+
+   **Result**: If any match found via either check, mark pair as `cited`. Record `matched_urls` and `match_source` (`response_text` or `citations`). If no match, mark as `not_cited`.
 
 4. Build a per-platform record for each pair:
    ```json
    {
      "platform": "qwen",
      "cited": true,
-     "matched_urls": ["https://www.mindspore.cn/install"]
+     "match_source": "citations",
+     "matched_urls": ["https://forum.openeuler.org/t/topic/6872"]
    }
    ```
 
@@ -101,10 +109,10 @@ For each question, aggregate the per-platform results from Step 2 to determine t
      "cited_count": 4,
      "total_platforms": 4,
      "platforms": [
-       {"platform": "qwen",     "cited": true,  "match_type": "exact_url", "matched_urls": ["https://www.mindspore.cn/install"]},
-       {"platform": "chatgpt",  "cited": true,  "match_type": "domain",    "matched_urls": []},
-       {"platform": "deepseek", "cited": true,  "match_type": "exact_url", "matched_urls": ["https://www.mindspore.cn/install"]},
-       {"platform": "doubao",   "cited": true,  "match_type": "domain",    "matched_urls": []}
+       {"platform": "qwen",     "cited": true,  "match_type": "exact_url", "match_source": "citations",      "matched_urls": ["https://www.mindspore.cn/install"]},
+       {"platform": "chatgpt",  "cited": false, "match_type": null,        "match_source": null,            "matched_urls": []},
+       {"platform": "deepseek", "cited": true,  "match_type": "exact_url", "match_source": "response_text", "matched_urls": ["https://www.mindspore.cn/install"]},
+       {"platform": "doubao",   "cited": true,  "match_type": "exact_url", "match_source": "citations",     "matched_urls": ["https://www.mindspore.cn/install"]}
      ]
    }
    ```

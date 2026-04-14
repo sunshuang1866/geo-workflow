@@ -146,6 +146,7 @@ def main() -> int:
     parser.add_argument("--platforms", default="")
     parser.add_argument("--questions", default="")
     parser.add_argument("--output-mode", choices=["new_run", "append"], default="new_run")
+    parser.add_argument("--date", default="", help="Override output date folder (YYYY-MM-DD). Defaults to today.")
     parser.add_argument("--group-size", type=int, default=5)
     args = parser.parse_args()
 
@@ -196,7 +197,7 @@ def main() -> int:
         print("ERROR: No questions selected for sampling.", file=sys.stderr)
         return 1
 
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = args.date.strip() if args.date.strip() else datetime.now().strftime("%Y-%m-%d")
     if args.output_mode == "append":
         latest = latest_date_dir(community_dir)
         target_dir = latest if latest else (community_dir / today)

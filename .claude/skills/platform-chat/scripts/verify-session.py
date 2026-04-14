@@ -40,16 +40,33 @@ def main():
     ]
     ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
+    import json as _json
+    with open(args.session) as _f:
+        _sess = _json.load(_f)
+    token_value = None
+    if "token" in _sess:
+        token_value = _sess["token"]
+    elif "cookies" in _sess:
+        for _c in _sess.get("cookies", []):
+            if _c.get("name") == "__Secure-next-auth.session-token":
+                token_value = _c.get("value")
+                break
+    if not token_value:
+        print("SESSION_TOKEN_MISSING", file=sys.stderr)
+        sys.exit(1)
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True, args=anti_detect)
         ctx = browser.new_context(
             user_agent=ua,
             viewport={"width": 1280, "height": 800},
             locale="en-US",
-            storage_state=args.session,
         )
         ctx.add_init_script('Object.defineProperty(navigator, "webdriver", {get: () => undefined})')
         page = ctx.new_page()
+        page.set_extra_http_headers({
+            "Cookie": f"__Secure-next-auth.session-token={token_value}"
+        })
         page.goto("https://chatgpt.com/", timeout=30000)
         time.sleep(4)
 

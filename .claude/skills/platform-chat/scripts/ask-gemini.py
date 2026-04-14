@@ -54,10 +54,12 @@ SELECTOR_GENERATION_END   = "pending-response"   # wait state="detached"
 
 # Response container (directly accessible in regular DOM, no shadow pierce needed)
 # Use textContent (not innerText) — layout-based innerText is truncated
+# Always read the LAST model-response element (multi-turn safe)
 JS_GET_RESPONSE = """
 () => {
-    const mr = document.querySelector('model-response');
-    if (!mr) return null;
+    const mrs = document.querySelectorAll('model-response');
+    if (!mrs.length) return null;
+    const mr = mrs[mrs.length - 1];
     let text = mr.textContent || '';
     // Strip leading 'Gemini said' label
     if (text.startsWith(' Gemini said ')) text = text.slice(' Gemini said '.length);
@@ -103,6 +105,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--question", required=True)
     parser.add_argument("--question-id", required=True)
+    parser.add_argument("--session", default=None,
+                        help="Path to .gemini-session.json (enables logged-in mode with citations)")
     parser.add_argument("--timeout", type=int, default=90, help="Seconds to wait for response")
     parser.add_argument("--screenshot-dir", default=None, help="Directory to save debug screenshots")
     parser.add_argument("--min-citations", type=int, default=8, dest="min_citations",
@@ -114,6 +118,26 @@ def main():
     except ImportError:
         print("playwright not installed", file=sys.stderr)
         sys.exit(1)
+
+    # ── Load session cookies (optional) ───────────────────────────────────────
+    cookie_header = None
+    if args.session:
+        if not os.path.isfile(args.session):
+            print(f"SESSION_FILE_MISSING: {args.session}", file=sys.stderr)
+            sys.exit(2)
+        try:
+            with open(args.session) as f:
+                sess = json.load(f)
+            cookies = sess.get("cookies", {})
+            if not cookies:
+                print("SESSION_TOKEN_MISSING: no cookies in session file", file=sys.stderr)
+                sys.exit(2)
+            cookie_header = "; ".join(f"{k}={v}" for k, v in cookies.items())
+            print(f"  [session] loaded {len(cookies)} cookie(s): {list(cookies.keys())}",
+                  file=sys.stderr)
+        except Exception as e:
+            print(f"SESSION_READ_ERROR: {e}", file=sys.stderr)
+            sys.exit(2)
 
     timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
@@ -139,14 +163,28 @@ def main():
                 except Exception:
                     pass
 
-        # ── Navigate ──────────────────────────────────────────────────────────
+        # ── Navigate (inject cookies if session provided) ──────────────────────
         try:
+            if cookie_header:
+                page.set_extra_http_headers({"Cookie": cookie_header})
             page.goto("https://gemini.google.com/app", timeout=30000)
             time.sleep(3)
         except Exception as e:
             print(f"NAVIGATION_ERROR: {e}", file=sys.stderr)
             browser.close()
             sys.exit(1)
+
+        # ── Session validity check (only when --session provided) ──────────────
+        if args.session:
+            sign_in = page.query_selector(
+                'a[href*="accounts.google.com"], [aria-label*="Sign in"]'
+            )
+            if sign_in:
+                print("SESSION_EXPIRED: Sign-in button visible — re-inject via inject-gemini-session.py",
+                      file=sys.stderr)
+                browser.close()
+                sys.exit(2)
+            print("  [session] login verified", file=sys.stderr)
 
         # ── Find input box ────────────────────────────────────────────────────
         try:
@@ -174,23 +212,53 @@ def main():
             sys.exit(3)
 
         # ── Wait for generation lifecycle ─────────────────────────────────────
+        # Phase 1: Wait for the pending-response spinner to appear, then detach.
+        # This signals that Gemini has finished generating server-side.
+        # Phase 2: Then poll for text stabilization to ensure DOM rendering is done.
         timed_out = False
+
+        def wait_for_stable_text(timeout_sec: int) -> bool:
+            """Poll until model-response text stabilizes. Returns True if stable."""
+            deadline = time.time() + timeout_sec
+            prev_len = -1
+            stable_count = 0
+            while time.time() < deadline:
+                try:
+                    text = page.evaluate(JS_GET_RESPONSE) or ""
+                except Exception:
+                    text = ""
+                cur_len = len(text)
+                if cur_len > 0 and cur_len == prev_len:
+                    stable_count += 1
+                    if stable_count >= 3:
+                        return True
+                else:
+                    stable_count = 0
+                prev_len = cur_len
+                time.sleep(1.0)
+            return False
+
+        # Phase 1: wait for pending-response lifecycle (generation signal)
         try:
-            page.wait_for_selector(SELECTOR_GENERATION_START, timeout=15000)
+            page.wait_for_selector("pending-response", timeout=15000)
+            print("  [gen] pending-response appeared", file=sys.stderr)
         except PW_Timeout:
-            # Generation may have already started and finished
-            pass
+            print("  [gen] pending-response never appeared — may have completed instantly",
+                  file=sys.stderr)
 
         try:
-            page.wait_for_selector(
-                SELECTOR_GENERATION_END,
-                state="detached",
-                timeout=args.timeout * 1000,
-            )
+            page.wait_for_selector("pending-response", state="detached",
+                                   timeout=args.timeout * 1000)
+            print("  [gen] pending-response detached — generation done", file=sys.stderr)
         except PW_Timeout:
             timed_out = True
+            print("  [gen] timeout waiting for pending-response to detach", file=sys.stderr)
 
-        time.sleep(1)
+        # Phase 2: poll until text stops growing (handles incremental DOM rendering)
+        if not timed_out:
+            wait_for_stable_text(15)
+
+        time.sleep(0.5)
 
         # ── Extract response ──────────────────────────────────────────────────
         response_text = ""
@@ -246,26 +314,30 @@ def main():
             print(f"  citations={len(citations)} < {args.min_citations}, sending follow-up...", file=sys.stderr)
             seen = set(citations)
             try:
-                editor = page.wait_for_selector(SELECTOR_INPUT, timeout=5000)
+                # Wait for input to re-enable after previous response
+                editor = page.wait_for_selector(SELECTOR_INPUT, timeout=10000)
                 editor.click()
-                time.sleep(0.3)
+                time.sleep(0.5)
                 page.keyboard.type(FOLLOW_UP)
                 time.sleep(0.5)
-                send_btn = page.wait_for_selector(SELECTOR_SEND_ENABLED, timeout=5000)
-                send_btn.click()
+                # Wait up to 10s for send button to become enabled
                 try:
-                    page.wait_for_selector(SELECTOR_GENERATION_START, timeout=15000)
+                    send_btn = page.wait_for_selector(SELECTOR_SEND_ENABLED, timeout=10000)
+                    send_btn.click()
+                except PW_Timeout:
+                    page.keyboard.press("Enter")
+                # Wait for follow-up generation lifecycle
+                try:
+                    page.wait_for_selector("pending-response", timeout=15000)
                 except PW_Timeout:
                     pass
                 try:
-                    page.wait_for_selector(
-                        SELECTOR_GENERATION_END,
-                        state="detached",
-                        timeout=args.timeout * 1000,
-                    )
+                    page.wait_for_selector("pending-response", state="detached",
+                                           timeout=args.timeout * 1000)
                 except PW_Timeout:
                     pass
-                time.sleep(1)
+                wait_for_stable_text(15)
+                time.sleep(0.5)
                 extra_citations = page.evaluate(JS_GET_CITATIONS) or []
                 for href in extra_citations:
                     if href not in seen:

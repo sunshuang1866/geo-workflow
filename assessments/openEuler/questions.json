@@ -14,13 +14,13 @@
         "https://forum.openeuler.org/t/topic/6872",
         "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/server/installation_upgrade/installation/installation_modes.html"
       ],
-      "notes": ""
+      "notes": "很多版本都有安装指导，希望AI能搜索到最新版本的安装文档，提供更准确的安装步骤和注意事项。"
     },
     {
       "id": "q_002",
       "question": "在 VMware 中安装 openEuler 22.03 时无法识别网卡，应如何安装虚拟机网卡驱动？",
       "official_urls": [
-        "https://forum.openeuler.org/t/topic/7378/2"
+        "https://forum.openeuler.org/t/topic/7378/"
       ],
       "notes": ""
     },
@@ -38,7 +38,7 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/19010",
         "https://forum.openeuler.org/t/topic/2713",
-        "https://forum.openeuler.org/t/topic/1975/14"
+        "https://forum.openeuler.org/t/topic/1975"
       ],
       "notes": ""
     },
@@ -46,7 +46,8 @@
       "id": "q_005",
       "question": "openEuler 的 A-Ops 智能运维工具 gala-ops 如何安装和部署？",
       "official_urls": [
-        "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/server/aops/deploying_aops.html"
+        "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/server/aops/deploying_aops.html",
+        "https://docs.openeuler.org/zh/docs/25.03/server/maintenance/aops/deploying-aops.html"
       ],
       "notes": ""
     },

@@ -246,8 +246,8 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 
 | 状态 | 描述 | 严重级别 | 说明 |
 |------|------|----------|------|
-| `satisfied` | 引用了官方内容 | OK | 回答中包含官方 URL 或域名 |
-| `not_cited` | 有内容未被引用 | P0 | 官方已有内容但 AI 平台未引用 |
+| `satisfied` | 引用了官方内容 | OK | ≥75% 平台回答中包含官方 URL |
+| `not_cited` | 有内容未被引用 | P0 | 官方已有内容但 <75% 平台引用 |
 | `no_official_content` | 官方内容缺失 | P1 | 官方本身无对应内容 |
 
 评分完成后，自动将 `questions.json` 中已标注的 `official_urls` 同步回 `questions.md`，在每行问题后新增「官方链接」列。

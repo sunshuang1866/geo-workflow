@@ -39,10 +39,17 @@ UA = (
     "Chrome/124.0.0.0 Safari/537.36"
 )
 
-# Selector definitions (kept in one place for easy update)
 SELECTOR_INPUT = "#prompt-textarea"
 SELECTOR_SEND = 'button[data-testid="send-button"]'
-SELECTOR_STOP = 'button[aria-label="Stop streaming"]'
+
+# ChatGPT has used several different aria-labels / test-ids across UI versions.
+# Tried in order; first match wins.
+SELECTORS_STOP = [
+    'button[data-testid="stop-button"]',
+    'button[aria-label="Stop streaming"]',
+    'button[aria-label="Stop generating"]',
+]
+
 SELECTOR_LOGIN = '[data-testid="login-button"]'
 SELECTOR_RESPONSE = '[data-message-author-role="assistant"]'
 SELECTOR_CITATIONS = '[data-message-author-role="assistant"] a[href]'
@@ -71,6 +78,8 @@ def main():
 
     timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
+    # ------------------------------------------------------------------ helpers
+
     def save_screenshot(label):
         if args.screenshot_dir:
             os.makedirs(args.screenshot_dir, exist_ok=True)
@@ -81,13 +90,123 @@ def main():
             except Exception:
                 pass
 
+    def fill_input(el, text: str) -> None:
+        """Fill the ChatGPT input box (contenteditable div).
+        Tries fill() first; falls back to click + keyboard.type() if fill()
+        doesn't trigger React's synthetic events.
+        """
+        try:
+            el.click()
+            el.fill(text)
+            # Verify content landed
+            val = el.inner_text().strip()
+            if val:
+                return
+        except Exception:
+            pass
+        # Fallback: clear and type char-by-char via keyboard
+        el.click()
+        page.keyboard.key("Control+a")
+        page.keyboard.press("Delete")
+        time.sleep(0.2)
+        page.keyboard.type(text, delay=20)
+
+    def submit_question() -> None:
+        """Click the send button, or press Enter if the button is not found."""
+        try:
+            btn = page.wait_for_selector(SELECTOR_SEND, timeout=5000)
+            btn.click()
+        except PW_Timeout:
+            page.keyboard.press("Enter")
+
+    def wait_for_generation(timeout_ms: int) -> bool:
+        """Wait for ChatGPT to finish streaming. Returns True = completed normally."""
+        # Strategy 1: wait for a stop-button to appear, then disappear.
+        for stop_sel in SELECTORS_STOP:
+            try:
+                page.wait_for_selector(stop_sel, timeout=10_000)
+                print(f"  [gen] stop button found: {stop_sel}", file=sys.stderr)
+                try:
+                    page.wait_for_selector(stop_sel, state="detached", timeout=timeout_ms)
+                    return True
+                except PW_Timeout:
+                    return False  # streaming did not finish in time
+            except PW_Timeout:
+                continue  # this selector never appeared, try next
+
+        # Strategy 2: no stop button appeared (selectors may have changed again).
+        # Fall back to waiting for the send button to become re-enabled.
+        print("  [gen] stop button not found; falling back to send-button re-enable check",
+              file=sys.stderr)
+        try:
+            # Send button is disabled / replaced during streaming; re-appears when done.
+            page.wait_for_function(
+                f"""() => {{
+                    const btn = document.querySelector('{SELECTOR_SEND}');
+                    return btn && !btn.disabled;
+                }}""",
+                timeout=timeout_ms,
+            )
+            time.sleep(1)
+            return True
+        except PW_Timeout:
+            return False
+
+    def extract_citations() -> list:
+        """Return deduplicated HTTP/HTTPS citation links from all assistant messages."""
+        try:
+            links = page.eval_on_selector_all(
+                SELECTOR_CITATIONS,
+                "els => els.map(a => a.href)",
+            )
+        except Exception:
+            links = []
+        seen = set()
+        result = []
+        for href in links:
+            if (
+                href
+                and href.startswith("http")
+                and href not in seen
+                and not href.startswith("https://chatgpt.com")  # skip internal nav links
+            ):
+                seen.add(href)
+                result.append(href)
+        return result
+
+    # ------------------------------------------------------------------ load token
+
+    try:
+        with open(args.session) as f:
+            sess_data = json.load(f)
+    except Exception as e:
+        print(f"SESSION_READ_ERROR: {e}", file=sys.stderr)
+        sys.exit(2)
+
+    # Support both formats:
+    #   new: {"token": "..."}
+    #   legacy: {"cookies": [{"name": "__Secure-next-auth.session-token", "value": "..."}]}
+    token_value = None
+    if "token" in sess_data:
+        token_value = sess_data["token"]
+    elif "cookies" in sess_data:
+        for c in sess_data.get("cookies", []):
+            if c.get("name") == "__Secure-next-auth.session-token":
+                token_value = c.get("value")
+                break
+
+    if not token_value:
+        print("SESSION_TOKEN_MISSING: no token found in session file", file=sys.stderr)
+        sys.exit(2)
+
+    # ------------------------------------------------------------------ browser
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True, args=ANTI_DETECT_ARGS)
         ctx = browser.new_context(
             user_agent=UA,
             viewport={"width": 1280, "height": 800},
             locale="en-US",
-            storage_state=args.session,
         )
         ctx.add_init_script(
             'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
@@ -95,6 +214,11 @@ def main():
         page = ctx.new_page()
 
         try:
+            # Inject token via extra request header — bypasses CDP __Secure- cookie
+            # restriction in Playwright 1.x. NextAuth.js reads Cookie header server-side.
+            page.set_extra_http_headers({
+                "Cookie": f"__Secure-next-auth.session-token={token_value}"
+            })
             page.goto("https://chatgpt.com/", timeout=30000)
             time.sleep(3)
         except Exception as e:
@@ -102,48 +226,51 @@ def main():
             browser.close()
             sys.exit(1)
 
-        # Check login
+        # --- login check ---
         try:
             page.wait_for_selector(SELECTOR_LOGIN, timeout=3000)
-            print("SESSION_EXPIRED", file=sys.stderr)
+            print("SESSION_EXPIRED: login button visible", file=sys.stderr)
+            save_screenshot("session-expired")
             browser.close()
             sys.exit(2)
         except PW_Timeout:
-            pass  # logged in
+            pass  # login button absent → session appears valid
 
-        # Find input box
+        # --- locate input ---
         try:
             textarea = page.wait_for_selector(SELECTOR_INPUT, timeout=10000)
         except PW_Timeout:
             save_screenshot("no-input")
-            print("INPUT_NOT_FOUND: input box selector may have changed", file=sys.stderr)
+            print("INPUT_NOT_FOUND: selector may have changed — check screenshot", file=sys.stderr)
             browser.close()
             sys.exit(3)
 
-        # Type question
-        textarea.click()
-        textarea.fill(args.question)
+        # --- ask the question ---
+        fill_input(textarea, args.question)
         time.sleep(0.5)
+        submit_question()
 
-        # Send
+        # --- wait for answer ---
+        timed_out = not wait_for_generation(args.timeout * 1000)
+
+        # After the stop button disappears, React may still be rendering.
+        # Wait until aria-busy clears and text is non-empty (max 10 s).
         try:
-            btn = page.wait_for_selector(SELECTOR_SEND, timeout=5000)
-            btn.click()
-        except PW_Timeout:
-            textarea.press("Enter")
-
-        # Wait for generation to complete
-        timed_out = False
-        try:
-            page.wait_for_selector(SELECTOR_STOP, timeout=15000)
-            page.wait_for_selector(SELECTOR_STOP, state="detached", timeout=args.timeout * 1000)
-        except PW_Timeout:
-            timed_out = True
-
+            page.wait_for_function(
+                """() => {
+                    const msgs = document.querySelectorAll('[data-message-author-role="assistant"]');
+                    if (!msgs.length) return false;
+                    const last = msgs[msgs.length - 1];
+                    return !last.querySelector('[aria-busy="true"]')
+                        && last.innerText.trim().length > 0;
+                }""",
+                timeout=10_000,
+            )
+        except Exception:
+            pass  # fallback: extract whatever is rendered
         time.sleep(1)
 
         if timed_out:
-            # Check if there's any content anyway
             msgs = page.query_selector_all(SELECTOR_RESPONSE)
             if not msgs:
                 save_screenshot("timeout")
@@ -161,8 +288,9 @@ def main():
                 print(json.dumps(result, ensure_ascii=False))
                 browser.close()
                 sys.exit(4)
+            # partial response received despite timeout — continue
 
-        # Extract response
+        # --- extract response ---
         msgs = page.query_selector_all(SELECTOR_RESPONSE)
         if not msgs:
             save_screenshot("no-response")
@@ -182,52 +310,34 @@ def main():
             sys.exit(1)
 
         response_text = msgs[-1].inner_text().strip()
+        citations = extract_citations()
 
-        # Extract citation links
-        try:
-            links = page.eval_on_selector_all(
-                SELECTOR_CITATIONS,
-                "els => els.map(a => a.href).filter(h => h.startsWith('http'))",
-            )
-        except Exception:
-            links = []
-
-        # Deduplicate citations preserving order
-        seen = set()
-        citations = []
-        for href in links:
-            if href not in seen:
-                seen.add(href)
-                citations.append(href)
-
-        # Follow-up: request more citations if below threshold
+        # --- follow-up if too few citations ---
         FOLLOW_UP = "请继续补充更多相关参考来源链接，要求总共包含至少8个不同的来源。"
         if len(citations) < args.min_citations:
-            print(f"  citations={len(citations)} < {args.min_citations}, sending follow-up...", file=sys.stderr)
+            print(f"  citations={len(citations)} < {args.min_citations}, sending follow-up...",
+                  file=sys.stderr)
             try:
                 textarea = page.wait_for_selector(SELECTOR_INPUT, timeout=5000)
-                textarea.click()
-                textarea.fill(FOLLOW_UP)
+                fill_input(textarea, FOLLOW_UP)
                 time.sleep(0.5)
+                submit_question()
+                wait_for_generation(args.timeout * 1000)
                 try:
-                    btn = page.wait_for_selector(SELECTOR_SEND, timeout=5000)
-                    btn.click()
-                except PW_Timeout:
-                    textarea.press("Enter")
-                try:
-                    page.wait_for_selector(SELECTOR_STOP, timeout=15000)
-                    page.wait_for_selector(SELECTOR_STOP, state="detached", timeout=args.timeout * 1000)
-                except PW_Timeout:
+                    page.wait_for_function(
+                        """() => {
+                            const msgs = document.querySelectorAll('[data-message-author-role="assistant"]');
+                            if (!msgs.length) return false;
+                            const last = msgs[msgs.length - 1];
+                            return !last.querySelector('[aria-busy="true"]')
+                                && last.innerText.trim().length > 0;
+                        }""",
+                        timeout=10_000,
+                    )
+                except Exception:
                     pass
                 time.sleep(1)
-                extra_links = page.eval_on_selector_all(
-                    SELECTOR_CITATIONS,
-                    "els => els.map(a => a.href).filter(h => h.startsWith('http'))",
-                )
-                for href in extra_links:
-                    if href not in seen:
-                        seen.add(href)
-                        citations.append(href)
+                citations = extract_citations()
             except Exception as e:
                 print(f"  follow-up error: {e}", file=sys.stderr)
 

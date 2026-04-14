@@ -14,7 +14,7 @@ Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for ea
 - **ChatGPT**: Valid session token stored in `assessments/{community}/.chatgpt-session.json`
 - **DeepSeek**: Either a session cookie file `assessments/{community}/.deepseek-session.json`  
   OR env vars `DEEPSEEK_WEB_EMAIL` + `DEEPSEEK_WEB_PASSWORD` (auto-login, no manual token needed)
-- **Gemini**: No auth required — anonymous usage, fully stateless
+- **Gemini**: Anonymous usage (no citations) OR logged-in via `assessments/{community}/.gemini-session.json` (enables Search Grounding + citations)
 - **Qwen**: Either a localStorage token file `assessments/{community}/.qwen-session.json`  
   OR env vars `QWEN_WEB_EMAIL` + `QWEN_WEB_PASSWORD` (auto-login, no CAPTCHA)
 - `assessments/{community}/questions.json` (output from get-question skill)
@@ -47,7 +47,9 @@ Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for ea
    On failure, print `SESSION_EXPIRED` and instruct the user to re-inject via `inject-token.py`.
 5. **DeepSeek only**: Verify that either `assessments/{community}/.deepseek-session.json` exists  
    OR that `DEEPSEEK_WEB_EMAIL` + `DEEPSEEK_WEB_PASSWORD` are set in the environment.
-   **Gemini**: No auth check needed — skip this step for `gemini-web`.
+   **Gemini**: Check if `assessments/{community}/.gemini-session.json` exists.  
+   - If present → pass `--session` to `ask-gemini.py` (logged-in mode, citations enabled).  
+   - If absent → run anonymous (no citations; note this to the user).
 5b. **Qwen only**: Verify that either `assessments/{community}/.qwen-session.json` exists  
    OR that `QWEN_WEB_EMAIL` + `QWEN_WEB_PASSWORD` are set in the environment.
 6. Resolve output path:
@@ -95,11 +97,19 @@ For each question:
        --question-id {question_id} \
        --timeout {timeout}
      ```
-   - `gemini-web` (no auth required):
+   - `gemini-web` (anonymous — no citations):
      ```bash
      python3 .claude/skills/platform-chat/scripts/ask-gemini.py \
        --question "{question_text}" \
        --question-id {question_id} \
+       --timeout {timeout}
+     ```
+   - `gemini-web` (logged-in — with Search Grounding citations):
+     ```bash
+     python3 .claude/skills/platform-chat/scripts/ask-gemini.py \
+       --question "{question_text}" \
+       --question-id {question_id} \
+       --session assessments/{community}/.gemini-session.json \
        --timeout {timeout}
      ```
    - `qwen-web` (token file):
@@ -195,21 +205,65 @@ echo '{"token":"<paste-here>"}' > assessments/{community}/.qwen-session.json
 > **Password hashing note**: The login form hashes the password with SHA-256 client-side before
 > sending to the API. Playwright handles this automatically since the browser JS runs normally.
 
-## Gemini: No Auth Required
+## Gemini: Auth Options
 
-Gemini permits fully anonymous conversations — no login, no session file, no environment variables.
-Each invocation opens a fresh browser context and starts a new conversation at `https://gemini.google.com/app`.
+Gemini supports two modes:
+
+### Anonymous (no citations)
+
+No setup needed. Gemini uses training data only — no web search, no citation links.
 
 ```bash
-# No setup needed. Run directly:
 python3 .claude/skills/platform-chat/scripts/ask-gemini.py \
-  --question "What is MindSpore?" \
+  --question "What is openEuler?" \
   --question-id q_001
+```
+
+### Logged-in (with Search Grounding citations)
+
+With a valid Google session, Gemini performs real-time web search and returns citation links.
+
+**Step 1 — Extract cookies from Chrome (after logging in at gemini.google.com):**
+
+1. Open Chrome → log in at `https://gemini.google.com/`
+2. Press `F12` → **Application** tab → **Cookies** → `https://gemini.google.com`
+3. Copy the values for these cookies:
+
+| Cookie name | Required |
+|---|---|
+| `__Secure-1PSID` | **Required** |
+| `__Secure-3PSID` | Recommended |
+| `__Secure-1PAPISID` | Recommended |
+| `__Secure-3PAPISID` | Recommended |
+
+**Step 2 — Inject and verify:**
+
+```bash
+python3 .claude/skills/platform-chat/scripts/inject-gemini-session.py \
+  --community {community} \
+  --1psid  "<__Secure-1PSID value>" \
+  --3psid  "<__Secure-3PSID value>" \
+  --1papisid "<__Secure-1PAPISID value>" \
+  --3papisid "<__Secure-3PAPISID value>"
+```
+
+Writes `assessments/{community}/.gemini-session.json` and prints `SESSION_VALID` on success.
+
+**Step 3 — Run with session:**
+
+```bash
+python3 .claude/skills/platform-chat/scripts/ask-gemini.py \
+  --question "What is openEuler?" \
+  --question-id q_001 \
+  --session assessments/{community}/.gemini-session.json
 ```
 
 > **Citation notes**: Gemini wraps source URLs inside Google search redirects
 > (`https://www.google.com/search?q=<encoded_url>`). The script automatically extracts
 > and decodes the actual target URLs into `citations[]`.
+>
+> **Session expiry**: Google sessions typically last several weeks. Re-run `inject-gemini-session.py`
+> if you encounter `SESSION_EXPIRED`.
 
 ## DeepSeek: Auth Options
 

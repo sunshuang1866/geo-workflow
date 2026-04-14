@@ -2,11 +2,15 @@
   "chatgpt": {
     "input_box": "#prompt-textarea",
     "send_button": "button[data-testid='send-button']",
-    "stop_streaming": "button[aria-label='Stop streaming']",
+    "stop_streaming_candidates": [
+      "button[data-testid='stop-button']",
+      "button[aria-label='Stop streaming']",
+      "button[aria-label='Stop generating']"
+    ],
     "login_button": "[data-testid='login-button']",
     "assistant_message": "[data-message-author-role='assistant']",
     "citation_links": "[data-message-author-role='assistant'] a[href]",
-    "_note": "Update if ChatGPT redesigns its UI. Run ask-chatgpt.py with --screenshot-dir to debug."
+    "_note": "stop_streaming_candidates are tried in order; first match wins. ChatGPT has changed the stop-button selector multiple times. If all stop selectors fail, the script falls back to waiting for the send button to re-enable. Run ask-chatgpt.py with --screenshot-dir to debug. Internal chatgpt.com links are excluded from citations."
   },
   "deepseek": {
     "email_input": "input.ds-input__input[type='text']",

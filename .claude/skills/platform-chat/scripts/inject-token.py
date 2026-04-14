@@ -29,20 +29,9 @@ def main():
     session_path = os.path.join(root_dir, "assessments", args.community, ".chatgpt-session.json")
     os.makedirs(os.path.dirname(session_path), exist_ok=True)
 
-    state = {
-        "cookies": [
-            {
-                "name": "__Secure-next-auth.session-token",
-                "value": args.token,
-                "domain": ".chatgpt.com",
-                "path": "/",
-                "httpOnly": True,
-                "secure": True,
-                "sameSite": "Lax",
-            }
-        ],
-        "origins": [],
-    }
+    # Store only the raw token value — add_cookies() is used at runtime
+    # (storage_state initialization rejects __Secure- cookies without a URL context)
+    state = {"token": args.token}
 
     with open(session_path, "w") as f:
         json.dump(state, f, indent=2)
@@ -72,10 +61,15 @@ def main():
             user_agent=ua,
             viewport={"width": 1280, "height": 800},
             locale="en-US",
-            storage_state=session_path,
         )
         ctx.add_init_script('Object.defineProperty(navigator, "webdriver", {get: () => undefined})')
         page = ctx.new_page()
+        # Use extra HTTP headers instead of add_cookies — Playwright 1.x rejects
+        # __Secure- prefixed cookies via CDP setCookies; header injection is equivalent
+        # because NextAuth.js reads the Cookie header server-side.
+        page.set_extra_http_headers({
+            "Cookie": f"__Secure-next-auth.session-token={args.token}"
+        })
         page.goto("https://chatgpt.com/", timeout=30000)
         time.sleep(4)
 

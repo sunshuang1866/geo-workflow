@@ -2,8 +2,8 @@
 """Fetch top forum posts from a Discourse-based community forum.
 
 Usage:
-    python3 fetch-forum-posts.py --community <name> --api-url <url> --limit <N>
-    python3 fetch-forum-posts.py --community MindSpore --api-url https://discuss.mindspore.cn --limit 50
+    python3 fetch-forum-posts.py --community <name> --api-url <url>
+    python3 fetch-forum-posts.py --community MindSpore --api-url https://discuss.mindspore.cn
     python3 fetch-forum-posts.py --community MindSpore --api-url https://discuss.mindspore.cn --category help
 
 Output: JSON array of posts to stdout, errors to stderr.
@@ -46,28 +46,28 @@ def resolve_category(base_url: str, slug: str) -> tuple[str, int] | None:
         return None
 
 
-def fetch_top_topics(base_url: str, limit: int) -> list[dict]:
-    """Fetch top topics from /top.json across all categories."""
-    topics = []
-    page = 0
-    while len(topics) < limit:
-        url = f"{base_url}/top.json?period=all&page={page}"
-        data = fetch_json(url)
-        topic_list = data.get("topic_list", {}).get("topics", [])
-        if not topic_list:
-            break
-        topics.extend(topic_list)
-        page += 1
-        if page > 3:  # cap at 3 pages to avoid rate limits
-            break
-    return topics[:limit]
+SKIP_SLUGS = {"meta", "staff", "uncategorized", "site-feedback"}
 
 
-def fetch_category_topics(base_url: str, slug: str, category_id: int, limit: int) -> list[dict]:
-    """Fetch top topics (sorted by views) from a specific category using /l/top endpoint."""
+def fetch_all_categories(base_url: str) -> list[dict]:
+    """Return all active categories (topic_count > 0, skip meta/staff)."""
+    try:
+        data = fetch_json(f"{base_url}/categories.json")
+        cats = data.get("category_list", {}).get("categories", [])
+        return [
+            c for c in cats
+            if c.get("topic_count", 0) > 0 and c.get("slug", "") not in SKIP_SLUGS
+        ]
+    except Exception as e:
+        print(f"WARNING: Failed to fetch categories: {e}", file=sys.stderr)
+        return []
+
+
+def fetch_category_topics(base_url: str, slug: str, category_id: int) -> list[dict]:
+    """Fetch topics sorted by views from a specific category via /l/top endpoint."""
     topics = []
     page = 0
-    while len(topics) < limit:
+    while True:
         url = f"{base_url}/c/{slug}/{category_id}/l/top.json?period=all&page={page}"
         data = fetch_json(url)
         topic_list = data.get("topic_list", {}).get("topics", [])
@@ -77,7 +77,7 @@ def fetch_category_topics(base_url: str, slug: str, category_id: int, limit: int
         page += 1
         if page > 3:
             break
-    return topics[:limit]
+    return topics
 
 
 def normalize_topic(topic: dict) -> dict:
@@ -99,59 +99,67 @@ def normalize_topic(topic: dict) -> dict:
     }
 
 
-def fetch_posts(community: str, limit: int, api_url: str,
+def fetch_posts(community: str, api_url: str,
                 category: str | None = None) -> list[dict]:
-    """Fetch forum topics, deduplicate, sort by views, return top N."""
+    """Fetch forum topics, deduplicate, and sort by relevance score."""
     base_url = api_url.rstrip("/")
 
     all_topics = {}  # id → topic, for dedup
 
     if category:
-        # Auto-discover category slug → id from /categories.json
+        # Single category mode: resolve slug → id, fetch views-sorted topics
         resolved = resolve_category(base_url, category)
         if resolved:
             slug, cat_id = resolved
             try:
-                topics = fetch_category_topics(base_url, slug, cat_id, limit)
+                topics = fetch_category_topics(base_url, slug, cat_id)
                 for t in topics:
                     all_topics[t["id"]] = t
                 print(f"Fetched {len(topics)} topics from category '{slug}'", file=sys.stderr)
             except Exception as e:
                 print(f"WARNING: Failed to fetch category '{slug}': {e}", file=sys.stderr)
     else:
-        # Fetch global top topics across all categories, sorted by views
-        try:
-            top_topics = fetch_top_topics(base_url, limit)
-            for t in top_topics:
-                all_topics[t["id"]] = t
-            print(f"Fetched {len(top_topics)} global top topics", file=sys.stderr)
-        except Exception as e:
-            print(f"WARNING: Failed to fetch global top topics: {e}", file=sys.stderr)
+        # Global mode: fetch all active categories, collect views-sorted topics from each,
+        # merge and deduplicate — gives a complete pool sorted by views across all categories.
+        categories = fetch_all_categories(base_url)
+        print(f"Discovered {len(categories)} active categories", file=sys.stderr)
+        for cat in categories:
+            slug = cat.get("slug", "")
+            cat_id = cat.get("id")
+            try:
+                topics = fetch_category_topics(base_url, slug, cat_id)
+                added = 0
+                for t in topics:
+                    if t["id"] not in all_topics:
+                        all_topics[t["id"]] = t
+                        added += 1
+                print(f"  [{slug}] {added} topics added ({len(topics)} fetched)", file=sys.stderr)
+            except Exception as e:
+                print(f"  WARNING: Failed to fetch category '{slug}': {e}", file=sys.stderr)
 
     if not all_topics:
         print("ERROR: No topics fetched from any source.", file=sys.stderr)
         sys.exit(1)
 
-    # Normalize, filter pinned/closed, sort by views
+    # Normalize, filter low-traffic topics
     results = []
     for topic in all_topics.values():
         normalized = normalize_topic(topic)
-        if normalized["pinned"] or normalized["closed"]:
+        if normalized["views"] <= 50:
             continue
         results.append(normalized)
 
     results.sort(key=lambda t: t["views"], reverse=True)
-    return results[:limit]
+    return results
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Fetch forum posts from Discourse")
     parser.add_argument("--community", required=True, help="Community name")
-    parser.add_argument("--limit", type=int, default=50, help="Max topics to return")
     parser.add_argument("--api-url", required=True, help="Forum base URL (e.g., https://discuss.mindspore.cn)")
     parser.add_argument("--category", default=None,
                         help="Category slug to filter (auto-resolves ID via /categories.json)")
     args = parser.parse_args()
 
-    posts = fetch_posts(args.community, args.limit, args.api_url, args.category)
+    posts = fetch_posts(args.community, args.api_url, args.category)
     print(json.dumps(posts, ensure_ascii=False, indent=2))

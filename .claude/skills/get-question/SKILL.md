@@ -12,9 +12,10 @@ description: Generates and incrementally appends to a structured question set fo
 | `community` | no | `GEO_COMMUNITY` from `.env` | e.g. "MindSpore" |
 | `seed_keywords` | no | LLM-derived | comma-separated |
 | `paths` | no | `GEO_PATHS` from `.env` → `all` | `forum` / `issue` / `maillist` / `website` / `all` |
-| `sig_url` | no | `https://www.mindspore.cn/sig` | Entry point for SIG data (maillist path) |
 | `forum_url` | no | `GEO_FORUM_URL` from `.env` | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
-| `source_repo_url` | no | `GEO_SOURCE_REPO_URL` from `.env` | GitCode repo URL for issue path, e.g. `https://gitcode.com/mindspore/mindspore/`. Owner and repo name are parsed from this URL. |
+| `since` | no | none | Filter issue/mail records by `created_at >=` date, e.g. `2024-01-01` |
+| `datastat_email` | no | `DATASTAT_EMAIL` from `.env` | Login email for issue path (datastat API) |
+| `datastat_password` | no | `DATASTAT_PASSWORD` from `.env` | Login password for issue path (datastat API) |
 | `limit` | no | `80` | Chinese format ok: "前10" → `10` |
 
 **Outputs**: `questions.json`, `questions.md` in `assessments/{community}/` — appended in-place, never overwritten
@@ -30,7 +31,9 @@ description: Generates and incrementally appends to a structured question set fo
    - `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if still unresolved: `"community not set. Provide as argument or set GEO_COMMUNITY in .env."`
    - `paths`: caller arg → `GEO_PATHS` from `.env` → `all`
    - `forum_url`: caller arg → `GEO_FORUM_URL` from `.env`
-   - `source_repo_url`: caller arg → `GEO_SOURCE_REPO_URL` from `.env`. Parse `repo_owner` and `repo_name` from the URL path (e.g. `https://gitcode.com/{owner}/{repo}/`).
+   - `since`: caller arg → none (optional)
+   - `datastat_email`: caller arg → `DATASTAT_EMAIL` from `.env`
+   - `datastat_password`: caller arg → `DATASTAT_PASSWORD` from `.env`
 3. If `seed_keywords` missing → LLM: `"List 3-5 comma-separated technical keywords for '{community}'. Keywords only."`
 4. **Load existing question set**: If `assessments/{community}/questions.json` exists, parse it:
    - `existing_questions`: the `questions` array (preserve `official_urls`, `notes`, `official_domains` as-is)
@@ -51,7 +54,7 @@ If `manual-questions.md` exists → run `python3 $SD/scripts/parse-manual-questi
 
 Skip if `paths` excludes `forum`.
 
-1. Run `python3 $SD/scripts/fetch-forum-posts.py --community "{community}" --limit {limit} [--api-url "{forum_url}"]`.
+1. Run `python3 $SD/scripts/fetch-forum-posts.py --community "{community}" [--api-url "{forum_url}"]`.
 2. **exit=0** → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply forum variant, send LLM call with fetched data. Capture → `path1_questions`.
 3. **exit≠0** → Read `$SD/assets/prompt-templates.md` section `FORUM_FALLBACK`, send LLM call. Capture → `path1_questions`.
 
@@ -61,26 +64,29 @@ Skip if `paths` excludes `forum`.
 
 Skip if `paths` excludes `issue`.
 
-1. Pre-validate: `curl -s -o /dev/null -w "%{http_code}" -H "private-token: {GITCODE_TOKEN}" "https://api.gitcode.com/api/v5/user"`.
-   - **≠ 200** → log `SKIP: GITCODE_TOKEN invalid (HTTP {status})`, set `path2_questions=[]`, go to Step 5.
-2. Run `GITCODE_TOKEN={GITCODE_TOKEN} python3 $SD/scripts/fetch-repo-issues.py --owner {repo_owner} --repo {repo_name} --limit {limit}`.
-   - `repo_owner` and `repo_name` are parsed from `source_repo_url`.
-3. **success** → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply issue variant, send LLM call. Capture → `path2_questions`.
-4. **failure** → log warning, set `path2_questions=[]`. No LLM fallback.
+1. Pre-validate: check that `datastat_email` and `datastat_password` are set.
+   - If either is missing → log `SKIP: datastat_email/datastat_password not set`, set `path2_questions=[]`, go to Step 5.
+2. Run:
+   ```
+   DATASTAT_EMAIL={datastat_email} DATASTAT_PASSWORD={datastat_password} \
+   python3 $SD/scripts/fetch-dataset.py --community "{community}" --source issue [--since {since}]
+   ```
+3. **exit=0** → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply issue variant, send LLM call with fetched data. Capture → `path2_questions`.
+4. **exit=2** (auth failed) → log `SKIP: datastat login failed`, set `path2_questions=[]`, go to Step 5.
+5. **other failure** → log warning, set `path2_questions=[]`. No LLM fallback.
 
 ---
 
-## Step 5 — Path 3: Maillist (SIG)
+## Step 5 — Path 3: Maillist
 
 Skip if `paths` excludes `maillist`.
 
-1. Run `python3 $SD/scripts/fetch-sig-info.py --community "{community}" --limit {limit} --fetch-content`.
+1. Run:
+   ```
+   python3 $SD/scripts/fetch-dataset.py --community "{community}" --source mail [--since {since}]
+   ```
 2. **exit=0** → Read `$SD/assets/prompt-templates.md` section `MAILLIST_REWRITE`, send LLM call with fetched data. Capture → `path3_questions`.
 3. **exit≠0** → Read `$SD/assets/prompt-templates.md` section `MAILLIST_FALLBACK`, send LLM call. Capture → `path3_questions`.
-
-Two-step data flow:
-1. Fetch SIG list from `www.mindspore.cn/api-magicapi/sig/all/mindspore` → extract `mailing_list` addresses per SIG
-2. Fetch email archives from HyperKitty API at `mailweb.mindspore.cn` → thread subjects + email content (meeting notices, discussions, announcements)
 
 ---
 

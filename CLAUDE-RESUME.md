@@ -116,12 +116,16 @@ Current docs focus:
 
 ## Current Status
 
-- **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize. assessment-tracker.md and tracking-log.md removed from workflow.
-- **Directory structure**: Community data lives under `assessments/{community}/`. Typo `asssessments` fixed to `assessments` on 2026-03-28.
-- **MindSpore**: `assessments/MindSpore/` — has `questions.json` (with official_urls merged in), `questions.md`. Ready for first full pipeline run.
-- **issue-creator skill**: Updated SKILL.md (community/version_label inputs, richer LLM prompt with causal_chain/cross_platform_section/action_items) and issue-template.md (matches real-world issue.md format)
+- **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize.
+- **MindSpore pipeline**: Two full runs completed — V3 (2026-04-17) and V4 (2026-04-20).
+  - **Scoring threshold**: Changed from 75% to `any_one` (cited_count ≥ 1 = OK).
+  - **Platforms**: DeepSeek-web + Qwen-web (2 platforms per run).
+  - **issue-map.json**: 24 entries; GitHub Issues #1–#45 on `opensourceways/geo-workflow`.
+  - **V3 (04-17)**: OK=17, P0=18, P1=11; 9 created (#36–#44), 7 updated, 7 resolved; Changes vs 03-31: ↑0 ↓1 ✓11 ★27 →7.
+  - **V4 (04-20)**: OK=19, P0=16, P1=11; 1 created (#45), 13 updated, 3 resolved; Changes vs 04-17: ↑3 ↓2 ✓3 ★0 →38.
+  - **[已解决] title prefix**: issue-creator SKILL.md updated — for `to_resolve`, PATCH issue title with `[已解决] ` prefix before posting resolution comment.
 - **Branch**: `main`
-- **Last updated**: 2026-03-26
+- **Last updated**: 2026-04-20
 
 ## TODO
 
@@ -139,6 +143,15 @@ Current docs focus:
 
 | Date | Change |
 |------|--------|
+| 2026-04-20 | **MindSpore V4 full pipeline complete** (04-20 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=19/P0=16/P1=11) → issue-creator live (1 created #45, 13 updated, 3 resolved with [已解决] title prefix) → assessment-report (vs 04-17 baseline: ↑3 ↓2 ✓3 →38). issue-map.json now 24 entries. |
+| 2026-04-20 | **MindSpore V3 full pipeline complete** (04-17 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=17/P0=18/P1=11) → issue-creator live (9 created #36-#44, 7 updated, 7 resolved) → assessment-report (vs 03-31 baseline: ↑0 ↓1 ✓11 ★27 →7). |
+| 2026-04-20 | Scoring threshold changed from 75% to `any_one` for MindSpore: cited_count ≥ 1 → OK. Updated scoring-results.json for both 04-17 and 04-20 runs. |
+| 2026-04-20 | issue-creator SKILL.md Step 6 updated: `to_resolve` now PATCHes issue title with `[已解决] ` prefix (skip if already present) before posting resolution comment. |
+| 2026-04-20 | 精简 `docs/poster-figures.html` Figure 1：合并 5 个数据源 pill+5 条漏斗曲线为 1 个虚线容器框；合并 5 个平台 pill+5 条曲线为 platform-sampler 下方 1 行注释；合并 3 条虚线输出曲线为 1 条直线箭头进入新增的输出容器框。连接线从 13+ 条曲线降至 6 条正交直线，viewBox 从 1000×560 缩至 1000×410。 |
+| 2026-04-19 | 新建 `docs/poster-figures.html`：学术海报配图，SVG 两图（Figure 1 系统架构全景、Figure 2 openEuler V2→V3 效果百分比柱状对比），深海军蓝+暖色强调的学术配色，独立 figure 卡片便于截图。同步在 `poster-draft.md` §4 与 §7.1 插入 Figure 引用。 |
+| 2026-04-19 | `docs/poster-draft.md` 扩展为完整学术海报（15 段）：标题/作者/摘要/引言与 RQ/相关工作/三状态模型/架构/方法论/实验设置/结果/讨论/贡献/局限/未来工作/结论/参考文献/致谢/联系方式。openEuler 案例效果百分比保留（OK 0→12%、被忽略 85→35%、有效引用 15→65%、P0 91→65%），新增 Related Work、Experimental Setup、Discussion、Limitations、References、Acknowledgments 等标准学术海报段落。 |
+| 2026-04-19 | 为项目撰写学术海报纯文字大纲 `docs/poster-draft.md`（初版）。面向开源大会观众，聚焦 openEuler 案例的效果百分比。 |
+| 2026-04-17 | get-question 冗余清理：按用户要求保留“已删除 forum limit”设计，不恢复功能；删除 `fetch-forum-posts.py` 中与 `--limit` 相关的失效 Usage 文案，并将 get-question SKILL.md Step 3 的 forum 调用示例去掉 `--limit`，使文档与实现一致。 |
 | 2026-04-13 | **platform-chat 采集完成**（openEuler）。`2026-04-13/responses.json` 共 132 条：deepseek-web 57/57（全部 success）、qwen-web 57/57（32 success + 25 timeout 含回答）；另保留 deepseek/qwen API 旧数据各 9 条（q_033/034/035/037/038/040/060/078/081）。新增 `run-platform-chat.py` 批量编排脚本（支持 session cookie / 密码双认证、并发写安全、超时修复）。 |
 | 2026-04-07 | **openEuler V2 全流程复检完成**。Steps 0-5 按 AGENT.md 全部执行：初始化 `2026-04-07/`、平台采样（66q×5p=330，132成功，仅deepseek+qwen）、评分（60 P0 + 6 P1 + 0 OK）、Issue 管理（13条更新评论#15-#27，5条新Issue#31-#35，issue-map更新至g_001-g_018）、报告生成（assessment-report.json + .md，对比2026-04-02：↑0 ↓2 ★16 →48）、run-meta.json完成。测试issue #30已关闭(not_planned)。 |
 | 2026-04-02 | Generated assessment-report for openEuler run `2026-04-02` (first run, prev_report=none). 50 questions all `not_cited` P0, grouped into 5 improvement action categories: 补充专题文档(24q)、添加结构化数据(16q)、优化SEO元数据(22q)、重构内容结构(5q)、针对特定平台提交收录(4q). All 50 questions linked to GitHub Issues #15-#27. Output: `assessments/openEuler/2026-04-02/assessment-report.json` + `assessment-report.md`. |

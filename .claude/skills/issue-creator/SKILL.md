@@ -248,7 +248,13 @@ For each suggestion in `to_update`:
 
 For each suggestion in `to_resolve` (status now `satisfied`):
 
-1. Construct a resolution comment:
+1. **Update the Issue title** by prepending `[已解决] ` to the existing title:
+   - Fetch the current title via `GET /repos/{owner}/{repo}/issues/{number}`.
+   - New title: `[已解决] {current_title}` (skip if title already starts with `[已解决]`).
+   - PATCH the issue title via the API.
+   - **Dry-run**: print the new title without calling the API.
+
+2. Construct a resolution comment:
    ```markdown
    ## GEO 复检更新 — {run_date}
 

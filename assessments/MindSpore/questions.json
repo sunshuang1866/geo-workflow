@@ -21,14 +21,13 @@
       "id": "q_002",
       "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
       "official_urls": [
-        "https://www.mindspore.cn/news/detail?id=3610",
-        "https://www.mindspore.cn/news/detail?id=3867"
+        "https://discuss.mindspore.cn/t/topic/706/"
       ],
       "notes": ""
     },
     {
       "id": "q_003",
-      "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？按官方文档步骤操作失败时该怎么办？",
+      "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？",
       "official_urls": [
         "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
       ],
@@ -38,7 +37,8 @@
       "id": "q_004",
       "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
       "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html"
+        "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html",
+        "https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/_sources/reference/faq.md.txt"
       ],
       "notes": ""
     },
@@ -251,7 +251,8 @@
         "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md",
         "https://gitee.com/mindspore/docs/blob/master/CONTRIBUTING_DOC_CN.md",
         "https://www.mindspore.cn/doc/note/zh-CN/r1.0/community.html",
-        "https://www.mindspore.cn/contribution?type=word"
+        "https://www.mindspore.cn/contribution?type=word",
+        "https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.5.1/developer_guide/contributing.html"
       ],
       "notes": ""
     },
@@ -260,7 +261,8 @@
       "question": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
       "official_urls": [
         "https://www.mindspore.cn/sig/MindSpore%20Transformers",
-        "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers"
+        "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers",
+        "https://etherpad.mindspore.cn/p/sig-MindSpore-Transformers-meetings"
       ],
       "notes": ""
     },
@@ -269,7 +271,8 @@
       "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
       "official_urls": [
         "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
-        "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving"
+        "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving",
+        "https://etherpad.mindspore.cn/p/sig-LLM-Inference-Serving-meetings"
       ],
       "notes": ""
     },
@@ -278,7 +281,8 @@
       "question": "MindSpore Parallel Training System SIG 的工作范围是什么？",
       "official_urls": [
         "https://www.mindspore.cn/sig/Parallel%20Training%20System",
-        "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system"
+        "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system",
+        "https://gitee.com/cristoval/community/blob/master/sigs/parallel/README.md"
       ],
       "notes": ""
     },
@@ -287,14 +291,15 @@
       "question": "MindSpore MindQuantum SIG 的职责和活动是什么？",
       "official_urls": [
         "https://www.mindspore.cn/sig/MindSpore%20Quantum",
-        "https://atomgit.com/mindspore/community/blob/master/sigs/mindquantum/README.md"
+        "https://atomgit.com/mindspore/community/blob/master/sigs/mindquantum/README.md",
+        "https://gitee.com/mindspore/community/blob/master/sigs/mindquantum/README.md"
       ],
       "notes": ""
     },
     {
       "id": "q_043",
       "question": "如何向 MindSpore TSC 申请成立新的 SIG？",
-      "official_urls": [],
+      "official_urls": ["https://www.mindspore.cn/sig"],
       "notes": ""
     },
     {
@@ -342,7 +347,8 @@
       "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
       "official_urls": [
         "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
-        "https://www.mindspore.cn/sig"
+        "https://www.mindspore.cn/sig",
+        "https://mailweb.mindspore.cn/hyperkitty/"
       ],
       "notes": ""
     },

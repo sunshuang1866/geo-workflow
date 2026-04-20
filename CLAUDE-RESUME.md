@@ -143,6 +143,7 @@ Current docs focus:
 
 | Date | Change |
 |------|--------|
+| 2026-04-20 | get-question 规则调整：移除 `GEO_QUESTION_TARGET_MIN/MAX` 在 Step 7 的依赖，`MERGE_DEDUP` 改为不限制问题总数，保留全部非重复问题。 |
 | 2026-04-20 | **MindSpore V4 full pipeline complete** (04-20 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=19/P0=16/P1=11) → issue-creator live (1 created #45, 13 updated, 3 resolved with [已解决] title prefix) → assessment-report (vs 04-17 baseline: ↑3 ↓2 ✓3 →38). issue-map.json now 24 entries. |
 | 2026-04-20 | **MindSpore V3 full pipeline complete** (04-17 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=17/P0=18/P1=11) → issue-creator live (9 created #36-#44, 7 updated, 7 resolved) → assessment-report (vs 03-31 baseline: ↑0 ↓1 ✓11 ★27 →7). |
 | 2026-04-20 | Scoring threshold changed from 75% to `any_one` for MindSpore: cited_count ≥ 1 → OK. Updated scoring-results.json for both 04-17 and 04-20 runs. |

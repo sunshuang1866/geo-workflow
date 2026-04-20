@@ -1,6 +1,6 @@
 {
   "community": "openEuler",
-  "generated_at": "2026-04-01",
+  "generated_at": "2026-04-20",
   "official_domains": [
     "openeuler.org",
     "docs.openeuler.org",
@@ -14,7 +14,8 @@
         "https://forum.openeuler.org/t/topic/6872",
         "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/server/installation_upgrade/installation/installation_modes.html"
       ],
-      "notes": "很多版本都有安装指导，希望AI能搜索到最新版本的安装文档，提供更准确的安装步骤和注意事项。"
+      "notes": "很多版本都有安装指导，希望AI能搜索到最新版本的安装文档，提供更准确的安装步骤和注意事项。",
+      "source": "legacy"
     },
     {
       "id": "q_002",
@@ -22,7 +23,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/7378/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_003",
@@ -30,7 +32,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/294"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_004",
@@ -40,7 +43,8 @@
         "https://forum.openeuler.org/t/topic/2713",
         "https://forum.openeuler.org/t/topic/1975"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_005",
@@ -49,7 +53,8 @@
         "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/server/aops/deploying_aops.html",
         "https://docs.openeuler.org/zh/docs/25.03/server/maintenance/aops/deploying-aops.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_006",
@@ -57,7 +62,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/1975"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_007",
@@ -65,7 +71,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/875"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_008",
@@ -73,7 +80,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/220"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_009",
@@ -82,7 +90,8 @@
         "https://www.openeuler.openatom.cn/zh/migration/",
         "https://forum.openeuler.org/t/topic/18990"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_010",
@@ -90,7 +99,8 @@
       "official_urls": [
         "https://www.openeuler.openatom.cn/zh/migration/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_011",
@@ -98,7 +108,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/3222"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_012",
@@ -106,7 +117,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/246"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_013",
@@ -115,7 +127,8 @@
         "https://forum.openeuler.org/t/topic/4572",
         "https://www.openeuler.openatom.cn/zh/migration/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_014",
@@ -123,7 +136,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/2200"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_015",
@@ -131,7 +145,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4549"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_016",
@@ -139,7 +154,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4537"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_017",
@@ -149,7 +165,8 @@
         "https://forum.openeuler.org/t/topic/18449",
         "https://forum.openeuler.org/t/topic/6270"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_018",
@@ -157,7 +174,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/2964"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_019",
@@ -165,7 +183,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/2789"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_020",
@@ -173,7 +192,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4780"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_021",
@@ -181,7 +201,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/5035"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_022",
@@ -189,7 +210,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4897/2"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_023",
@@ -197,7 +219,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/3396"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_024",
@@ -206,7 +229,8 @@
         "https://forum.openeuler.org/t/topic/3959",
         "https://forum.openeuler.org/t/topic/3745"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_025",
@@ -214,7 +238,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/6895"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_026",
@@ -222,7 +247,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4365"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_027",
@@ -230,7 +256,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/3612"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_028",
@@ -238,7 +265,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/3328"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_029",
@@ -246,7 +274,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4266"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_030",
@@ -254,7 +283,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/6230"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_031",
@@ -262,7 +292,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/6960"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_032",
@@ -270,7 +301,8 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4337"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_033",
@@ -280,7 +312,8 @@
         "https://www.openeuler.org/en/sig/sig-list/",
         "https://www.openeuler.org/zh/sig/sig-list/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_034",
@@ -291,7 +324,8 @@
         "https://www.openeuler.org/en/community/mailing-list/",
         "https://www.openeuler.org/zh/sig/sig-list/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_035",
@@ -301,7 +335,8 @@
         "https://atomgit.com/openeuler/community/tree/master/sig/sig-Migration",
         "https://www.openeuler.org/zh/community/contribution/detail.html"
       ],
-      "notes": "注意，主仓库已经由Gitee迁移到GitCode，sig-Migration的代码仓库地址需要更新为：https://gitcode.com/openeuler/community/tree/master/sig/sig-Migration。若引用到Gitee的链接，需要特殊分析原因。"
+      "notes": "注意，主仓库已经由Gitee迁移到GitCode，sig-Migration的代码仓库地址需要更新为：https://gitcode.com/openeuler/community/tree/master/sig/sig-Migration。若引用到Gitee的链接，需要特殊分析原因。",
+      "source": "legacy"
     },
     {
       "id": "q_037",
@@ -312,7 +347,8 @@
         "https://www.openeuler.org/zh/sig/ai",
         "https://atomgit.com/openeuler/community/tree/master/sig/ai"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_038",
@@ -321,7 +357,8 @@
         "https://www.openeuler.openatom.cn/zh/sig/sig-QA",
         "https://www.openeuler.org/zh/community/contribution"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_039",
@@ -329,7 +366,8 @@
       "official_urls": [
         "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/embedded/index.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_040",
@@ -338,7 +376,8 @@
         "https://www.openeuler.org/en/sig/sig-guidance/",
         "https://www.openeuler.org/zh/sig/sig-guidance/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_041",
@@ -347,33 +386,41 @@
         "https://www.openeuler.org/zh/other/lifecycle/",
         "https://docs.openeuler.org/zh/docs/common/faq/general/general_faq.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_044",
       "question": "如何加入 openEuler A-Tune SIG 组参与系统性能自调优工具的开发？",
       "official_urls": [
         "https://docs.openeuler.org/zh/docs/common/faq/general/general_faq.html",
-        "https://www.openeuler.org/zh/community/contribution/detail.html"],
-      "notes": ""
+        "https://www.openeuler.org/zh/community/contribution/detail.html"
+      ],
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_046",
       "question": "openEuler 鲲鹏 UADK 支持哪些加密算法（SM4、AES、RSA、SHA 等）？如何调用加速接口？",
-      "official_urls": ["https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/tools/community_tools/uadk/uadk_quick_start.html"],
-      "notes": ""
+      "official_urls": [
+        "https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/tools/community_tools/uadk/uadk_quick_start.html"
+      ],
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_048",
       "question": "openEuler BigData SIG 支持哪些大数据组件（Hadoop、Spark、Flink 等）？",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_049",
       "question": "如何在 openEuler 上利用 EulerLauncher 或 BigData SIG 工具快速搭建大数据集群？",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_050",
@@ -382,7 +429,8 @@
         "https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/tools/devops/eulermaker/eulermaker_user_guide.html",
         "https://docs.openeuler.org/zh/docs/22.03_LTS_SP2/docs/EulerMaker/EulerMaker%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_052",
@@ -393,43 +441,54 @@
         "https://www.openeuler.org/zh/blog/overweight/2020-06-10-my-traval-of-openeuler.html",
         "https://www.openeuler.org/zh/community/contribution/detail.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_054",
       "question": "openEuler 分布式存储（sig-SDS）SIG 支持哪些存储组件（Ceph、Lustre、DBS）？",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_055",
       "question": "如何参与 openEuler 版本 RC 测试阶段，发现问题后的 issue 提交和修复流程是什么？",
-      "official_urls": ["https://www.openeuler.org/zh/blog/overweight/2020-06-10-my-traval-of-openeuler.html"],
-      "notes": ""
+      "official_urls": [
+        "https://www.openeuler.org/zh/blog/overweight/2020-06-10-my-traval-of-openeuler.html"
+      ],
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_056",
       "question": "openEuler 新版本分支初始化时，SIG maintainer 如何参与 PR 检视流程？",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_057",
       "question": "openEuler 版本发布 release公告会包含哪些内容？",
-      "official_urls": ["https://atomgit.com/openeuler/release-management/blob/master/release-plan.md"],
-      "notes": ""
+      "official_urls": [
+        "https://atomgit.com/openeuler/release-management/blob/master/release-plan.md"
+      ],
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_058",
       "question": "openEuler CloudNative SIG 支持哪些云原生组件（containerd、iSula、kata-containers 等）？",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_059",
       "question": "openEuler 上如何引入和使用 composefs 实现容器镜像的只读挂载文件系统？",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_060",
@@ -438,7 +497,8 @@
         "https://atomgit.com/openeuler/cloudnative",
         "https://www.openeuler.org/zh/sig/sig-CloudNative"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_062",
@@ -447,19 +507,26 @@
         "https://www.openeuler.org/zh/blog/20230310-RISC-V/RISC.html",
         "https://www.openeuler.org/zh/blog/20230630-newcomer/0630-newcomer.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_063",
       "question": "如何申请在 openEuler 官方网站添加新的全球镜像节点（public mirror）？有哪些申请条件？",
-      "official_urls": ["https://www.openeuler.org/zh/mirror/list/"],
-      "notes": ""
+      "official_urls": [
+        "https://www.openeuler.org/zh/mirror/list/"
+      ],
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_064",
       "question": "openEuler 社区版本生命周期是什么？",
-      "official_urls": ["https://www.openeuler.org/zh/other/lifecycle/"],
-      "notes": ""
+      "official_urls": [
+        "https://www.openeuler.org/zh/other/lifecycle/"
+      ],
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_067",
@@ -468,7 +535,8 @@
         "https://www.hikunpeng.com/developer/techArticles/20230831-6",
         "https://atomgit.com/openeuler/community/blob/master/sig/Kernel/%E8%A1%A5%E4%B8%81%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83.md"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_070",
@@ -476,7 +544,8 @@
       "official_urls": [
         "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/openstack/install/antelope.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_071",
@@ -484,7 +553,8 @@
       "official_urls": [
         "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/virtualization/introduction-to-virtulization.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_073",
@@ -492,7 +562,8 @@
       "official_urls": [
         "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/virtualization/vm-live-migration.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_074",
@@ -500,7 +571,8 @@
       "official_urls": [
         "https://atomgit.com/openeuler/compass-ci"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_077",
@@ -511,7 +583,8 @@
         "https://docs.openeuler.org/zh/docs/25.09/server/quickstart/releasenotes/key_features.html",
         "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/releasenotes/releasenotes/key_features.html"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_078",
@@ -519,7 +592,8 @@
       "official_urls": [
         "https://www.openeuler.org/zh/sig/sig-YuanRong"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_079",
@@ -529,7 +603,8 @@
         "https://mailweb.openeuler.org/hyperkitty/list/oecompatibility@openeuler.org/message/LNW6LN5QWGA44JN4Z62KT4XPWZPUNJT5/",
         "https://gitee.com/openeuler/technical-certification/blob/master/%E6%8A%80%E6%9C%AF%E6%B5%8B%E8%AF%84%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.md"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_080",
@@ -537,7 +612,8 @@
       "official_urls": [
         "https://www.openeuler.org/zh/security/vulnerability-reporting/"
       ],
-      "notes": ""
+      "notes": "",
+      "source": "legacy"
     },
     {
       "id": "q_081",
@@ -545,7 +621,439 @@
       "official_urls": [
         "https://atomgit.com/openeuler/community/tree/master/sig/sig-OpenDesign"
       ],
-      "notes": "https://www.openeuler.org/en/sig/sig-OpenDesign 官网页面需要补充SIG相关说明"
+      "notes": "https://www.openeuler.org/en/sig/sig-OpenDesign 官网页面需要补充SIG相关说明",
+      "source": "legacy"
+    },
+    {
+      "id": "q_082",
+      "question": "如何配置 openEuler 的软件仓库（repo 源）？有哪些常用的官方 repo 源地址？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 38170
+    },
+    {
+      "id": "q_083",
+      "question": "忘记 openEuler root 密码后如何在不重装系统的情况下重置密码？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 11418
+    },
+    {
+      "id": "q_084",
+      "question": "如何获取和使用 openEuler 官方容器镜像？支持哪些架构的容器镜像？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 9290
+    },
+    {
+      "id": "q_085",
+      "question": "如何在 openEuler 上从源码编译安装自定义内核？内核编译的基本流程是什么？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 7439
+    },
+    {
+      "id": "q_086",
+      "question": "如何在 openEuler 上安装 Xfce 桌面环境并配置 xrdp 实现 Windows 远程桌面连接？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 6847
+    },
+    {
+      "id": "q_087",
+      "question": "如何在离线（无网络）环境下将 Docker 安装到 openEuler 系统？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 6602
+    },
+    {
+      "id": "q_088",
+      "question": "openEuler 系统 DNS 域名解析失败（ping 域名提示 Name or service not known），如何排查和修复网络 DNS 配置？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 6562
+    },
+    {
+      "id": "q_089",
+      "question": "openEuler 各常用组件和服务的默认用户名与密码分别是什么？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 6400
+    },
+    {
+      "id": "q_090",
+      "question": "如何在 openEuler 中使用 NetworkManager 管理和重启网络服务？nmcli 常用命令有哪些？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 6334
+    },
+    {
+      "id": "q_091",
+      "question": "如何在 openEuler 上关闭防火墙（firewalld）和 SELinux？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 5779
+    },
+    {
+      "id": "q_092",
+      "question": "如何在 openEuler 上搭建 Samba 文件共享服务，实现与 Windows 的文件共享？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 5156
+    },
+    {
+      "id": "q_093",
+      "question": "如何在 openEuler ISO 镜像中添加自定义 RPM 包并重新构建 ISO 安装镜像？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4931
+    },
+    {
+      "id": "q_094",
+      "question": "如何在 openEuler 上安装 DDE（深度桌面环境）图形界面？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4709
+    },
+    {
+      "id": "q_095",
+      "question": "openEuler 各发行版本（20.03/22.03/24.03 等）对应的默认内核版本分别是什么？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4550
+    },
+    {
+      "id": "q_096",
+      "question": "在 openEuler 中修改 ifcfg-ethX 网卡配置文件后网络设置不生效，如何通过 NetworkManager 正确应用配置？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4547
+    },
+    {
+      "id": "q_097",
+      "question": "如何在 openEuler 上安装和配置 DPDK（数据平面开发套件）？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4453
+    },
+    {
+      "id": "q_098",
+      "question": "如何在 openEuler 上将 OpenSSL 升级到指定版本？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4345
+    },
+    {
+      "id": "q_099",
+      "question": "如何在 openEuler 22.03 LTS 上使用 kubeadm 部署 Kubernetes 集群？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4210
+    },
+    {
+      "id": "q_100",
+      "question": "在 openEuler 22.03 上使用 KVM 创建虚拟机时报 qxl 显卡相关错误，如何解决？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4132
+    },
+    {
+      "id": "q_101",
+      "question": "如何在 openEuler 上搭建 FTP 服务器（vsftpd）？配置虚拟账户后无法登录如何排查？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4090
+    },
+    {
+      "id": "q_102",
+      "question": "如何在 openEuler 22.03 LTS 上安装 Docker CE？安装时常见错误如何解决？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4081
+    },
+    {
+      "id": "q_103",
+      "question": "openEuler 安装后系统缺少 tar、make 等基础开发工具，如何在离线内网环境中安装这些工具？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4032
+    },
+    {
+      "id": "q_104",
+      "question": "如何使用 x2openEuler 管理升级任务，包括删除、修改或重新执行已有升级任务？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 4001
+    },
+    {
+      "id": "q_105",
+      "question": "如何在 openEuler 上配置 sudo，为普通用户授予特定命令的 root 执行权限？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3925
+    },
+    {
+      "id": "q_106",
+      "question": "如何在 openEuler 22.03 LTS 上以二进制方式部署 MySQL 5.7？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3887
+    },
+    {
+      "id": "q_107",
+      "question": "如何在配备 RAID 控制卡的服务器上安装 openEuler 操作系统？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3834
+    },
+    {
+      "id": "q_108",
+      "question": "openEuler 的 oec-hardware 硬件兼容性测试工具如何使用？如何通过它提交硬件兼容性认证？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3815
+    },
+    {
+      "id": "q_109",
+      "question": "如何在 openEuler 上安装 MongoDB 数据库？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3799
+    },
+    {
+      "id": "q_110",
+      "question": "如何查询硬件设备与 openEuler 的兼容性？官方硬件兼容性列表在哪里查看？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3796
+    },
+    {
+      "id": "q_111",
+      "question": "openEuler 普通用户执行 su root 时提示 Permission denied，原因是什么，如何解决？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3769
+    },
+    {
+      "id": "q_112",
+      "question": "在 openEuler 上使用 yum/dnf 安装软件时报 'GPG check FAILED' 错误，如何解决？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3700
+    },
+    {
+      "id": "q_113",
+      "question": "学习 openEuler Linux 内核有哪些推荐的入门路径和参考资源？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3679
+    },
+    {
+      "id": "q_114",
+      "question": "如何在 openEuler 22.03 上使用 yum/dnf 安装 PostgreSQL 数据库单机环境？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3579
+    },
+    {
+      "id": "q_115",
+      "question": "在 openEuler 上修改 IP 地址后，如何刷新网络配置使其立即生效？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3576
+    },
+    {
+      "id": "q_116",
+      "question": "openEuler 系统中出现中文显示乱码，如何设置正确的系统语言和字符编码？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3563
+    },
+    {
+      "id": "q_117",
+      "question": "openEuler 22.03 LTS 系统重启后磁盘盘符（如 sda/sdb）发生变化，如何通过 UUID 或 by-id 固定磁盘标识符？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3507
+    },
+    {
+      "id": "q_118",
+      "question": "HCIP-openEuler 认证考试涵盖哪些内容？如何报名和备考？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3507
+    },
+    {
+      "id": "q_119",
+      "question": "openEuler syscare 内核热补丁工具如何使用？支持哪些在线热修复场景？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3465
+    },
+    {
+      "id": "q_120",
+      "question": "openEuler 内核崩溃时如何配置 kdump 记录崩溃现场？如何分析生成的 vmcore 文件？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3430
+    },
+    {
+      "id": "q_121",
+      "question": "如何在 openEuler 上配置 Mellanox 网卡的 SR-IOV VF（虚拟功能）？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3390
+    },
+    {
+      "id": "q_122",
+      "question": "如何基于 Cobbler 实现 openEuler 系统的自动化批量网络安装部署？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3371
+    },
+    {
+      "id": "q_123",
+      "question": "企业如何签署 openEuler 社区 CLA（贡献者许可协议），正式加入 openEuler 社区？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3307
+    },
+    {
+      "id": "q_124",
+      "question": "如何在 openEuler 上测试 InfiniBand 网卡的连通性和带宽性能？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3274
+    },
+    {
+      "id": "q_125",
+      "question": "openEuler 支持运行中不重启升级内核（内核热升级）吗？如何使用相关功能？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3216
+    },
+    {
+      "id": "q_126",
+      "question": "如何在 openEuler 上搭建本地 Docker 私有镜像仓库（Registry）？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3132
+    },
+    {
+      "id": "q_127",
+      "question": "如何在 openEuler 上开启 SSH 的 X11 Forwarding，通过 SSH 转发图形界面应用？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3106
+    },
+    {
+      "id": "q_128",
+      "question": "在 openEuler 上安装 UKUI 桌面环境后重启无法进入登录界面，如何排查解决？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3069
+    },
+    {
+      "id": "q_129",
+      "question": "openEuler 22.03 LTS 如何通过配置限制 SSH 登录的允许 IP 地址（访问控制白名单）？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 3044
+    },
+    {
+      "id": "q_130",
+      "question": "如何在 openEuler 上安装 ROS2 Humble 机器人操作系统框架？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 2993
+    },
+    {
+      "id": "q_131",
+      "question": "openEuler 虚拟机非正常关机后重启出现文件系统错误，如何修复？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 2972
+    },
+    {
+      "id": "q_132",
+      "question": "如何在 openEuler 22.03 LTS SP1（x86_64）上将 Intel 网卡驱动源码编译打包成 RPM 包？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 2929
+    },
+    {
+      "id": "q_133",
+      "question": "如何在 openEuler 22.03 aarch64 架构上安装 Qt Creator 开发环境？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 2852
+    },
+    {
+      "id": "q_134",
+      "question": "如何在 openEuler 上搭建 NFS 网络文件系统服务供其他主机挂载使用？",
+      "official_urls": [],
+      "notes": "",
+      "source": "forum",
+      "source_views": 2837
     }
-  ]
+  ],
+  "source_criteria": {
+    "forum": {
+      "algorithm": "sorted by views descending",
+      "selection": "top 100 from 1147 ranked topics (views > 50)",
+      "fetched_at": "2026-04-20"
+    }
+  }
 }

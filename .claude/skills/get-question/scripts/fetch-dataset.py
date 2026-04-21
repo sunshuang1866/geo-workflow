@@ -137,8 +137,11 @@ def _fetch_all(community: str, table: str, dims: list, filters: list,
 
 # ── Source-specific fetch ─────────────────────────────────────────────────────
 
-def fetch_mail(community: str, since: str | None) -> list:
-    """Fetch mailing list topics using static access-token (no login required)."""
+def fetch_mail(community: str, since: str | None, limit: int | None = None) -> list:
+    """Fetch mailing list topics using static access-token (no login required).
+
+    limit: cap the returned list to this many records.
+    """
     headers = {"access-token": ACCESS_TOKEN}
     table = f"fact_{community}_mail_topic"
     dims = [
@@ -152,7 +155,7 @@ def fetch_mail(community: str, since: str | None) -> list:
     print(f"Fetching mail topics for '{community}' from {table}...", file=sys.stderr)
     records = _fetch_all(community, table, dims, filters, headers)
 
-    return [
+    results = [
         {
             "title": r.get("title", ""),
             "url": r.get("url", ""),
@@ -167,9 +170,20 @@ def fetch_mail(community: str, since: str | None) -> list:
         if r.get("title") and r.get("url")
     ]
 
+    if limit is not None and limit > 0:
+        results = results[:limit]
+        print(f"  limit applied: returning {len(results)} records", file=sys.stderr)
 
-def fetch_issue(community: str, since: str | None, email: str, password: str) -> list:
-    """Fetch issues using cookie/token login auth."""
+    return results
+
+
+def fetch_issue(community: str, since: str | None, email: str, password: str,
+                question_only: bool = False, limit: int | None = None) -> list:
+    """Fetch issues using cookie/token login auth.
+
+    question_only: if True, only return issues whose title contains [Question] or [question].
+    limit: cap the returned list to this many records (applied after filtering).
+    """
     cookie, token = login(email, password)
     headers = {"Cookie": cookie, "token": token}
     table = f"dws_{community}_contribute"
@@ -181,7 +195,7 @@ def fetch_issue(community: str, since: str | None, email: str, password: str) ->
     print(f"Fetching issues for '{community}' from {table}...", file=sys.stderr)
     records = _fetch_all(community, table, dims, filters, headers)
 
-    return [
+    results = [
         {
             "title": r.get("title", ""),
             "url": r.get("html_url", ""),
@@ -193,6 +207,17 @@ def fetch_issue(community: str, since: str | None, email: str, password: str) ->
         for r in records
         if r.get("title") and r.get("html_url")
     ]
+
+    if question_only:
+        before = len(results)
+        results = [r for r in results if "[question]" in r["title"].lower()]
+        print(f"  question_only filter: {before} → {len(results)} records", file=sys.stderr)
+
+    if limit is not None and limit > 0:
+        results = results[:limit]
+        print(f"  limit applied: returning {len(results)} records", file=sys.stderr)
+
+    return results
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
@@ -221,6 +246,14 @@ if __name__ == "__main__":
         "--password", default=None,
         help="Login password for issue source (or set DATASTAT_PASSWORD env var)"
     )
+    parser.add_argument(
+        "--question-only", action="store_true", default=False,
+        help="(issue only) Filter to titles containing [Question] or [question]"
+    )
+    parser.add_argument(
+        "--limit", type=int, default=None,
+        help="Maximum number of records to return (proportional quota from DB)"
+    )
     args = parser.parse_args()
 
     if args.source == "issue":
@@ -233,9 +266,10 @@ if __name__ == "__main__":
                 file=sys.stderr,
             )
             sys.exit(1)
-        results = fetch_issue(args.community, args.since, email, password)
+        results = fetch_issue(args.community, args.since, email, password,
+                              question_only=args.question_only, limit=args.limit)
     else:
-        results = fetch_mail(args.community, args.since)
+        results = fetch_mail(args.community, args.since, limit=args.limit)
 
     print(f"Total: {len(results)} records", file=sys.stderr)
     print(json.dumps(results, ensure_ascii=False, indent=2))

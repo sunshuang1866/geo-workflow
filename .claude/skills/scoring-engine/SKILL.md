@@ -1,6 +1,6 @@
 ---
 name: scoring-engine
-description: Evaluates AI platform responses by checking whether they cite official URLs from questions.json. Pure URL string matching (exact + domain-level), no LLM. Scores at question level: if ≥75% of platforms cite official URLs the question is "引用了官方内容" (OK), otherwise "有内容未被引用" (P0), or "官方内容缺失" (P1) when no official URLs exist. After scoring, syncs official_urls back into questions.md as a new column. Use after platform-sampler completes sampling. Do not use for question generation, platform sampling, or issue creation.
+description: Evaluates AI platform responses by checking whether they cite official URLs from questions.json. Pure URL string matching (exact + domain-level), no LLM. Scores at question level: if ≥75% of platforms cite official URLs the question is "引用了官方内容" (OK), otherwise "有内容未被引用" (P0), or "官方内容缺失" (P1) when no official URLs exist. After scoring, syncs official_urls back into questions.md as a new column. Use after platform-chat completes sampling. Do not use for question generation, platform sampling, or issue creation.
 ---
 
 # Scoring Engine
@@ -9,7 +9,7 @@ Evaluate AI platform responses against official content availability. Pure URL s
 
 ## Prerequisites
 
-- `responses.json` in the run directory (output from platform-sampler skill)
+- `responses.json` in the run directory (output from platform-chat skill)
 - `questions.json` in `assessments/{community}/` (output from get-question skill, with `official_urls` and `official_domains` fields populated by human)
 
 ## Procedures
@@ -244,7 +244,7 @@ After scoring is complete, regenerate `assessments/{community}/questions.md` so 
 
 ## Error Handling
 
-* If `responses.json` is missing, abort with: `"responses.json not found. Run platform-sampler skill first."`
+* If `responses.json` is missing, abort with: `"responses.json not found. Run platform-chat skill first."`
 * If `questions.json` is missing, abort with: `"questions.json not found. Run get-question skill first."`
 * If `questions.json` has an empty `questions` array, abort with: `"questions.json has no questions."`
 * If all questions have empty `official_urls`, warn: `"No official_urls found in questions.json. Populate them before scoring for meaningful results."`

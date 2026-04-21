@@ -73,13 +73,12 @@ Output JSON array: [{question, category, source_list, source_subject}]
 
 ## MAILLIST_FALLBACK
 
-Used when `fetch-sig-info.py` fails (Step 5 fallback).
+Used when `fetch-dataset.py --source mail` fails (Step 6 fallback).
 
 ```
 Generate 8-12 questions about {community} mailing lists and SIG communication that a user might ask an AI search engine.
 Cover: how to subscribe to mailing lists, what mailing lists exist, SIG meeting schedules, how community communication works, how to join discussions.
-Entry point: https://www.mindspore.cn/sig
-Mailing list system: https://mailweb.mindspore.cn
+Do not hardcode community-specific URLs. If URLs are unavailable, generate generic but actionable questions about SIG index pages, mailing-list portals, and subscription workflows.
 Output JSON array: [{question, category}]
 ```
 

@@ -100,7 +100,8 @@ def normalize_topic(topic: dict) -> dict:
 
 
 def fetch_posts(community: str, api_url: str,
-                category: str | None = None) -> list[dict]:
+                category: str | None = None,
+                limit: int | None = None) -> list[dict]:
     """Fetch forum topics, deduplicate, and sort by relevance score."""
     base_url = api_url.rstrip("/")
 
@@ -150,6 +151,10 @@ def fetch_posts(community: str, api_url: str,
         results.append(normalized)
 
     results.sort(key=lambda t: t["views"], reverse=True)
+    total = len(results)
+    if limit is not None and limit > 0:
+        results = results[:limit]
+    print(f"Returning {len(results)} topics (total pool: {total})", file=sys.stderr)
     return results
 
 
@@ -159,7 +164,9 @@ if __name__ == "__main__":
     parser.add_argument("--api-url", required=True, help="Forum base URL (e.g., https://discuss.mindspore.cn)")
     parser.add_argument("--category", default=None,
                         help="Category slug to filter (auto-resolves ID via /categories.json)")
+    parser.add_argument("--limit", type=int, default=None,
+                        help="Maximum number of topics to return (proportional quota from DB)")
     args = parser.parse_args()
 
-    posts = fetch_posts(args.community, args.api_url, args.category)
+    posts = fetch_posts(args.community, args.api_url, args.category, args.limit)
     print(json.dumps(posts, ensure_ascii=False, indent=2))

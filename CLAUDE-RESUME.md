@@ -19,7 +19,7 @@ The system is a **skill chain orchestrated by AGENT.md**, not a web application.
 3-step pipeline + issue creation, each step is a separate skill:
 
 1. **get-question** — Incrementally append new questions to existing `questions.json`; never overwrites. Deduplicates new candidates against existing questions. Preserves `official_urls`/`notes`.
-2. **platform-sampler** — Call 4 AI platform APIs with questions, collect responses
+2. **platform-chat** — Drive ChatGPT/DeepSeek/Gemini/Qwen web UIs via browser automation and collect responses
 3. **scoring-engine** — Multi-layer evaluation (content completeness + citation accuracy + optional fact coverage), cross-platform pattern analysis, catalog-based suggestion matching (72-item GEO catalog), generate P0-P2 improvement suggestions with execution roadmap
 4. **issue-creator** — Auto-create GitCode Issues from improvement suggestions
 
@@ -71,7 +71,7 @@ Current docs focus:
 | Skill | Directory | Status |
 |-------|-----------|--------|
 | get-question | `.claude/skills/get-question/` | ✅ Complete |
-| platform-sampler | `.claude/skills/platform-sampler/` | ✅ Complete |
+| platform-chat | `.claude/skills/platform-chat/` | ✅ Complete |
 | scoring-engine | `.claude/skills/scoring-engine/` | ✅ Complete |
 | issue-creator | `.claude/skills/issue-creator/` | ✅ Complete |
 | assessment-report | `.claude/skills/assessment-report/` | ✅ Complete |
@@ -82,16 +82,15 @@ Current docs focus:
 - Maillist path: two-step flow — (1) MagicAPI fetches SIG list → extracts mailing_list addresses, (2) HyperKitty API fetches email archives from mailweb.mindspore.cn → thread subjects + email content. Active lists: dev(71), tsc(53), discuss(49), infra(8).
 - Forum: all content types included (technical, events, blogs, announcements) — views are relevance filter, not content type
 - Forum endpoint: `/c/{slug}/{id}/l/top.json?period=all` (views-sorted, not latest activity)
-- Scripts: `parse-manual-questions.py`, `fetch-forum-posts.py`, `fetch-repo-issues.py`, `fetch-sig-info.py`, `validate-questions.py`
+- Scripts: `parse-manual-questions.py`, `fetch-forum-posts.py`, `fetch-dataset.py`, `query-db-proportion.py`, `validate-questions.py`
 - References: `forum-api-spec.md`, `gitcode-api-spec.md`, `sig-api-spec.md`
 - Assets: `questions-template.md`
 
-### platform-sampler
-- 5-step procedure: Load config → Load questions → Sample platforms → Post-process (LLM metadata extraction) → Validate & output
-- Scripts: `sample-platform.py`, `validate-input.py`, `validate-responses.py`
-- References: `platform-rate-limits.md`
-- Assets: `responses-template.md`
-- Post-processing extracts: mentions_community, community_description, competitors_mentioned, recommendation_position, citations_to_official
+### platform-chat
+- 4-step procedure: Preflight check → Load questions → Browser sampling per platform → Finalize output
+- Scripts: `ask-chatgpt.py`, `ask-deepseek.py`, `ask-gemini.py`, `ask-qwen.py`, `run-platform-chat.py`
+- Supports: `chatgpt-web`, `deepseek-web`, `gemini-web`, `qwen-web`
+- Output: `responses.json` compatible with scoring-engine
 
 ### scoring-engine
 - 5-step procedure: Validate inputs → URL match scoring → Cross-platform aggregation → Match GEO catalog suggestions → Compile output
@@ -130,7 +129,7 @@ Current docs focus:
 ## TODO
 
 - [x] Create get-question skill using `/skill-creator`
-- [x] Create platform-sampler skill using `/skill-creator`
+- [x] Create platform-chat skill using `/skill-creator`
 - [x] Create scoring-engine skill (design agreed, needs `/skill-creator`)
 - [x] Create issue-creator skill
 - [x] ~~Create improvement-advisor skill~~ (merged into scoring-engine 2026-03-19)
@@ -143,6 +142,9 @@ Current docs focus:
 
 | Date | Change |
 |------|--------|
+| 2026-04-21 | 全仓替换采样技能引用：README、AGENT、scoring-engine、platform-chat 文档统一使用 platform-chat；删除 platform-sampler 目录后修复残留引用与失效路径。 |
+| 2026-04-21 | Security refactor for get-question credentials: removed insecure legacy script `scripts/dataset.py` (hardcoded account/password and DB secrets), refactored `scripts/query-db-proportion.py` to load DB credentials only from env/secret injection (`HOTOPIC_DB_CONFIG_JSON`, `HOTOPIC_DB_<COMMUNITY>_*`, or `HOTOPIC_DB_*`), and updated `.env.example` + get-question `SKILL.md` accordingly. |
+| 2026-04-21 | get-question consistency and cleanup: (1) `assets/prompt-templates.md` `MAILLIST_FALLBACK` removed MindSpore-specific hardcoded URLs and switched to community-agnostic guidance, (2) removed redundant `scripts/__pycache__/` artifacts, (3) updated get-question `SKILL.md` I/O semantics for `target_count` to “new questions in this run” and aligned Step 9 筛选标准列 with template (`来源/占比/评分算法/筛选方式/获取时间`). |
 | 2026-04-20 | get-question 规则调整：移除 `GEO_QUESTION_TARGET_MIN/MAX` 在 Step 7 的依赖，`MERGE_DEDUP` 改为不限制问题总数，保留全部非重复问题。 |
 | 2026-04-20 | **MindSpore V4 full pipeline complete** (04-20 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=19/P0=16/P1=11) → issue-creator live (1 created #45, 13 updated, 3 resolved with [已解决] title prefix) → assessment-report (vs 04-17 baseline: ↑3 ↓2 ✓3 →38). issue-map.json now 24 entries. |
 | 2026-04-20 | **MindSpore V3 full pipeline complete** (04-17 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=17/P0=18/P1=11) → issue-creator live (9 created #36-#44, 7 updated, 7 resolved) → assessment-report (vs 03-31 baseline: ↑0 ↓1 ✓11 ★27 →7). |
@@ -166,7 +168,7 @@ Current docs focus:
 | 2026-04-02 | Ran platform-sampler for openEuler with range `q001-q040` (expanded to `q_001..q_040`, `q_036` missing and skipped). Merge result in `assessments/openEuler/2026-04-02/responses.json`: 250 responses (50 questions x 5 platforms), 147 success / 103 errors; validator warns 41% errors and 2 empty responses. Requested-slice quality (`q_001..q_040`): 39 questions, 195 responses, deepseek 39/39, qwen 39/39, gemini 37/39, chatgpt 0/39, doubao 0/39. |
 | 2026-04-02 | Fixed platform-sampler compatibility: `sample-platform.py` now supports `{PLATFORM}_MODEL` env override, Gemini defaults switched to OpenAI-compatible `https://www.packyapi.com/v1` + `gemini-2.5-pro`, and citation extraction trims trailing backticks. Updated `.env` Gemini settings accordingly, then re-ran openEuler sampler in `append` mode for `q_060,q_063,q_070,q_071,q_073,q_074,q_077,q_078,q_079,q_080,q_081` on `deepseek,qwen,gemini` (q_072 missing as before). Post-rerun result: 55 total responses with 32 success / 23 errors (error ratio reduced from 65% to 42%). |
 | 2026-04-02 | Ran platform-sampler for openEuler with filtered IDs `q_060,q_063,q_070,q_071,q_073,q_074,q_077,q_078,q_079,q_080,q_081` (requested range included missing `q_072`, skipped by warning). Output written to `assessments/openEuler/2026-04-02/responses.json` with 55 responses (11 questions x 5 platforms), 19 success / 36 errors (65% errors warning). |
-| 2026-04-01 | Implemented `.claude/skills/platform-sampler/scripts/run-sampler.py` as the concrete batch entry for multi-question x multi-platform sampling (grouped parallel questions, sequential per-platform calls, per-question flush, append/new_run merge by `(question_id, platform)`) and documented usage in platform-sampler SKILL.md. |
+| 2026-04-01 | Implemented platform-sampler `run-sampler.py` as the concrete batch entry for multi-question x multi-platform sampling (grouped parallel questions, sequential per-platform calls, per-question flush, append/new_run merge by `(question_id, platform)`) and documented usage in platform-sampler SKILL.md. |
 | 2026-04-01 | AGENT.md Step 5 enhanced with issue activity consistency validation: when Step 3 runs, `created-issues.json` must exist and its activity counts must match `run-meta.json.summary` (`issues_created/updated/resolved`); mismatch now marked as `partial_success` with warning and re-run hint `steps=3,4,5`. |
 | 2026-04-01 | Housekeeping cleanup: fixed `assessments/MindSpore/2026-03-31/run-meta.json` community_dir path, removed stale `docs/` and `openUBMC` references from README/CLAUDE-RESUME, and deleted tracked Python cache file with `.gitignore` rules for `__pycache__/`, `*.pyc`, `.claude/settings.local.json`. |
 | 2026-03-10 | Initialized repository with design doc |
@@ -263,7 +265,7 @@ Current docs focus:
 - Forum URL: https://discuss.mindspore.cn/ (Discourse, public API, no auth needed)
 - MVP question count: 30-40 (adjustable)
 - No official doc directory as data source for now
-- Pipeline is 4 execution steps: get-question → platform-sampler → scoring-engine → issue-creator
+- Pipeline is 4 execution steps: get-question → platform-chat → scoring-engine → issue-creator
 - Scoring uses two-layer model: Layer 1 = content completeness (human pre-labeled), Layer 2 = citation accuracy (LLM)
 - Three statuses: `引用了官方内容` (OK), `有内容未被引用` (P0), `官方内容缺失` (P1) — replaces old A-E phenomenon codes
 - `official_urls` per question is human pre-labeled directly in `questions.json` (empty array = no official content). `content-labels.json` is retired.

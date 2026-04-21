@@ -10,6 +10,7 @@ description: Generates and incrementally appends to a structured question set fo
 | Param | Required | Default | Notes |
 |---|---|---|---|
 | `community` | no | `GEO_COMMUNITY` from `.env` | e.g. "MindSpore" |
+| `target_count` | no | `GEO_QUESTION_TARGET_COUNT` from `.env` → `100` | Target number of newly generated questions in this run; allocated across channels by DB proportion |
 | `seed_keywords` | no | LLM-derived | comma-separated |
 | `paths` | no | `GEO_PATHS` from `.env` → `all` | `forum` / `issue` / `maillist` / `website` / `all` |
 | `forum_url` | no | `GEO_FORUM_URL` from `.env` | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
@@ -28,6 +29,7 @@ description: Generates and incrementally appends to a structured question set fo
 1. Load `.env` from project root.
 2. Resolve inputs with priority (explicit caller arg > `.env` var > default):
    - `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if still unresolved: `"community not set. Provide as argument or set GEO_COMMUNITY in .env."`
+   - `target_count`: caller arg → `GEO_QUESTION_TARGET_COUNT` from `.env` → `100`
    - `paths`: caller arg → `GEO_PATHS` from `.env` → `all`
    - `forum_url`: caller arg → `GEO_FORUM_URL` from `.env`
    - `since`: caller arg → none (optional)
@@ -39,21 +41,67 @@ description: Generates and incrementally appends to a structured question set fo
    - `last_id_num`: parse the numeric suffix of the highest `id` (e.g. `"q_031"` → `31`). New questions will be numbered from `last_id_num + 1`.
    - `existing_texts`: set of lowercased question strings for deduplication
    If the file does not exist, set `existing_questions=[]`, `last_id_num=0`, `existing_texts=set()`.
-5. Log: `Community={community} existing={len(existing_questions)} keywords={seed_keywords} paths={paths}`
+5. Log: `Community={community} target_count={target_count} existing={len(existing_questions)} keywords={seed_keywords} paths={paths}`
 
 ---
 
-## Step 2 — Manual Questions
+## Step 2 — DB Proportion Query
+
+Determine per-channel question quotas based on actual data volume in the hotopic database.
+
+Credential source for DB access (no hardcoded secrets in repo):
+- `HOTOPIC_DB_CONFIG_JSON` (preferred for multi-community mapping), or
+- `HOTOPIC_DB_<COMMUNITY>_HOST/PORT/NAME/USER/PASSWORD`, or
+- `HOTOPIC_DB_HOST/PORT/NAME/USER/PASSWORD` (single-community fallback).
+
+1. Run:
+   ```
+   python3 $SD/scripts/query-db-proportion.py \
+     --community "{community}" \
+     --target {target_count}
+   ```
+2. **exit=0** → parse stdout JSON into `proportion`:
+   ```json
+   {
+     "community": "openeuler",
+     "target": 100,
+     "counts":  {"forum": 762, "mail": 29, "question_issue": 15},
+     "quotas":  {"forum": 85,  "mail": 3,  "question_issue": 12}
+   }
+   ```
+   Extract:
+   - `quota_forum    = proportion["quotas"]["forum"]`
+   - `quota_mail     = proportion["quotas"]["mail"]`
+   - `quota_question = proportion["quotas"]["question_issue"]`
+3. **exit≠0** (DB unreachable or community not found) → log warning, fall back to equal distribution:
+   - `quota_forum = quota_mail = quota_question = target_count // 3`
+   - Log: `WARN: DB proportion query failed, using equal fallback (each channel: {quota_forum})`
+4. Log per-channel allocation:
+   ```
+   Channel quotas: forum={quota_forum}, mail={quota_mail}, question_issue={quota_question}
+   (counts: forum={counts.forum}, mail={counts.mail}, question_issue={counts.question_issue})
+   ```
+   If a channel's quota is 0 (count=0 in DB), log: `SKIP channel {name}: no data in DB`.
+
+---
+
+## Step 3 — Manual Questions
 
 If `manual-questions.md` exists → run `python3 $SD/scripts/parse-manual-questions.py manual-questions.md`, capture stdout → `manual_questions`. Otherwise `manual_questions=[]`.
 
 ---
 
-## Step 3 — Path 1: Forum [PRIMARY]
+## Step 4 — Path 1: Forum [PRIMARY]
 
-Skip if `paths` excludes `forum`.
+Skip if `paths` excludes `forum`. Skip if `quota_forum == 0` (log: `SKIP forum: quota=0`).
 
-1. Run `python3 $SD/scripts/fetch-forum-posts.py --community "{community}" [--api-url "{forum_url}"]`.
+1. Run:
+   ```
+   python3 $SD/scripts/fetch-forum-posts.py \
+     --community "{community}" \
+     [--api-url "{forum_url}"] \
+     --limit {quota_forum}
+   ```
 2. **exit=0** → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply forum variant, send LLM call with fetched data. Capture → `path1_questions`.
 3. **exit≠0** → Read `$SD/assets/prompt-templates.md` section `FORUM_FALLBACK`, send LLM call. Capture → `path1_questions`.
 4. Record filtering criteria:
@@ -61,51 +109,61 @@ Skip if `paths` excludes `forum`.
    forum_criteria = {
      "source": "forum",
      "algorithm": "sorted by views descending",
-     "selection": "top {N} from {total} ranked topics (views > 50)",
+     "selection": "top {quota_forum} from {total} ranked topics (views > 50)",
      "fetched_at": "{YYYY-MM-DD}"
    }
    ```
-   (N = actual number of topics passed to LLM; total = raw count returned by fetch-forum-posts.py)
+   (total = raw count before limit, from fetch-forum-posts.py stderr)
 
 ---
 
-## Step 4 — Path 2: Issues
+## Step 5 — Path 2: Issues
 
-Skip if `paths` excludes `issue`.
+Skip if `paths` excludes `issue`. Skip if `quota_question == 0` (log: `SKIP issue: quota=0`).
 
 1. Pre-validate: check that `datastat_email` and `datastat_password` are set.
-   - If either is missing → log `SKIP: datastat_email/datastat_password not set`, set `path2_questions=[]`, go to Step 5.
+   - If either is missing → log `SKIP: datastat_email/datastat_password not set`, set `path2_questions=[]`, go to Step 6.
 2. Run:
    ```
    DATASTAT_EMAIL={datastat_email} DATASTAT_PASSWORD={datastat_password} \
-   python3 $SD/scripts/fetch-dataset.py --community "{community}" --source issue [--since {since}]
+   python3 $SD/scripts/fetch-dataset.py \
+     --community "{community}" \
+     --source issue \
+     --question-only \
+     --limit {quota_question} \
+     [--since {since}]
    ```
+   `--question-only` filters to titles containing `[Question]` or `[question]`.
 3. **exit=0** → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply issue variant, send LLM call with fetched data. Capture → `path2_questions`.
-4. **exit=2** (auth failed) → log `SKIP: datastat login failed`, set `path2_questions=[]`, go to Step 5.
+4. **exit=2** (auth failed) → log `SKIP: datastat login failed`, set `path2_questions=[]`, go to Step 6.
 5. **other failure** → log warning, set `path2_questions=[]`. No LLM fallback.
 
 ---
 
-## Step 5 — Path 3: Maillist
+## Step 6 — Path 3: Maillist
 
-Skip if `paths` excludes `maillist`.
+Skip if `paths` excludes `maillist`. Skip if `quota_mail == 0` (log: `SKIP maillist: quota=0`).
 
 1. Run:
    ```
-   python3 $SD/scripts/fetch-dataset.py --community "{community}" --source mail [--since {since}]
+   python3 $SD/scripts/fetch-dataset.py \
+     --community "{community}" \
+     --source mail \
+     --limit {quota_mail} \
+     [--since {since}]
    ```
 2. **exit=0** → Read `$SD/assets/prompt-templates.md` section `MAILLIST_REWRITE`, send LLM call with fetched data. Capture → `path3_questions`.
 3. **exit≠0** → Read `$SD/assets/prompt-templates.md` section `MAILLIST_FALLBACK`, send LLM call. Capture → `path3_questions`.
 
 ---
 
-## Step 6 — Path 4: Website Search Keywords
+## Step 7 — Path 4: Website Search Keywords
 
 Skip if `paths` excludes `website`.
 
-1. Check: if `WEBSITE_SEARCH_URL` not set → log `SKIP: WEBSITE_SEARCH_URL not configured`, set `path4_questions=[]`, go to Step 7.
+1. Check: if `WEBSITE_SEARCH_URL` not set → log `SKIP: WEBSITE_SEARCH_URL not configured`, set `path4_questions=[]`, go to Step 8.
 2. Fetch: `curl -s [-H "Authorization: Bearer {WEBSITE_SEARCH_TOKEN}"] "{WEBSITE_SEARCH_URL}"` → capture JSON response.
-   - **HTTP ≠ 200** → log `SKIP: website search API returned HTTP {status}`, set `path4_questions=[]`, go to Step 7.
+   - **HTTP ≠ 200** → log `SKIP: website search API returned HTTP {status}`, set `path4_questions=[]`, go to Step 8.
 3. Extract keyword list from response (field name varies by API; try `data`, `keywords`, `hot_words`, `result`).
 4. Read `$SD/assets/prompt-templates.md` section `WEBSITE_KEYWORDS_REWRITE`, send LLM call with raw keyword list.
    - LLM filters navigation terms (首页/登录/官网/下载) and pure brand terms.
@@ -114,7 +172,7 @@ Skip if `paths` excludes `website`.
 
 ---
 
-## Step 7 — Merge & Deduplicate
+## Step 8 — Merge & Deduplicate
 
 1. Combine new candidates: `new_candidates = manual_questions + path1_questions + path2_questions + path3_questions + path4_questions`.
 2. **Filter against existing**: Remove any candidate whose lowercased question text has cosine similarity ≥90% with any entry in `existing_texts`. Pass `new_candidates` and `existing_texts` to LLM for semantic dedup.
@@ -134,7 +192,7 @@ Skip if `paths` excludes `website`.
 
 ---
 
-## Step 8 — Output
+## Step 9 — Output
 
 1. Build final question list: `final_questions = existing_questions + truly_new_questions`.
 2. Write `questions.json` to `assessments/{community}/` with the following structure:
@@ -163,16 +221,19 @@ Skip if `paths` excludes `website`.
    ```
    - **Preserve** `official_domains` from the existing file if it was non-empty; only reset to `[]` on first run.
    - **Preserve** each existing question's `official_urls`, `notes`, `source`, and `source_views` exactly as-is.
-   - New questions get `official_urls: []`, `notes: ""`, `source` set per Step 7 tagging, and `source_views` set to the integer views count of the originating forum/issue topic (omit field if not applicable, e.g., for manual or maillist questions).
+   - New questions get `official_urls: []`, `notes: ""`, `source` set per Step 8 tagging, and `source_views` set to the integer views count of the originating forum/issue topic (omit field if not applicable, e.g., for manual or maillist questions).
    - `source_criteria`: merge/update only the keys for paths run in this session; preserve existing keys from prior runs. Omit keys for paths not run or not available (e.g., omit `"maillist"` key if maillist path was skipped).
 
 3. **Human action required for new questions**: After each run, populate `official_urls` for newly appended questions (those with empty `official_urls`). Existing annotated questions are unaffected.
 
 4. Render `questions.md` using `$SD/assets/questions-template.md` — regenerate from `final_questions`. Requirements:
    - Group questions by intent category.
-   - Each row in a question table must include a `来源` column (e.g., `论坛`, `Issue`, `邮件列表`, `网站搜索`, `手动`). Map: `forum→论坛`, `issue→Issue`, `maillist→邮件列表`, `website→网站搜索`, `manual→手动`, missing/legacy→`-`.
-   - For groups that contain at least one question with `source_views`, add a `Views` column (integer). Questions without `source_views` show `-` in that column.
-   - The overview section must include a `筛选标准` table listing each source path used, its scoring algorithm, and selection criteria (pull from `source_criteria` in questions.json).
+   - Each row in a question table contains only `#` (sequential integer within the group) and `问题` columns. Do NOT include `来源` or `Views` columns.
+   - The overview section must include a `筛选标准` table with columns: `来源`, `占比`, `评分算法`, `筛选方式`, `获取时间`.
+     - List all channels that appear in `source_criteria` (forum, issue, maillist, website) plus `手动` if any manual questions exist.
+     - `占比`: count of questions from that source / total * 100, rounded to 1 decimal, formatted as `{n}%`.
+     - `评分算法` / `筛选方式` / `获取时间`: pull from `source_criteria` in questions.json; use `-` if not available (e.g., manual source).
+     - Include a total row at the bottom: `| **合计** | 100% | - | - | - |`.
    - `questions.md` does not include `official_urls` or `notes`.
 
 5. Print: `Added {n_new} questions (total {len(final_questions)}) | New sources: manual={n} forum={n} issue={n} maillist={n} website={n} | Paths: {paths_run}`.

@@ -5,7 +5,7 @@ description: Samples AI platform responses via browser automation (Playwright + 
 
 # Platform Chat
 
-Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for each question and write them to `responses.json` in the same format as platform-sampler.
+Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for each question and write them to `responses.json`.
 
 ## Prerequisites
 
@@ -155,11 +155,7 @@ For each question:
 
 1. If `output_mode=append`, merge new results into the existing `responses.json`:
    - Key: `(question_id, platform)`. Replace existing entries with new ones; append the rest.
-2. Run:
-   ```bash
-   python3 .claude/skills/platform-sampler/scripts/validate-responses.py \
-     < {resolved_output_path}
-   ```
+2. Validate output structure: ensure JSON is parseable and `responses` is a non-empty array containing `question_id`, `platform`, `status`, and `response_text` fields.
 3. Print summary:
    ```
    Sampling complete:

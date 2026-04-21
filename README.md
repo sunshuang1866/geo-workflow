@@ -2,7 +2,7 @@
 
 GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评估开源社区在主流 AI 搜索平台中的表现，并生成可执行的改进建议。
 
-初始目标社区：**MindSpore**（AI 计算框架，竞品：TensorFlow / PyTorch / PaddlePaddle）。
+当前已支持社区：**MindSpore**、**openEuler** 等，可扩展至任意支持 Discourse 论坛或 GitCode/GitHub Issue 的开源社区。
 
 ## 目录
 
@@ -25,7 +25,7 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌────────────────┐     ┌───────────────┐     ┌───────────────────┐
-│  get-question   │────▶│ platform-sampler │────▶│ scoring-engine │────▶│ issue-creator │────▶│ assessment-report │
+│  get-question   │────▶│  platform-chat   │────▶│ scoring-engine │────▶│ issue-creator │────▶│ assessment-report │
 │  生成问题集       │     │  采样 AI 平台     │     │  评分 + 诊断    │     │ 创建/更新Issue  │     │  生成评估报告       │
 └─────────────────┘     └──────────────────┘     └───────┬────────┘     └───────────────┘     └───────────────────┘
        ↓                        ↓                        ↓                       ↓                       ↓
@@ -69,18 +69,21 @@ cp .env.example .env
 | `QWEN_API_KEY` | 千问采样 | 至少填 2 个平台 |
 | `GITCODE_TOKEN` | GitCode Issue 创建 | Issue 创建时必需 |
 | `GITHUB_TOKEN` | GitHub Issue 创建 | 用 GitHub 时必需 |
+| `DATASTAT_EMAIL` | get-question issue 路径登录邮箱 | issue 路径时必需 |
+| `DATASTAT_PASSWORD` | get-question issue 路径登录密码 | issue 路径时必需 |
+| `HOTOPIC_DB_CONFIG_JSON` | DB 比例查询多社区配置（JSON） | get-question 按渠道分配配额时使用 |
 
 **工作流配置**（每次切换社区时更新）：
 
 | 变量 | 用途 | 示例值 |
 |------|------|--------|
-| `GEO_COMMUNITY` | 社区名称，供所有 Skill 读取 | `MindSpore` |
-| `GEO_COMMUNITY_DIR` | 社区数据目录路径 | `assessments/MindSpore/` |
-| `GEO_FORUM_URL` | 社区 Discourse 论坛地址 | `https://discuss.mindspore.cn` |
-| `GEO_SOURCE_REPO_URL` | 问题来源仓库地址（get-question issue 路径） | `https://gitcode.com/mindspore/mindspore/` |
+| `GEO_COMMUNITY` | 社区名称，供所有 Skill 读取 | `openEuler` |
+| `GEO_COMMUNITY_DIR` | 社区数据目录路径 | `assessments/openEuler/` |
+| `GEO_FORUM_URL` | 社区 Discourse 论坛地址 | `https://forum.openeuler.org` |
 | `GEO_PATHS` | get-question 默认来源路径 | `all` |
 | `GEO_DRY_RUN` | 全局 dry-run 开关 | `false` |
 | `GEO_REPO_URL` | Issue 创建目标仓库 URL | `https://github.com/opensourceways/geo-workflow/` |
+| `GEO_QUESTION_TARGET_COUNT` | 目标新增问题数（`get-question` 使用） | `100` |
 
 > 至少需要 **2 个平台** 的 API Key 才能运行采样。
 
@@ -115,10 +118,12 @@ mkdir -p assessments/MindSpore/
 ### Step B: 首次采样
 
 ```
-/platform-sampler
+/platform-chat
 ```
 
-输入 `questions.json`，输出 `responses.json`。
+输入 `questions.json`，逐平台通过浏览器自动化采集 AI 回答，输出 `responses.json`。
+
+> 支持 `chatgpt-web`、`deepseek-web`、`gemini-web`、`qwen-web`，通过 `platform` 参数指定；各平台所需凭证见前置准备。
 
 ### Step C: 填写 official_urls
 
@@ -188,7 +193,7 @@ AGENT.md 定义的 6 个步骤，支持通过 `steps` 和 `scope` 参数选择�
 ```
 Step 0 (init):      初始化 runs/{date}/ 目录，检测 questions.json 变更
          ↓
-Step 1 (sample):    /platform-sampler → responses.json（scope 控制问题范围）
+Step 1 (sample):    /platform-chat → responses.json（scope 控制问题范围）
          ↓
 Step 2 (score):     /scoring-engine → scoring-results.json
          ↓
@@ -215,30 +220,61 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 
 ### get-question — 生成/追加问题集
 
+#### 参数说明
+
+| 参数 | 必填 | 默认值 | 说明 |
+|------|------|--------|------|
+| `community` | 否 | `.env` 的 `GEO_COMMUNITY` | 社区名称，如 `MindSpore`。未设置时中止并报错 |
+| `target_count` | 否 | `.env` 的 `GEO_QUESTION_TARGET_COUNT` → `100` | 本次运行目标新增问题数，按各渠道数据量比例分配采集配额（不限制问题集累积总数） |
+| `seed_keywords` | 否 | LLM 自动推导 | 逗号分隔的技术关键词，用于辅助 LLM 改写问题 |
+| `paths` | 否 | `.env` 的 `GEO_PATHS` → `all` | 数据来源路径，见下表 |
+| `forum_url` | 否 | `.env` 的 `GEO_FORUM_URL` | Discourse 论坛 base URL |
+| `since` | 否 | 无（不过滤） | 按日期过滤 issue / 邮件列表数据，格式 `YYYY-MM-DD`，仅影响 Path 2 和 Path 3 |
+| `datastat_email` | 否 | `.env` 的 `DATASTAT_EMAIL` | Issue 路径（datastat API）登录邮箱 |
+| `datastat_password` | 否 | `.env` 的 `DATASTAT_PASSWORD` | Issue 路径（datastat API）登录密码 |
+
+> **参数优先级**：显式调用参数 > `.env` 变量 > 默认值
+
+#### 数据来源路径（`paths` 参数）
+
 4 个数据来源路径，可单独选择或全选：
 
-| 路径 | 参数值 | 数据来源 | 场景 |
-|------|--------|----------|------|
-| Path 1 | `forum` | MindSpore Discourse 论坛热帖 | 使用阶段 |
-| Path 2 | `issue` | GitCode 仓库 Issue | 使用阶段 |
-| Path 3 | `maillist` | SIG 邮件列表归档 | 使用阶段 |
-| Path 4 | `website` | 官网站内搜索热词 | 使用阶段 |
-| Path 5 | `manual-questions.md`（项目根目录） | 补充自动路径未覆盖的问题 | 使用阶段 |
+| 路径 | `paths` 值 | 数据来源 | 额外依赖 |
+|------|-----------|----------|----------|
+| Path 1 | `forum` | Discourse 论坛热帖（按浏览量排序） | `GEO_FORUM_URL` |
+| Path 2 | `issue` | 仓库 Issue（过滤 `[Question]` 标题） | `DATASTAT_EMAIL` / `DATASTAT_PASSWORD` |
+| Path 3 | `maillist` | SIG 邮件列表归档 | 无 |
+| Path 4 | `website` | 官网站内搜索热词 API | `WEBSITE_SEARCH_URL` |
+| Path 5 | `manual` | `manual-questions.md`（项目根目录） | 文件存在时自动加载 |
+
+#### 使用示例
 
 ```
-/get-question paths=forum,issue
-/get-question paths=all
-/get-question                           # 全部默认从 .env 读取
+/get-question                                    # 全部从 .env 读取
+/get-question paths=forum,issue                  # 只采集论坛和 Issue
+/get-question paths=all since=2024-01-01         # 全渠道，只采 2024 年以后的数据
+/get-question community=openEuler target_count=50
 ```
 
-> 每次执行自动加载 `assessments/{community}/questions.json`，将新问题**追加**到现有问题集末尾，语义重复的问题自动过滤。已填写的 `official_urls` 和 `notes` 保将原样保留。`community`、`forum_url`、`source_repo_url` 均从 `.env` 对应变量读取，owner/repo 自动解析；`paths` 未传时取 `GEO_PATHS`。
+> 每次执行自动加载 `assessments/{community}/questions.json`，将新问题**追加**到现有问题集末尾，语义重复的问题自动过滤。已填写的 `official_urls` 和 `notes` 将原样保留。
 
-### platform-sampler — 采样 AI 平台
+### platform-chat — 采样 AI 平台（浏览器自动化）
 
-- 自动检测 `.env` 中哪些平台有 API Key
-- 对每个问题 x 每个平台发起一次查询
-- 速率限制：同平台间隔 1 秒
-- 单个平台失败不中断整体采样
+通过 Playwright + Chromium 驱动各平台 Web UI，无需 API Key：
+
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `platform` | 目标平台 | `chatgpt-web` |
+| `questions` | 指定问题 ID（逗号分隔） | 全部 |
+| `output_mode` | `new_run` / `append` | `new_run` |
+| `timeout` | 等待平台回答的秒数 | `90` |
+| `min_citations` | 最少引用数，不足时自动追问 | `8` |
+
+各平台凭证要求：
+- **ChatGPT**：`assessments/{community}/.chatgpt-session.json`
+- **DeepSeek**：`DEEPSEEK_WEB_EMAIL` + `DEEPSEEK_WEB_PASSWORD`（自动登录）
+- **Gemini**：匿名可用（无引用）；有 `.gemini-session.json` 时启用 Search Grounding
+- **Qwen**：`QWEN_WEB_EMAIL` + `QWEN_WEB_PASSWORD`（自动登录）
 
 ### scoring-engine — 评分诊断
 
@@ -308,7 +344,7 @@ geo-workflow/
 └── .claude/
     └── skills/                     # Skill 定义
         ├── get-question/
-        ├── platform-sampler/
+        ├── platform-chat/
         ├── scoring-engine/
         ├── issue-creator/
         ├── assessment-report/
@@ -388,7 +424,7 @@ openclaw trigger \
 ### Q: 如何新增一个社区（如 openEuler）？
 
 1. 创建目录 `assessments/openEuler/`
-2. 运行 `/get-question paths=all` 生成 `questions.json`（需先把 `.env` 中 `GEO_COMMUNITY=openEuler`、`GEO_COMMUNITY_DIR=assessments/openEuler/`、`GEO_FORUM_URL`、`GEO_SOURCE_REPO_URL`、`GEO_REPO_URL` 更新为 openEuler 对应值）
+2. 运行 `/get-question paths=all` 生成 `questions.json`（需先把 `.env` 中 `GEO_COMMUNITY=openEuler`、`GEO_COMMUNITY_DIR=assessments/openEuler/`、`GEO_FORUM_URL`、`GEO_REPO_URL` 更新为 openEuler 对应值）
 3. 审核 `questions.md`，直接编辑 `questions.json` 做必要调整
 4. 在 `assessments/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
 5. 在 `.env` 中配置该社区的平台 API Keys

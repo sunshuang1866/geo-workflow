@@ -66,18 +66,19 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 ### Step 1: Platform Sampling (`sample`)
 
 > Skip this step if `steps` is specified and does not include `1` or `sample`.
-
+>
 1. Resolve the question IDs to sample based on `scope`:
    - `all` (default): sample all questions in `{community_dir}/questions.json`.
    - `p0`: read the latest date subdirectory's `scoring-results.json`, collect all question IDs with severity `P0`. If no prior run exists, fall back to `all` and log a warning.
    - Comma-separated IDs (e.g. `q_001,q_005`): use exactly those IDs. Abort if any ID is not found in `questions.json`.
-2. Invoke `/platform-sampler` with:
+2. Invoke `/platform-chat` once per target platform. For each platform:
    - `community`: derived from `community_dir` name (e.g. `MindSpore`)
+   - `platform`: one of `chatgpt-web`, `deepseek-web`, `gemini-web`, `qwen-web`
    - `questions`: resolved IDs from step above (omit to sample all)
-   - `output_mode`: `new_run` for a fresh run; `append` to add to the current day's existing folder
-3. The skill reads `.env` for platform API tokens, samples all available platforms, and produces:
+   - `output_mode`: `new_run` for the first platform; `append` for subsequent platforms
+3. The skill drives the browser UI, extracts reply text + citation links, and writes:
    - `{community_dir}/{date}/responses.json`
-4. If a platform API fails (e.g. 404, invalid key), the skill logs the error, records the platform in `skipped_platforms`, and continues with the remaining platforms. Partial coverage is acceptable as long as ≥1 platform succeeds. The `skipped_platforms` list is written into `run-meta.json` during Step 5.
+4. If a platform session is expired or login fails, the skill logs the error, records the platform in `skipped_platforms`, and continues with the remaining platforms. Partial coverage is acceptable as long as ≥1 platform succeeds. The `skipped_platforms` list is written into `run-meta.json` during Step 5.
 5. Verify output: `responses.json` must exist and contain at least 1 response per sampled question.
 
 ### Step 2: Scoring (`score`)
@@ -294,7 +295,7 @@ assessments/MindSpore/
 - If `scope` contains question IDs not found in `questions.json`, abort listing the unknown IDs.
 - If `scope=p0` and no prior scoring results exist, fall back to `all` with a warning.
 - If `.env` is missing or has fewer than 2 platform tokens, abort with token check details.
-- If platform-sampler produces zero responses, abort before scoring.
+- If platform-chat produces zero responses, abort before scoring.
 - If scoring-engine fails (>50% pairs failed), abort before issue creation.
 - If issue creation API fails, log errors but do not abort — run-meta.json is still updated.
 - If Step 3 (`issue`) was executed and `created-issues.json` is missing, mark run as `partial_success` and include a consistency warning in run-meta.

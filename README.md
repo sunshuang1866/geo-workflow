@@ -2,7 +2,7 @@
 
 GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评估开源社区在主流 AI 搜索平台中的表现，并生成可执行的改进建议。
 
-当前已支持社区：**MindSpore**、**openEuler** 等，可扩展至任意支持 Discourse 论坛或 GitCode/GitHub Issue 的开源社区。
+当前已支持多个社区，本文示例统一使用 **openEuler**，可扩展至任意支持 Discourse 论坛或 GitCode/GitHub Issue 的开源社区。
 
 ## 目录
 
@@ -52,9 +52,9 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 - Python 3.8+
 - Git
 
-### 2. API Keys
+### 2. 凭证与环境变量
 
-复制 `.env.example` 为 `.env`，填入 API 密钥：
+复制 `.env.example` 为 `.env`，按下表填写必需凭证：
 
 ```bash
 cp .env.example .env
@@ -62,13 +62,12 @@ cp .env.example .env
 
 | 变量 | 用途 | 必需 |
 |------|------|------|
-| `CHATGPT_API_KEY` | ChatGPT 采样 | 至少填 2 个平台 |
-| `GEMINI_API_KEY` | Gemini 采样 | 至少填 2 个平台 |
-| `DEEPSEEK_API_KEY` | DeepSeek 采样 | 至少填 2 个平台 |
-| `DOUBAO_API_KEY` | 豆包采样 | 至少填 2 个平台 |
-| `QWEN_API_KEY` | 千问采样 | 至少填 2 个平台 |
-| `GITCODE_TOKEN` | GitCode Issue 创建 | Issue 创建时必需 |
-| `GITHUB_TOKEN` | GitHub Issue 创建 | 用 GitHub 时必需 |
+| `DEEPSEEK_WEB_EMAIL` | DeepSeek Web 端自动登录账号 | 使用 deepseek-web 时必需 |
+| `DEEPSEEK_WEB_PASSWORD` | DeepSeek Web 端自动登录密码 | 使用 deepseek-web 时必需 |
+| `QWEN_WEB_EMAIL` | Qwen Web 端自动登录账号 | 使用 qwen-web 时必需 |
+| `QWEN_WEB_PASSWORD` | Qwen Web 端自动登录密码 | 使用 qwen-web 时必需 |
+| `GITCODE_TOKEN` | GitCode Issue 创建 | 在 GitCode 创建 Issue 时必需 |
+| `GITHUB_TOKEN` | GitHub Issue 创建 | 在 GitHub 创建 Issue 时必需 |
 | `DATASTAT_EMAIL` | get-question issue 路径登录邮箱 | issue 路径时必需 |
 | `DATASTAT_PASSWORD` | get-question issue 路径登录密码 | issue 路径时必需 |
 | `HOTOPIC_DB_CONFIG_JSON` | DB 比例查询多社区配置（JSON） | get-question 按渠道分配配额时使用 |
@@ -85,14 +84,14 @@ cp .env.example .env
 | `GEO_REPO_URL` | Issue 创建目标仓库 URL | `https://github.com/opensourceways/geo-workflow/` |
 | `GEO_QUESTION_TARGET_COUNT` | 目标新增问题数（`get-question` 使用） | `100` |
 
-> 至少需要 **2 个平台** 的 API Key 才能运行采样。
+> 采样使用 `/platform-chat` 浏览器自动化，不依赖平台接口密钥；请至少准备 1 个可用平台的 Web 登录凭证或会话文件。
 
 ### 3. 创建社区目录
 
 社区数据统一存放在 `assessments/` 下：
 
 ```bash
-mkdir -p assessments/MindSpore/
+mkdir -p assessments/openEuler/
 ```
 
 ---
@@ -134,13 +133,13 @@ mkdir -p assessments/MindSpore/
   "questions": [
     {
       "id": "q_001",
-      "question": "MindSpore 支持哪些安装方式？",
-      "official_urls": ["https://www.mindspore.cn/install"],
+      "question": "openEuler 支持哪些安装方式？",
+      "official_urls": ["https://www.openeuler.org/zh/download/"],
       "notes": "安装指南页面完整覆盖"
     },
     {
       "id": "q_002",
-      "question": "MindSpore 和 PyTorch 相比有哪些优势？",
+      "question": "openEuler 在服务器操作系统场景下有哪些优势？",
       "official_urls": [],
       "notes": "无官方对比文档"
     }
@@ -166,7 +165,7 @@ mkdir -p assessments/MindSpore/
 
 > `repo_url` 自动从 `.env` 的 `GEO_REPO_URL` 读取。`dry_run=true` 覆盖 `.env` 中的 `GEO_DRY_RUN`。
 
-**首次运行完成后**，`assessments/MindSpore/` 目录下应有：
+**首次运行完成后**，`assessments/openEuler/` 目录下应有：
 - `questions.json` — 问题集（`/get-question` 生成，含人工填写的 `official_urls`）
 - `issue-map.json` — Issue 映射（自动生成）
 
@@ -181,7 +180,7 @@ mkdir -p assessments/MindSpore/
 在 Claude Code 中直接描述意图即可，Claude 会按照 `AGENT.md` 执行：
 
 ```
-请按照 AGENT.md 对 MindSpore 社区执行一次 GEO 复检
+请按照 AGENT.md 对 openEuler 社区执行一次 GEO 复检
 ```
 
 > `community_dir` 和 `repo_url` 自动从 `.env` 的 `GEO_COMMUNITY_DIR` 和 `GEO_REPO_URL` 读取，无需每次传入。
@@ -224,7 +223,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 
 | 参数 | 必填 | 默认值 | 说明 |
 |------|------|--------|------|
-| `community` | 否 | `.env` 的 `GEO_COMMUNITY` | 社区名称，如 `MindSpore`。未设置时中止并报错 |
+| `community` | 否 | `.env` 的 `GEO_COMMUNITY` | 社区名称，如 `openEuler`。未设置时中止并报错 |
 | `target_count` | 否 | `.env` 的 `GEO_QUESTION_TARGET_COUNT` → `100` | 本次运行目标新增问题数，按各渠道数据量比例分配采集配额（不限制问题集累积总数） |
 | `seed_keywords` | 否 | LLM 自动推导 | 逗号分隔的技术关键词，用于辅助 LLM 改写问题 |
 | `paths` | 否 | `.env` 的 `GEO_PATHS` → `all` | 数据来源路径，见下表 |
@@ -260,7 +259,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 
 ### platform-chat — 采样 AI 平台（浏览器自动化）
 
-通过 Playwright + Chromium 驱动各平台 Web UI，无需 API Key：
+通过 Playwright + Chromium 驱动各平台 Web UI，无需平台接口密钥：
 
 | 参数 | 说明 | 默认值 |
 |------|------|--------|
@@ -327,11 +326,11 @@ geo-workflow/
 ├── CLAUDE.md                       # Claude Code 开发规则
 ├── CLAUDE-RESUME.md                # 会话恢复上下文
 ├── README.md                       # 本文档
-├── .env.example                    # API Key 模板
-├── .env                            # API Keys（不入库）
+├── .env.example                    # 环境变量模板
+├── .env                            # 凭证配置（不入库）
 ├── .gitignore
 ├── assessments/                    # 社区评估数据
-│   └── MindSpore/                  # MindSpore 社区
+│   └── openEuler/                  # openEuler 社区
 │       ├── questions.json               # 问题集 + official_urls（人工填写，source of truth）
 │       ├── questions.md                 # 问题集（人工可读）
 │       ├── issue-map.json               # Issue 映射（自动维护）
@@ -364,7 +363,7 @@ geo-workflow/
 |------|----------|------|
 | `questions.json` | 运行 `/get-question` 后填写 `official_urls` | 问题集唯一来源，含官方 URL 标注；变更时 AGENT.md 会要求确认 |
 | `manual-questions.md` | 有新的手动问题时 | 补充自动生成未覆盖的问题 |
-| `.env` | API Key 变更时 | 平台 API 密钥 |
+| `.env` | 凭证变更时 | Web 登录凭证、Issue Token、工作流变量 |
 
 ### 自动维护的文件
 
@@ -396,7 +395,7 @@ openclaw trigger \
 
 **前提条件**：
 - `questions.json` 已就位（含人工填写的 `official_urls`）
-- `.env` 中 API Keys 配置完整
+- `.env` 中平台 Web 凭证、Issue Token 与工作流变量配置完整
 - 仓库可访问（有 push 权限更新 issue-map）
 
 **建议调度频率**：每周一次。AI 平台回答变化较慢，更高频率只增加成本。
@@ -407,11 +406,14 @@ openclaw trigger \
 
 ### Q: 如何更新问题集？
 
-重新运行 `/get-question` 或直接编辑 `assessments/MindSpore/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
+重新运行 `/get-question` 或直接编辑 `assessments/openEuler/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
 
-### Q: 某个平台 API Key 过期了怎么办？
+### Q: 某个平台 Web 凭证或会话失效了怎么办？
 
-更新 `.env` 中对应的 Key。只要还有 2 个以上平台可用，采样不会中断。采样完成时 stdout 会输出覆盖率摘要，显示哪些平台缺失。
+更新对应平台凭证即可：
+- DeepSeek/Qwen：更新 `.env` 中 `*_WEB_EMAIL` 与 `*_WEB_PASSWORD`
+- ChatGPT/Gemini：更新 `assessments/{community}/.*-session.json` 会话文件
+只要至少 1 个平台可用，采样即可继续；失败平台会记录在 `skipped_platforms`。
 
 ### Q: Issue 被手动关闭后，下次复检还会操作它吗？
 
@@ -421,18 +423,18 @@ openclaw trigger \
 
 打开该问题在 GitCode/GitHub 上对应的 Issue，每次复检都会追加评论，包含引用率变化和平台覆盖情况，纵向看即为完整优化时间线。
 
-### Q: 如何新增一个社区（如 openEuler）？
+### Q: 如何新增一个社区（以 openEuler 为例）？
 
 1. 创建目录 `assessments/openEuler/`
 2. 运行 `/get-question paths=all` 生成 `questions.json`（需先把 `.env` 中 `GEO_COMMUNITY=openEuler`、`GEO_COMMUNITY_DIR=assessments/openEuler/`、`GEO_FORUM_URL`、`GEO_REPO_URL` 更新为 openEuler 对应值）
 3. 审核 `questions.md`，直接编辑 `questions.json` 做必要调整
 4. 在 `assessments/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
-5. 在 `.env` 中配置该社区的平台 API Keys
+5. 在 `.env` 中配置该社区的平台 Web 凭证与 Issue Token
 6. 按正常流程运行
 
 ### Q: dry-run 模式有什么用？
 
-`dry_run=true` 时，所有 API 调用（采样、Issue 创建、评论）只打印 payload 到 stdout，不实际执行。适用于：
+`dry_run=true` 时，不会执行 Issue 创建与评论等写操作（仅输出预览 payload）。适用于：
 - 首次运行前验证 Issue 内容
 - 调试 workflow 流程
 - 培训新操作人员

@@ -123,8 +123,17 @@ Current docs focus:
   - **V3 (04-17)**: OK=17, P0=18, P1=11; 9 created (#36–#44), 7 updated, 7 resolved; Changes vs 03-31: ↑0 ↓1 ✓11 ★27 →7.
   - **V4 (04-20)**: OK=19, P0=16, P1=11; 1 created (#45), 13 updated, 3 resolved; Changes vs 04-17: ↑3 ↓2 ✓3 ★0 →38.
   - **[已解决] title prefix**: issue-creator SKILL.md updated — for `to_resolve`, PATCH issue title with `[已解决] ` prefix before posting resolution comment.
+- **MindSpore community**: questions.json updated (2026-04-21): 30 new questions appended (q_065–q_094), total now 76. Forum: top 50 by views from Discourse API (280 pool); Issue: all 7 [Question] issues from hotopic DB.
+- **openEuler community**: questions.json updated (2026-04-28): total now 240.
+  - Rebuilt with 8-intent classification (安装与部署, 系统管理, 内核与驱动, 安全与漏洞, 虚拟化与容器, 软件包与构建, 社区与生态, 嵌入式与边缘).
+  - MongoDB channel: 920 raw → 916 consult-filtered → 94 new appended (after white-list filter for user-facing topics).
+  - PG/Discourse channel: top 30 by created_at DESC → filtered news/meta/suggestions → 20 candidates → 2 genuinely new appended (q_254: 磁盘报错排查, q_255: OpenSSL漏洞修复时间).
+  - questions.md rebuilt with c/e/t source columns.
+  - Distribution: 安装与部署(81), 系统管理(66), 社区与生态(33), 软件包与构建(16), 嵌入式与边缘(11), 虚拟化与容器(11), 安全与漏洞(12), 内核与驱动(10).
+- **CANN community**: First question set generated (2026-04-21): 40 questions from hotopic DB, clustered across 15 topic clusters, issue path only. `assessments/CANN/questions.json` + `questions.md` written.
+- **unifiedbus community**: First question set generated (2026-04-21): 20 questions from maillist path only (47 mail records in hotopic DB, datastat API unavailable for this community). `assessments/unifiedbus/questions.json` + `questions.md` written.
 - **Branch**: `main`
-- **Last updated**: 2026-04-20
+- **Last updated**: 2026-04-28
 
 ## TODO
 
@@ -142,8 +151,12 @@ Current docs focus:
 
 | Date | Change |
 |------|--------|
+| 2026-04-28 | openEuler questions.json/md 补充完成：MongoDB channel 94条新增（白名单用户导向过滤），PG/Discourse channel 2条新增（top 30 forum帖子去重后），总计240条，8分类，questions.md 完整重建。 |
 | 2026-04-21 | 全仓替换采样技能引用：README、AGENT、scoring-engine、platform-chat 文档统一使用 platform-chat；删除 platform-sampler 目录后修复残留引用与失效路径。 |
 | 2026-04-21 | Security refactor for get-question credentials: removed insecure legacy script `scripts/dataset.py` (hardcoded account/password and DB secrets), refactored `scripts/query-db-proportion.py` to load DB credentials only from env/secret injection (`HOTOPIC_DB_CONFIG_JSON`, `HOTOPIC_DB_<COMMUNITY>_*`, or `HOTOPIC_DB_*`), and updated `.env.example` + get-question `SKILL.md` accordingly. |
+| 2026-04-21 | **openEuler get-question +13**: 从 hotopic DB 论坛帖子（按 created_at DESC 排序，762条中取19条）生成 13 条新问题（q_147–q_159），涵盖 oebuild/分布式软总线、全志A401移植、RK3588内核卡死、llvm-toolset、GNOME桌面、VMware+gcc、LibreOffice+JodConverter 等话题。同步修复 `fetch-forum-posts.py`：当 DB 无 view 列时改为 `comment_num DESC` 降级排序而非直接报错。 |
+| 2026-04-21 | **unifiedbus 首次问题集生成完成**: 从 hotopic DB 抓取47条邮件列表记录（ub-discuss/ub-spec/superpod-ref），改写为20条中文自然语言问题，写入 `assessments/unifiedbus/questions.json` + `questions.md`。意图分布：认知=6, 选型=4, 特性=5, 场景=2, 教程=1, 故障=1, 趋势=1。 |
+| 2026-04-21 | **CANN 首次问题集生成完成**: 从 hotopic DB 抓取549条 [Question] Issue，聚类为15个主题群，按群大小×评论数比例选取 top 40，改写为中文自然语言问题，写入 `assessments/CANN/questions.json` + `questions.md`。意图分布：故障=16, 场景=12, 特性=10, 认知=2。同步修复 `query-db-proportion.py` 和 `fetch-dataset.py` 中 `[question%]` 匹配 bug（CANN 使用 `[Question|问题咨询]` 格式）；全面重写 `fetch-forum-posts.py` 增加 hotopic DB 优先路径。 |
 | 2026-04-21 | get-question consistency and cleanup: (1) `assets/prompt-templates.md` `MAILLIST_FALLBACK` removed MindSpore-specific hardcoded URLs and switched to community-agnostic guidance, (2) removed redundant `scripts/__pycache__/` artifacts, (3) updated get-question `SKILL.md` I/O semantics for `target_count` to “new questions in this run” and aligned Step 9 筛选标准列 with template (`来源/占比/评分算法/筛选方式/获取时间`). |
 | 2026-04-20 | get-question 规则调整：移除 `GEO_QUESTION_TARGET_MIN/MAX` 在 Step 7 的依赖，`MERGE_DEDUP` 改为不限制问题总数，保留全部非重复问题。 |
 | 2026-04-20 | **MindSpore V4 full pipeline complete** (04-20 run): platform-chat (deepseek+qwen) → scoring (any_one threshold, OK=19/P0=16/P1=11) → issue-creator live (1 created #45, 13 updated, 3 resolved with [已解决] title prefix) → assessment-report (vs 04-17 baseline: ↑3 ↓2 ✓3 →38). issue-map.json now 24 entries. |

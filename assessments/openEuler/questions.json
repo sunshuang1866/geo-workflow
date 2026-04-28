@@ -1,6 +1,6 @@
 {
   "community": "openEuler",
-  "generated_at": "2026-04-20",
+  "generated_at": "2026-04-28",
   "official_domains": [
     "openeuler.org",
     "docs.openeuler.org",
@@ -15,7 +15,8 @@
         "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/server/installation_upgrade/installation/installation_modes.html"
       ],
       "notes": "很多版本都有安装指导，希望AI能搜索到最新版本的安装文档，提供更准确的安装步骤和注意事项。",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_002",
@@ -24,7 +25,8 @@
         "https://forum.openeuler.org/t/topic/7378/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_003",
@@ -33,7 +35,8 @@
         "https://forum.openeuler.org/t/topic/294"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_004",
@@ -44,7 +47,8 @@
         "https://forum.openeuler.org/t/topic/1975"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_005",
@@ -54,7 +58,8 @@
         "https://docs.openeuler.org/zh/docs/25.03/server/maintenance/aops/deploying-aops.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_006",
@@ -63,7 +68,8 @@
         "https://forum.openeuler.org/t/topic/1975"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_007",
@@ -72,7 +78,8 @@
         "https://forum.openeuler.org/t/topic/875"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "软件包与构建"
     },
     {
       "id": "q_008",
@@ -81,7 +88,8 @@
         "https://forum.openeuler.org/t/topic/220"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_009",
@@ -91,7 +99,8 @@
         "https://forum.openeuler.org/t/topic/18990"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_010",
@@ -100,7 +109,8 @@
         "https://www.openeuler.openatom.cn/zh/migration/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_011",
@@ -109,7 +119,8 @@
         "https://forum.openeuler.org/t/topic/3222"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_012",
@@ -118,7 +129,8 @@
         "https://forum.openeuler.org/t/topic/246"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_013",
@@ -128,7 +140,8 @@
         "https://www.openeuler.openatom.cn/zh/migration/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_014",
@@ -137,7 +150,8 @@
         "https://forum.openeuler.org/t/topic/2200"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_015",
@@ -146,7 +160,8 @@
         "https://forum.openeuler.org/t/topic/4549"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_016",
@@ -155,7 +170,8 @@
         "https://forum.openeuler.org/t/topic/4537"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安全与漏洞"
     },
     {
       "id": "q_017",
@@ -166,7 +182,8 @@
         "https://forum.openeuler.org/t/topic/6270"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_018",
@@ -175,7 +192,8 @@
         "https://forum.openeuler.org/t/topic/2964"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_019",
@@ -184,7 +202,8 @@
         "https://forum.openeuler.org/t/topic/2789"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_020",
@@ -193,7 +212,8 @@
         "https://forum.openeuler.org/t/topic/4780"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_021",
@@ -202,7 +222,8 @@
         "https://forum.openeuler.org/t/topic/5035"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_022",
@@ -211,7 +232,8 @@
         "https://forum.openeuler.org/t/topic/4897/2"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_023",
@@ -220,7 +242,8 @@
         "https://forum.openeuler.org/t/topic/3396"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_024",
@@ -230,7 +253,8 @@
         "https://forum.openeuler.org/t/topic/3745"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_025",
@@ -239,7 +263,8 @@
         "https://forum.openeuler.org/t/topic/6895"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_026",
@@ -248,7 +273,8 @@
         "https://forum.openeuler.org/t/topic/4365"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_027",
@@ -257,7 +283,8 @@
         "https://forum.openeuler.org/t/topic/3612"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_028",
@@ -266,7 +293,8 @@
         "https://forum.openeuler.org/t/topic/3328"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_029",
@@ -275,7 +303,8 @@
         "https://forum.openeuler.org/t/topic/4266"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_030",
@@ -284,7 +313,8 @@
         "https://forum.openeuler.org/t/topic/6230"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_031",
@@ -293,7 +323,8 @@
         "https://forum.openeuler.org/t/topic/6960"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_032",
@@ -302,7 +333,8 @@
         "https://forum.openeuler.org/t/topic/4337"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_033",
@@ -313,7 +345,8 @@
         "https://www.openeuler.org/zh/sig/sig-list/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_034",
@@ -325,7 +358,8 @@
         "https://www.openeuler.org/zh/sig/sig-list/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_035",
@@ -336,7 +370,8 @@
         "https://www.openeuler.org/zh/community/contribution/detail.html"
       ],
       "notes": "注意，主仓库已经由Gitee迁移到GitCode，sig-Migration的代码仓库地址需要更新为：https://gitcode.com/openeuler/community/tree/master/sig/sig-Migration。若引用到Gitee的链接，需要特殊分析原因。",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_037",
@@ -348,7 +383,8 @@
         "https://atomgit.com/openeuler/community/tree/master/sig/ai"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_038",
@@ -358,7 +394,8 @@
         "https://www.openeuler.org/zh/community/contribution"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_039",
@@ -367,7 +404,8 @@
         "https://docs.openeuler.openatom.cn/zh/docs/24.03_LTS_SP3/embedded/index.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "嵌入式与边缘"
     },
     {
       "id": "q_040",
@@ -377,7 +415,8 @@
         "https://www.openeuler.org/zh/sig/sig-guidance/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_041",
@@ -387,7 +426,8 @@
         "https://docs.openeuler.org/zh/docs/common/faq/general/general_faq.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_044",
@@ -397,7 +437,8 @@
         "https://www.openeuler.org/zh/community/contribution/detail.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_046",
@@ -406,21 +447,24 @@
         "https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/tools/community_tools/uadk/uadk_quick_start.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_048",
       "question": "openEuler BigData SIG 支持哪些大数据组件（Hadoop、Spark、Flink 等）？",
       "official_urls": [],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_049",
       "question": "如何在 openEuler 上利用 EulerLauncher 或 BigData SIG 工具快速搭建大数据集群？",
       "official_urls": [],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_050",
@@ -430,7 +474,8 @@
         "https://docs.openeuler.org/zh/docs/22.03_LTS_SP2/docs/EulerMaker/EulerMaker%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "软件包与构建"
     },
     {
       "id": "q_052",
@@ -442,14 +487,16 @@
         "https://www.openeuler.org/zh/community/contribution/detail.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_054",
       "question": "openEuler 分布式存储（sig-SDS）SIG 支持哪些存储组件（Ceph、Lustre、DBS）？",
       "official_urls": [],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_055",
@@ -458,14 +505,16 @@
         "https://www.openeuler.org/zh/blog/overweight/2020-06-10-my-traval-of-openeuler.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "系统管理"
     },
     {
       "id": "q_056",
       "question": "openEuler 新版本分支初始化时，SIG maintainer 如何参与 PR 检视流程？",
       "official_urls": [],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_057",
@@ -474,21 +523,24 @@
         "https://atomgit.com/openeuler/release-management/blob/master/release-plan.md"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_058",
       "question": "openEuler CloudNative SIG 支持哪些云原生组件（containerd、iSula、kata-containers 等）？",
       "official_urls": [],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "虚拟化与容器"
     },
     {
       "id": "q_059",
       "question": "openEuler 上如何引入和使用 composefs 实现容器镜像的只读挂载文件系统？",
       "official_urls": [],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_060",
@@ -498,7 +550,8 @@
         "https://www.openeuler.org/zh/sig/sig-CloudNative"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "虚拟化与容器"
     },
     {
       "id": "q_062",
@@ -508,7 +561,8 @@
         "https://www.openeuler.org/zh/blog/20230630-newcomer/0630-newcomer.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_063",
@@ -517,7 +571,8 @@
         "https://www.openeuler.org/zh/mirror/list/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_064",
@@ -526,7 +581,8 @@
         "https://www.openeuler.org/zh/other/lifecycle/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_067",
@@ -536,7 +592,8 @@
         "https://atomgit.com/openeuler/community/blob/master/sig/Kernel/%E8%A1%A5%E4%B8%81%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83.md"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_070",
@@ -545,7 +602,8 @@
         "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/openstack/install/antelope.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_071",
@@ -554,7 +612,8 @@
         "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/virtualization/introduction-to-virtulization.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "虚拟化与容器"
     },
     {
       "id": "q_073",
@@ -563,7 +622,8 @@
         "https://docs.openeuler.org/zh/docs/25.03/virtualization/virtualization_platform/virtualization/vm-live-migration.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安装与部署"
     },
     {
       "id": "q_074",
@@ -572,7 +632,8 @@
         "https://atomgit.com/openeuler/compass-ci"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_077",
@@ -584,7 +645,8 @@
         "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/releasenotes/releasenotes/key_features.html"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_078",
@@ -593,7 +655,8 @@
         "https://www.openeuler.org/zh/sig/sig-YuanRong"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_079",
@@ -604,7 +667,8 @@
         "https://gitee.com/openeuler/technical-certification/blob/master/%E6%8A%80%E6%9C%AF%E6%B5%8B%E8%AF%84%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.md"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_080",
@@ -613,7 +677,8 @@
         "https://www.openeuler.org/zh/security/vulnerability-reporting/"
       ],
       "notes": "",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "安全与漏洞"
     },
     {
       "id": "q_081",
@@ -622,7 +687,8 @@
         "https://atomgit.com/openeuler/community/tree/master/sig/sig-OpenDesign"
       ],
       "notes": "https://www.openeuler.org/en/sig/sig-OpenDesign 官网页面需要补充SIG相关说明",
-      "source": "legacy"
+      "source": "legacy",
+      "intent": "社区与生态"
     },
     {
       "id": "q_082",
@@ -630,7 +696,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 38170
+      "source_views": 38170,
+      "intent": "系统管理"
     },
     {
       "id": "q_083",
@@ -638,7 +705,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 11418
+      "source_views": 11418,
+      "intent": "系统管理"
     },
     {
       "id": "q_084",
@@ -646,7 +714,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 9290
+      "source_views": 9290,
+      "intent": "安装与部署"
     },
     {
       "id": "q_085",
@@ -654,7 +723,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 7439
+      "source_views": 7439,
+      "intent": "安装与部署"
     },
     {
       "id": "q_086",
@@ -662,7 +732,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 6847
+      "source_views": 6847,
+      "intent": "安装与部署"
     },
     {
       "id": "q_087",
@@ -670,7 +741,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 6602
+      "source_views": 6602,
+      "intent": "安装与部署"
     },
     {
       "id": "q_088",
@@ -678,7 +750,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 6562
+      "source_views": 6562,
+      "intent": "系统管理"
     },
     {
       "id": "q_089",
@@ -686,7 +759,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 6400
+      "source_views": 6400,
+      "intent": "系统管理"
     },
     {
       "id": "q_090",
@@ -694,7 +768,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 6334
+      "source_views": 6334,
+      "intent": "系统管理"
     },
     {
       "id": "q_091",
@@ -702,7 +777,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 5779
+      "source_views": 5779,
+      "intent": "系统管理"
     },
     {
       "id": "q_092",
@@ -710,7 +786,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 5156
+      "source_views": 5156,
+      "intent": "系统管理"
     },
     {
       "id": "q_093",
@@ -718,7 +795,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4931
+      "source_views": 4931,
+      "intent": "安装与部署"
     },
     {
       "id": "q_094",
@@ -726,7 +804,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4709
+      "source_views": 4709,
+      "intent": "安装与部署"
     },
     {
       "id": "q_095",
@@ -734,7 +813,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4550
+      "source_views": 4550,
+      "intent": "内核与驱动"
     },
     {
       "id": "q_096",
@@ -742,7 +822,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4547
+      "source_views": 4547,
+      "intent": "系统管理"
     },
     {
       "id": "q_097",
@@ -750,7 +831,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4453
+      "source_views": 4453,
+      "intent": "安装与部署"
     },
     {
       "id": "q_098",
@@ -758,7 +840,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4345
+      "source_views": 4345,
+      "intent": "安装与部署"
     },
     {
       "id": "q_099",
@@ -766,7 +849,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4210
+      "source_views": 4210,
+      "intent": "安装与部署"
     },
     {
       "id": "q_100",
@@ -774,7 +858,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4132
+      "source_views": 4132,
+      "intent": "虚拟化与容器"
     },
     {
       "id": "q_101",
@@ -782,7 +867,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4090
+      "source_views": 4090,
+      "intent": "系统管理"
     },
     {
       "id": "q_102",
@@ -790,7 +876,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4081
+      "source_views": 4081,
+      "intent": "安装与部署"
     },
     {
       "id": "q_103",
@@ -798,7 +885,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4032
+      "source_views": 4032,
+      "intent": "安装与部署"
     },
     {
       "id": "q_104",
@@ -806,7 +894,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 4001
+      "source_views": 4001,
+      "intent": "系统管理"
     },
     {
       "id": "q_105",
@@ -814,7 +903,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3925
+      "source_views": 3925,
+      "intent": "系统管理"
     },
     {
       "id": "q_106",
@@ -822,7 +912,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3887
+      "source_views": 3887,
+      "intent": "安装与部署"
     },
     {
       "id": "q_107",
@@ -830,7 +921,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3834
+      "source_views": 3834,
+      "intent": "安装与部署"
     },
     {
       "id": "q_108",
@@ -838,7 +930,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3815
+      "source_views": 3815,
+      "intent": "社区与生态"
     },
     {
       "id": "q_109",
@@ -846,7 +939,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3799
+      "source_views": 3799,
+      "intent": "安装与部署"
     },
     {
       "id": "q_110",
@@ -854,7 +948,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3796
+      "source_views": 3796,
+      "intent": "系统管理"
     },
     {
       "id": "q_111",
@@ -862,7 +957,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3769
+      "source_views": 3769,
+      "intent": "系统管理"
     },
     {
       "id": "q_112",
@@ -870,7 +966,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3700
+      "source_views": 3700,
+      "intent": "安装与部署"
     },
     {
       "id": "q_113",
@@ -878,7 +975,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3679
+      "source_views": 3679,
+      "intent": "系统管理"
     },
     {
       "id": "q_114",
@@ -886,7 +984,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3579
+      "source_views": 3579,
+      "intent": "安装与部署"
     },
     {
       "id": "q_115",
@@ -894,7 +993,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3576
+      "source_views": 3576,
+      "intent": "系统管理"
     },
     {
       "id": "q_116",
@@ -902,7 +1002,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3563
+      "source_views": 3563,
+      "intent": "系统管理"
     },
     {
       "id": "q_117",
@@ -910,7 +1011,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3507
+      "source_views": 3507,
+      "intent": "系统管理"
     },
     {
       "id": "q_118",
@@ -918,7 +1020,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3507
+      "source_views": 3507,
+      "intent": "社区与生态"
     },
     {
       "id": "q_119",
@@ -926,7 +1029,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3465
+      "source_views": 3465,
+      "intent": "系统管理"
     },
     {
       "id": "q_120",
@@ -934,7 +1038,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3430
+      "source_views": 3430,
+      "intent": "系统管理"
     },
     {
       "id": "q_121",
@@ -942,7 +1047,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3390
+      "source_views": 3390,
+      "intent": "系统管理"
     },
     {
       "id": "q_122",
@@ -950,7 +1056,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3371
+      "source_views": 3371,
+      "intent": "安装与部署"
     },
     {
       "id": "q_123",
@@ -958,7 +1065,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3307
+      "source_views": 3307,
+      "intent": "社区与生态"
     },
     {
       "id": "q_124",
@@ -966,7 +1074,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3274
+      "source_views": 3274,
+      "intent": "系统管理"
     },
     {
       "id": "q_125",
@@ -974,7 +1083,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3216
+      "source_views": 3216,
+      "intent": "内核与驱动"
     },
     {
       "id": "q_126",
@@ -982,7 +1092,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3132
+      "source_views": 3132,
+      "intent": "安装与部署"
     },
     {
       "id": "q_127",
@@ -990,7 +1101,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3106
+      "source_views": 3106,
+      "intent": "系统管理"
     },
     {
       "id": "q_128",
@@ -998,7 +1110,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3069
+      "source_views": 3069,
+      "intent": "安装与部署"
     },
     {
       "id": "q_129",
@@ -1006,7 +1119,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 3044
+      "source_views": 3044,
+      "intent": "系统管理"
     },
     {
       "id": "q_130",
@@ -1014,7 +1128,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 2993
+      "source_views": 2993,
+      "intent": "安装与部署"
     },
     {
       "id": "q_131",
@@ -1022,7 +1137,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 2972
+      "source_views": 2972,
+      "intent": "系统管理"
     },
     {
       "id": "q_132",
@@ -1030,7 +1146,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 2929
+      "source_views": 2929,
+      "intent": "安装与部署"
     },
     {
       "id": "q_133",
@@ -1038,7 +1155,8 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 2852
+      "source_views": 2852,
+      "intent": "安装与部署"
     },
     {
       "id": "q_134",
@@ -1046,103 +1164,1483 @@
       "official_urls": [],
       "notes": "",
       "source": "forum",
-      "source_views": 2837
+      "source_views": 2837,
+      "intent": "系统管理"
     },
     {
       "id": "q_135",
       "question": "如何退订 openEuler 社区邮件列表？退订操作在哪里完成？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_136",
       "question": "如何通过 mailweb（https://mailweb.openeuler.org）在线浏览 openEuler 社区邮件列表的历史归档？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_137",
       "question": "openEuler 社区安全漏洞修复通知（安全通告）是通过哪个邮件列表发布的？如何订阅？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "安全与漏洞"
     },
     {
       "id": "q_138",
       "question": "openEuler 各 SIG 组的例会时间、频率和在线参会链接如何查询？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_139",
       "question": "openEuler 社区技术委员会（TC）例会如何参与和跟踪决策结果？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_140",
       "question": "openEuler 社区的技术讨论应优先使用邮件列表还是 Gitee Issue？二者的适用场景各是什么？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_141",
       "question": "如何订阅 openEuler 版本发布公告邮件列表，及时接收新版本发布通知？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_142",
       "question": "在 openEuler 邮件列表中发起新话题或回复时，有哪些基本的邮件礼仪规范（如正确引用、使用纯文本等）？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_143",
       "question": "如何通过 Web 界面查看 openEuler 邮件列表内容而无需订阅？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_144",
       "question": "openEuler 社区补丁提交和代码审核是否通过邮件列表进行？还是完全依赖 Gitee PR？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_145",
       "question": "openEuler 社区有哪些面向开发者的核心邮件列表（如 dev、kernel、infra），它们各自的讨论范围是什么？",
       "source": "maillist",
       "official_urls": [],
-      "notes": ""
+      "notes": "",
+      "intent": "社区与生态"
     },
     {
       "id": "q_146",
       "question": "如何将 openEuler 邮件列表的消息导入到邮件客户端（如 Thunderbird、Outlook）中统一管理？",
       "source": "maillist",
       "official_urls": [],
+      "notes": "",
+      "intent": "社区与生态"
+    },
+    {
+      "id": "q_147",
+      "question": "如何使用oebuild构建包含分布式软总线功能的qemu-aarch64镜像？构建失败应如何排查？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_148",
+      "question": "在边缘AI盒子上部署openEuler系统和CANN推理框架需要多大的硬盘空间？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_149",
+      "question": "如何在openEuler中制作Ironic Python Agent（IPA）裸机镜像？常见失败原因有哪些？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_150",
+      "question": "如何将openEuler系统移植到全志A401（Allwinner A401）处理器平台？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_151",
+      "question": "如何对openEuler 22.03 LTS-SP2 aarch64版本进行离线升级？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_152",
+      "question": "在openEuler Docker镜像中安装llvm-toolset-19后缺失enable脚本，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_153",
+      "question": "如何在openEuler中配置本地软件源（YUM/DNF本地repo）并从本地源安装软件包？",
+      "intent": "系统管理",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_154",
+      "question": "如何在openEuler社区GitCode上将Issue与Pull Request关联起来？",
+      "intent": "社区与生态",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_155",
+      "question": "在openEuler 24.03上安装VMware Workstation时启动报找不到gcc编译器，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_156",
+      "question": "openEuler 24.03 LTS-SP3如何安装GNOME桌面环境？有无官方安装脚本？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_157",
+      "question": "如何在openEuler系统中升级OpenSSH到指定版本？",
+      "intent": "系统管理",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_158",
+      "question": "将openEuler移植到RK3588开发板时系统在内核启动阶段卡死，如何排查和解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_159",
+      "question": "openEuler 24.03上LibreOffice与JodConverter集成后文档转换失败，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_160",
+      "question": "openEuler上Spark OmniRuntime多算子因指针类型不匹配导致coredump及结果不一致，如何解决？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 64,
+        "exclude": 0,
+        "total": 64
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_161",
+      "question": "openEuler多个组件因CMake 4.0移除旧兼容性导致构建失败，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 26,
+        "exclude": 0,
+        "total": 26
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_162",
+      "question": "openEuler面临HPC多软件编译兼容与运行适配难题？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 19,
+        "exclude": 0,
+        "total": 19
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_163",
+      "question": "openEuler兆芯KH-50000 CPU驱动兼容性与微码更新支持问题？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 14,
+        "exclude": 0,
+        "total": 14
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_164",
+      "question": "openEuler PCIe热插拔枚举阻塞导致系统假死问题，如何解决？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 10,
+        "exclude": 0,
+        "total": 10
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_165",
+      "question": "openEuler内核RAID模块未正确处理REQ_NOWAIT标志导致写性能下降及存储不稳定，如何解决？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 8,
+        "exclude": 0,
+        "total": 8
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_166",
+      "question": "openEuler部署组件因依赖缺失或版本不兼容导致服务启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 8,
+        "exclude": 0,
+        "total": 8
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_167",
+      "question": "openEuler QEMU ARM虚拟机因zImage兼容性及UEFI安全启动问题导致启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 7,
+        "exclude": 0,
+        "total": 7
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_168",
+      "question": "openEuler Python包卸载后遗留site-packages文件未清理，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 7,
+        "exclude": 0,
+        "total": 7
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_169",
+      "question": "openEuler系统X100显卡驱动存在飞腾平台兼容性问题，导致UKUI界面卡顿，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 6,
+        "exclude": 0,
+        "total": 6
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_170",
+      "question": "Rust 1.82升级导致openEuler多组件构建失败，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 6,
+        "exclude": 0,
+        "total": 6
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_171",
+      "question": "openEuler在Lichee Pi 4A上因th1520 i2s驱动未校验用户内存致内核崩溃，如何解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 6,
+        "exclude": 0,
+        "total": 6
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_172",
+      "question": "openEuler SELinux组件升级引发ABI兼容性风险？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 6,
+        "exclude": 0,
+        "total": 6
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_173",
+      "question": "openEuler RISC-V架构下sysmonitor组件CPU与网卡监控功能缺失，如何解决？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 5,
+        "exclude": 0,
+        "total": 5
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_174",
+      "question": "openEuler FaaS函数互调因调度异常和初始化超时致调用失败，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 5,
+        "exclude": 0,
+        "total": 5
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_175",
+      "question": "openEuler RISC-V架构QEMU 8.2.0 KVM虚拟机ACPI启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_176",
+      "question": "openEuler升级Rust 1.91后宏中尾随分号引发构建失败，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_177",
+      "question": "Clang工具链未适配openEuler衍生版target triples致路径匹配失败，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_178",
+      "question": "openEuler显示缩放仅支持100%和200%且设置响应慢？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_179",
+      "question": "atune-check工具在openEuler下网卡信息采集不全？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_180",
+      "question": "openEuler开启大页预热时共享内存配置引发worker启动性能与兼容性问题？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_181",
+      "question": "openEuler下poc_gluten的ShuffleExchange与Join算子不支持struct等复杂类型，如何解决？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_182",
+      "question": "openEuler使用clang-17编译时因优化导致指针计算异常引发段错误，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_183",
+      "question": "openEuler中gazelle与DPDK协同的UDP数据路径存在异常导致高概率带宽为0，如何解决？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_184",
+      "question": "openEuler NFSv4并发加锁与文件打开触发UAF漏洞，如何解决？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_185",
+      "question": "openEuler默认IOMMU非严格模式以提升NVMe与网络性能？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_186",
+      "question": "openEuler启用IMA摘要列表后因EVM属性缺失和密钥环为空导致启动panic，如何解决？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_187",
+      "question": "openEuler核心包与软件包差异源于文档迁移及依赖升级，不影响兼容性？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_188",
+      "question": "openEuler上MySQL 8.0.17存在Sysbench基准性能优化需求？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_189",
+      "question": "openEuler上gtk3/gtk4-demo运行时出现错误日志影响GUI功能验证，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_190",
+      "question": "openEuler英文版软件包跳转路径异常导致访问失败，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_191",
+      "question": "openEuler多节点Worker缩容时客户端切换延迟高且连接全断？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_192",
+      "question": "openEuler多租户实例调度存在亲和性策略失效问题？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_193",
+      "question": "openEuler精简安装后因仓库不兼容无法匹配CentOS OpenStack包，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_194",
+      "question": "openEuler部署etcd启用证书与鉴权时worker因缺少用户名密码参数启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_195",
+      "question": "eulermaker因cmake升级导致sundials及ament cmake依赖无法解析，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_196",
+      "question": "openEuler Gluten Omni中regr聚合函数执行结果与Spark不一致？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_197",
+      "question": "openEuler RISC-V平台PowerAPI接口获取CPU频率与性能数据失败，如何解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_198",
+      "question": "openEuler服务间通信缺少双向认证安全机制？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_199",
+      "question": "openEuler中python-pyusb与pyusb包名冲突导致二进制包重复无法共存，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_200",
+      "question": "openEuler CIFS客户端rsize为0导致读流程空指针panic，如何解决？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_201",
+      "question": "openEuler官方仓库python3-vllm包缺失PyTorch等运行时依赖，如何解决？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_202",
+      "question": "openEuler Spark SQL中Extract函数仅支持hour字段需扩展？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_203",
+      "question": "openEuler分布式存储跨节点容错切换存在连接超时与读写失败问题，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_204",
+      "question": "openEuler LoongArch版桌面环境依赖包缺失导致安装失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_205",
+      "question": "openEuler 4.19内核在高版本GCC下存在编译兼容性问题？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_206",
+      "question": "openEuler cobbler buildiso在ARM/RISC-V架构下解包返回值异常，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_207",
+      "question": "openEuler环境中Clang构建存在编译兼容性问题？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_208",
+      "question": "openEuler ksmbd持久化v2重放存在use-after-free漏洞？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_209",
+      "question": "openEuler perf bench缺失numa参数支持导致NUMA性能测试无法执行，如何解决？",
+      "intent": "内核与驱动",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_210",
+      "question": "openEuler需升级Eclipse至4.34以解决RuyiSDK IDE兼容性问题？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_211",
+      "question": "openEuler使用gcc-14.3编译时需处理-Wimplicit-function-declaration警告？",
+      "intent": "软件包与构建",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_212",
+      "question": "euler-copilot-framework依赖管理缺失致安装阻塞，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_213",
+      "question": "openEuler RDMA服务ibacm与iwpmd启动失败致功能异常，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_214",
+      "question": "openEuler系统服务因依赖配置错误导致启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_215",
+      "question": "openEuler因cgroup版本差异导致块IO数据采集失败，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_216",
+      "question": "IPM软件因缺失DOWNLOAD配置项导致jarvis安装失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_217",
+      "question": "RK3588刷写openEuler后启动链配置异常导致无法启动，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_218",
+      "question": "openEuler 5.10内核cat /proc/numa_maps引发用户进程卡顿？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_219",
+      "question": "openEuler JWT解析器因未指定padding导致RS签名验证失败，如何解决？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_220",
+      "question": "openEuler RISC-V架构下lcr运行时因seccomp缺少syscall支持致容器启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_221",
+      "question": "devstation不支持Ventoy导致USB启动和ISO引导失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_222",
+      "question": "openEuler vfio hisilicon驱动在热迁移中RAS与FLR并发引发系统不稳定？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_223",
+      "question": "openEuler容器因seccomp策略差异导致Ascend平台配置文件访问失败，如何解决？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_224",
+      "question": "x2openEuler升级检查因rpm解析索引越界导致冲突信息收集失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_225",
+      "question": "loongarch64架构直接内核引导失败需修复架构适配缺陷，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_226",
+      "question": "po4a升级后命令名变更引发脚本兼容性问题？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_227",
+      "question": "openEuler x86_64 legacy启动缺失GRUB密码防护，如何解决？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_228",
+      "question": "openEuler下VMware Workstation挂载U盘启动物理硬盘存在引导失败问题，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_229",
+      "question": "librdkafka升级至2.11.0引发兼容性问题？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_230",
+      "question": "openEuler多工作区下任务栏软件跨区启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_231",
+      "question": "openEuler kernel 6.6.0-105+版本在Hyper-V下引发sshd连接重置？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_232",
+      "question": "openEuler缺少MySQL开发库导致mysqlclient安装失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_233",
+      "question": "openEuler显卡驱动管理器安装因依赖冲突失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_234",
+      "question": "openEuler RISC-V版因缺失run/initramfs/state目录导致import-state.service启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_235",
+      "question": "x2openeuler迁移工具Windows文档链接失效或文件损坏？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_236",
+      "question": "openEuler中kae-driver与libwd因头文件路径冲突导致安装失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_237",
+      "question": "openEuler销毁机密虚机时因私有内存遍历引发soft lockup？",
+      "intent": "虚拟化与容器",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_238",
+      "question": "gdal从3.10.3升级至3.11.0需解决兼容性与依赖问题？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_239",
+      "question": "bisheng_autotuner在openEuler-24.03-LTS-SP1中默认强制编译且不支持RISC-V架构，如何解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_240",
+      "question": "pango Python绑定在RISC-V64架构下模块加载失败，如何解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_241",
+      "question": "openEuler在鲲鹏920/950上lscpu显示CPU基频未反映实际睿频状态，如何解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_242",
+      "question": "UltraISO烧录导致openEuler U盘引导失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_243",
+      "question": "kf5-akonadi-server因依赖版本冲突无法安装，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_244",
+      "question": "petsc软件安装失败因依赖项或编译环境配置问题，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_245",
+      "question": "openEuler嵌入式安装因缺少mkswap及空间不足导致920机型引导失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_246",
+      "question": "openEuler 5.10内核IMA安全策略限制摘要列表写入？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_247",
+      "question": "openEuler Java 21安装因pretrans脚本Lua引用nil值失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_248",
+      "question": "gazelle在dpdk-24.11中因结构体变更和初始化缺失导致编译启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_249",
+      "question": "openEuler下TensorFlow XLA编译因Reshape维度不匹配致启动失败，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_250",
+      "question": "openEuler RISC-V64环境下gazellectl lstack指令因套接字连接失败无法响应，如何解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_251",
+      "question": "openEuler RISC-V架构下libvirt缺失AIA配置支持，如何解决？",
+      "intent": "嵌入式与边缘",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_252",
+      "question": "openEuler暗色模式下大模型图标显示不清晰需优化？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_253",
+      "question": "mintlocale启动失败因locale配置错误或文件权限异常，如何解决？",
+      "intent": "安装与部署",
+      "source": "forum",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_254",
+      "question": "openEuler系统中磁盘出现报错如何排查和解决？",
+      "intent": "系统管理",
+      "source": "forum",
+      "source_breakdown": {},
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_255",
+      "question": "openEuler中发现OpenSSL安全漏洞，什么时候会发布修复补丁？",
+      "intent": "安全与漏洞",
+      "source": "forum",
+      "source_breakdown": {},
+      "official_urls": [],
       "notes": ""
     }
   ],
   "source_criteria": {
     "forum": {
-      "algorithm": "sorted by views descending",
-      "selection": "top 100 from 1147 ranked topics (views > 50)",
-      "fetched_at": "2026-04-20"
+      "algorithm": "sorted by created_at DESC (no view data in DB)",
+      "selection": "top 19 from 762 recent forum posts",
+      "fetched_at": "2026-04-21"
     },
     "maillist": {
       "algorithm": "LLM fallback (datastat API unavailable)",
       "selection": "8-12 community maillist questions generated by LLM",
       "fetched_at": "2026-04-20"
+    },
+    "mongodb": {
+      "fetched_at": "2026-04-28",
+      "raw_topics": 920,
+      "after_consult_filter": 916,
+      "after_consult_gte2": 915,
+      "kept_user_facing": 101,
+      "dropped_internal": 814,
+      "appended_after_dedup": 94,
+      "mongo_source_types": {
+        "forum": 9,
+        "issue": 2723,
+        "maillist": 0
+      }
+    },
+    "pg_forum": {
+      "fetched_at": "2026-04-28",
+      "raw_posts": 30,
+      "after_filter": 25,
+      "top20_taken": 20,
+      "appended_after_dedup": 2,
+      "sort": "created_at DESC (no views column)",
+      "note": "PostgreSQL/Discourse channel, top 20 after filtering news/meta/suggestions"
     }
   }
 }

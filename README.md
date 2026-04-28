@@ -68,9 +68,11 @@ cp .env.example .env
 | `QWEN_WEB_PASSWORD` | Qwen Web 端自动登录密码 | 使用 qwen-web 时必需 |
 | `GITCODE_TOKEN` | GitCode Issue 创建 | 在 GitCode 创建 Issue 时必需 |
 | `GITHUB_TOKEN` | GitHub Issue 创建 | 在 GitHub 创建 Issue 时必需 |
-| `DATASTAT_EMAIL` | get-question issue 路径登录邮箱 | issue 路径时必需 |
-| `DATASTAT_PASSWORD` | get-question issue 路径登录密码 | issue 路径时必需 |
-| `HOTOPIC_DB_CONFIG_JSON` | DB 比例查询多社区配置（JSON） | get-question 按渠道分配配额时使用 |
+| `MONGODB_HOST` | MongoDB 社区热点话题库主机地址 | get-question 必需（含论坛/Issue/邮件列表数据） |
+| `MONGODB_PORT` | MongoDB 端口 | get-question 必需 |
+| `MONGODB_USER` | MongoDB 用户名 | get-question 必需 |
+| `MONGODB_PASSWORD` | MongoDB 密码 | get-question 必需 |
+| `HOTOPIC_DB_CONFIG_JSON` | PostgreSQL 论坛帖子补充渠道多社区配置（JSON） | get-question forum 路径 Channel 2 可选 |
 
 **工作流配置**（每次切换社区时更新）：
 
@@ -224,34 +226,33 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | 参数 | 必填 | 默认值 | 说明 |
 |------|------|--------|------|
 | `community` | 否 | `.env` 的 `GEO_COMMUNITY` | 社区名称，如 `openEuler`。未设置时中止并报错 |
-| `target_count` | 否 | `.env` 的 `GEO_QUESTION_TARGET_COUNT` → `100` | 本次运行目标新增问题数，按各渠道数据量比例分配采集配额（不限制问题集累积总数） |
+| `target_count` | 否 | `.env` 的 `GEO_QUESTION_TARGET_COUNT` → `100` | 本次运行目标新增问题数（不限制问题集累积总数） |
 | `seed_keywords` | 否 | LLM 自动推导 | 逗号分隔的技术关键词，用于辅助 LLM 改写问题 |
-| `paths` | 否 | `.env` 的 `GEO_PATHS` → `all` | 数据来源路径，见下表 |
-| `forum_url` | 否 | `.env` 的 `GEO_FORUM_URL` | Discourse 论坛 base URL |
-| `since` | 否 | 无（不过滤） | 按日期过滤 issue / 邮件列表数据，格式 `YYYY-MM-DD`，仅影响 Path 2 和 Path 3 |
-| `datastat_email` | 否 | `.env` 的 `DATASTAT_EMAIL` | Issue 路径（datastat API）登录邮箱 |
-| `datastat_password` | 否 | `.env` 的 `DATASTAT_PASSWORD` | Issue 路径（datastat API）登录密码 |
+| `paths` | 否 | `.env` 的 `GEO_PATHS` → `all` | 数据来源路径：`forum` / `website` / `all` |
+| `forum_url` | 否 | `.env` 的 `GEO_FORUM_URL` | Discourse 论坛 base URL（Channel 2 备用） |
 
 > **参数优先级**：显式调用参数 > `.env` 变量 > 默认值
 
-#### 数据来源路径（`paths` 参数）
+#### 数据来源渠道
 
-4 个数据来源路径，可单独选择或全选：
+本质上共 5 个数据渠道，由 `paths` 参数控制是否运行：
 
-| 路径 | `paths` 值 | 数据来源 | 额外依赖 |
-|------|-----------|----------|----------|
-| Path 1 | `forum` | Discourse 论坛热帖（按浏览量排序） | `GEO_FORUM_URL` |
-| Path 2 | `issue` | 仓库 Issue（过滤 `[Question]` 标题） | `DATASTAT_EMAIL` / `DATASTAT_PASSWORD` |
-| Path 3 | `maillist` | SIG 邮件列表归档 | 无 |
-| Path 4 | `website` | 官网站内搜索热词 API | `WEBSITE_SEARCH_URL` |
-| Path 5 | `manual` | `manual-questions.md`（项目根目录） | 文件存在时自动加载 |
+| 渠道 | `paths` | 数据来源 | 额外依赖 |
+|------|---------|----------|----------|
+| 邮件列表 | `forum` | MongoDB `community-hot-topic` — 聚合自社区邮件列表，经 consult-filter 过滤，按咨询数降序 | `MONGODB_*`（必需） |
+| 仓库 Issue | `forum` | MongoDB `community-hot-topic` — 聚合自社区仓库 Issue，经 consult-filter 过滤，按咨询数降序 | `MONGODB_*`（必需） |
+| 论坛帖子 | `forum` | MongoDB `community-hot-topic` — 聚合自社区论坛，经 consult-filter 过滤，按咨询数降序；**另**：PostgreSQL/Discourse 单帖补充（`views > 50`，top 30，按浏览量降序） | `MONGODB_*`（必需）；`HOTOPIC_DB_*` 或 `GEO_FORUM_URL`（可选） |
+| 官网热词 | `website` | 官网站内搜索热词 API，LLM 改写为自然语言问题 | `WEBSITE_SEARCH_URL` |
+| 人工 | 自动 | `manual-questions.md`（项目根目录）存在时自动加载，无需在 `paths` 中指定 | 文件存在即可 |
+
+> **consult-filter 规则**：MongoDB 中仅保留含用户咨询类内容的话题。排除全为 `[Req]`/`[Task]`/`[RFC]`/`[Doc]` 的话题；混合话题当咨询类来源 ≥ 50% 时保留。每个话题携带 `咨询数c/排除数e/总数t` 用于排序展示。
 
 #### 使用示例
 
 ```
 /get-question                                    # 全部从 .env 读取
-/get-question paths=forum,issue                  # 只采集论坛和 Issue
-/get-question paths=all since=2024-01-01         # 全渠道，只采 2024 年以后的数据
+/get-question paths=forum                        # 只采集论坛（双渠道：MongoDB + PG）
+/get-question paths=website                      # 只采集官网热词
 /get-question community=openEuler target_count=50
 ```
 

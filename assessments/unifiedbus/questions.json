@@ -1,0 +1,173 @@
+{
+  "community": "unifiedbus",
+  "generated_at": "2026-04-21",
+  "official_domains": [],
+  "source_criteria": {
+    "maillist": {
+      "algorithm": "all mailing list email archives from hotopic DB",
+      "fetched_at": "2026-04-21"
+    }
+  },
+  "questions": [
+    {
+      "id": "q_001",
+      "question": "UnifiedBus（灵衢）是什么技术，有哪些应用场景？",
+      "intent": "认知",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_002",
+      "question": "UnifiedBus规范文档在哪里可以下载，如何获取完整的规格说明书？",
+      "intent": "场景",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_003",
+      "question": "UnifiedBus是否提供英文版规范文档？",
+      "intent": "认知",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_004",
+      "question": "UB协议中链路层与网络层之间是否支持帧中断传输确认机制？",
+      "intent": "特性",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_005",
+      "question": "灵衢超节点如何基于openEuler SP3搭建完整的使能操作系统环境？",
+      "intent": "教程",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_006",
+      "question": "华为是否提供符合UnifiedBus规范的接口网卡产品？",
+      "intent": "选型",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_007",
+      "question": "UB Over ETH规范的主要内容是什么，如何在以太网上承载UB协议？",
+      "intent": "特性",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_008",
+      "question": "UnifiedBus协议规范中有哪些常见疑问，如何理解协议细节？",
+      "intent": "认知",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_009",
+      "question": "UB协议数据链路层的具体细节如何，有哪些关键设计要点？",
+      "intent": "特性",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_010",
+      "question": "UnifiedBus物理层链路管理状态机如何工作，状态转换逻辑是什么？",
+      "intent": "特性",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_011",
+      "question": "灵衢协议是否支持Die间互联，对Chiplet架构有哪些支持？",
+      "intent": "特性",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_012",
+      "question": "UB switch在系统层次结构中处于什么位置，与主机和设备如何交互？",
+      "intent": "认知",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_013",
+      "question": "UnifiedBus在南北向的兼容性如何，能否与现有网络设备互通？",
+      "intent": "选型",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_014",
+      "question": "华为是否会对外提供UnifiedBus协议相关IP授权？",
+      "intent": "选型",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_015",
+      "question": "天数智芯与UnifiedBus有哪些合作内容，如何加入UnifiedBus生态？",
+      "intent": "趋势",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_016",
+      "question": "如何订阅UnifiedBus的ub-spec邮件列表，加入规范讨论？",
+      "intent": "场景",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_017",
+      "question": "如何注册UnifiedBus社区账号，注册时遇到公司邮箱验证问题如何解决？",
+      "intent": "故障",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_018",
+      "question": "UnifiedBus的ub-discuss和ub-spec邮件列表有什么区别，分别讨论哪些内容？",
+      "intent": "认知",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_019",
+      "question": "SuperPod参考架构（superpod-ref）是什么，与UnifiedBus如何关联？",
+      "intent": "认知",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_020",
+      "question": "灵衢互联（UnifiedBus）在AI集群互联场景中有哪些优势？",
+      "intent": "选型",
+      "source": "maillist",
+      "official_urls": [],
+      "notes": ""
+    }
+  ]
+}

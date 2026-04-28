@@ -1,20 +1,32 @@
 #!/usr/bin/env python3
 """
-Query the hotopic database to get per-channel counts for a community,
-then compute proportional question quotas.
+Query the community-hot-topic MongoDB (or hotopic PostgreSQL fallback)
+to get per-channel counts for a community, then compute proportional
+question quotas.
 
 Usage:
-    python3 query-db-proportion.py --community openeuler --target 100
+    python3 query-db-proportion.py --community cann --target 100
 
 Output: JSON to stdout
   {
-    "community": "openeuler",
+    "community": "cann",
     "target": 100,
-    "counts":  {"forum": 762, "mail": 29, "question_issue": 15},
-    "quotas":  {"forum": 85,  "mail": 3,  "question_issue": 12}
+    "counts":  {"forum": 126, "mail": 0, "question_issue": 0},
+    "quotas":  {"forum": 100, "mail": 0, "question_issue": 0},
+    "pg_channel_status": {
+      "forum":          {"count": 45,  "available": true},
+      "mail":           {"count": 0,   "available": false},
+      "question_issue": {"count": 0,   "available": false}
+    }
   }
 
-Channels with count=0 are excluded from allocation (quota=0).
+Strategy:
+  1. Query PostgreSQL for channel inventory (forum/mail/issue) — non-fatal.
+  2. Query MongoDB for accurate consult-filtered forum count — non-fatal.
+  3. Combine: MongoDB forum count overrides PG forum count when available;
+     mail/question_issue always come from PostgreSQL.
+
+Channels with count=0 are excluded from quota allocation (quota=0).
 
 Exit codes:
   0 — success
@@ -26,15 +38,148 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 
 try:
     import psycopg2
 except ImportError:
-    print("ERROR: psycopg2 not installed. Run: pip install psycopg2-binary", file=sys.stderr)
-    sys.exit(1)
+    psycopg2 = None  # type: ignore
 
 
 REQUIRED_DB_FIELDS = ("host", "port", "dbname", "user", "password")
+
+# Source type keywords (mirrors fetch-forum-posts.py)
+_CONSULT_BRACKETS = frozenset(["question", "bug"])
+_EXCLUDE_BRACKETS = frozenset(["requirement", "req", "task", "rfc", "roadmap", "documentation", "doc"])
+
+
+def _classify_source(source: dict) -> str:
+    src_type = (source.get("type") or "").lower()
+    if src_type == "forum":
+        return "consult"
+    title = (source.get("title") or "").lower()
+    url   = (source.get("url") or "").lower()
+    m = re.match(r"\[([^\]|]+)", title)
+    if m:
+        bracket = m.group(1).strip().lower()
+        if any(k in bracket for k in _CONSULT_BRACKETS):
+            return "consult"
+        if any(k in bracket for k in _EXCLUDE_BRACKETS):
+            return "exclude"
+        return "consult"
+    if "/forum/" in url or "hiascend.com/forum" in url:
+        return "consult"
+    return "consult"
+
+
+def _dominant_source_type(sources: list) -> str:
+    """Among consult-classified sources, return dominant type: 'forum' or 'issue'."""
+    forum_n = 0
+    issue_n = 0
+    for s in sources:
+        if _classify_source(s) != "consult":
+            continue
+        src_type = (s.get("type") or "").lower()
+        if src_type == "forum":
+            forum_n += 1
+        else:
+            issue_n += 1
+    return "issue" if issue_n > forum_n else "forum"
+
+
+def _passes_consult_filter(sources: list) -> bool:
+    if not sources:
+        return False
+    classifications = [_classify_source(s) for s in sources]
+    consult_n = classifications.count("consult")
+    exclude_n = classifications.count("exclude")
+    if exclude_n == 0:
+        return True
+    if consult_n == 0:
+        return False
+    return consult_n / len(classifications) >= 0.5
+
+
+def _load_mongo_config() -> dict | None:
+    host     = os.environ.get("MONGODB_HOST", "").strip()
+    port     = os.environ.get("MONGODB_PORT", "").strip()
+    user     = os.environ.get("MONGODB_USER", "").strip()
+    password = os.environ.get("MONGODB_PASSWORD", "").strip()
+    dbname   = os.environ.get("MONGODB_DBNAME", "community-hot-topic").strip()
+    tls      = os.environ.get("MONGODB_TLS", "true").strip().lower() not in ("false", "0", "no")
+    if host and port and user and password:
+        return {"host": host, "port": port, "user": user,
+                "password": password, "dbname": dbname, "tls": tls}
+    return None
+
+
+def query_counts_mongodb(community: str) -> dict | None:
+    """Count consult-filtered topics from MongoDB. Returns {"forum": N} or None."""
+    try:
+        from pymongo import MongoClient  # type: ignore
+    except ImportError:
+        print("WARNING: pymongo not installed, skipping MongoDB count.", file=sys.stderr)
+        return None
+
+    cfg = _load_mongo_config()
+    if not cfg:
+        return None
+
+    try:
+        pwd = urllib.parse.quote(cfg["password"], safe="")
+        tls_params = "&tls=true&tlsAllowInvalidCertificates=true" if cfg["tls"] else ""
+        uri = (f"mongodb://{cfg['user']}:{pwd}@{cfg['host']}:{cfg['port']}/"
+               f"?authSource=admin{tls_params}")
+        client = MongoClient(uri, serverSelectionTimeoutMS=10000)
+        db = client[cfg["dbname"]]
+    except Exception as e:
+        print(f"WARNING: MongoDB connection failed: {e}", file=sys.stderr)
+        return None
+
+    comm_key   = community.lower()
+    hot_col    = f"{comm_key}_hot_topic"
+    nothot_col = f"{comm_key}_not_hot_topic"
+
+    try:
+        existing_cols = set(db.list_collection_names())
+    except Exception as e:
+        print(f"WARNING: MongoDB list_collections failed: {e}", file=sys.stderr)
+        return None
+
+    if hot_col not in existing_cols and nothot_col not in existing_cols:
+        print(f"WARNING: No MongoDB collections for '{community}'", file=sys.stderr)
+        return None
+
+    forum_count = 0
+    issue_count = 0
+
+    def _tally(sources: list) -> None:
+        nonlocal forum_count, issue_count
+        if not _passes_consult_filter(sources):
+            return
+        dom = _dominant_source_type(sources)
+        if dom == "issue":
+            issue_count += 1
+        else:
+            forum_count += 1
+
+    if hot_col in existing_cols:
+        for doc in db[hot_col].find({}, {"sources": 1}):
+            _tally(doc.get("sources", []))
+
+    if nothot_col in existing_cols:
+        doc = db[nothot_col].find_one({}, {"topics": 1})
+        if doc:
+            for topic in doc.get("topics", []):
+                _tally(topic.get("sources", []))
+
+    total = forum_count + issue_count
+    print(
+        f"MongoDB counts for '{comm_key}': "
+        f"forum={forum_count}, question_issue={issue_count}, total={total}",
+        file=sys.stderr,
+    )
+    return {"forum": forum_count, "question_issue": issue_count}
 
 
 def normalize_community_key(community: str) -> str:
@@ -138,9 +283,22 @@ def compute_quotas(counts: dict, target: int) -> dict:
     return {ch: floored.get(ch, 0) for ch in counts}
 
 
-def query_counts(community: str) -> dict:
-    key = community.lower()
-    cfg = load_db_config(community)
+def query_counts_postgresql(community: str) -> dict | None:
+    """Query PostgreSQL hotopic DB for per-channel counts.
+
+    Returns {"forum": N, "mail": N, "question_issue": N} or None if unavailable.
+    Never exits — all failures are non-fatal (warnings only).
+    """
+    if psycopg2 is None:
+        print("WARNING: psycopg2 not installed, skipping PostgreSQL channel check.",
+              file=sys.stderr)
+        return None
+
+    try:
+        cfg = load_db_config(community)
+    except SystemExit:
+        return None  # No PG credentials configured
+
     try:
         conn = psycopg2.connect(
             host=cfg["host"], port=int(cfg["port"]),
@@ -148,10 +306,11 @@ def query_counts(community: str) -> dict:
             connect_timeout=10,
         )
     except Exception as e:
-        print(f"ERROR: DB connection failed for '{community}': {e}", file=sys.stderr)
-        sys.exit(1)
+        print(f"WARNING: PostgreSQL unavailable for '{community}': {e}", file=sys.stderr)
+        return None
 
     cur = conn.cursor()
+    key = community.lower()
 
     cur.execute("SELECT COUNT(*) FROM discussion WHERE is_deleted = False AND source_type = 'forum'")
     forum_total = cur.fetchone()[0]
@@ -163,18 +322,80 @@ def query_counts(community: str) -> dict:
         SELECT COUNT(*) FROM discussion
         WHERE is_deleted = False
           AND source_type = 'issue'
-          AND LOWER(title) LIKE '%[question]%'
+          AND LOWER(title) LIKE '%[question%'
     """)
     question_total = cur.fetchone()[0]
 
     conn.close()
 
     print(
-        f"DB counts for '{key}': forum={forum_total}, mail={mail_total}, "
+        f"PG counts for '{key}': forum={forum_total}, mail={mail_total}, "
         f"question_issue={question_total}",
         file=sys.stderr,
     )
     return {"forum": forum_total, "mail": mail_total, "question_issue": question_total}
+
+
+def query_counts(community: str) -> tuple[dict, dict]:
+    """Return (counts, pg_channel_status).
+
+    Strategy:
+      1. Query PostgreSQL for channel inventory (forum/mail/issue) — non-fatal.
+      2. Query MongoDB for accurate consult-filtered forum count — non-fatal.
+      3. Combine: MongoDB forum count overrides PG forum count when available;
+         mail/question_issue always come from PostgreSQL.
+
+    counts:            allocation dict passed to compute_quotas()
+    pg_channel_status: raw PostgreSQL counts keyed by channel name,
+                       or {} if PostgreSQL is unavailable
+    """
+    # Step 1: PostgreSQL — channel inventory (non-fatal)
+    pg_raw = query_counts_postgresql(community) or {}
+
+    # Step 2: MongoDB — accurate forum count with consult-filter (non-fatal)
+    mongo_counts = query_counts_mongodb(community)
+
+    if mongo_counts is not None:
+        forum_count  = mongo_counts.get("forum", 0)
+        issue_count  = mongo_counts.get("question_issue", 0)
+        forum_source = "mongodb"
+    elif pg_raw:
+        forum_count  = pg_raw.get("forum", 0)
+        issue_count  = 0  # PG issue count handled separately below
+        forum_source = "postgresql"
+    else:
+        forum_count  = 0
+        issue_count  = 0
+        forum_source = "unavailable"
+        print("WARNING: Both MongoDB and PostgreSQL unavailable; forum count=0.",
+              file=sys.stderr)
+
+    # For issue quota: MongoDB value takes priority; PG fills in if MongoDB
+    # returned 0 issue count (e.g., community has no issue-type topics in Mongo)
+    if mongo_counts is not None and issue_count == 0:
+        pg_issue = pg_raw.get("question_issue", 0)
+        if pg_issue > 0:
+            issue_count = pg_issue
+            print(f"MongoDB question_issue=0; using PostgreSQL question_issue={pg_issue}",
+                  file=sys.stderr)
+
+    counts = {
+        "forum":          forum_count,
+        "mail":           pg_raw.get("mail", 0),
+        "question_issue": issue_count,
+    }
+
+    pg_channel_status = {
+        ch: {"count": cnt, "available": cnt > 0}
+        for ch, cnt in pg_raw.items()
+    }
+
+    print(
+        f"Combined counts for '{community.lower()}': {counts} "
+        f"(forum_source={forum_source})",
+        file=sys.stderr,
+    )
+    return counts, pg_channel_status
 
 
 if __name__ == "__main__":
@@ -187,7 +408,7 @@ if __name__ == "__main__":
                         help="Total number of questions to allocate across channels")
     args = parser.parse_args()
 
-    counts = query_counts(args.community)
+    counts, pg_channel_status = query_counts(args.community)
     quotas = compute_quotas(counts, args.target)
 
     result = {
@@ -195,5 +416,6 @@ if __name__ == "__main__":
         "target": args.target,
         "counts": counts,
         "quotas": quotas,
+        "pg_channel_status": pg_channel_status,
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))

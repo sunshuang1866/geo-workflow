@@ -210,7 +210,7 @@ def fetch_issue(community: str, since: str | None, email: str, password: str,
 
     if question_only:
         before = len(results)
-        results = [r for r in results if "[question]" in r["title"].lower()]
+        results = [r for r in results if "[question" in r["title"].lower()]
         print(f"  question_only filter: {before} → {len(results)} records", file=sys.stderr)
 
     if limit is not None and limit > 0:
@@ -218,6 +218,69 @@ def fetch_issue(community: str, since: str | None, email: str, password: str,
         print(f"  limit applied: returning {len(results)} records", file=sys.stderr)
 
     return results
+
+
+# ── Channel completeness check ────────────────────────────────────────────────
+
+def check_channels(community: str, email: str | None = None,
+                   password: str | None = None) -> dict:
+    """Check which datastat channels have data for a community.
+
+    Probes each channel by fetching the first page (page_size=1).
+    Returns a dict with availability for each channel:
+      {
+        "mail":  {"available": bool, "probe": "ok|auth_failed|error", "detail": "..."},
+        "issue": {"available": bool, "probe": "ok|auth_failed|skipped|error", "detail": "..."},
+      }
+
+    Note: Forum channel availability is checked separately via query-db-proportion.py
+    (PostgreSQL pg_channel_status + MongoDB collections).
+    """
+    result: dict = {}
+
+    # ── Mail (static token, no login) ──
+    mail_headers = {"access-token": ACCESS_TOKEN}
+    mail_table = f"fact_{community}_mail_topic"
+    print(f"Checking mail channel: {mail_table}", file=sys.stderr)
+    try:
+        records = _query_page(community, mail_table, ["uuid", "title"], [], 1, mail_headers)
+        result["mail"] = {
+            "available": len(records) > 0,
+            "probe": "ok",
+            "detail": f"{len(records)} record(s) on first probe",
+        }
+    except SystemExit as e:
+        result["mail"] = {"available": False, "probe": "auth_failed", "detail": str(e)}
+    except Exception as e:
+        result["mail"] = {"available": False, "probe": "error", "detail": str(e)[:120]}
+
+    # ── Issue (requires login) ──
+    issue_table = f"dws_{community}_contribute"
+    print(f"Checking issue channel: {issue_table}", file=sys.stderr)
+    if not email or not password:
+        result["issue"] = {
+            "available": None,
+            "probe": "skipped",
+            "detail": "No credentials provided; re-run with --email/--password for issue check",
+        }
+    else:
+        try:
+            cookie, token = login(email, password)
+            issue_headers = {"Cookie": cookie, "token": token}
+            records = _query_page(community, issue_table, ["title", "html_url"], [], 1,
+                                  issue_headers)
+            result["issue"] = {
+                "available": len(records) > 0,
+                "probe": "ok",
+                "detail": f"{len(records)} record(s) on first probe",
+            }
+        except SystemExit:
+            result["issue"] = {"available": False, "probe": "auth_failed",
+                               "detail": "Login failed"}
+        except Exception as e:
+            result["issue"] = {"available": False, "probe": "error", "detail": str(e)[:120]}
+
+    return result
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
@@ -235,8 +298,8 @@ if __name__ == "__main__":
         help="Only return records created on or after this date (YYYY-MM-DD), e.g. 2024-01-01"
     )
     parser.add_argument(
-        "--source", required=True, choices=["mail", "issue"],
-        help="Data source: mail or issue"
+        "--source", default=None, choices=["mail", "issue"],
+        help="Data source: mail or issue (required unless --check-channels is used)"
     )
     parser.add_argument(
         "--email", default=None,
@@ -254,11 +317,33 @@ if __name__ == "__main__":
         "--limit", type=int, default=None,
         help="Maximum number of records to return (proportional quota from DB)"
     )
+    parser.add_argument(
+        "--check-channels", action="store_true", default=False,
+        help="Check channel completeness (mail/issue) for the community and output JSON status."
+             " Does not fetch full data. Forum channel is checked separately via"
+             " query-db-proportion.py."
+    )
     args = parser.parse_args()
 
+    email    = args.email    or os.environ.get("DATASTAT_EMAIL")
+    password = args.password or os.environ.get("DATASTAT_PASSWORD")
+
+    if args.check_channels:
+        status = check_channels(args.community, email=email, password=password)
+        print(json.dumps(status, ensure_ascii=False, indent=2))
+        # Exit 1 if any available channel is False (i.e., no data found)
+        any_missing = any(
+            v.get("available") is False
+            for v in status.values()
+            if v.get("probe") not in ("skipped",)
+        )
+        sys.exit(1 if any_missing else 0)
+
+    if not args.source:
+        print("ERROR: --source or --check-channels is required.", file=sys.stderr)
+        sys.exit(1)
+
     if args.source == "issue":
-        email = args.email or os.environ.get("DATASTAT_EMAIL")
-        password = args.password or os.environ.get("DATASTAT_PASSWORD")
         if not email or not password:
             print(
                 "ERROR: --email and --password (or DATASTAT_EMAIL / DATASTAT_PASSWORD env vars) "

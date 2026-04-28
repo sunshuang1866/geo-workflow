@@ -1,0 +1,1819 @@
+{
+  "community": "CANN",
+  "generated_at": "2026-04-23",
+  "filter_criteria": {
+    "consult_sources": [
+      "Question",
+      "Bug",
+      "Forum"
+    ],
+    "exclude_sources": [
+      "Requirement",
+      "Req",
+      "Task",
+      "RFC",
+      "Roadmap",
+      "Documentation",
+      "Doc"
+    ],
+    "mixed_rule": "混合 topic：consult 占比 ≥ 50% 保留，< 50% 丢弃",
+    "source": "MongoDB community-hot-topic: cann_hot_topic + cann_not_hot_topic"
+  },
+  "official_domains": [],
+  "source_criteria": {
+    "mongodb": {
+      "algorithm": "consult-filter: Question/Bug/Forum sources ratio ≥ 50%",
+      "selection": "126 topics from cann_hot_topic(17) + cann_not_hot_topic(109)",
+      "raw_total": 211,
+      "dropped": 85,
+      "fetched_at": "2026-04-23"
+    }
+  },
+  "questions": [
+    {
+      "id": "q_001",
+      "question": "cmake无法启用WITH_CANN选项的编译问题如何解决？",
+      "intent": "算子开发与编译",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0226184468452524060-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_002",
+      "question": "转换模型时在转换过程和推理过程中遇到报错如何解决？",
+      "intent": "模型转换与推理",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 32,
+        "exclude": 0,
+        "total": 32
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0296165654858710102-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_003",
+      "question": "ATC工具转换warpPerspective算子时输入类型配置失败如何解决？",
+      "intent": "模型转换与推理",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0248184554080978079-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_004",
+      "question": "安装配置时遇到漏装必要软件包、版本匹配等问题导致运行失败如何解决？",
+      "intent": "安装与环境配置",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 18,
+        "exclude": 1,
+        "total": 19
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0279188448049442148-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_005",
+      "question": "PyTorch与NPU适配中如何排查507018/507015硬件异常错误？",
+      "intent": "运行时错误排查",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0262186224415341024-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_006",
+      "question": "如何排查SenseVoiceSmall模型执行错误码500002及ACL初始化失败问题？",
+      "intent": "运行时错误排查",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0267186285901042038-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_007",
+      "question": "遇到自定义算子入图用例失败的问题如何解决？",
+      "intent": "算子开发与编译",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/samples/issues/ICJPY6"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_008",
+      "question": "编译ATB代码时出现对未开源代码仓的依赖导致编译失败如何解决？",
+      "intent": "算子开发与编译",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/ascend-transformer-boost/issues/IC5XO8"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_009",
+      "question": "使用ATC转换模型时soc版本与设备不适配导致加载失败如何解决？",
+      "intent": "模型转换与推理",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 7,
+        "exclude": 0,
+        "total": 7
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/samples/issues/ICLNF7"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_010",
+      "question": "如何排查Ascend310b上算子编译、部署和结果验证的错误？",
+      "intent": "算子开发与编译",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/cann-ops/issues/IC8IUT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_011",
+      "question": "AMCT量化后BatchMatMulV2算子爆增导致推理耗时劣化问题如何解决？",
+      "intent": "模型转换与推理",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02115184267564566030-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_012",
+      "question": "ATC转换模型时遇到报错如何解决？",
+      "intent": "模型转换与推理",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 139,
+        "exclude": 0,
+        "total": 139
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0250190781244617315-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_013",
+      "question": "配置ASCEND_OPP_PATH同时支持系统算子和自定义算子路径如何解决？",
+      "intent": "算子开发与编译",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0248184996614417113-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_014",
+      "question": "昇腾CANN多模型加载时ACL重复初始化错误解决如何解决？",
+      "intent": "运行时错误排查",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0279187522050805030-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_015",
+      "question": "资料文档缺陷导致开发者开发、测试部署失败如何解决？",
+      "intent": "社区与协作",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICXIL1"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_016",
+      "question": "使用官方Docker镜像运行入门用例时遇到各种问题如何解决？",
+      "intent": "安装与环境配置",
+      "source": "hot_topic",
+      "source_breakdown": {
+        "consult": 7,
+        "exclude": 0,
+        "total": 7
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0225197540003901221-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_018",
+      "question": "按CONTRIBUTING.md模板B规范重构目录结构并补全基线与验证脚本？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-samples/issues/53"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_019",
+      "question": "op_host中CMakeLists.txt使用未定义变量OPTEST_NAME和函数add_modules_llt_sources导致UT构建失败如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 1,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-transformer/issues/2021"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_020",
+      "question": "开启Mix合图后glm_attention等算子精度异常及执行报错问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 11,
+        "exclude": 0,
+        "total": 11
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1264"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_021",
+      "question": "Agent生成的mhc算子性能远低于AscendC且cube切分对齐约束过严如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1358"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_022",
+      "question": "CANN 8.5.T4.0以上版本以支持master分支experimental算子编译如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/2234"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_024",
+      "question": "AvgPoolV2算子stride超过63时编译失败的问题如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/2120"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_025",
+      "question": "泳道图任务依赖关系及开始时间显示异常问题如何解决？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1268"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_026",
+      "question": "修复HcclGetAlgRes和HcclEngineCtxGet中的错误处理逻辑如何解决？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/hccl/issues/91"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_027",
+      "question": "昇腾CANN社区Committer晋升标准与贡献要求？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-transformer/issues/2024"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_028",
+      "question": "安装torch_npu时因ACL初始化失败及依赖缺失导致报错500001如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-recipes-infer/issues/177"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_029",
+      "question": "A5上swiglu算子存在精度问题且bf16场景无法接入superkernel如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1289"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_030",
+      "question": "StatelessRandomChoiceWithMask算子空tensor场景下的功能失败问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-math/issues/745"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_031",
+      "question": "MLA_Prolog op_graph目录UT覆盖率统计问题及用例缺失如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-transformer/issues/2003"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_032",
+      "question": "使用aclrtSynchronizeStream时频繁遇到错误码507015、507018等流同步失败问题，需定位与内存对齐、CANN版本兼容性及DVPP资源绑定相关的根本原因如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 20,
+        "exclude": 0,
+        "total": 20
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/asc-devkit/issues/264"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_033",
+      "question": "昇腾910B上带bias的matmul算子存在严重精度问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/catlass/issues/51"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_034",
+      "question": "reshape操作在动态shape、多算子组合场景下的精度问题及优化pass影响如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 7,
+        "exclude": 0,
+        "total": 7
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1387"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_036",
+      "question": "如何高效定位算子内存越界问题？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-math/issues/1268"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_037",
+      "question": "申请成为成为昇腾CANN ops-nn仓committer需具备哪些贡献与能力？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/2242"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_038",
+      "question": "优化Issue模板以明确分类并提示标题填写如何解决？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/infrastructure/issues/7"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_039",
+      "question": "如何通过参与CANN直播答题和提交issue赢取定制奖品？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 8,
+        "exclude": 0,
+        "total": 8
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-learning-hub/issues/20"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_040",
+      "question": "昇腾CANN调度延迟导致端到端耗时远高于泳道图算子时间的问题如何解决？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 6,
+        "exclude": 0,
+        "total": 6
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/618"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_041",
+      "question": "aclnnQuantBatchMatmul和WeightQuantBatchMatmulV2算子因输入校验缺失导致的aicore错误与GM越界问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/441"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_042",
+      "question": "编译自定义算子时因头文件依赖不明确和交叉编译工具链配置错误导致编译失败如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02117187153897659005-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_043",
+      "question": "TBE算子开发中多核调度分片策略与混合精度适配规则？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/952"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_044",
+      "question": "改进mla_prolog融合算子时遭遇编译错误和ooschedule错误如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/573"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_045",
+      "question": "MindSpore与FastAPI集成实现多模型异步协同推理的部署方案？",
+      "intent": "框架集成",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/asnumpy/issues/22"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_046",
+      "question": "mla_prolog算子INT64转INT32_cast导致内存越界及pto_isa编译报错问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/560"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_047",
+      "question": "使用amct_onnx编译自定义算子时遭遇头文件缺失和版本兼容性问题如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/samples/issues/ICZ33P"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_048",
+      "question": "开启Autotune时小shape场景下性能数据采集不准确如何解决？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICXYCC"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_049",
+      "question": "关注Triton间接访存功能的编译、运行及性能达标情况如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICVGUL"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_050",
+      "question": "排查sampleYOLOV7MultiInput在Atlas 300V Pro上ACL初始化后无输出的问题如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/samples/issues/ID2SV3"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_052",
+      "question": "动态shape场景下如何解决CANN中tiling offset out of range的警告与推理性能问题？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0211203271172227076-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_053",
+      "question": "CVE-2026-33210漏洞对CANN版本的安全影响如何解决？",
+      "intent": "安全漏洞",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ascend-transformer-boost/issues/243"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_054",
+      "question": "如何优化Qwen3-Next-80B-A3B-Instruct在910B上的vLLM并行策略以提升推理性能？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-recipes-infer/issues/157"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_055",
+      "question": "Docker构建中因shell环境或PATH问题导致sha256sum命令无法识别如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/community/issues/66"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_057",
+      "question": "VLLM MoE内核编译时类型转换与地址表达式支持问题如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICY47S"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_058",
+      "question": "openEuler24.03上编译CATLASS示例算子因缺少NEON支持报错如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/shmem/issues/59"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_059",
+      "question": "数字化协作平台贡献统计缺失issue处理数据及SIG过滤功能异常如何解决？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/infrastructure/issues/64"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_060",
+      "question": "编译执行昇腾自定义P2P算子时遇到Segmentation fault如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/hccl/issues/87"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_061",
+      "question": "确认Ruby JSON组件CVE-2025-27788漏洞影响及修复方案？",
+      "intent": "安全漏洞",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ascend-boost-comm/issues/59"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_062",
+      "question": "昇腾910A环境下Python接口用例执行失败问题如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/shmem/issues/120"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_063",
+      "question": "NPU设备被占用或DCMI模块初始化失败导致的容器启动报错如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0225198381338845425-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_064",
+      "question": "apply_rotary_pos_emb算子在arch38和arch35的兼容适配及信息库配置缺失问题如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 1,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ascend-transformer-boost/issues/87"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_065",
+      "question": "执行ais_bench加载resnet50.om模型时卡住无响应如何解决？",
+      "intent": "模型转换与推理",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/tools/issues/ID26BF"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_066",
+      "question": "使用高阶封装VideoRead读取视频时因内存不足导致程序崩溃如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/EdgeAndRobotics/issues/ID39BD"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_067",
+      "question": "PyTorch tensor直接assemble给outcast时machine层报错及OOO问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1249"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_068",
+      "question": "GDR算子中开启合轴优化或处理非整除场景时出现精度异常与报错如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 12,
+        "exclude": 0,
+        "total": 12
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/110"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_069",
+      "question": "CANN 8.2 RC1下dlBLAS算子在PyTorch 2.6.0rc1中的兼容性与编译报错问题如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICSLIA"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_070",
+      "question": "如何优化高频小批量场景下自定义算子的执行效率？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/community/issues/105"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_071",
+      "question": "910A服务器上使用LlamaFactory以fp16微调Qwen3模型时遭遇梯度爆炸及BF16不支持的兼容性问题如何解决？",
+      "intent": "框架集成",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-recipes-train/issues/60"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_072",
+      "question": "运行昇腾CANN样例时因缺失库文件或头文件导致编译执行失败如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/runtime/issues/45"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_073",
+      "question": "npu_ffn融合算子在SwiGLU激活下输出异常需排查数值稳定性问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/cann-ops-adv/issues/ICPGG9"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_074",
+      "question": "清理昇腾CANN代码告警及提示中的多余空行如何解决？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-transformer/issues/1820"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_075",
+      "question": "因libascend_hal.so缺失导致ATC模型转换失败，需确认Atlas附加库安装及环境变量配置如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0284198839394070128-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_076",
+      "question": "多次linkdown时遭遇LLM_FAILED异常，无法构造CQE故障如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/hixl/issues/145"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_077",
+      "question": "Triton融合算子在NPU上对ARM架构的适配及精度性能保障如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICTV49"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_078",
+      "question": "Triton编译中缺失attribute及libdevice算子兼容性问题如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICVGV0"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_079",
+      "question": "AMCT在2026年对低比特量化及主流模型量化支持的路线规划？",
+      "intent": "框架集成",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/amct/issues/36"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_080",
+      "question": "执行msprof命令未采集到AI Core Metrics数据如何解决？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0257199106016600199-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_081",
+      "question": "ISSUE模板中配置的Label未自动生效，需手动添加标签如何解决？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/infrastructure/issues/49"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_082",
+      "question": "prelugradupdate算子在0D/1D输入下报错且提示未定义接口prelugradreduce如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/1900"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_083",
+      "question": "如何适配CuPy算子如slicing与assignment至昇腾NPU并实现性能优化？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/asnumpy/issues/2"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_084",
+      "question": "多卡分布式场景下执行自定义算子stitch阶段时遭遇AICPU异常崩溃如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/1098"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_085",
+      "question": "CANN 8.0 RC1中编译stft算子失败且无法找到实现文件如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/cann-ops/issues/ICLJ17"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_086",
+      "question": "如何在AscendNPU IR中实现指令级性能监控算子以支持NPU操作检测？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/Ascend/AscendNPU-IR/issues/36"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_087",
+      "question": "dynamic_quant_base.h中else块变量未初始化导致的未定义行为问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/2078"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_088",
+      "question": "如何将PTH模型转换为OM格式并配置DNN后端以支持CANN推理？",
+      "intent": "模型转换与推理",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0297194522881750232-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_089",
+      "question": "MOE算子二分查找中的未初始化变量、越界访问及int32溢出风险如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-transformer/issues/1424"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_090",
+      "question": "无法配置Ascend NPU共享模式导致多Docker容器无法共享显卡如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0267186899144258088-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_091",
+      "question": "大shape下CANN算子因内存分配失败导致的执行卡死问题如何解决？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/595"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_092",
+      "question": "aclnn算子CubeMathType模式未生效及broadcast校验缺失问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/2064"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_093",
+      "question": "获取检测工具以验证昇腾环境是否满足构建要求？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/community/issues/111"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_096",
+      "question": "遇aclmdlExecute接口偶发阻塞无返回，需排查原因及解决方案？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02144208767019065214-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_097",
+      "question": "UB到UB的DataCopy所属的流水线类型如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02144209131823136298-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_098",
+      "question": "hunyuan-video关闭稀疏模式报错及补充block sparse attention功能文档如何解决？",
+      "intent": "框架集成",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-recipes-infer/issues/172"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_099",
+      "question": "使用MindSpore Custom调用Ascend C算子时如何处理动态Shape和多输入多输出配置？",
+      "intent": "框架集成",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02107201283837692524-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_100",
+      "question": "cmake无法启用WITH_CANN选项的编译问题如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02113175593420797113-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_101",
+      "question": "ERR00100 PTA调用ACL API失败问题，需排查驱动版本、C2控制接口支持及容器内ACL运行时初始化如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02102194606757277240-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_102",
+      "question": "scatter_update多次刷新时依赖建立错误导致的精度问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/467"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_103",
+      "question": "Inductor生成融合kernel在特定tiling下偶现的精度问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICVKGV"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_104",
+      "question": "aclnnIndexCopy多线程调用时的空指针校验和vector容器线程安全问题如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/1946"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_105",
+      "question": "如何将VEC_SCOPE替换为带simd_vf标识的函数以符合AscendC接口规范？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/1906"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_106",
+      "question": "Triton fma和cast算子在非浮点输入或低精度类型下的精度达标与编译支持问题如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICTVN0"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_107",
+      "question": "昇腾CANN算子开发的快速入门与高效调试方法如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 8,
+        "exclude": 0,
+        "total": 8
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02111201411420018572-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_108",
+      "question": "TL.cumsum在CANN 8.2T3中因类型推导失败导致的编译错误如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICY444"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_109",
+      "question": "云开发环境下编译安装算子时目标目录缺失且依赖无法自动识别如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-nn/issues/1213"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_110",
+      "question": "如何提前构建所有profile以应对动态shape切换耗时与异常？",
+      "intent": "性能分析与优化",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ge/issues/296"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_111",
+      "question": "matmul_tutorials与matmul_recipes示例的行为差异及适用场景如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-samples/issues/91"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_112",
+      "question": "如何将AscendC MicroAPI替换为AscendC Reg以适配最新CANN接口规范？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 5,
+        "exclude": 0,
+        "total": 5
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/asc-devkit/issues/365"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_113",
+      "question": "CANN Triton算子在bf16输入下argmax/argmin报507035错误及max/min算子bool类型精度不达标问题如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICTUY2"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_114",
+      "question": "SlowFast模型动态batch下ATC转换后推理输出异常问题如何解决？",
+      "intent": "模型转换与推理",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/ACLLite/issues/ICULTY"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_115",
+      "question": "Ascend310P和Ascend910A芯片对大模型推理部署的支持计划？",
+      "intent": "框架集成",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/cann-recipes-infer/issues/147"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_116",
+      "question": "CANN 8.0.0 arm64环境下运行SampleYOLOV7时因缺少libmedia_minil.so库导致失败如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/samples/issues/ID3WTK"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_117",
+      "question": "统一Triton算子对bool、uint32等类型输入的错误拦截与提示如何解决？",
+      "intent": "Triton 适配",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 7,
+        "exclude": 0,
+        "total": 7
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICTV2U"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_118",
+      "question": "pypto.full在loop外创建tensor导致的精度异常和构图错误如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 3,
+        "exclude": 0,
+        "total": 3
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/pypto/issues/492"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_119",
+      "question": "使用SIP加速库时因环境配置或依赖缺失导致示例程序运行失败如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0259193569109060026-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_120",
+      "question": "如何统一修改昇腾CANN多文件版权声明为附件E列标准格式？",
+      "intent": "社区与协作",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 18,
+        "exclude": 0,
+        "total": 18
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ops-math/issues/898"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_121",
+      "question": "编译算子时遇到npu supported ops json权限问题及日志缺失如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0231198923942695138-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_122",
+      "question": "排查ATC转换中精度模式配置导致的推理偏差如何解决？",
+      "intent": "模型转换与推理",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/ge/issues/291"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_123",
+      "question": "升级CANN 8.5.0至8.5.1时因无详细日志提示失败如何解决？",
+      "intent": "安装与环境配置",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://gitcode.com/cann/runtime/issues/293"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_124",
+      "question": "CANN 8.2 RC1环境下调用dlblas或Liger-Kernel的grouped_gemm、grpo_loss等算子时报错如何解决？",
+      "intent": "算子精度与功能",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 4,
+        "exclude": 0,
+        "total": 4
+      },
+      "official_urls": [
+        "https://gitee.com/ascend/triton-ascend/issues/ICSKK9"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_125",
+      "question": "银河麒麟系统下执行PyTorch NPU算子时遇DDR地址越界错误如何解决？",
+      "intent": "运行时错误排查",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-02121200391208198243-1-1.html"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q_126",
+      "question": "编译FlashAttention算子时报错Tiling找不到如何解决？",
+      "intent": "算子开发与编译",
+      "source": "not_hot_topic",
+      "source_breakdown": {
+        "consult": 2,
+        "exclude": 0,
+        "total": 2
+      },
+      "official_urls": [
+        "https://www.hiascend.com/forum/thread-0284179983532114019-1-1.html"
+      ],
+      "notes": ""
+    }
+  ]
+}

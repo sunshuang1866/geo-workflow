@@ -6,435 +6,456 @@
 <title>CANN 数据来源说明</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
   font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
-  background: #f1f5f9;
-  padding: 36px 40px;
-  color: #1e293b;
-  min-width: 820px;
+  background: #f5f5f0;
+  padding: 56px 64px;
+  color: #111827;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
+/* ── Page header ── */
+.page-header {
+  margin-bottom: 48px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #111827;
+}
 .page-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
 }
-.page-sub {
-  font-size: 13px;
-  color: #64748b;
-  margin-bottom: 28px;
+.page-meta {
+  font-size: 12px;
+  color: #6b7280;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-/* Card */
-.card {
-  background: white;
-  border-radius: 14px;
-  padding: 28px 32px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+/* ── Section wrapper ── */
+.section { margin-bottom: 44px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 22px;
 }
-.card-title {
+.section-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b7280;
+}
+.section-title {
   font-size: 15px;
   font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1.5px solid #f1f5f9;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.fig-num {
-  background: #3b82f6;
-  color: white;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
-  flex-shrink: 0;
+  color: #111827;
 }
 
-/* ===== FIGURE 1: Pipeline ===== */
-.pipeline {
+/* ══════════════════════════════════════
+   Figure 1 — Pipeline
+══════════════════════════════════════ */
+.pipeline-row {
   display: flex;
   align-items: center;
   gap: 0;
   overflow-x: auto;
-  padding-bottom: 4px;
 }
 
-/* Source column */
-.sources-col {
+/* Sources group */
+.sources-group {
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 9px;
+  background: white;
   flex-shrink: 0;
+}
+.sources-group-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9ca3af;
+  margin-bottom: 2px;
 }
 .src {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #374151;
   white-space: nowrap;
 }
-.src-ok {
-  background: #dcfce7;
-  border: 1.5px solid #86efac;
-  color: #15803d;
+.src-inactive { color: #9ca3af; }
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
-.src-no {
-  background: #f8fafc;
-  border: 1.5px dashed #cbd5e1;
-  color: #94a3b8;
-}
+.dot-on  { background: #374151; }
+.dot-off { background: #d1d5db; }
 
-/* Brace connector */
-.brace {
+/* Connector arrow */
+.conn {
   display: flex;
-  flex-direction: column;
-  width: 20px;
+  align-items: center;
+  padding: 0 12px;
   flex-shrink: 0;
-  /* total height = 3 * src height + 2 * gap = 3*38 + 2*9 = 132px */
-  height: 132px;
 }
-.brace-top    { flex: 1; border-top: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-radius: 0 5px 0 0; }
-.brace-mid    { flex: 0; height: 0; }
-.brace-bottom { flex: 1; border-bottom: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-radius: 0 0 5px 0; }
-
-.h-arrow {
-  font-size: 20px;
-  color: #94a3b8;
-  padding: 0 8px;
-  flex-shrink: 0;
-  line-height: 1;
+.conn-line {
+  width: 24px;
+  height: 1.5px;
+  background: #9ca3af;
+  position: relative;
+}
+.conn-line::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -4px;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  border-left: 7px solid #9ca3af;
 }
 
 /* Step boxes */
 .step {
-  border-radius: 12px;
-  padding: 14px 16px;
-  min-width: 124px;
-  text-align: center;
   flex-shrink: 0;
+  width: 120px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 16px 14px 14px;
+  background: white;
+  text-align: center;
+  position: relative;
 }
-.step-blue {
-  background: #eff6ff;
-  border: 1.5px solid #bfdbfe;
+.step-active {
+  border-color: #111827;
 }
-.step-amber {
-  background: #fffbeb;
-  border: 1.5px solid #fde68a;
+.step-inactive {
+  border-color: #e5e7eb;
+  background: #fafafa;
 }
 
-.step-circle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+.step-index {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 11px;
   font-weight: 800;
-  color: white;
   margin-bottom: 8px;
 }
-.step-blue  .step-circle { background: #3b82f6; }
-.step-amber .step-circle { background: #f59e0b; }
+.step-active  .step-index { background: #111827; color: white; }
+.step-inactive .step-index { background: #e5e7eb; color: #9ca3af; }
 
 .step-name {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
-  color: #0f172a;
+  color: #111827;
+  line-height: 1.3;
 }
+.step-inactive .step-name { color: #9ca3af; }
+
 .step-desc {
-  font-size: 11px;
-  color: #64748b;
-  margin-top: 5px;
-  line-height: 1.5;
+  font-size: 10.5px;
+  color: #6b7280;
+  margin-top: 6px;
+  line-height: 1.55;
 }
-.step-badge {
+.step-note {
   display: inline-block;
-  margin-top: 7px;
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 99px;
-  background: #fef3c7;
-  color: #92400e;
-  font-weight: 600;
+  margin-top: 8px;
+  font-size: 9.5px;
+  color: #9ca3af;
+  border: 1px solid #e5e7eb;
+  border-radius: 3px;
+  padding: 2px 6px;
+  letter-spacing: 0.02em;
 }
 
-/* Output box */
+/* Output */
 .output-box {
-  background: #f0fdf4;
-  border: 2px solid #22c55e;
-  border-radius: 12px;
-  padding: 16px 20px;
-  text-align: center;
   flex-shrink: 0;
-  min-width: 96px;
+  width: 90px;
+  border: 2px solid #111827;
+  border-radius: 8px;
+  padding: 16px 10px;
+  background: #111827;
+  text-align: center;
 }
-.output-num {
-  font-size: 30px;
+.output-n {
+  font-size: 34px;
   font-weight: 900;
-  color: #16a34a;
+  color: white;
   line-height: 1;
+  letter-spacing: -0.02em;
 }
-.output-unit {
-  font-size: 13px;
-  color: #15803d;
-  font-weight: 600;
-  margin-top: 3px;
-}
-.output-label {
+.output-u {
   font-size: 11px;
-  color: #4ade80;
-  margin-top: 2px;
+  color: #d1d5db;
+  font-weight: 500;
+  margin-top: 5px;
 }
 
-/* ===== FIGURE 2: Filter criteria ===== */
-.filter-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+/* ══════════════════════════════════════
+   Figure 2 — Filter criteria
+══════════════════════════════════════ */
+.filter-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  background: white;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
 }
-.fcard {
-  border-radius: 10px;
-  padding: 18px;
+.filter-table thead th {
+  background: #111827;
+  color: #d1d5db;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 14px;
+  text-align: left;
 }
-.fcard-keep  { background: #f0fdf4; border: 1.5px solid #86efac; }
-.fcard-drop  { background: #fff1f2; border: 1.5px solid #fca5a5; }
-.fcard-mixed { background: #fefce8; border: 1.5px solid #fde047; }
+.filter-table tbody td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  line-height: 1.55;
+  color: #374151;
+}
+.filter-table tbody tr:last-child td { border-bottom: none; }
 
-.fcard-header {
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* row accent */
+.filter-table tbody tr td:first-child {
+  border-left: 3px solid transparent;
 }
-.fcard-keep  .fcard-header { color: #166534; }
-.fcard-drop  .fcard-header { color: #991b1b; }
-.fcard-mixed .fcard-header { color: #854d0e; }
+.row-keep td:first-child { border-left-color: #111827; }
+.row-drop td:first-child { border-left-color: #9ca3af; }
+.row-mixed td:first-child { border-left-color: #374151; }
 
-.tags {
+.verdict {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.verdict-keep  { color: #111827; }
+.verdict-drop  { color: #9ca3af; }
+.verdict-mixed { color: #374151; }
+
+.kw-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 12px;
+  gap: 4px;
 }
-.tag {
-  padding: 3px 9px;
-  border-radius: 5px;
+.kw {
+  padding: 2px 7px;
+  border: 1px solid #e5e7eb;
+  border-radius: 3px;
   font-size: 11px;
-  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  color: #374151;
+  background: #f9fafb;
 }
-.tag-k { background: #dcfce7; color: #166534; }
-.tag-d { background: #fee2e2; color: #991b1b; }
-.tag-m { background: #fef9c3; color: #713f12; }
 
-.fcard-rule {
-  font-size: 12px;
-  color: #475569;
-  background: rgba(255,255,255,0.6);
-  border-radius: 7px;
-  padding: 9px 11px;
-  line-height: 1.65;
+/* Identify block */
+.identify-wrap {
+  margin-top: 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
 }
-.fcard-rule strong { color: #0f172a; }
-
-/* Identify box */
-.identify-box {
-  margin-top: 20px;
-  background: #f8fafc;
-  border-radius: 10px;
-  padding: 16px 20px;
-  border: 1px solid #e2e8f0;
-}
-.id-title {
-  font-size: 10.5px;
+.identify-head {
+  background: #f9fafb;
+  padding: 9px 16px;
+  font-size: 10px;
   font-weight: 800;
-  color: #94a3b8;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 12px;
-}
-.id-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
 }
 .id-row {
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  gap: 16px;
+  padding: 11px 16px;
+  border-bottom: 1px solid #f3f4f6;
   font-size: 12px;
-  color: #475569;
-  line-height: 1.5;
+  color: #4b5563;
+  line-height: 1.6;
 }
+.id-row:last-child { border-bottom: none; }
 .id-type {
   font-weight: 700;
-  color: #334155;
+  color: #111827;
   white-space: nowrap;
-  min-width: 90px;
+  min-width: 100px;
+  flex-shrink: 0;
 }
 code {
-  background: #e2e8f0;
-  color: #1e293b;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 10.5px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #111827;
   padding: 1px 5px;
   border-radius: 3px;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 11px;
 }
 </style>
 </head>
 <body>
 
-<div class="page-title">CANN 数据来源说明</div>
-<p class="page-sub">问题集经四个阶段从两个数据库生成，共 119 条。</p>
+<!-- Page header -->
+<div class="page-header">
+  <div class="page-title">CANN &nbsp;数据来源说明</div>
+  <div class="page-meta">社区: CANN &ensp;·&ensp; 生成时间: 2026-04-23 &ensp;·&ensp; 问题总数: 119</div>
+</div>
 
-<!-- ===== Figure 1 ===== -->
-<div class="card">
-  <div class="card-title">
-    <span class="fig-num">1</span>
-    数据处理流水线
+<!-- ── Section 1: Pipeline ── -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-label">Figure 1</span>
+    <span class="section-title">数据处理流水线</span>
   </div>
 
-  <div class="pipeline">
-    <!-- Input sources -->
-    <div class="sources-col">
-      <div class="src src-ok">✅&nbsp;仓库 Issue</div>
-      <div class="src src-ok">✅&nbsp;论坛帖子</div>
-      <div class="src src-no">❌&nbsp;邮件列表</div>
+  <div class="pipeline-row">
+
+    <!-- Sources group -->
+    <div class="sources-group">
+      <div class="sources-group-label">数据渠道</div>
+      <div class="src"><span class="dot dot-on"></span>仓库 Issue</div>
+      <div class="src"><span class="dot dot-on"></span>论坛帖子</div>
+      <div class="src src-inactive"><span class="dot dot-off"></span>邮件列表</div>
     </div>
 
-    <!-- Brace merge -->
-    <div class="brace">
-      <div class="brace-top"></div>
-      <div class="brace-mid"></div>
-      <div class="brace-bottom"></div>
-    </div>
-    <span class="h-arrow">→</span>
+    <div class="conn"><div class="conn-line"></div></div>
 
     <!-- Step 1 -->
-    <div class="step step-blue">
-      <div><span class="step-circle">①</span></div>
+    <div class="step step-active">
+      <div><span class="step-index">①</span></div>
       <div class="step-name">原始采集</div>
       <div class="step-desc">全量抓取<br>2024-04 至今</div>
     </div>
-    <span class="h-arrow">→</span>
+
+    <div class="conn"><div class="conn-line"></div></div>
 
     <!-- Step 2 -->
-    <div class="step step-blue">
-      <div><span class="step-circle">②</span></div>
+    <div class="step step-active">
+      <div><span class="step-index">②</span></div>
       <div class="step-name">热点聚合</div>
       <div class="step-desc">向量相似度聚类<br>相似问题 → topic<br>子问题数 ≈ 提问频率</div>
     </div>
-    <span class="h-arrow">→</span>
+
+    <div class="conn"><div class="conn-line"></div></div>
 
     <!-- Step 3 -->
-    <div class="step step-blue">
-      <div><span class="step-circle">③</span></div>
+    <div class="step step-active">
+      <div><span class="step-index">③</span></div>
       <div class="step-name">咨询筛选</div>
-      <div class="step-desc">按 source 类型过滤<br>咨询占比 ≥ 30% ✅<br>咨询占比 &lt; 30% ❌</div>
+      <div class="step-desc">按 source 类型过滤<br>咨询占比 ≥ 30%</div>
     </div>
-    <span class="h-arrow">→</span>
 
-    <!-- Step 4 -->
-    <div class="step step-amber">
-      <div><span class="step-circle">④</span></div>
+    <div class="conn"><div class="conn-line"></div></div>
+
+    <!-- Step 4 (inactive) -->
+    <div class="step step-inactive">
+      <div><span class="step-index">④</span></div>
       <div class="step-name">浏览量补充</div>
       <div class="step-desc">论坛 Top N by views<br>语义去重后合并</div>
-      <span class="step-badge">⚠️ CANN 暂未生效</span>
+      <span class="step-note">暂未生效</span>
     </div>
-    <span class="h-arrow">→</span>
+
+    <div class="conn"><div class="conn-line"></div></div>
 
     <!-- Output -->
     <div class="output-box">
-      <div class="output-num">119</div>
-      <div class="output-unit">条问题</div>
-      <div class="output-label">最终问题集</div>
+      <div class="output-n">119</div>
+      <div class="output-u">条问题</div>
     </div>
+
   </div>
 </div>
 
-<!-- ===== Figure 2 ===== -->
-<div class="card">
-  <div class="card-title">
-    <span class="fig-num">2</span>
-    筛选标准（步骤 ③ 详情）
+<!-- ── Section 2: Filter criteria ── -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-label">Figure 2</span>
+    <span class="section-title">筛选标准（步骤 ③ 详情）</span>
   </div>
 
-  <div class="filter-grid">
-    <!-- Keep -->
-    <div class="fcard fcard-keep">
-      <div class="fcard-header">✅ 保留</div>
-      <div class="tags">
-        <span class="tag tag-k">Question</span>
-        <span class="tag tag-k">Bug</span>
-        <span class="tag tag-k">Forum 帖子</span>
-      </div>
-      <div class="fcard-rule">
-        全部保留。<br>
-        属于开发者会向 AI Chat 咨询的内容类型。
-      </div>
-    </div>
-
-    <!-- Drop -->
-    <div class="fcard fcard-drop">
-      <div class="fcard-header">❌ 排除</div>
-      <div class="tags">
-        <span class="tag tag-d">Requirement</span>
-        <span class="tag tag-d">Req</span>
-        <span class="tag tag-d">Task</span>
-        <span class="tag tag-d">RFC</span>
-        <span class="tag tag-d">Roadmap</span>
-        <span class="tag tag-d">Documentation</span>
-        <span class="tag tag-d">Doc</span>
-      </div>
-      <div class="fcard-rule">
-        全部丢弃。<br>
-        属于需求/议题类，开发者不会拿去询问 AI。
-      </div>
-    </div>
-
-    <!-- Mixed -->
-    <div class="fcard fcard-mixed">
-      <div class="fcard-header">⚖️ 混合（含保留 &amp; 排除）</div>
-      <div class="tags">
-        <span class="tag tag-m">同时含多种 source 类型</span>
-      </div>
-      <div class="fcard-rule">
-        咨询类占比 <strong>≥ 30%</strong><br>→ ✅ 保留<br><br>
-        咨询类占比 <strong>&lt; 30%</strong><br>→ ❌ 丢弃
-      </div>
-    </div>
-  </div>
+  <table class="filter-table">
+    <thead>
+      <tr>
+        <th style="width:13%">分类</th>
+        <th style="width:47%">source 类型关键词</th>
+        <th style="width:40%">判定规则</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-keep">
+        <td><span class="verdict verdict-keep">✓ &nbsp;保留</span></td>
+        <td>
+          <div class="kw-row">
+            <span class="kw">Question</span>
+            <span class="kw">Bug</span>
+            <span class="kw">Forum 帖子</span>
+          </div>
+        </td>
+        <td>全部保留。属于开发者会向 AI Chat 咨询的内容类型。</td>
+      </tr>
+      <tr class="row-drop">
+        <td><span class="verdict verdict-drop">✕ &nbsp;排除</span></td>
+        <td>
+          <div class="kw-row">
+            <span class="kw">Requirement</span>
+            <span class="kw">Req</span>
+            <span class="kw">Task</span>
+            <span class="kw">RFC</span>
+            <span class="kw">Roadmap</span>
+            <span class="kw">Documentation</span>
+            <span class="kw">Doc</span>
+          </div>
+        </td>
+        <td>全部丢弃。属于需求/议题类，开发者不会向 AI 咨询。</td>
+      </tr>
+      <tr class="row-mixed">
+        <td><span class="verdict verdict-mixed">± &nbsp;混合</span></td>
+        <td>同时含保留与排除两类 source</td>
+        <td>咨询类占比 <strong>≥ 30%</strong> → 保留；&lt; 30% → 丢弃</td>
+      </tr>
+    </tbody>
+  </table>
 
   <!-- Identify -->
-  <div class="identify-box">
-    <div class="id-title">识别方式</div>
-    <div class="id-rows">
-      <div class="id-row">
-        <span class="id-type">论坛帖子</span>
-        <span>通过 <code>type=forum</code> 字段识别，统一视为咨询类，全部保留</span>
-      </div>
-      <div class="id-row">
-        <span class="id-type">Issue（有标签）</span>
-        <span>通过 title 方括号前缀识别，如 <code>[Question|问题咨询]</code>、<code>[Bug-Report|缺陷反馈]</code>、<code>[Requirement|需求建议]</code></span>
-      </div>
-      <div class="id-row">
-        <span class="id-type">Issue（无标签）</span>
-        <span>用户自发报错帖，无方括号前缀，统一视为咨询类，全部保留</span>
-      </div>
+  <div class="identify-wrap">
+    <div class="identify-head">识别方式</div>
+    <div class="id-row">
+      <span class="id-type">论坛帖子</span>
+      <span>通过 <code>type=forum</code> 字段识别，统一视为咨询类</span>
+    </div>
+    <div class="id-row">
+      <span class="id-type">Issue（有标签）</span>
+      <span>通过 title 方括号前缀识别，如 <code>[Question|问题咨询]</code>、<code>[Bug-Report|缺陷反馈]</code>、<code>[Requirement|需求建议]</code></span>
+    </div>
+    <div class="id-row">
+      <span class="id-type">Issue（无标签）</span>
+      <span>用户自发报错帖，无方括号前缀，统一视为咨询类，全部保留</span>
     </div>
   </div>
 </div>

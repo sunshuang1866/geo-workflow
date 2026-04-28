@@ -44,7 +44,6 @@
 |------|-------------------|----------|
 | **保留** | Question、Bug、Forum（论坛帖子） | ✅ 全部保留 |
 | **排除** | Requirement、Req、Task、RFC、Roadmap、Documentation、Doc | ❌ 全部丢弃 |
-| **混合**（同时含保留与排除 source） | — | 咨询占比 **≥ 30%** → ✅ 保留；< 30% → ❌ 丢弃 |
 
 > **识别方式**：论坛 source 通过 `type=forum` 字段判断；Issue source 通过 title 方括号前缀识别，如 `[Question|问题咨询]`、`[Bug-Report|缺陷反馈]`、`[Requirement|需求建议]`。无方括号的 Issue（用户自发报错帖）统一视为咨询类。
 

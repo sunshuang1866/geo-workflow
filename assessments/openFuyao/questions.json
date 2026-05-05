@@ -55,330 +55,180 @@
     },
     {
       "id": "q_007",
-      "question": "openFuyao 扩展组件离线安装时如何优化全量与自定义部署流程？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_008",
-      "question": "openFuyao 在线与离线安装各阶段耗时如何分析和优化？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_009",
       "question": "openFuyao 离线高可用集群安装时后置脚本未在多节点执行如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_010",
+      "id": "q_008",
       "question": "openFuyao 安装包缺少木兰 PSL 2.0 许可证文件如何处理？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_011",
+      "id": "q_009",
       "question": "openFuyao 混部策略配置中参数描述错误与开关逻辑混乱如何排查修复？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_012",
+      "id": "q_010",
       "question": "openFuyao 众核调度如何验证多类型负载 Pod 分值独立计算与跨节点均衡？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_013",
+      "id": "q_011",
       "question": "openFuyao NUMA 监控表格如何明确区分并标注仅展示绑核容器信息？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_014",
+      "id": "q_012",
       "question": "openFuyao 中 Volcano 调度依赖关系异常与默认优先级配置问题如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_015",
+      "id": "q_013",
       "question": "openFuyao 混部节点资源利用率低于阈值时如何避免误驱逐 Pod？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_016",
+      "id": "q_014",
       "question": "openFuyao NUMA 亲和调度与众核调度策略冲突时如何配置解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_017",
+      "id": "q_015",
       "question": "openFuyao 众核调度权限体系如何明确定义各角色的权限边界？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_018",
+      "id": "q_016",
       "question": "openFuyao HLS 业务在 Kubernetes 独占策略下如何解决部署兼容性问题？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_019",
+      "id": "q_017",
       "question": "openFuyao 多优先级业务间资源抢占问题如何配置和解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_020",
+      "id": "q_018",
       "question": "openFuyao HLS 业务的 CPU 资源请求与限制配置规范是什么？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_021",
+      "id": "q_019",
       "question": "openFuyao 社区 Kubernetes 升级与版本发布流程如何协同管理？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_022",
-      "question": "openFuyao v25.03 应用市场功能信息展示异常如何验证和修复？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_023",
+      "id": "q_020",
       "question": "openFuyao 集群健康检查未能准确反映 Pod 异常状态如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_024",
+      "id": "q_021",
       "question": "openFuyao 集群安装时节点名称与 IP 冲突校验不完善如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_025",
+      "id": "q_022",
       "question": "openFuyao Ray 集群健康数据展示与 Grafana 集成出现问题如何排查？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_026",
-      "question": "openFuyao 多版本适配与配置定义流程如何统一管理？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_027",
+      "id": "q_023",
       "question": "openFuyao 核心组件如何完成 HTTPS 改造以提升通信安全性？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_028",
+      "id": "q_024",
       "question": "openFuyao 准入控制器如何统一管理 Pod 节点亲和性标签？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_029",
+      "id": "q_025",
       "question": "openFuyao 多集群管理前端报错与部署一致性问题如何修复？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_030",
+      "id": "q_026",
       "question": "openFuyao 组件跨命名空间部署时创建失败如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_031",
+      "id": "q_027",
       "question": "openFuyao 集群删除后 BKENode 资源残留如何清理？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_032",
-      "question": "openFuyao 集群扩容时节点信息校验不完整如何解决？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_033",
+      "id": "q_028",
       "question": "openFuyao 集群自定义证书配置未生效如何排查解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_034",
+      "id": "q_029",
       "question": "openFuyao 开发者遇到 Docker 与 Helm 构建失败如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_035",
+      "id": "q_030",
       "question": "openFuyao InferNex 一键部署离线安装包缺乏 E2E 自动化测试如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_036",
+      "id": "q_031",
       "question": "openFuyao AI 推理智能路由如何实现容灾能力与多策略支持？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_037",
+      "id": "q_032",
       "question": "openFuyao InferNex 因残留 CR 未达阈值触发强制扩容如何解决？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_038",
-      "question": "AI 推理软件套件退出后 GPU 适配如何迁移至 openFuyao InferNex？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_039",
+      "id": "q_033",
       "question": "openFuyao 如何扩展硬件健康检测以关联业务负载并识别 NPU 过载？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_040",
-      "question": "openFuyao 如何支持 Mooncake 共享内存池化与 KV Cache 分布式管理？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_041",
-      "question": "openFuyao Proxy Server 与推理引擎如何分离部署以降低资源占用？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_042",
-      "question": "openFuyao 社区特性转测流程如何统一文档规范与自动化标准？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_043",
-      "question": "openFuyao 如何构建独立可复用的审计日志组件？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_044",
-      "question": "openFuyao 社区多个 SIG 会议频繁取消影响协作如何改善？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_045",
-      "question": "openFuyao 测试用例缺乏统一格式规范如何制定标准？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_046",
-      "question": "openFuyao 社区如何推进 CleanCode 代码规范整改？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_047",
-      "question": "openFuyao 社区文档缺失影响开发者贡献如何补充完善？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_048",
-      "question": "openFuyao 社区文档不完善导致开发者困惑如何改进？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_049",
-      "question": "openFuyao 社区奖项评选流程与评选标准如何制定和优化？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_050",
-      "question": "openFuyao 离线混部脚本上传缺乏自动化测试如何补充支持？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_051",
-      "question": "openFuyao 混部测试自动化框架与测试用例如何完善？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_052",
-      "question": "openFuyao 如何构建系统级特性自动化测试用例？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_053",
-      "question": "openFuyao 版本文档交付流程如何完善？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_054",
-      "question": "openFuyao Chart 插件与 VictoriaMetrics 部署文档如何完善？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_055",
-      "question": "openFuyao OAuth 组件单元测试覆盖率不足如何提升？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_056",
-      "question": "openFuyao 社区测试流程缺乏明确文档支持如何建立？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_057",
-      "question": "openFuyao 模块路径如何统一更新至 gopkg.openfuyao.cn？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_058",
-      "question": "openFuyao ARM 镜像与 Chart 包描述信息如何评审和完善？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_059",
+      "id": "q_034",
       "question": "openFuyao 如何应对 CVE-2024-45338 漏洞导致的拒绝服务风险？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_060",
+      "id": "q_035",
       "question": "openFuyao AI 安全扫描发现的多项安全漏洞如何紧急修复？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_061",
+      "id": "q_036",
       "question": "openFuyao NPU-Operator 中如何增加 unzip 工具依赖检查机制？",
       "official_urls": [],
       "note": ""

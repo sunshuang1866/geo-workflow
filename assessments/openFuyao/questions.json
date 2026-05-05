@@ -1,20 +1,11 @@
 {
   "community": "openFuyao",
-  "generated_at": "2026-05-05",
-  "official_domains": [],
-  "source_criteria": {
-    "forum": {
-      "source": "combined",
-      "channel1_mongodb": "61 aggregated topics (consult-filter: exclude all-Req/Task/RFC/Doc; mixed ≥50% consult kept)",
-      "channel2_forum": "0 posts (views>50, top 30) from unavailable",
-      "mongo_source_types": {
-        "forum": 0,
-        "issue": 754,
-        "maillist": 0
-      },
-      "fetched_at": "2026-05-05"
-    }
-  },
+  "generated_at": "2026-04-30",
+  "official_domains": [
+    "https://gitcode.com/openFuyao",
+    "https://www.openfuyao.cn/zh/",
+    "https://gitcode.com/openFuyao/docs"
+  ],
   "pg_channel_status": {},
   "questions": [
     {

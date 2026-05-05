@@ -3,28 +3,8 @@
 ## 概览
 
 - 社区: MindSpore
-- 生成时间: 2026-04-29
+- 生成时间: 2026-04-27
 - 问题总数: 162
-
-### 数据来源说明
-
-本问题集的生成依赖两个数据库，分别对应下方的两张表：
-
-**① 原始问题数据库**（对应”来源渠道”表）
-
-持续抓取该社区自 **2024 年 4 月至今**，仓库 Issue、邮件列表（maillist）、社区论坛三类渠道的全量数据。”来源渠道”表反映的是渠道覆盖是否完整：✅ 有数据表示该渠道已对接，❌ 无数据表示当前尚未接入。渠道越完整，问题集的代表性越高。
-
-**② 热点聚合数据库**（对应”筛选标准”表）
-
-在原始数据库基础上，对全部来源问题按**向量相似度**进行聚类，相似问题归并为一个 **topic（热点主题）**。每个 topic 下的子问题（source）数量越多，代表该话题的开发者提问频率越高，可据此判断是否值得纳入问题集。
-
-筛选时，需对每个 topic 下的子问题按类型过滤，剔除仓库 Issue 中的需求类、提议类等开发者不会拿去咨询 AI 的内容，只保留真正属于”开发者会向 AI Chat 提问”的场景：
-
-**③ 论坛浏览量补充**（对应”来源渠道”表中论坛有数据时生效）
-
-热点聚合数据库反映的是某类问题的**咨询量**（转化为 topic 子问题数量），但论坛帖子的**浏览量**是独立的关注度维度——高浏览量说明更多开发者曾主动搜索或阅读该问题，即使它未被大量反复提问。
-
-因此，在聚类问题集的基础上，额外从论坛按**浏览量从高到低**抽取 Top 帖子，与现有聚类问题集进行语义查重，去重后合并，覆盖”关注度高但聚类频率不足”的长尾重要问题。
 
 ### 来源渠道
 
@@ -33,15 +13,6 @@
 | 论坛帖子 | ✅ 有数据 |
 | 仓库 Issue | ✅ 有数据 |
 | 邮件列表 | ❌ 无数据 |
-
-### 筛选标准
-
-| 来源 | 评分算法 | 筛选方式 | 获取时间 |
-|------|----------|----------|----------|
-| MongoDB 聚合话题 | 咨询数 ≥ 2，按咨询数降序 | consult-filter（排除全 Req/Task/RFC/Doc），咨询数 ≥ 2 | 2026-04-27 |
-| 论坛（Discourse/PG） | 按浏览量降序 | views > 50，Top 30 | 2026-04-21 |
-| Issue（问题类/PG） | 全量 [Question] 类型 | LIKE [question% | 2026-04-21 |
-| 人工整理 | — | manual-questions.md | 2026-04-21 |
 
 ## 分类目录
 
@@ -55,7 +26,7 @@
 
 ## 安装与环境配置
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 1 | MindSpore安装时指定Python 3.10+版本无效且缺乏对3.12的官方支持？ | 9c/0e/9t |
 | 2 | MindSpore安装后run_check验证失败，存在环境兼容性与报错误导问题，如何解决？ | 5c/0e/5t |
@@ -72,16 +43,16 @@
 | 13 | MindFormers 1.7.0安装时因缺失wheel依赖导致bdist wheel报错，如何解决？ | 2c/0e/2t |
 | 14 | MindSpore Lite在Windows CI编译中因环境或配置差异导致AVX/SSE流水线异常，如何解决？ | 2c/0e/2t |
 | 15 | MindSpore多线程环境下Tensor访问冲突导致CoreDump，如何解决？ | 2c/0e/2t |
-| 16 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | — |
-| 17 | 在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？ | — |
-| 18 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | — |
-| 19 | 如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？ | — |
-| 20 | MindSpore 支持哪些安装方式？ | — |
+| 16 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | manual |
+| 17 | 在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？ | manual |
+| 18 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | manual |
+| 19 | 如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？ | manual |
+| 20 | MindSpore 支持哪些安装方式？ | manual |
 
 
 ## 模型推理与部署
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 21 | vLLM-MindSpore插件如何解决稀疏量化模型的推理兼容性与性能优化问题？ | 37c/1e/38t |
 | 22 | MindSpore如何高效实现SAM模型零样本图像分割推理？ | 19c/0e/19t |
@@ -104,14 +75,14 @@
 | 39 | MindSpore 2.7.2在Atlas 800T A2上推理结果与文档预期不一致？ | 2c/0e/2t |
 | 40 | MindSpore如何实现RelTR模型中实体与关系的联合动态建模？ | 2c/0e/2t |
 | 41 | MSLite在list输入shape不变时是否仍会触发重编译？ | 2c/0e/2t |
-| 42 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | — |
-| 43 | 如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？ | — |
-| 44 | MindSpore Lite推理自定义Transformer（BERT类）模型时如何处理变长的batch_size输入？ | — |
+| 42 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | manual |
+| 43 | 如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？ | manual |
+| 44 | MindSpore Lite推理自定义Transformer（BERT类）模型时如何处理变长的batch_size输入？ | manual |
 
 
 ## 模型训练
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 45 | MindSpore如何优化昇腾开发板上的LoRA微调内存占用？ | 189c/0e/189t |
 | 46 | MindSpore动态图下如何实现Cell级Shard接口与算子级并行统一？ | 19c/2e/21t |
@@ -145,17 +116,17 @@
 | 74 | MindSpore如何支持非连续Tensor直接保存ckpt以降低显存峰值？ | 2c/0e/2t |
 | 75 | MindSpore如何通过EPLB动态迁移冷热专家优化MoE训练负载均衡与通信效率？ | 2c/0e/2t |
 | 76 | MindSpore在use_clip_grad=False时MFTrainOneStepCell触发CPU不支持特性或空指针异常，如何解决？ | 2c/0e/2t |
-| 77 | MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？ | — |
-| 78 | 如何基于 MindSpore 框架训练 YOLOv5 模型？ | — |
-| 79 | MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？ | — |
-| 80 | mindYOLO目标检测模型训练速度非常慢，有哪些优化MindSpore训练效率的方法？ | — |
-| 81 | MindSpore训练时出现"TBE Subprocess[task_distribute] raise error"报错如何解决？ | — |
-| 82 | MindSpore大模型动态图（PyNative）训练性能如何调优？有哪些常用优化手段？ | — |
+| 77 | MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？ | manual |
+| 78 | 如何基于 MindSpore 框架训练 YOLOv5 模型？ | manual |
+| 79 | MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？ | manual |
+| 80 | mindYOLO目标检测模型训练速度非常慢，有哪些优化MindSpore训练效率的方法？ | manual |
+| 81 | MindSpore训练时出现"TBE Subprocess[task_distribute] raise error"报错如何解决？ | manual |
+| 82 | MindSpore大模型动态图（PyNative）训练性能如何调优？有哪些常用优化手段？ | manual |
 
 
 ## 模型转换与迁移
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 83 | MindSpore Lite缺乏ONNX关键算子支持致模型转换失败，如何解决？ | 13c/0e/13t |
 | 84 | ATan算子不支持ONNX导出导致MindSpore模型转换失败，如何解决？ | 10c/0e/10t |
@@ -169,12 +140,12 @@
 | 92 | MindSpore导出MindIR时不支持类型未明确具体错误信息且示例代码存在语法错误，如何解决？ | 2c/0e/2t |
 | 93 | MindSpore导出ONNX时SiLU算子不兼容需替换或扩展支持，如何解决？ | 2c/0e/2t |
 | 94 | ONNX转MS模型因PowFusion算子无内核支持致Benchmark测试失败，如何解决？ | 2c/0e/2t |
-| 95 | 如何将PyTorch实现的DETR目标检测模型迁移到MindSpore框架？有哪些关键步骤？ | — |
+| 95 | 如何将PyTorch实现的DETR目标检测模型迁移到MindSpore框架？有哪些关键步骤？ | manual |
 
 
 ## 算子与精度
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 96 | MindSpore中MatMul/Mul算子因输入张量shape不匹配导致广播或维度错误，如何解决？ | 11c/0e/11t |
 | 97 | MindSpore Lite在飞腾DSP上如何实现算子接入与推理部署？ | 6c/0e/6t |
@@ -201,13 +172,13 @@
 | 118 | MindSpore在Ascend上Reduce算子不支持8维以上输入导致报错，如何解决？ | 2c/0e/2t |
 | 119 | RAG如何优化MindSpore算子生成的准确率与效率？ | 2c/0e/2t |
 | 120 | MindSpore如何实现昇腾硬件上AIGC模型多卡并行推理的高效算子融合与资源优化？ | 2c/0e/2t |
-| 121 | 如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？ | — |
-| 122 | MindSpore中Adam优化器的实现原理是什么？如何正确配置学习率衰减和参数分组？ | — |
+| 121 | 如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？ | manual |
+| 122 | MindSpore中Adam优化器的实现原理是什么？如何正确配置学习率衰减和参数分组？ | manual |
 
 
 ## 框架特性与原理
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 123 | MindSpore如何实现DataLoader与PyTorch生态的高效兼容？ | 4c/1e/5t |
 | 124 | MindSpore静态图编译耗时高，如何通过HyperMap和编译缓存优化性能？ | 3c/0e/3t |
@@ -226,33 +197,33 @@
 | 137 | MindSpore图模式在Windows下非控制流场景执行报错且无输出，如何解决？ | 2c/0e/2t |
 | 138 | MindSpore PyNative模式下自定义Cell或数据集引发top_cell_指针为空异常，如何解决？ | 2c/0e/2t |
 | 139 | MindSpore如何支持内核版本动态切换与兼容性验证？ | 2c/0e/2t |
-| 140 | MindSpore 2.8.0 版本有哪些新增特性？ | — |
-| 141 | MindSpore 的 PyNative 模式与 Graph 模式应如何选择？ | — |
-| 142 | MindSpore 目前支持读取哪些第三方框架的模型及格式？ | — |
-| 143 | MindSpore中DDPM、DDIM、LDM、CFG扩散模型技术各有什么原理和区别？ | — |
-| 144 | BLIP多模态预训练模型的工作原理是什么？ | — |
-| 145 | MindSpore大模型训练和推理有哪些常见报错类型？ | — |
+| 140 | MindSpore 2.8.0 版本有哪些新增特性？ | manual |
+| 141 | MindSpore 的 PyNative 模式与 Graph 模式应如何选择？ | manual |
+| 142 | MindSpore 目前支持读取哪些第三方框架的模型及格式？ | manual |
+| 143 | MindSpore中DDPM、DDIM、LDM、CFG扩散模型技术各有什么原理和区别？ | manual |
+| 144 | BLIP多模态预训练模型的工作原理是什么？ | manual |
+| 145 | MindSpore大模型训练和推理有哪些常见报错类型？ | manual |
 
 
 ## 社区与生态
 
-| # | 问题 | 咨询数/排除数/总数 |
+| # | 问题 | 频率 |
 |---|------|--------------------|
 | 146 | MindSpore论坛报错活动中如何规范提交任务并获取奖励？ | 6c/0e/6t |
 | 147 | MindSpore暂停维护Graph Learning模块导致访问失效，如何解决？ | 2c/0e/2t |
-| 148 | MindSpore 的版本发布节奏是怎样的？ | — |
-| 149 | MindSpore 2026 年有哪些活动规划？ | — |
-| 150 | 新手如何加入 MindSpore 社区并参与开源贡献？ | — |
-| 151 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | — |
-| 152 | MindSpore 的 LLM Inference Serving SIG 是做什么的？ | — |
-| 153 | MindSpore Parallel Training System SIG 的工作范围是什么？ | — |
-| 154 | MindSpore MindQuantum SIG 的职责和活动是什么？ | — |
-| 155 | 如何向 MindSpore TSC 申请成立新的 SIG？ | — |
-| 156 | MindSpore TSC 是什么，它的职责和会议频率是怎样的？ | — |
-| 157 | MindSpore 有哪些 SIG（Special Interest Groups）？各个 SIG 负责什么方向？ | — |
-| 158 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | — |
-| 159 | 如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？ | — |
-| 160 | MindSpore 社区组织会议的流程是什么？ | — |
-| 161 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | — |
-| 162 | MindSpore 的 TSC 会议是否对外公开？ | — |
+| 148 | MindSpore 的版本发布节奏是怎样的？ | manual |
+| 149 | MindSpore 2026 年有哪些活动规划？ | manual |
+| 150 | 新手如何加入 MindSpore 社区并参与开源贡献？ | manual |
+| 151 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | manual |
+| 152 | MindSpore 的 LLM Inference Serving SIG 是做什么的？ | manual |
+| 153 | MindSpore Parallel Training System SIG 的工作范围是什么？ | manual |
+| 154 | MindSpore MindQuantum SIG 的职责和活动是什么？ | manual |
+| 155 | 如何向 MindSpore TSC 申请成立新的 SIG？ | manual |
+| 156 | MindSpore TSC 是什么，它的职责和会议频率是怎样的？ | manual |
+| 157 | MindSpore 有哪些 SIG（Special Interest Groups）？各个 SIG 负责什么方向？ | manual |
+| 158 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | manual |
+| 159 | 如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？ | manual |
+| 160 | MindSpore 社区组织会议的流程是什么？ | manual |
+| 161 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | manual |
+| 162 | MindSpore 的 TSC 会议是否对外公开？ | manual |
 

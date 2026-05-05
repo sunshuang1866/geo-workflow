@@ -1048,6 +1048,66 @@
       "question": "MindSpore 的 TSC 会议是否对外公开？",
       "official_urls": [],
       "note": ""
+    },
+    {
+      "id": "q_163",
+      "question": "如何基于MindSpore实现3D数字人运动控制，有哪些常见坑点和解决方案？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_164",
+      "question": "如何在昇思昇腾开发板上进行MindSpore模型适配与推理实战部署？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_165",
+      "question": "如何在昇腾开发板上搭建MindSpore运行环境并结合DeepSeek模型学习实践？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_166",
+      "question": "MindSpore社区对Qwen3系列模型的支持情况如何？如何使用MindSpore部署Qwen3模型？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_167",
+      "question": "如何在昇腾硬件上使用MindSpore快速部署Qwen3-Next-80B-A3B系列模型进行推理？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_168",
+      "question": "MindSpore模型转换时报错'not support onnx data type IsNaN'如何处理？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_169",
+      "question": "大模型生成废话文字的根源是什么？MWPO优化算法如何提升MindSpore模型生成质量？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_170",
+      "question": "MindSpore中DocRE文档关系提取任务如何与大模型合理分工协作？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_171",
+      "question": "昇思MindSpore学习营的学习路径是怎样的？如何快速上手昇腾开发板开发？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_172",
+      "question": "MindSpore社区论坛的发帖规则和使用规范是什么？",
+      "official_urls": [],
+      "note": ""
     }
   ]
 }

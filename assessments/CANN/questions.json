@@ -1,6 +1,6 @@
 {
   "community": "CANN",
-  "generated_at": "2026-04-27",
+  "generated_at": "2026-05-05",
   "official_domains": [
     "hiascend.com/cann",
     "gitcode.com/cann"
@@ -732,6 +732,102 @@
       "official_urls": [
         "https://gitcode.com/cann/ascend-transformer-boost/issues/243"
       ],
+      "notes": ""
+    },
+    {
+      "id": "q_092",
+      "question": "Atlas 200 AI加速模块安装驱动后出现init soc version failed如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_093",
+      "question": "使用YOLOv5训练后在昇腾NPU上推理时遇到报错如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_094",
+      "question": "PyTorch训练的MobileNetV2 ONNX模型通过ATC转换后推理报错500002如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_095",
+      "question": "使用ATC工具转换RT-DETR模型时遇到报错如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_096",
+      "question": "RT-DETRv2模型ATC转换后推理时报错EE1001如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_097",
+      "question": "GroundingDINO模型在Atlas 300上进行ATC转换失败如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_098",
+      "question": "FP32精度模型在Atlas 300I Pro设备上无法正确推理如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_099",
+      "question": "ONNX模型转换为OM格式后两种模型推理输出差距过大如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_100",
+      "question": "YOLOv8-seg分割模型ONNX转OM后出现性能缺失问题如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_101",
+      "question": "如何使用MSIT工具排查和定位OM模型精度问题？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_102",
+      "question": "ATC转换命令报错no matching function如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_103",
+      "question": "YOLOv5s多batch推理时单张图片耗时大于单batch推理如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_104",
+      "question": "模型在昇腾NPU上执行失败返回错误码507011如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_105",
+      "question": "运行AscendCL推理样例时遇到报错如何排查解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_106",
+      "question": "使用VDEC视频解码时失败并出现内存持续增长问题如何解决？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_107",
+      "question": "acldvppCreateChannelDesc接口返回null导致初始化失败如何解决？",
+      "official_urls": [],
       "notes": ""
     }
   ]

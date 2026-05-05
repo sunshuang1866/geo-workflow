@@ -12,59 +12,7 @@
 
 ## 整体流程
 
-<div style="font-family: sans-serif; font-size: 14px; line-height: 1.6; display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
-
-  <!-- Step 1 -->
-  <div style="border:1px solid #bbb; border-radius:6px; padding:12px 16px; width:200px;">
-    <div style="font-weight:bold; margin-bottom:6px; border-bottom:1px solid #ddd; padding-bottom:4px;">Step 1 — 渠道完整性检测</div>
-    <div style="font-size:12px; color:#333; margin-bottom:4px;"><strong>来源：</strong>全量问题集数据库</div>
-    <div style="font-size:12px; color:#333; margin-bottom:4px;"><strong>动作：</strong>检测三条渠道是否有数据</div>
-    <ul style="font-size:12px; color:#555; margin:4px 0 0 16px; padding:0;">
-      <li>forum（论坛帖子）</li>
-      <li>maillist（邮件列表）</li>
-      <li>issue（仓库 Issue）</li>
-    </ul>
-  </div>
-
-  <div style="align-self:center; color:#aaa; font-size:20px;">→</div>
-
-  <!-- Step 2 -->
-  <div style="border:1px solid #bbb; border-radius:6px; padding:12px 16px; width:200px;">
-    <div style="font-weight:bold; margin-bottom:6px; border-bottom:1px solid #ddd; padding-bottom:4px;">Step 2 — 热点问题筛选</div>
-    <div style="font-size:12px; color:#333; margin-bottom:4px;"><strong>来源：</strong>Hot-Topic数据库</div>
-    <div style="font-size:12px; color:#333; margin-bottom:4px;"><strong>动作：</strong></div>
-    <ol style="font-size:12px; color:#555; margin:0 0 0 16px; padding:0;">
-      <li>排除全为任务类的 topic</li>
-      <li>删除单条非咨询 source</li>
-      <li>按提及频次降序排序</li>
-    </ol>
-  </div>
-
-  <div style="align-self:center; color:#aaa; font-size:20px;">→</div>
-
-  <!-- Step 3 -->
-  <div style="border:1px solid #bbb; border-radius:6px; padding:12px 16px; width:200px;">
-    <div style="font-weight:bold; margin-bottom:6px; border-bottom:1px solid #ddd; padding-bottom:4px;">Step 3 — 论坛高浏览量补充</div>
-    <div style="font-size:12px; color:#333; margin-bottom:4px;"><strong>来源：</strong>全量问题集数据库（论坛）</div>
-    <div style="font-size:12px; color:#333; margin-bottom:4px;"><strong>动作：</strong></div>
-    <ol style="font-size:12px; color:#555; margin:0 0 0 16px; padding:0;">
-      <li>取 TOP 浏览量帖子</li>
-      <li>与现有题目集语义去重</li>
-    </ol>
-  </div>
-
-</div>
-
-<!-- 比例说明 -->
-<div style="font-family: sans-serif; font-size: 13px; line-height: 1.7; border:1px solid #bbb; border-radius:6px; padding:12px 16px; margin-top:12px; max-width:680px;">
-  <div style="font-weight:bold; margin-bottom:6px; border-bottom:1px solid #ddd; padding-bottom:4px;">Step 2 / Step 3 采集比例</div>
-  <div style="color:#333;">Step 2 与 Step 3 的采集数量之比，由以下两个数值动态决定：</div>
-  <ul style="color:#555; margin:6px 0 6px 16px; padding:0;">
-    <li><strong>Step 2 基数</strong>：全量问题集数据库中仓库 Issue 去除 <code>[Req]/[Task]/[RFC]/[Doc]</code> 后的有效 Issue 数</li>
-    <li><strong>Step 3 基数</strong>：全量问题集数据库中论坛帖子 <code>views &gt; 50</code> 的问题帖子数</li>
-  </ul>
-</div>
-
+![整体流程](../workflow.png)
 ---
 
 ## Step 1 - 渠道完整性检测（全量问题集数据库）

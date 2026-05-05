@@ -1,6 +1,6 @@
 {
   "community": "openEuler",
-  "generated_at": "2026-05-05",
+  "generated_at": "2026-04-27",
   "official_domains": [
     "openeuler.org",
     "docs.openeuler.org",
@@ -915,6 +915,54 @@
       "official_urls": [
         "https://forum.openeuler.org/t/topic/4365"
       ],
+      "notes": ""
+    },
+    {
+      "id": "q_136",
+      "question": "如何在 openEuler 上安装 Nvidia 显卡驱动？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_137",
+      "question": "如何在 openEuler 上安装 Xfce 桌面环境并配置 xrdp 远程桌面？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_138",
+      "question": "openEuler 如何安装无线网卡（WiFi）驱动？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_139",
+      "question": "如何在飞腾 D2000 处理器平台上安装 openEuler 系统，有哪些常见问题？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_140",
+      "question": "openEuler 是否支持飞腾 E2000Q 处理器平台？如何确认硬件兼容性并完成安装？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_141",
+      "question": "如何在 openEuler 22.03 LTS 上使用 kubeadm 部署 Kubernetes 集群？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_142",
+      "question": "openEuler 各组件和服务的默认用户名和密码是什么？",
+      "official_urls": [],
+      "notes": ""
+    },
+    {
+      "id": "q_143",
+      "question": "如何使用 FinalShell 工具连接 openEuler 服务器进行远程管理？",
+      "official_urls": [],
       "notes": ""
     }
   ],

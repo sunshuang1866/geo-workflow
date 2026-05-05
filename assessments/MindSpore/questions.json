@@ -1,6 +1,6 @@
 {
   "community": "MindSpore",
-  "generated_at": "2026-04-27",
+  "generated_at": "2026-04-29",
   "official_domains": [
     "mindspore.cn",
     "gitcode.com/mindspore",
@@ -10,273 +10,931 @@
   "questions": [
     {
       "id": "q_001",
-      "question": "如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？安装时 opp_kernel 报错怎么解决？",
-      "official_urls": [
-        "https://www.mindspore.cn/install/",
-        "https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/custom_program/operation/op_custom_ascendc.html#%E6%8A%A5%E9%94%99%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E7%AE%97%E5%AD%90%E7%B1%BB%E5%9E%8B"
-      ],
-      "notes": "官网文档明确说的版本是 Ubuntu 18.04",
-      "intent": "安装与环境配置"
+      "question": "MindSpore安装时指定Python 3.10+版本无效且缺乏对3.12的官方支持？",
+      "official_urls": [],
+      "note": ""
     },
     {
       "id": "q_002",
+      "question": "MindSpore安装后run_check验证失败，存在环境兼容性与报错误导问题，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_003",
+      "question": "MindSpore对Protobuf版本兼容性要求严格，低版本存在维护与冲突风险？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_004",
+      "question": "MindSpore如何平衡NumPy升级后的性能提升与接口兼容性？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_005",
+      "question": "MindSpore源码编译时因缺少GCC、g++、CMake等依赖导致构建失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_006",
+      "question": "MindSpore Windows中文路径导致MindRecord文件无法打开处理问题，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_007",
+      "question": "Python编译时未启用bz2模块导致MindSpore环境导入失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_008",
+      "question": "Ascend 910B3下MindSpore因hostname缺失及版本映射为空导致Pretrain测试失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_009",
+      "question": "MindSpore如何确保在Linux Kernel 6.6下的容器兼容性与调度稳定性？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_010",
+      "question": "MindSpore安装指南误导致卸载TE后无法恢复且依赖缺失，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_011",
+      "question": "MindSpore 2.5.0与CANN 8.0.0适配时如何解决libge和runner.so依赖缺失问题？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_012",
+      "question": "MindSpore在aarch64下编译时Python 3.12版本兼容性问题如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_013",
+      "question": "MindFormers 1.7.0安装时因缺失wheel依赖导致bdist wheel报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_014",
+      "question": "MindSpore Lite在Windows CI编译中因环境或配置差异导致AVX/SSE流水线异常，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_015",
+      "question": "MindSpore多线程环境下Tensor访问冲突导致CoreDump，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_016",
       "question": "MindSpore NLP（MindNLP）安装失败怎么排查和解决？",
       "official_urls": [
         "https://discuss.mindspore.cn/t/topic/706/"
       ],
-      "notes": "",
-      "intent": "安装与环境配置"
+      "note": ""
     },
     {
-      "id": "q_003",
-      "question": "如何正确安装 MindSpore 2.6.0 GPU 版本？",
-      "official_urls": [
-        "https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html"
-      ],
-      "notes": "",
-      "intent": "安装与环境配置"
-    },
-    {
-      "id": "q_004",
-      "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html",
-        "https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/_sources/reference/faq.md.txt"
-      ],
-      "notes": "",
-      "intent": "模型推理与部署"
-    },
-    {
-      "id": "q_005",
-      "question": "MindNLP 在昇腾设备上自动下载模型时出错，如何解决？",
-      "official_urls": [
-        "https://gitee.com/mindspore/community/issues?q=MindNLP"
-      ],
-      "notes": "",
-      "intent": "模型推理与部署"
-    },
-    {
-      "id": "q_006",
+      "id": "q_017",
       "question": "在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？",
       "official_urls": [],
-      "notes": "",
-      "intent": "安装与环境配置"
+      "note": ""
     },
     {
-      "id": "q_007",
-      "question": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
-      "official_urls": [],
-      "notes": "",
-      "intent": "模型推理与部署"
-    },
-    {
-      "id": "q_008",
+      "id": "q_018",
       "question": "如何将 MindSpore 应用打包成 Docker 镜像进行部署？",
       "official_urls": [
         "https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html",
         "https://www.mindspore.cn/news/detail/?id=2561&type=blogs"
       ],
-      "notes": "",
-      "intent": "安装与环境配置"
+      "note": ""
     },
     {
-      "id": "q_009",
+      "id": "q_019",
       "question": "如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？",
       "official_urls": [
         "https://www.mindspore.cn/lite/docs/zh-CN/stable/use/downloads.html",
         "https://www.mindspore.cn/install"
       ],
-      "notes": "",
-      "intent": "安装与环境配置"
+      "note": ""
     },
     {
-      "id": "q_010",
+      "id": "q_020",
       "question": "MindSpore 支持哪些安装方式？",
       "official_urls": [
         "https://www.mindspore.cn/install"
       ],
-      "notes": "",
-      "intent": "安装与环境配置"
+      "note": ""
     },
     {
-      "id": "q_011",
+      "id": "q_021",
+      "question": "vLLM-MindSpore插件如何解决稀疏量化模型的推理兼容性与性能优化问题？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_022",
+      "question": "MindSpore如何高效实现SAM模型零样本图像分割推理？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_023",
+      "question": "MindSpore如何在910B硬件上优化DeepSeekV3模型的并行推理性能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_024",
+      "question": "MindSpore与Lite解耦后如何保证接口兼容性和模块协同稳定性？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_025",
+      "question": "MindSpore模型推理时因输入与权重维度不匹配导致形状对齐错误，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_026",
+      "question": "MindSpore如何实现Native模型自动权重加载与vLLM接口兼容？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_027",
+      "question": "MindSpore在Ascend 310P多卡并行计算中如何实现矩阵分片与设备协同？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_028",
+      "question": "MindSpore社区论坛每周定期维护期间服务中断如何应对？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_029",
+      "question": "MindSpore如何优化GLAForCausalLM模型初始化和加载耗时？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_030",
+      "question": "MindSpore如何实现Bark模型的高效推理与跨平台性能优化？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_031",
+      "question": "MindSpore如何支持KVCache压缩优化大模型推理？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_032",
+      "question": "MindSpore Lite如何通过SaveOutput功能实现跨硬件推理结果一致性验证？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_033",
+      "question": "MindSpore如何通过aclgraph图捕获优化LLM推理性能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_034",
+      "question": "MindSpore如何通过算子融合与混合精度优化Protenix模型训推效率？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_035",
+      "question": "MindSpore如何通过StaticCache优化大模型推理显存与生成效率？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_036",
+      "question": "MindSpore多卡推理中YAML并行配置未生效，命令行参数优先级是否覆盖YAML？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_037",
+      "question": "vLLM-MindSpore插件如何实现Prefill与Decode阶段的计算分离以优化性能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_038",
+      "question": "MindSpore Lite在Ascend上加载模型时因文件兼容性或ACL配置导致build失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_039",
+      "question": "MindSpore 2.7.2在Atlas 800T A2上推理结果与文档预期不一致？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_040",
+      "question": "MindSpore如何实现RelTR模型中实体与关系的联合动态建模？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_041",
+      "question": "MSLite在list输入shape不变时是否仍会触发重编译？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_042",
+      "question": "MindSpore 模型推理持续报错，常见原因和排查思路有哪些？",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html",
+        "https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/_sources/reference/faq.md.txt"
+      ],
+      "note": ""
+    },
+    {
+      "id": "q_043",
+      "question": "如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_044",
+      "question": "MindSpore Lite推理自定义Transformer（BERT类）模型时如何处理变长的batch_size输入？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_045",
+      "question": "MindSpore如何优化昇腾开发板上的LoRA微调内存占用？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_046",
+      "question": "MindSpore动态图下如何实现Cell级Shard接口与算子级并行统一？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_047",
+      "question": "MindSpore动态图如何统一支持多维并行与自定义分布式逻辑？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_048",
+      "question": "MindSpore如何高效加载HuggingFace格式权重并支持自动Reshard与分布式切片？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_049",
+      "question": "MindSpore动态图如何优化HSDP通信与计算并行效率？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_050",
+      "question": "MindSpore如何确保LLM多场景训练中配置系统的一致性与兼容性？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_051",
+      "question": "MindSpore在Ascend上训练大模型时显存不足，如何优化内存分配与并行策略？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_052",
+      "question": "MindSpore如何在权重2.0格式下实现TFT进程级故障快速恢复？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_053",
+      "question": "MindSpore自动切分大模型权重后如何确保Checkpoint文件完整性及正确加载？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_054",
+      "question": "MindSpore流水线并行中如何优化MicroBatch调度与显存管理？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_055",
+      "question": "MindSpore单机多卡训练时如何解决Ascend设备间信号同步失败问题？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_056",
+      "question": "MindSpore动态图Trainer如何实现训练流程解耦与扩展性提升？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_057",
+      "question": "MindSpore如何通过dw/dx分离优化流水线并行下的梯度计算与显存效率？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_058",
+      "question": "MindSpore加载checkpoint时参数不匹配如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_059",
+      "question": "MindSpore如何在PP调度中通过VPP和ZBV优化流水线Bubble？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_060",
+      "question": "MindSpore在TP>1时训练不稳定且PP>1与NPU硬件不兼容，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_061",
+      "question": "MindSpore如何支持MoE/稠密模型端到端RL训练与混合并行优化？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_062",
+      "question": "MindSpore动态图模式下如何平衡ICT模型训练效率与内存占用？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_063",
+      "question": "MindSpore分布式训练Qwen-7B时如何排查Graph execution failed错误？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_064",
+      "question": "MindSpore分布式训练中偶发NPU失联导致训练中断，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_065",
+      "question": "MindSpore PyNative模式下如何实现自动offload以降低峰值显存占用？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_066",
+      "question": "MindSpore混合精度训练中因梯度溢出导致Loss NaN，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_067",
+      "question": "MindSpore fully_shard在zero1梯度累加时因异步同步导致loss精度偏差，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_068",
+      "question": "Ascend ARM环境下MindSpore模型切分偶现CANN报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_069",
+      "question": "MindSpore如何实现动态图下多模态异构特征对齐与混合精度兼容？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_070",
+      "question": "MindSpore PyNative模式下并行策略不支持SEMI AUTO_PARALLEL导致报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_071",
+      "question": "MindSpore中如何优化大张量形状与batch_size避免内存溢出？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_072",
+      "question": "MindSpore的PP并行中如何高效实现共享参数的跨stage同步？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_073",
+      "question": "MindSpore静态图模式下大模型训练出现BrokenPipeError如何排查通信中断问题？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_074",
+      "question": "MindSpore如何支持非连续Tensor直接保存ckpt以降低显存峰值？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_075",
+      "question": "MindSpore如何通过EPLB动态迁移冷热专家优化MoE训练负载均衡与通信效率？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_076",
+      "question": "MindSpore在use_clip_grad=False时MFTrainOneStepCell触发CPU不支持特性或空指针异常，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_077",
       "question": "MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？",
       "official_urls": [
         "https://www.mindspore.cn/doc/faq/zh-CN/r1.2/backend_running.html"
       ],
-      "notes": "",
-      "intent": "模型训练"
+      "note": ""
     },
     {
-      "id": "q_012",
+      "id": "q_078",
       "question": "如何基于 MindSpore 框架训练 YOLOv5 模型？",
       "official_urls": [
         "https://www.mindspore.cn/search?q=YOLOv5"
       ],
-      "notes": "",
-      "intent": "模型训练"
+      "note": ""
     },
     {
-      "id": "q_013",
-      "question": "如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html"
-      ],
-      "notes": "",
-      "intent": "算子与精度"
-    },
-    {
-      "id": "q_014",
-      "question": "将 ONNX 模型转换为 MindIR 格式时出现兼容性问题，如何排查和解决？",
-      "official_urls": [
-        "https://discuss.mindspore.cn/t/topic/196",
-        "https://www.mindspore.cn/lite/cloud_docs/zh-CN/r2.8.0/mindir/converter_tool.html"
-      ],
-      "notes": "",
-      "intent": "模型转换与迁移"
-    },
-    {
-      "id": "q_015",
-      "question": "如何将 PyTorch 模型转换为 MindSpore 模型？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/migration_case_of_mindconverter.html"
-      ],
-      "notes": "",
-      "intent": "模型转换与迁移"
-    },
-    {
-      "id": "q_016",
+      "id": "q_079",
       "question": "MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？",
       "official_urls": [
         "https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/mindspore/mindspore.data_sink.html"
       ],
-      "notes": "",
-      "intent": "模型训练"
+      "note": ""
     },
     {
-      "id": "q_017",
+      "id": "q_080",
+      "question": "mindYOLO目标检测模型训练速度非常慢，有哪些优化MindSpore训练效率的方法？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_081",
+      "question": "MindSpore训练时出现\"TBE Subprocess[task_distribute] raise error\"报错如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_082",
+      "question": "MindSpore大模型动态图（PyNative）训练性能如何调优？有哪些常用优化手段？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_083",
+      "question": "MindSpore Lite缺乏ONNX关键算子支持致模型转换失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_084",
+      "question": "ATan算子不支持ONNX导出导致MindSpore模型转换失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_085",
+      "question": "MindSpore迁移Tacotron2时缺失Tensor拷贝、detach及MultiScaleRoiAlign算子，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_086",
+      "question": "MindSpore社区迁移至AtomGit后如何确保CI/CD链路与子模块依赖的兼容性？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_087",
+      "question": "如何实现InternLM3在MindSpore上的高效迁移与兼容性适配？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_088",
+      "question": "MindSpore中MatMul算子不支持int8/int32输入类型需显式转换，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_089",
+      "question": "MindSpore如何高效实现Bert-generation模型的跨任务推理与检查点迁移？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_090",
+      "question": "MindSpore v1.10中value_and_grad迁移至ops模块导致调用报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_091",
+      "question": "如何解决MindSpore转换HuggingFace模型后生成图像的色偏问题？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_092",
+      "question": "MindSpore导出MindIR时不支持类型未明确具体错误信息且示例代码存在语法错误，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_093",
+      "question": "MindSpore导出ONNX时SiLU算子不兼容需替换或扩展支持，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_094",
+      "question": "ONNX转MS模型因PowFusion算子无内核支持致Benchmark测试失败，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_095",
+      "question": "如何将PyTorch实现的DETR目标检测模型迁移到MindSpore框架？有哪些关键步骤？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_096",
+      "question": "MindSpore中MatMul/Mul算子因输入张量shape不匹配导致广播或维度错误，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_097",
+      "question": "MindSpore Lite在飞腾DSP上如何实现算子接入与推理部署？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_098",
+      "question": "MindSpore如何通过MFusion实现PyTorch模型在昇腾NPU上的高效图算融合？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_099",
+      "question": "MindSpore如何实现SparseFlashAttention算子在Ascend上的高效适配与动态Shape支持？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_100",
+      "question": "MindSpore Lite如何实现图与算子混调以优化自定义算子部署？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_101",
+      "question": "MindSpore自定义算子示例代码缺失导入和变量定义导致NameError，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_102",
+      "question": "MindSpore ops.maximum/minimum与NaN比较时违反交换律且未遵循IEEE标准，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_103",
+      "question": "MindSpore如何实现fmin/fmax算子多后端动态shape支持与API统一？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_104",
+      "question": "MindSpore 2.2.10中FlashAttention模块调用失败及ops.mm接口缺失问题，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_105",
+      "question": "MindSpore如何高效实现as_strided接口的动态Shape与反向传播支持？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_106",
+      "question": "MindSpore中Pad算子因大填充导致显存不足报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_107",
+      "question": "MindSpore的BitwiseAnd算子如何在Ascend环境下适配指定数据类型？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_108",
+      "question": "MindSpore Adam优化器如何高效支持混合精度与梯度裁剪协同优化？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_109",
+      "question": "MindSpore在Ascend上如何优化CosineEmbeddingLoss算子动态图性能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_110",
+      "question": "MindSpore如何支持动态Shape场景下的算子性能 benchmark 构建？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_111",
+      "question": "MindSpore如何通过异步Dump定位网络精度异常算子？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_112",
+      "question": "MindSpore Lite在Atlas 300I Duo上模型精度劣化原因分析？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_113",
+      "question": "MindSpore在动态shape下如何保证dvm调用多输出顺序正确性？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_114",
+      "question": "MindSpore在NPU上处理高维Tensor时触发Ascend算子维度限制，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_115",
+      "question": "MindSpore如何高效实现FusedAddTopkDiv融合算子以降低推理时延？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_116",
+      "question": "如何通过图算融合与静态图优化降低MindSpore推理延迟？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_117",
+      "question": "MindSpore如何在解耦AKG后维持CPU/GPU图算融合性能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_118",
+      "question": "MindSpore在Ascend上Reduce算子不支持8维以上输入导致报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_119",
+      "question": "RAG如何优化MindSpore算子生成的准确率与效率？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_120",
+      "question": "MindSpore如何实现昇腾硬件上AIGC模型多卡并行推理的高效算子融合与资源优化？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_121",
+      "question": "如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？",
+      "official_urls": [
+        "https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html"
+      ],
+      "note": ""
+    },
+    {
+      "id": "q_122",
+      "question": "MindSpore中Adam优化器的实现原理是什么？如何正确配置学习率衰减和参数分组？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_123",
+      "question": "MindSpore如何实现DataLoader与PyTorch生态的高效兼容？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_124",
+      "question": "MindSpore静态图编译耗时高，如何通过HyperMap和编译缓存优化性能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_125",
+      "question": "MindSpore如何高效实现VAE模型构建与艺术图像生成？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_126",
+      "question": "MindSpore静态图模式下sub操作因输入类型不匹配导致RuntimeError，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_127",
+      "question": "MindSpore静态图模式下不支持try语句需替换为条件控制，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_128",
+      "question": "MindSpore静态图如何支持register_forward_hook的kwargs参数采集？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_129",
+      "question": "MindSpore自定义Parameter子类引发NoneType属性访问错误，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_130",
+      "question": "MindSpore的grad接口如何通过sense参数支持梯度缩放以兼容PyTorch并满足pipeline并行需求？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_131",
+      "question": "MindSpore 2.2加载旧版本模型时出现不兼容报错，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_132",
+      "question": "MindSpore多流并发下如何避免内存冲突与异常？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_133",
+      "question": "如何解决MindSpore中因参数命名冲突导致的ParameterTuple报错问题？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_134",
+      "question": "mindspore在jit场景下cell析构时未释放编译资源导致内存泄漏，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_135",
+      "question": "MindSpore数据集迭代器未重置导致PyFunc异常，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_136",
+      "question": "MindSpore Graph模式首次运行慢且输入Shape变化触发重编译，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_137",
+      "question": "MindSpore图模式在Windows下非控制流场景执行报错且无输出，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_138",
+      "question": "MindSpore PyNative模式下自定义Cell或数据集引发top_cell_指针为空异常，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_139",
+      "question": "MindSpore如何支持内核版本动态切换与兼容性验证？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_140",
       "question": "MindSpore 2.8.0 版本有哪些新增特性？",
       "official_urls": [
         "https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/RELEASE.html"
       ],
-      "notes": "",
-      "intent": "框架特性与原理"
+      "note": ""
     },
     {
-      "id": "q_018",
+      "id": "q_141",
       "question": "MindSpore 的 PyNative 模式与 Graph 模式应如何选择？",
       "official_urls": [
         "https://www.mindspore.cn/tutorials/zh-CN/r1.3/intermediate/pynative_mode_and_graph_mode.html"
       ],
-      "notes": "",
-      "intent": "框架特性与原理"
+      "note": ""
     },
     {
-      "id": "q_019",
+      "id": "q_142",
       "question": "MindSpore 目前支持读取哪些第三方框架的模型及格式？",
       "official_urls": [
         "https://www.mindspore.cn/docs/zh-CN/master/faq/feature_advice.html"
       ],
-      "notes": "",
-      "intent": "框架特性与原理"
+      "note": ""
     },
     {
-      "id": "q_020",
-      "question": "TransData 算子的功能是什么？如何利用该算子优化性能？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html"
-      ],
-      "notes": "",
-      "intent": "算子与精度"
-    },
-    {
-      "id": "q_021",
-      "question": "整数标量与一维 Tensor 混合运算时，MindSpore 与 PyTorch 的隐式类型转换规则是否一致？MindSpore 算子输入的类型提升规则是什么？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/master/faq/operators_api.html",
-        "https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html"
-      ],
-      "notes": "",
-      "intent": "算子与精度"
-    },
-    {
-      "id": "q_022",
-      "question": "国内主流深度学习框架有哪些？各自有什么优缺点？",
+      "id": "q_143",
+      "question": "MindSpore中DDPM、DDIM、LDM、CFG扩散模型技术各有什么原理和区别？",
       "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
+      "note": ""
     },
     {
-      "id": "q_024",
-      "question": "TensorFlow 有哪些国产平替方案？",
+      "id": "q_144",
+      "question": "BLIP多模态预训练模型的工作原理是什么？",
       "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
+      "note": ""
     },
     {
-      "id": "q_025",
-      "question": "华为 AI 全栈开发生态包含哪些核心组件？MindSpore 在其中的定位是什么？",
+      "id": "q_145",
+      "question": "MindSpore大模型训练和推理有哪些常见报错类型？",
       "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
+      "note": ""
     },
     {
-      "id": "q_027",
+      "id": "q_146",
+      "question": "MindSpore论坛报错活动中如何规范提交任务并获取奖励？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_147",
+      "question": "MindSpore暂停维护Graph Learning模块导致访问失效，如何解决？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_148",
       "question": "MindSpore 的版本发布节奏是怎样的？",
       "official_urls": [
         "https://www.mindspore.cn/version-updates/"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_028",
-      "question": "MindSpore 和 PyTorch 对比有哪些相同和不同？",
-      "official_urls": [
-        "https://www.mindspore.cn/docs/zh-CN/r2.2/migration_guide/typical_api_comparision.html#"
-      ],
-      "notes": "",
-      "intent": "框架特性与原理"
-    },
-    {
-      "id": "q_030",
-      "question": "做国产 AI 应用开发应该选 MindSpore 还是 PaddlePaddle？",
-      "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
-    },
-    {
-      "id": "q_031",
-      "question": "2025 年深度学习框架的发展趋势是什么？国产框架的机遇在哪里？",
-      "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
-    },
-    {
-      "id": "q_032",
+      "id": "q_149",
       "question": "MindSpore 2026 年有哪些活动规划？",
       "official_urls": [
         "https://www.mindspore.cn/activities"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_033",
-      "question": "有哪些 AI 框架适合运行在华为昇腾 NPU 上？",
-      "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
-    },
-    {
-      "id": "q_034",
-      "question": "端侧 AI 推理框架怎么选？MindSpore Lite 和 TFLite/NCNN 对比如何？",
-      "official_urls": [],
-      "notes": "",
-      "intent": "框架特性与原理"
-    },
-    {
-      "id": "q_035",
+      "id": "q_150",
       "question": "新手如何加入 MindSpore 社区并参与开源贡献？",
       "official_urls": [
         "https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md",
@@ -285,3313 +943,111 @@
         "https://www.mindspore.cn/contribution?type=word",
         "https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.5.1/developer_guide/contributing.html"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_036",
+      "id": "q_151",
       "question": "MindSpore Transformers SIG 周例会的会议安排是怎样的？",
       "official_urls": [
         "https://www.mindspore.cn/sig/MindSpore%20Transformers",
         "https://atomgit.com/mindspore/community/tree/master/sigs/mindspore_transformers",
         "https://etherpad.mindspore.cn/p/sig-MindSpore-Transformers-meetings"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_038",
-      "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的，多久开一次例会？",
+      "id": "q_152",
+      "question": "MindSpore 的 LLM Inference Serving SIG 是做什么的？",
       "official_urls": [
         "https://www.mindspore.cn/sig/LLM%20Inference%20Serving",
         "https://atomgit.com/mindspore/community/tree/master/sigs/LLM%20Inference%20Serving",
         "https://etherpad.mindspore.cn/p/sig-LLM-Inference-Serving-meetings"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_040",
+      "id": "q_153",
       "question": "MindSpore Parallel Training System SIG 的工作范围是什么？",
       "official_urls": [
         "https://www.mindspore.cn/sig/Parallel%20Training%20System",
         "https://atomgit.com/mindspore/community/tree/master/sigs/parallel_training_system",
         "https://gitee.com/cristoval/community/blob/master/sigs/parallel/README.md"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_041",
+      "id": "q_154",
       "question": "MindSpore MindQuantum SIG 的职责和活动是什么？",
       "official_urls": [
         "https://www.mindspore.cn/sig/MindSpore%20Quantum",
         "https://atomgit.com/mindspore/community/blob/master/sigs/mindquantum/README.md",
         "https://gitee.com/mindspore/community/blob/master/sigs/mindquantum/README.md"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_043",
+      "id": "q_155",
       "question": "如何向 MindSpore TSC 申请成立新的 SIG？",
       "official_urls": [
         "https://www.mindspore.cn/sig"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_045",
+      "id": "q_156",
       "question": "MindSpore TSC 是什么，它的职责和会议频率是怎样的？",
       "official_urls": [],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_047",
+      "id": "q_157",
       "question": "MindSpore 有哪些 SIG（Special Interest Groups）？各个 SIG 负责什么方向？",
       "official_urls": [
         "https://www.mindspore.cn/sig/"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_048",
+      "id": "q_158",
       "question": "MindSpore 是否参加过 KubeCon 等国际开源峰会？",
       "official_urls": [
         "https://www.mindspore.cn/activities",
         "https://www.mindspore.cn/news/detail?id=3290&type=news"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_052",
+      "id": "q_159",
       "question": "如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？",
       "official_urls": [
         "https://www.mindspore.cn/personal-data-collection-overview",
         "https://mailweb.mindspore.cn/mailman3/lists/?page=1"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_054",
-      "question": "MindSpore 的邮件列表系统使用什么平台？如何查看历史邮件存档？",
-      "official_urls": [
-        "https://mailweb.mindspore.cn/archives/"
-      ],
-      "notes": "",
-      "intent": "社区与生态"
-    },
-    {
-      "id": "q_055",
-      "question": "MindSpore 有哪些邮件列表，它们分别面向什么受众？",
-      "official_urls": [
-        "https://mailweb.mindspore.cn/mailman3/lists/?page=1",
-        "https://www.mindspore.cn/sig",
-        "https://mailweb.mindspore.cn/hyperkitty/"
-      ],
-      "notes": "",
-      "intent": "社区与生态"
-    },
-    {
-      "id": "q_059",
-      "question": "MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？",
+      "id": "q_160",
+      "question": "MindSpore 社区组织会议的流程是什么？",
       "official_urls": [
         "https://www.mindspore.cn/sig/meeting-guide"
       ],
-      "notes": "",
-      "intent": "社区与生态"
+      "note": ""
     },
     {
-      "id": "q_063",
+      "id": "q_161",
       "question": "MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？",
       "official_urls": [
         "https://www.mindspore.cn/security",
         "https://atomgit.com/mindspore/community/tree/master/sigs/security",
         "https://gitee.com/mindspore/community/tree/master/sigs/security"
       ],
-      "notes": "",
-      "intent": "社区与生态"
-    },
-    {
-      "id": "q_064",
-      "question": "MindSpore 的 TSC 会议是否对外公开？社区成员如何参与治理讨论？",
-      "official_urls": [],
-      "notes": "",
-      "intent": "社区与生态"
-    },
-    {
-      "id": "q_065",
-      "question": "MindSpore中DDPM、DDIM、LDM、CFG扩散模型技术各有什么原理和区别？如何基于MindSpore实现扩散模型图像生成？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_066",
-      "question": "MindSpore模型转换时报\"not support onnx data type IsNaN\"错误，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_067",
-      "question": "mindYOLO目标检测模型训练速度非常慢，有哪些优化MindSpore训练效率的方法？",
-      "intent": "模型训练",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_068",
-      "question": "MindSpore中Adam优化器的实现原理是什么？如何正确配置学习率衰减和参数分组？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_069",
-      "question": "MindSpore Lite推理自定义Transformer（BERT类）模型时如何处理变长的batch_size输入？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_070",
-      "question": "使用MindSpore进行联邦学习（Federated Learning）训练时出现显存溢出（OOM），如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_071",
-      "question": "MindSpore Lite在Ascend 310P设备上推理失败，常见原因和排查步骤有哪些？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_072",
-      "question": "MindSpore训练时出现\"TBE Subprocess[task_distribute] raise error\"报错如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_073",
-      "question": "MindSpore Lite在昇腾设备上进行推理时有哪些重要的配置项，如何正确设置？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_074",
-      "question": "如何在树莓派（Raspberry Pi）上使用MindSpore Lite运行YOLOv5进行实时目标检测？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_075",
-      "question": "如何将PPOCRv5的ONNX检测和识别模型转换为MindSpore MindIR格式用于推理？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_076",
-      "question": "如何将Safetensors格式的大模型权重转换为MindSpore可加载的格式？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_077",
-      "question": "在Windows 11上使用C++调用MindSpore官方推理示例时报错，如何解决？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_078",
-      "question": "如何将PyTorch实现的DETR目标检测模型迁移到MindSpore框架？有哪些关键步骤？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_079",
-      "question": "MindSpore大模型动态图（PyNative）训练性能如何调优？有哪些常用优化手段？",
-      "intent": "模型训练",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_080",
-      "question": "MindSpore如何支持Qwen3系列大模型？如何在昇腾硬件上快速部署Qwen3进行推理？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_081",
-      "question": "如何在昇思开发板上进行MindSpore模型适配和推理部署？有哪些注意事项？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_082",
-      "question": "如何使用MindFormers对大模型进行LoRA微调？基本流程和关键参数配置是什么？",
-      "intent": "模型训练",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_083",
-      "question": "BLIP多模态预训练模型的工作原理是什么？如何基于MindNLP实现图文理解任务？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_084",
-      "question": "MindSpore支持GLM-4.5等智谱大模型的情况如何？如何在昇腾上进行推理？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_085",
-      "question": "MindSpore大模型训练和推理有哪些常见报错类型？如何系统性地定位和解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_086",
-      "question": "如何基于MindSpore实现3D数字人控制模型？有哪些典型的技术坑点需要注意？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_088",
-      "question": "vllm-mindspore仓库中使用bash build_image.sh构建镜像失败，如何排查和解决？",
-      "intent": "模型转换与迁移",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_089",
-      "question": "在昇腾多卡并行训练大模型时遇到8卡模型切分失败，如何排查和解决？",
-      "intent": "模型训练",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_090",
-      "question": "MindSpore ConcatDataset在文件已扫描完成的情况下仍抛出异常，如何排查？",
-      "intent": "算子与精度",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_091",
-      "question": "在昇腾910B2上部署Qwen2.5-32B使用llmperf压测工具时报错，如何解决？",
-      "intent": "模型推理与部署",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_092",
-      "question": "如何解决vllm-mindspore中\"No module named 'vllm_mindspore'\"的导入错误？",
-      "intent": "算子与精度",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_093",
-      "question": "如何将DeepLabV3+官方预训练权重转换为om格式并通过mindSDK进行推理？",
-      "intent": "模型转换与迁移",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_094",
-      "question": "MindSpore OctSqueeze点云压缩模型评估时解码过程使用了GT而非压缩比特流，是代码问题还是设计如此？",
-      "intent": "算子与精度",
-      "source": "issue",
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_095",
-      "question": "MindSpore如何优化昇腾开发板上的LoRA微调内存占用？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 189,
-        "exclude": 0,
-        "total": 189
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_096",
-      "question": "vLLM-MindSpore插件如何解决稀疏量化模型的推理兼容性与性能优化问题？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 37,
-        "exclude": 1,
-        "total": 38
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_097",
-      "question": "MindSpore如何高效实现SAM模型零样本图像分割推理？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 19,
-        "exclude": 0,
-        "total": 19
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_098",
-      "question": "MindSpore动态图下如何实现Cell级Shard接口与算子级并行统一？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 19,
-        "exclude": 2,
-        "total": 21
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_099",
-      "question": "MindSpore动态图如何统一支持多维并行与自定义分布式逻辑？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 15,
-        "exclude": 2,
-        "total": 17
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_100",
-      "question": "MindSpore Lite缺乏ONNX关键算子支持致模型转换失败，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 13,
-        "exclude": 0,
-        "total": 13
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_101",
-      "question": "MindSpore中MatMul/Mul算子因输入张量shape不匹配导致广播或维度错误，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 11,
-        "exclude": 0,
-        "total": 11
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_102",
-      "question": "ATan算子不支持ONNX导出导致MindSpore模型转换失败，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 10,
-        "exclude": 0,
-        "total": 10
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_103",
-      "question": "MindSpore安装时指定Python 3.10+版本无效且缺乏对3.12的官方支持？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 9,
-        "exclude": 0,
-        "total": 9
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_104",
-      "question": "MindSpore如何高效加载HuggingFace格式权重并支持自动Reshard与分布式切片？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 9,
-        "exclude": 4,
-        "total": 13
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_105",
-      "question": "MindSpore动态图如何优化HSDP通信与计算并行效率？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 8,
-        "exclude": 0,
-        "total": 8
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_106",
-      "question": "MindSpore迁移Tacotron2时缺失Tensor拷贝、detach及MultiScaleRoiAlign算子，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 6,
-        "exclude": 0,
-        "total": 6
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_107",
-      "question": "MindSpore社区迁移至AtomGit后如何确保CI/CD链路与子模块依赖的兼容性？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 6,
-        "exclude": 0,
-        "total": 6
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_108",
-      "question": "MindSpore Lite在飞腾DSP上如何实现算子接入与推理部署？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 6,
-        "exclude": 0,
-        "total": 6
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_109",
-      "question": "MindSpore论坛报错活动中如何规范提交任务并获取奖励？",
-      "intent": "社区与生态",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 6,
-        "exclude": 0,
-        "total": 6
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_110",
-      "question": "MindSpore如何确保LLM多场景训练中配置系统的一致性与兼容性？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 6,
-        "exclude": 0,
-        "total": 6
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_111",
-      "question": "MindSpore安装后run_check验证失败，存在环境兼容性与报错误导问题，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 5,
-        "exclude": 0,
-        "total": 5
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_112",
-      "question": "MindSpore在Ascend上训练大模型时显存不足，如何优化内存分配与并行策略？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 5,
-        "exclude": 0,
-        "total": 5
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_113",
-      "question": "MindSpore如何通过MFusion实现PyTorch模型在昇腾NPU上的高效图算融合？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_114",
-      "question": "MindSpore如何实现SparseFlashAttention算子在Ascend上的高效适配与动态Shape支持？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_115",
-      "question": "MindSpore如何在权重2.0格式下实现TFT进程级故障快速恢复？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 1,
-        "total": 5
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_116",
-      "question": "MindSpore中复数除法在GPU上处理Inf时返回NaN，需统一CPU与GPU计算一致性？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_117",
-      "question": "MindSpore对Protobuf版本兼容性要求严格，低版本存在维护与冲突风险？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_118",
-      "question": "MindSpore如何平衡NumPy升级后的性能提升与接口兼容性？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_119",
-      "question": "MindSpore Lite如何实现图与算子混调以优化自定义算子部署？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_120",
-      "question": "MindSpore自动切分大模型权重后如何确保Checkpoint文件完整性及正确加载？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_121",
-      "question": "Dump工具在GPU数据下沉场景下缺乏溢出检测支持？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_122",
-      "question": "MindSpore如何实现DataLoader与PyTorch生态的高效兼容？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 1,
-        "total": 5
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_123",
-      "question": "MindSpore如何在910B硬件上优化DeepSeekV3模型的并行推理性能？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_124",
-      "question": "MindSpore自定义算子示例代码缺失导入和变量定义导致NameError，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_125",
-      "question": "自定义后端示例编译报错及运行告警需修复头文件缺失与代码语法问题，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 4,
-        "exclude": 0,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_126",
-      "question": "MindSpore静态图编译耗时高，如何通过HyperMap和编译缓存优化性能？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_127",
-      "question": "如何实现InternLM3在MindSpore上的高效迁移与兼容性适配？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_128",
-      "question": "MindSpore如何高效实现VAE模型构建与艺术图像生成？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_129",
-      "question": "MindSpore中MatMul算子不支持int8/int32输入类型需显式转换，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_130",
-      "question": "MindSpore静态图模式下sub操作因输入类型不匹配导致RuntimeError，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_131",
-      "question": "MindSpore开启PP并行或梯度累积后loss不收敛？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_132",
-      "question": "MindSpore ops.maximum/minimum与NaN比较时违反交换律且未遵循IEEE标准，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_133",
-      "question": "MindSpore源码编译时因缺少GCC、g++、CMake等依赖导致构建失败，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_134",
-      "question": "MindSpore流水线并行中如何优化MicroBatch调度与显存管理？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_135",
-      "question": "MindSpore如何高效实现Bert-generation模型的跨任务推理与检查点迁移？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_136",
-      "question": "MindSpore如何实现fmin/fmax算子多后端动态shape支持与API统一？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_137",
-      "question": "MindSpore 2.2.10中FlashAttention模块调用失败及ops.mm接口缺失问题，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_138",
-      "question": "MindSpore静态图模式下不支持try语句需替换为条件控制，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_139",
-      "question": "MindSpore如何高效实现as_strided接口的动态Shape与反向传播支持？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_140",
-      "question": "MindSpore单机多卡训练时如何解决Ascend设备间信号同步失败问题？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_141",
-      "question": "MindSpore动态图Trainer如何实现训练流程解耦与扩展性提升？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 1,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_142",
-      "question": "MindSpore静态图如何支持register_forward_hook的kwargs参数采集？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_143",
-      "question": "MindSpore v1.10中value_and_grad迁移至ops模块导致调用报错，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_144",
-      "question": "MindSpore中Pad算子因大填充导致显存不足报错，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_145",
-      "question": "MindSpore如何通过dw/dx分离优化流水线并行下的梯度计算与显存效率？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_146",
-      "question": "MindSpore组件间std::optional返回值引发ABI兼容性问题？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_147",
-      "question": "MindSpore与Lite解耦后如何保证接口兼容性和模块协同稳定性？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_148",
-      "question": "ACLGraph多输出场景下显存释放失败如何修复？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 3,
-        "exclude": 0,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_149",
-      "question": "MindSpore Windows中文路径导致MindRecord文件无法打开处理问题，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_150",
-      "question": "MindSpore加载checkpoint时参数不匹配如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_151",
-      "question": "MindSpore的BitwiseAnd算子如何在Ascend环境下适配指定数据类型？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_152",
-      "question": "漏洞报告提交后未收到回复，需查询处理进度，如何解决？",
-      "intent": "社区与生态",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_153",
-      "question": "PTA/MSA在相同输入下GELU输出数值不一致，疑似底层算子实现差异？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_154",
-      "question": "MindSpore如何在PP调度中通过VPP和ZBV优化流水线Bubble？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_155",
-      "question": "MindSpore如何兼容FSDP实现ZeRO-3级并行策略？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_156",
-      "question": "DSA自动重排取值错误致128卡并行运行失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_157",
-      "question": "MindSpore自定义算子梯度实现与自动微分兼容性问题导致Loss异常，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_158",
-      "question": "如何解决MindSpore转换HuggingFace模型后生成图像的色偏问题？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_159",
-      "question": "MindSpore在TP>1时训练不稳定且PP>1与NPU硬件不兼容，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_160",
-      "question": "MindNLP 0.2.0后移除models模块，TextClassifier接口需替换为BertForSequenceClassification并更新依赖？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_161",
-      "question": "MindSpore自定义算子在Ascend后端因白名单限制无法展开tuple输入，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
+      "note": ""
     },
     {
       "id": "q_162",
-      "question": "MindSpore如何支持MoE/稠密模型端到端RL训练与混合并行优化？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
+      "question": "MindSpore 的 TSC 会议是否对外公开？",
       "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_163",
-      "question": "cpu-float32后端xi计算缺失h项致结果不一致，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_164",
-      "question": "RNN教程在MindSpore 2.7.2 Atlas A2环境下预测与评估无输出？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_165",
-      "question": "Python编译时未启用bz2模块导致MindSpore环境导入失败，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_166",
-      "question": "MindSpore动态图模式下如何平衡ICT模型训练效率与内存占用？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_167",
-      "question": "MindSpore排序算子在含NaN时跨设备结果不一致且与NumPy行为不符？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_168",
-      "question": "MindSpore Adam优化器如何高效支持混合精度与梯度裁剪协同优化？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_169",
-      "question": "MindSpore模型推理时因输入与权重维度不匹配导致形状对齐错误，如何解决？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_170",
-      "question": "MSA环境因缺少UntypedStorage导致safetensors模型加载失败，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_171",
-      "question": "CANN版本升级后如何确保MindSpore功能兼容与分支稳定性？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_172",
-      "question": "MindSpore与PyTorch API映射不全且权重初始化dtype设置无效？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 2,
-        "total": 4
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_173",
-      "question": "MindSpore自定义Parameter子类引发NoneType属性访问错误，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_174",
-      "question": "MindSpore在Ascend上如何优化CosineEmbeddingLoss算子动态图性能？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_175",
-      "question": "F.grid_sample不支持bicubic模式导致GLM-4.1V-Think模型训练失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_176",
-      "question": "MindSpore官网搜索qwen3微调结果不准确且存在文档失效问题？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_177",
-      "question": "MindSpore在昇腾310B的Pynative模式下LSTM算子因缺少ReverseV2和coreType参数导致编译失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_178",
-      "question": "如何为采样式量子期望计算设计抗噪声的自动梯度框架？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_179",
-      "question": "动态图下GroupedMatmul算子因tokens per expert未累加致SyncStream失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_180",
-      "question": "MindSpore暂停维护Graph Learning模块导致访问失效，如何解决？",
-      "intent": "社区与生态",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_181",
-      "question": "mindspore.numpy.unique不支持0 shape tensor需手动处理空输入，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_182",
-      "question": "MindSpore需修复ConstantOfShape算子对bfloat16类型的支持问题？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_183",
-      "question": "自定义算子频繁获取context导致性能下降，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_184",
-      "question": "MindSpore分布式训练Qwen-7B时如何排查Graph execution failed错误？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_185",
-      "question": "MindSpore分布式训练中偶发NPU失联导致训练中断，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_186",
-      "question": "MindSpore的grad接口如何通过sense参数支持梯度缩放以兼容PyTorch并满足pipeline并行需求？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_187",
-      "question": "Ascend 910B3下MindSpore因hostname缺失及版本映射为空导致Pretrain测试失败，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_188",
-      "question": "MindSpore 2.2加载旧版本模型时出现不兼容报错，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_189",
-      "question": "MindSpore PyNative模式下如何实现自动offload以降低峰值显存占用？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_190",
-      "question": "MindSpore动态图模式下如何实现权重2.0的布局兼容与无缝加载？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 1,
-        "total": 3
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_191",
-      "question": "NaN转int32在CPU和GPU结果不一致需统一？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_192",
-      "question": "MindSpore混合精度训练中因梯度溢出导致Loss NaN，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_193",
-      "question": "MindSpore如何利用Flash Attention实现Chunk预填充加速长序列处理？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_194",
-      "question": "MindSpore中AddN和ScalarAdd算子不支持bool类型输入输出，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_195",
-      "question": "ImageFolderDataset未解码数据直接转PIL导致报错，需先Decode或设Decode to pil True，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_196",
-      "question": "MindSpore在Ascend上AOT自定义算子输入数不匹配及infer函数dtype导入失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_197",
-      "question": "MindSpore fully_shard在zero1梯度累加时因异步同步导致loss精度偏差，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_198",
-      "question": "MindSpore输入数据schema为空导致报错，需检查schema配置是否缺失？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_199",
-      "question": "MindSpore如何实现Native模型自动权重加载与vLLM接口兼容？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_200",
-      "question": "Master分支编译时因lcoc_dtype未声明导致HCCL算子初始化失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_201",
-      "question": "静默检测v2/v3版本因Bug被下架？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_202",
-      "question": "MindSpore导出MindIR时不支持类型未明确具体错误信息且示例代码存在语法错误，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_203",
-      "question": "Ascend ARM环境下MindSpore模型切分偶现CANN报错，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_204",
-      "question": "MindSpore在Ascend 310P多卡并行计算中如何实现矩阵分片与设备协同？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_205",
-      "question": "静态图模式下误用PyNative专属recompute方法致错？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_206",
-      "question": "返回tuple类型的MindIR模型转MS模型时因Unstack算子不兼容报错，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_207",
-      "question": "多卡训练下Profiler因RANK_DEVICE_MAP未适配导致rank_id映射错误，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_208",
-      "question": "图模式推理中add_flag重复调用影响decode阶段性能？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_209",
-      "question": "Ascend 310P上显式创建非默认流致事件耗尽性能骤降？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_210",
-      "question": "mint.arctan2等算子在图模式下编译失败，需解决反向算子图模式适配问题，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_211",
-      "question": "如何提升MindSpore中LLM生成算子的并行性与内存访问效率？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_212",
-      "question": "NoiseBackend未实现get_expectation_with_grad导致含噪线路梯度计算缺失，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_213",
-      "question": "SSD静态图训练指标异常且缺乏动静态图配置说明，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_214",
-      "question": "MindSpore FCN图像分割模型在Mac上评估耗时长且缺失结果打印逻辑，如何解决？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_215",
-      "question": "MindSpore多流并发下如何避免内存冲突与异常？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_216",
-      "question": "MindSpore Dump配置需在初始化前设置且不支持局部网络Dump，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_217",
-      "question": "MindSpore如何实现mint.less算子的多场景兼容与性能对齐？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_218",
-      "question": "MindSpore社区论坛每周定期维护期间服务中断如何应对？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_219",
-      "question": "如何解决MindSpore中因参数命名冲突导致的ParameterTuple报错问题？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_220",
-      "question": "MindSpore基模型forward接口需明确定义input_ids为numpy类型并增加类型校验？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_221",
-      "question": "MindSpore如何通过__ms_dispatch__支持Tensor子类的自定义算子调度与嵌套上下文管理？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_222",
-      "question": "MindSpore如何优化GLAForCausalLM模型初始化和加载耗时？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_223",
-      "question": "MindSpore求导接口为何不再支持离散类型输入？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_224",
-      "question": "推理镜像下载需解决私有仓库登录认证问题？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_225",
-      "question": "MindSpore如何实现Bark模型的高效推理与跨平台性能优化？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_226",
-      "question": "MindSpore如何实现动态图下多模态异构特征对齐与混合精度兼容？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_227",
-      "question": "MindSpore中vision.ToPIL在非标准张量输入下转换失败，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_228",
-      "question": "MindSpore推理中TransData算子耗时高需优化数据格式转换？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_229",
-      "question": "MindSpore导出ONNX时SiLU算子不兼容需替换或扩展支持，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_230",
-      "question": "ONNX转MS模型因PowFusion算子无内核支持致Benchmark测试失败，如何解决？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_231",
-      "question": "MindSpore自定义算子在GPU上未注册或未正确编译导致核函数缺失，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_232",
-      "question": "mindspore在jit场景下cell析构时未释放编译资源导致内存泄漏，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_233",
-      "question": "HyperParallel如何补齐Qwen3-VL模型缺失算子并优化HSDP并行效率？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_234",
-      "question": "BatchNormGradExt在float64场景下类型推导错误导致精度损失，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_235",
-      "question": "MindSpore数据集迭代器未重置导致PyFunc异常，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_236",
-      "question": "msrun如何通过NUMA绑核优化大模型训练性能？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_237",
-      "question": "MindSpore如何支持KVCache压缩优化大模型推理？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_238",
-      "question": "MindSpore如何确保在Linux Kernel 6.6下的容器兼容性与调度稳定性？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_239",
-      "question": "MindSpore Lite如何通过SaveOutput功能实现跨硬件推理结果一致性验证？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_240",
-      "question": "MindSpore分布式训练需保证所有rank设备类型一致？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_241",
-      "question": "attention_mask全零行导致MindSpore融合算子输出错误，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_242",
-      "question": "MindSpore PyNative模式下并行策略不支持SEMI AUTO_PARALLEL导致报错，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_243",
-      "question": "MindSpore在昇腾910上推理YOLOv5时算子执行效率低？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_244",
-      "question": "MindSpore如何通过aclgraph图捕获优化LLM推理性能？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_245",
-      "question": "MindSpore如何通过算子融合与混合精度优化Protenix模型训推效率？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_246",
-      "question": "CPU后端如何通过op plugin高效接入libtorch ATen算子？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_247",
-      "question": "MindSpore如何通过StaticCache优化大模型推理显存与生成效率？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_248",
-      "question": "并行策略配置与Stage数量不匹配导致运行时错误，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_249",
-      "question": "MindSpore多卡推理中YAML并行配置未生效，命令行参数优先级是否覆盖YAML？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_250",
-      "question": "MindSpore中如何优化大张量形状与batch_size避免内存溢出？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_251",
-      "question": "MindSpore的PP并行中如何高效实现共享参数的跨stage同步？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_252",
-      "question": "MindSpore Graph模式首次运行慢且输入Shape变化触发重编译，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_253",
-      "question": "MindSpore静态图模式下大模型训练出现BrokenPipeError如何排查通信中断问题？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_254",
-      "question": "MindSpore Lite动态shape推理需调用resize避免tensor size 0？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_255",
-      "question": "TeleChat3-105B模型README链接失效需修复？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_256",
-      "question": "MindSpore中linalg.norm在complex输入时输出类型应为float而非complex？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_257",
-      "question": "Lite工具需支持Mint接口以解决模型转换兼容性问题？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_258",
-      "question": "MindSpore单卡训练缺乏Python启动示例，故障场景临终CKPT支持类型未明确，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_259",
-      "question": "MindSpore安装指南误导致卸载TE后无法恢复且依赖缺失，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_260",
-      "question": "MindSpore如何支持动态Shape场景下的算子性能 benchmark 构建？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_261",
-      "question": "aclnn算子缓存如何通过分核信息实现动态核数下的缓存隔离？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_262",
-      "question": "vLLM-MindSpore插件如何实现Prefill与Decode阶段的计算分离以优化性能？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_263",
-      "question": "MindSpore权重2.0如何优化临终Checkpoint保存效率？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_264",
-      "question": "静态图下多输出算子重计算依赖缺失导致执行序编排失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_265",
-      "question": "MindSpore使用init初始化器构造张量时实际类型与文档预期不符？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_266",
-      "question": "MindSpore教程中dump功能存在后端适配说明不一致问题？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_267",
-      "question": "MindSpore Lite在Ascend上加载模型时因文件兼容性或ACL配置导致build失败，如何解决？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_268",
-      "question": "MindSpore如何通过异步Dump定位网络精度异常算子？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_269",
-      "question": "MindSpore如何支持非连续Tensor直接保存ckpt以降低显存峰值？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_270",
-      "question": "MindSpore动态图高阶微分存在显存泄露问题？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_271",
-      "question": "MindSpore图模式在Windows下非控制流场景执行报错且无输出，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_272",
-      "question": "MindSpore 2.5.0与CANN 8.0.0适配时如何解决libge和runner.so依赖缺失问题？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_273",
-      "question": "MindSpore Lite在Atlas 300I Duo上模型精度劣化原因分析？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_274",
-      "question": "MindSpore在Ascend上预训练yi15时rank7出现前向损失NaN？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_275",
-      "question": "MindSpore在动态shape下如何保证dvm调用多输出顺序正确性？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_276",
-      "question": "MindSpore 2.7.2在Atlas 800T A2上推理结果与文档预期不一致？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_277",
-      "question": "MindSpore在NPU上处理高维Tensor时触发Ascend算子维度限制，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_278",
-      "question": "View算子因隐式转连续导致host性能下降和cache miss，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_279",
-      "question": "MindSpore的ops.pinv在GPU上处理空张量时因SVD未处理零维度异常引发cuSolver错误，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_280",
-      "question": "Custom算子在图模式下不支持None和string类型参数输入，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_281",
-      "question": "MindSpore动态图模式下禁止对需梯度叶张量执行inplace索引赋值？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_282",
-      "question": "MindSpore PyNative模式下自定义Cell或数据集引发top_cell_指针为空异常，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_283",
-      "question": "MindSpore加载GPT2Tokenizer时未传入vocab_file和merges_file导致初始化失败，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_284",
-      "question": "如何优化MindSpore中Rotary Position Embedding算子的推理性能与内存占用？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_285",
-      "question": "MindSpore在aarch64下编译时Python 3.12版本兼容性问题？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_286",
-      "question": "MindSpore如何高效实现FusedAddTopkDiv融合算子以降低推理时延？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_287",
-      "question": "Internal算子库如何适配CANN 8.5.0核信息文件路径变更？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_288",
-      "question": "MindSpore如何通过EPLB动态迁移冷热专家优化MoE训练负载均衡与通信效率？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_289",
-      "question": "MindFormers 1.7.0安装时因缺失wheel依赖导致bdist wheel报错，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_290",
-      "question": "如何通过图算融合与静态图优化降低MindSpore推理延迟？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_291",
-      "question": "MindSpore如何在解耦AKG后维持CPU/GPU图算融合性能？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_292",
-      "question": "MindSpore 2.7.2版本中register_backward_hook输出格式与文档不一致，疑似hook执行顺序异常，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_293",
-      "question": "MindSpore的CellList空初始化后append导致参数名缺失blocks前缀，引发ckpt加载失败，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_294",
-      "question": "监督微调实践缺不同模型规格的配置调整指南与硬件需求说明？",
-      "intent": "社区与生态",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_295",
-      "question": "如何解除set_device必须在communication.init前调用的限制以兼容accelerate库？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_296",
-      "question": "灵渠动态图用例结束时Tensor内存释放异常触发coredump，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_297",
-      "question": "结构化输出请求因bitmask内存错误导致服务崩溃，如何解决？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_298",
-      "question": "MindSpore静态图模式下GRU层数过多引发函数调用深度超限？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_299",
-      "question": "MindSpore Lite在Windows CI编译中因环境或配置差异导致AVX/SSE流水线异常，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_300",
-      "question": "GPU环境下MindSpore初始化cusolver句柄失败如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_301",
-      "question": "MindSpore推理中Ray与HCCL超时引发分布式通信故障？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_302",
-      "question": "DSP后端常量Tensor需分配物理地址避免计算错误，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_303",
-      "question": "MindSpore如何高效支持Ascend平台稀疏索引与动态Shape下的Top-k计算？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_304",
-      "question": "MindSpore如何实现RelTR模型中实体与关系的联合动态建模？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_305",
-      "question": "ATC转换ONNX模型时如何保持FP32精度避免降为FP16？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_306",
-      "question": "MindSpore如何支持内核版本动态切换与兼容性验证？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_307",
-      "question": "Gather算子索引越界导致Ascend流同步失败，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_308",
-      "question": "MindSpore Tensor需转换为NumPy数组才能被cv2.imwrite保存？",
-      "intent": "模型转换与迁移",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_309",
-      "question": "MindSpore教程中代码执行缺乏结果说明，影响用户验证正确性？",
-      "intent": "社区与生态",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_310",
-      "question": "MindSpore在Ascend上Reduce算子不支持8维以上输入导致报错，如何解决？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_311",
-      "question": "MindSpore函数式自动微分结果与教程不一致，疑似浮点精度或实现偏差？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_312",
-      "question": "梯度为0：参数源错误，改用模型可训练参数，如何解决？",
-      "intent": "框架特性与原理",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_313",
-      "question": "MSLite在list输入shape不变时是否仍会触发重编译？",
-      "intent": "模型推理与部署",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_314",
-      "question": "MindSpore多线程环境下Tensor访问冲突导致CoreDump，如何解决？",
-      "intent": "安装与环境配置",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_315",
-      "question": "RAG如何优化MindSpore算子生成的准确率与效率？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_316",
-      "question": "MindSpore如何实现昇腾硬件上AIGC模型多卡并行推理的高效算子融合与资源优化？",
-      "intent": "算子与精度",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_317",
-      "question": "MindSpore r1.5.0分支OBS链接安全风险影响from_pretrained功能稳定性？",
-      "intent": "社区与生态",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
-    },
-    {
-      "id": "q_318",
-      "question": "MindSpore在use_clip_grad=False时MFTrainOneStepCell触发CPU不支持特性或空指针异常，如何解决？",
-      "intent": "模型训练",
-      "source": "forum",
-      "source_breakdown": {
-        "consult": 2,
-        "exclude": 0,
-        "total": 2
-      },
-      "official_urls": [],
-      "notes": ""
+      "note": ""
     }
-  ],
-  "source_criteria": {
-    "forum": {
-      "algorithm": "sorted by views descending (Discourse API)",
-      "selection": "top 50 from 280 topics (views > 50)",
-      "fetched_at": "2026-04-21"
-    },
-    "issue": {
-      "algorithm": "all [Question] issues from hotopic DB",
-      "selection": "7 records matching LIKE [question%",
-      "fetched_at": "2026-04-21"
-    },
-    "mongodb": {
-      "fetched_at": "2026-04-27",
-      "raw_topics": 290,
-      "after_consult_filter": 253,
-      "after_consult_gte2": 247,
-      "dropped_invalid_or_dup": 23,
-      "appended": 224,
-      "mongo_source_types": {
-        "forum": 6,
-        "issue": 1034,
-        "maillist": 0
-      }
-    }
-  }
+  ]
 }

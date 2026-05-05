@@ -1,6 +1,6 @@
 {
   "community": "openGauss",
-  "generated_at": "2026-05-05",
+  "generated_at": "2026-04-30",
   "official_domains": [
     "https://gitcode.com/opengauss",
     "https://opengauss.org/zh/",
@@ -595,28 +595,5 @@
       "official_urls": [],
       "note": ""
     }
-  ],
-  "source_criteria": {
-    "forum": {
-      "source": "combined",
-      "channel1_mongodb": "121 aggregated topics (consult-filter: exclude all-Req/Task/RFC/Doc; mixed ≥50% consult kept)",
-      "channel2_forum": "18 posts (views>50, top 40) from discuss.opengauss.org",
-      "mongo_source_types": {
-        "forum": 0,
-        "issue": 1052,
-        "maillist": 0
-      },
-      "fetched_at": "2026-05-05"
-    }
-  },
-  "pg_channel_status": {
-    "forum": {
-      "count": 0,
-      "available": false
-    },
-    "mail": {
-      "count": 33,
-      "available": true
-    }
-  }
+  ]
 }

@@ -1,21 +1,11 @@
 {
   "community": "openUBMC",
   "generated_at": "2026-05-05",
-  "official_domains": [],
-  "source_criteria": {
-    "forum": {
-      "source": "combined",
-      "channel1_mongodb": "281 aggregated topics (consult-filter: exclude all-Req/Task/RFC/Doc; mixed ≥50% consult kept)",
-      "channel2_forum": "30 posts (views>50, top 30) from pg",
-      "mongo_source_types": {
-        "forum": 161,
-        "issue": 1026,
-        "maillist": 0
-      },
-      "fetched_at": "2026-05-05"
-    }
-  },
-  "pg_channel_status": {},
+  "official_domains": [
+    "https://www.openubmc.cn/zh",
+    "https://www.openubmc.cn/zh/docs",
+    "https://gitcode.com/openUBMC"
+  ],
   "questions": [
     {
       "id": "q_001",
@@ -132,12 +122,6 @@
       "note": ""
     },
     {
-      "id": "q_020",
-      "question": "openUBMC 如何完善 IPMI 标准命令支持，涵盖 IPMB 驱动、框内通信配置与 SEL 指导？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
       "id": "q_021",
       "question": "如何在 BMC 中实现传感器、SDR 及 SEL 相关的 IPMI 命令以满足监控与运维需求？",
       "official_urls": [],
@@ -162,18 +146,6 @@
       "note": ""
     },
     {
-      "id": "q_025",
-      "question": "BMC 如何通过硬件配置或 EEPROM 获取实际 IPMB 地址而非硬编码设定？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_026",
-      "question": "带内 mc reset cold 压测时 IPMI 命令异常报错，如何定位和解决？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
       "id": "q_027",
       "question": "UBMC 固件升级失败后无法更新且无法回滚，如何解决升级机制与状态恢复问题？",
       "official_urls": [],
@@ -188,18 +160,6 @@
     {
       "id": "q_029",
       "question": "BMC 如何实现 CPLD 无感升级中的 GPIO 控制与寄存器状态一致性保障？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_030",
-      "question": "openUBMC 如何配置信任链以兼容华为与伙伴双签名固件升级？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_031",
-      "question": "如何通过分阶段补升机制提升 BMC 多模组固件升级可靠性？",
       "official_urls": [],
       "note": ""
     },
@@ -324,30 +284,6 @@
       "note": ""
     },
     {
-      "id": "q_052",
-      "question": "BMC 告警信息与文档描述不一致时如何进行对齐修复？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_053",
-      "question": "如何实现安全协处理器心跳丢失的轻微级别告警及恢复指引？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_054",
-      "question": "线缆告警未触发时普通告警失效且日志刷屏，如何排查？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_055",
-      "question": "如何避免可自动恢复的 CPLD 自检异常误触发告警？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
       "id": "q_056",
       "question": "如何解决 BMC 风扇板热插拔引发全组风扇转速异常误告警问题？",
       "official_urls": [],
@@ -380,12 +316,6 @@
     {
       "id": "q_061",
       "question": "如何解决三星 NVMe 盘因识别错误导致厂商调速策略加载失败的问题？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_062",
-      "question": "如何实现 BMC 对多款国产及进口 GPU 的带外监控与调速适配？",
       "official_urls": [],
       "note": ""
     },
@@ -450,20 +380,8 @@
       "note": ""
     },
     {
-      "id": "q_073",
-      "question": "openUBMC 如何管理开源漏洞及依赖修复周期？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
       "id": "q_074",
       "question": "BMC 组件在 gcc14.3 编译器下出现兼容性问题，如何消除门禁告警并确保功能完整？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_075",
-      "question": "如何统一 openUBMC 代码规范并清理 cleancode 缺陷以提升代码可维护性？",
       "official_urls": [],
       "note": ""
     },
@@ -500,42 +418,6 @@
     {
       "id": "q_081",
       "question": "如何修复 BMC 风扇在位状态判断导致功率异常的问题？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_082",
-      "question": "openUBMC 开发者如何解决 CI/CD 安全构建、接口文档自动生成及多项目移植集成问题？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_083",
-      "question": "如何完善 openUBMC BMC 各组件的文档体系以支持快速接入与故障定位？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_084",
-      "question": "如何为 BMC 通用硬件、存储及管理协议库组件构建覆盖多角色的完整文档体系？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_085",
-      "question": "如何在 openUBMC 蓝区合入固件联盟认证测试用例并覆盖关键功能项？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_086",
-      "question": "带内 IBMA 获取网卡信息失败导致 Web 无法显示，如何排查？",
-      "official_urls": [],
-      "note": ""
-    },
-    {
-      "id": "q_087",
-      "question": "如何高效评审集成测试标准与自动化代码并将其贡献到 openUBMC 社区框架？",
       "official_urls": [],
       "note": ""
     },
@@ -582,38 +464,122 @@
       "note": ""
     },
     {
-      "id": "q_095",
-      "question": "BMC 高温保护机制触发后如何排查温控异常并恢复正常运行？",
+      "id": "q_101",
+      "question": "openUBMC 如何通过 QEMU 搭建固件仿真环境并快速完成开发调试？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_096",
-      "question": "开启 BMC 定制化后所有 Redfish 接口发不通并报错 500，如何排查？",
+      "id": "q_102",
+      "question": "openUBMC 调试工具如何安装和配置以辅助开发调试？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_097",
-      "question": "BMC 异常卡顿并出现 HealthCheck failed 打印后传感器异常重启，如何定位？",
+      "id": "q_103",
+      "question": "openUBMC HPM 包的格式结构是什么，如何对 HPM 包进行重新签名？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_098",
-      "question": "设置看门狗后点击 Web 端 BMC 重启导致看门狗被清除，如何修复？",
+      "id": "q_104",
+      "question": "如何将旧版 BMC 3.x 固件升级迁移至 openUBMC 版本？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_099",
-      "question": "get_sub_objects 报 init.lua:758 invalid interface 错误，如何排查？",
+      "id": "q_105",
+      "question": "如何创建自签名 CA 并用于 openUBMC HPM 固件包的签名验证？",
       "official_urls": [],
       "note": ""
     },
     {
-      "id": "q_100",
-      "question": "BMC 配置导入导出失败（Custom_ICMBAccessRole），如何排查和解决？",
+      "id": "q_106",
+      "question": "openUBMC 25.06 版本 BMC 固件升级失败的常见原因及解决方法是什么？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_107",
+      "question": "openUBMC FRU 信息管理中有哪些常见问题，如何修改和读取 FRU 数据？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_108",
+      "question": "如何为 openUBMC 适配新型电源模块的带外管理功能？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_109",
+      "question": "如何使用 I2C 扫描和读写工具调试 openUBMC PCIe 插卡的 I2C 接口？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_110",
+      "question": "安装 iBMA 后 openUBMC Web 界面不显示 CPU 和内存信息，如何排查？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_111",
+      "question": "openUBMC 是否支持 MCTP over SMBus 协议进行带外管理，如何配置？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_112",
+      "question": "openUBMC SMC 命令字的含义是什么，如何正确理解和使用？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_113",
+      "question": "openUBMC Redfish 接口设计有哪些合规性必检项，如何进行自检？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_114",
+      "question": "使用 Redfish Get auth token 时管理员与操作员账号的 token 值相同，是否正常？如何处理？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_115",
+      "question": "如何使用 openUBMC 社区 Conan 仓库管理和下载构建依赖包？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_116",
+      "question": "如何在 openUBMC 中新增自定义业务组件，流程和规范是什么？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_117",
+      "question": "openUBMC 接口设计与开发的完整流程规范是什么？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_118",
+      "question": "如何进行 openUBMC 品牌包的定制化配置？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_119",
+      "question": "openUBMC 社区接口评审议题如何提交，官方流程是什么？",
+      "official_urls": [],
+      "note": ""
+    },
+    {
+      "id": "q_120",
+      "question": "openUBMC 社区如何提交代码 PR，贡献规范和审查流程是什么？",
       "official_urls": [],
       "note": ""
     }

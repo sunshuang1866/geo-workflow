@@ -7,8 +7,8 @@
       "qwen-web"
     ],
     "skipped_platforms": [],
-    "total_questions": 57,
-    "total_responses": 114
+    "total_questions": 52,
+    "total_responses": 124
   },
   "responses": [
     {
@@ -120,31 +120,6 @@
         "https://mailweb.openeuler.org/archives/list/tc@openeuler.org/latest?%3Bamp%3Bamp%3Bamp%3Bpage=4%3D&page=33",
         "https://gitee.com/Vchanger/a-ops-tools",
         "https://forum.openeuler.org/t/topic/355/1"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_006",
-      "platform": "deepseek-web",
-      "query": "openEuler 是否支持飞腾 E2000Q 处理器平台？如何验证硬件兼容性？",
-      "timestamp": "2026-04-13T10:12:59Z",
-      "raw_response": "Read 9 web pages\n\nopenEuler 对飞腾 E2000Q 处理器平台的支持主要在其嵌入式版本（openEuler Embedded）中实现，有官方文档提供构建支持-\n1\n-\n3\n。\n\n此外，你可以使用 openEuler 官方硬件兼容性测试工具 oec-hardware 进行自动化验证-\n2\n-\n7\n。\n\n✅ 支持情况确认\n\n根据 openEuler 官方嵌入式文档，E2000Q 平台对应的参考开发板（如“飞腾派”）已被明确列入支持列表-\n1\n-\n3\n。\n\n项目\t说明\n处理器型号\t飞腾 E2000Q\n对应板卡\tphytiumpi (飞腾派)-\n1\n\n支持版本\topenEuler Embedded (如 24.09 版本等)-\n1\n\n启动方式\t支持从 SD 卡启动-\n1\n\n特别地，研华科技等厂商也已推出基于 E2000Q 并兼容 openEuler 22.03 版本的工控产品，表明该平台在产业界获得了验证与支持-\n6\n。\n\n🛠️ 硬件兼容性验证方法\n\n官方提供了 oec-hardware 自动化测试框架来完成兼容性验证-\n2\n-\n7\n。\n\n1. 安装测试工具\n\n在已安装 openEuler 系统的飞腾 E2000Q 设备上，通过 dnf 命令安装工具：\n\nbash\nCopy\nDownload\ndnf install oec-hardware\n\n安装后，可输入 oech 命令验证是否成功-\n7\n。\n\n2. 准备测试环境\n\noec-hardware 采用 客户端-服务端 模式，需要两台机器-\n7\n：\n\n客户端 (Client)：你的飞腾 E2000Q 设备，作为被测试对象。\n\n服务端 (Server)：另外一台机器（x86 或 ARM 均可），用于展示测试结果和提供网络测试服务。服务端需安装 oec-hardware-server 并启动服务。\n\n3. 执行测试流程\n\n启动测试：在 E2000Q 客户端上执行 oech 命令，并按提示填写服务端的 IP 地址等信息-\n7\n。\n\n选择测试项：工具会自动扫描硬件（CPU、内存、网卡、USB 等）。你可以选择运行全部或部分推荐测试项-\n7\n。\n\n运行并查看结果：开始测试，完成后工具会给出 PASS 或 FAIL 的结果。结果也会自动上传到服务端，方便通过网页查看详细的测试日志-\n7\n。\n\n💡 补充说明\n\n驱动支持：openEuler Embedded 的镜像中已包含了使能 E2000Q 平台必要的配置与驱动（如串口、HDMI 显示等），通常无需额外安装-\n1\n。\n\n查询兼容列表：你也可以访问 openEuler 社区的兼容性列表页面，查询飞腾 E2000Q 相关板卡的官方认证信息-\n8\n。\n\n如果需要关于镜像构建或工具使用的具体指导，可以随时继续提问。\n\n9 web pages",
-      "citations": [
-        "https://pages.openeuler.openatom.cn/embedded/docs/build/html/openEuler-24.09/bsp/arm64/phytiumpi/phytiumpi.html",
-        "https://pages.openeuler.openatom.cn/embedded/docs/build/html/openEuler-24.09/bsp/index.html#bsp",
-        "http://www.51testing.com/html/89/n-7806389.html",
-        "https://gitlab.summer-ospp.ac.cn/summer2021/210010841/-/raw/3570d410a5823b126a36eb46067085228fff7559/README.md",
-        "https://www.advantech.com/en-us/resources/news/%E5%9B%BD%E4%BA%A7%E5%8C%96%E6%96%B0%E7%AA%81%E7%A0%B4%EF%BC%81%E7%A0%94%E5%8D%8E%E7%A7%91%E6%8A%80%E5%8F%91%E5%B8%83%E6%96%B0%E4%B8%80%E4%BB%A3%E5%9B%BD%E4%BA%A7%E5%8C%96%E4%BD%8E%E5%8A%9F%E8%80%97%E6%A0%B8%E5%BF%83%E6%8E%A7%E5%88%B6%E5%8D%95%E5%85%83ita-170v2",
-        "https://www.openeuler.org/zh/compatibility/",
-        "https://forum.openeuler.org/t/topic/913/#h-3",
-        "https://gitee.com/organizations/phytium_embedded/projects",
-        "https://gitee.com/organizations/phytium_embedded/projects?lang=PHP",
-        "https://gitee.com/openeuler/oec-hardware",
-        "https://www.phytium.com.cn/homepage/production/12/",
-        "https://forum.openeuler.org/t/topic/1362",
-        "https://support.huaweicloud.com/intl/zh-cn/usermanual-hce/hce_tool_006.html",
-        "https://www.piesia.com/products.aspx?TypeId=388&FId=t3:388:3&pageindex=13"
       ],
       "model": "DeepSeek (web)",
       "status": "success"
@@ -426,31 +401,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_019",
-      "platform": "deepseek-web",
-      "query": "鲲鹏 920 处理器的服务器应该安装哪个架构版本的 openEuler（X86 还是 AArch64）？",
-      "timestamp": "2026-04-13T10:32:11Z",
-      "raw_response": "Read 8 web pages\n\n鲲鹏 920 处理器基于 ARM 架构，因此应安装 AArch64 架构版本的 openEuler。\n\n以下是详细说明及下载指引：\n\n1. 为什么选择 AArch64 架构？\n\n芯片架构决定：华为鲲鹏 920 处理器兼容 ARM v8.2 指令集，属于标准的 ARM 64 位架构 -\n1\n-\n3\n。\n\n官方明确支持：在 openEuler 官方文档中，华为鲲鹏 920 系列 CPU 被明确列为 AArch64 架构的兼容硬件，并提供了详细的安装示例（如基于 TaiShan 200 服务器）-\n2\n-\n5\n。\n\n2. 如何下载与确认\n\n在 openEuler 的下载页面，你通常可以看到以下几种架构的镜像选项，请按以下指引选择：\n\n架构选项\t适用场景\t是否适用于鲲鹏920\nAArch64\t华为鲲鹏、飞腾等 ARM 64位 服务器\t是 (请选择此项)\nx86_64\tIntel、AMD 等 x86 架构服务器\t否\nLoongArch64\t龙芯处理器\t否\n\n在 openEuler 社区的快速入门文档中，也明确将“华为鲲鹏920系列CPU”归入“AArch64”架构的支持列表中 -\n2\n。\n\n3. 安装注意事项\n\n镜像选择：下载 ISO 镜像时，请认准文件名中包含 aarch64 字样的文件（例如：openEuler-22.03-LTS-aarch64-dvd.iso）-\n2\n。\n\n最小硬件要求：\n\n内存：不小于 4GB（推荐 8GB 以上）。\n\n硬盘：建议不小于 120GB -\n2\n。\n\n8 web pages",
-      "citations": [
-        "https://www.hikunpeng.com/zh/compute/kunpeng920",
-        "https://baike.baidu.com/item/%E9%AF%A4%E9%B5%AC920%E8%99%95%E7%90%86%E5%99%A8/23655037",
-        "https://docs.openeuler.org/zh/docs/22.03_LTS/docs/Quickstart/quick-start.html",
-        "https://docs.openeuler.openatom.cn/zh/docs/20.09/docs/ApplicationDev/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html",
-        "https://docs.openeuler.org/zh/docs/20.09/docs/Quickstart/quick-start.html",
-        "https://embedded.pages.openeuler.org/openEuler-25.03/bsp/arm64/hisilicon/kp920/kp920.html",
-        "https://docs.openeuler.org/zh/docs/20.09/docs/ApplicationDev/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html",
-        "https://docs.openeuler.org/zh/docs/20.09/docs/ApplicationDev/%25E5%25BC%2580%25E5%258F%2591%25E7%258E%25AF%25E5%25A2%2583%25E5%2587%2586%25E5%25A4%2587.html",
-        "https://yocto-meta-openeuler.pages.openeuler.org/master/releases/release-notes-25.03.30.html",
-        "https://docs.openeuler.org/zh/docs/22.03_LTS_SP3/docs/secGear/%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2.html",
-        "https://docs.openeuler.org/zh/docs/22.03_LTS_SP3/docs/secGear/%25E5%25AE%2589%25E8%25A3%2585%25E4%25B8%258E%25E9%2583%25A8%25E7%25BD%25B2.html",
-        "https://docs.openeuler.openatom.cn/en/docs/24.03_LTS_SP3/server/performance/cpu_optimization/sysboost/installation_and_deployment.html#environment-preparation",
-        "https://docs.openeuler.openatom.cn/en/docs/24.03_LTS_SP3/server/performance/cpu_optimization/sysboost/installation_and_deployment.html",
-        "https://www.hikunpeng.com/doc_center/source/zh/kunpengsdss/appAccelFeatures/metaaccel/kunpengMetadata_34_0002.html"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_020",
       "platform": "deepseek-web",
       "query": "openEuler 22.03 ARM 架构上如何部署 Zabbix 监控系统？",
@@ -475,51 +425,6 @@
         "https://blog.csdn.net/m0_74660711/article/details/134590869",
         "https://www.hiascend.com/document/detail/zh/Atlas%2520200I%2520A2/24.1.RC2/RC/driverdevelopmentguide/atlasdg_11_0196.html",
         "https://www.hiascend.com/document/detail/zh/Atlas%20200I%20A2/24.1.RC2/RC/driverdevelopmentguide/atlasdg_11_0196.html"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_021",
-      "platform": "deepseek-web",
-      "query": "openEuler 22.03 SP1 是否支持将内核升级到 6.x 版本？如何操作？",
-      "timestamp": "2026-04-13T10:36:12Z",
-      "raw_response": "Read 10 web pages\n\nopenEuler 22.03 SP1 官方软件源默认提供的最高内核版本是 5.10 系列-\n1\n-\n10\n，官方仓库并未提供可直接安装的 6.x 版本内核 RPM 包-\n5\n。\n\n不过，从技术验证上来说，将内核升级到 6.x 版本是可行的。社区中已有用户成功在 22.03 SP1 上手动编译并运行了 6.6 版本内核，且测试没有发现问题-\n1\n。\n\n以下是两种实现升级的操作方法。\n\n🛠️ 方案一：手动编译内核（已验证可行）\n\n此方法较为直接，有社区用户成功验证。核心思路是从 openEuler 官方代码仓库拉取 6.6 版本内核源码，在本地编译并打包安装。\n\n安装编译依赖：需要安装编译内核所需的工具和库。\n\nbash\nCopy\nDownload\nyum install elfutils-libelf-devel dwarves openssl-devel rsync -y\n\n获取内核源码：从 openEuler 的 Gitee 仓库克隆 6.6 版本内核源码。\n\nbash\nCopy\nDownload\ngit clone https://gitee.com/openeuler/kernel.git\ncd kernel/\ngit checkout OLK-6.6\n\nOLK-6.6 是 openEuler 维护的 Linux 6.6 内核分支。\n\n配置并编译：\n\nbash\nCopy\nDownload\nmake openeuler_defconfig\nmake -j4\n\n-j4 表示用4个CPU核心并行编译，可替换为你服务器的核心数以加快编译速度。\n\n构建并安装 RPM 包：\n\nbash\nCopy\nDownload\nmake binrpm-pkg -j64\ncd kernel\nrpm -ivh ./rpmbuild/RPMS/x86_64/kernel-6.6.0+-2.x86_64.rpm\nyum install ./rpmbuild/RPMS/x86_64/kernel-headers-6.6.0+-2.x86_64.rpm\n\n重启验证：重启系统，在 GRUB 启动菜单中选择新内核，进入系统后使用 uname -r 命令检查内核版本。\n\n🔧 方案二：尝试使用 24.03 版本的 RPM 包\n\n此方法更为简便，但存在一定的兼容性风险，不建议在生产环境中使用。\n\nopenEuler 24.03 LTS 版本原生搭载了 6.6 版本内核。有用户尝试在 22.03 SP1 上直接安装 24.03 版本的内核 RPM 包，初步验证是可行的-\n1\n。\n\n你可以尝试从 openEuler 24.03 的每日构建仓库中下载内核 RPM 包进行安装：\n\n下载地址：http://121.36.84.172/dailybuild/EBS-openEuler-24.03-LTS/EBS-openEuler-24.03-LTS/ -\n1\n\n风险提示：由于 22.03 和 24.03 是两个独立的 LTS 版本，其基础运行库可能存在差异。直接安装的内核可能会因为依赖问题而无法启动，或导致系统不稳定。如果选择此方法，请务必在操作前对重要数据进行备份。\n\n⚠️ 重要提醒\n\n官方不支持：这两种方法都属于社区验证的解决方案，并非官方推荐的标准升级路径。22.03 SP1 的官方技术支持范围仍以其自带的 5.10 内核为准-\n1\n。\n\n兼容性验证：升级内核是一项涉及系统底层的操作，可能会影响现有硬件驱动（如网卡、RAID卡）和部分第三方内核模块。在实施前，建议在测试环境中进行充分验证。\n\n回滚方案：安装新内核后，系统在启动时会自动保留旧内核。如果在使用 6.x 内核时遇到问题，只需重启并在 GRUB 启动菜单中选择原有的 5.10 内核即可回退-\n9\n。\n\n你是打算在个人测试环境还是生产服务器上操作？如果方便告诉我具体的用途，我可以帮你评估一下方案一和方案二分别可能存在的风险。\n\nThis response is AI-generated, for reference only.\n10 web pages",
-      "citations": [
-        "https://forum.openeuler.org/t/topic/4387#post_10",
-        "https://pages.openeuler.openatom.cn/embedded/docs/build/html/openEuler-22.03-LTS-SP1/releases/release-notes-22.12.30.html",
-        "https://mirrors.njtech.edu.cn/openeuler/security/data/cvrf/2023/cvrf-openEuler-SA-2023-1782.xml",
-        "http://121.36.84.172/dailybuild/EBS-openEuler-24.03-LTS/EBS-openEuler-24.03-LTS/",
-        "https://blog.zouaw.com/article/52412.html",
-        "https://forum.openeuler.org/t/topic/4387",
-        "https://forum.openeuler.org/t/topic/4387/9",
-        "https://forum.openeuler.org/t/topic/8056",
-        "https://forum.openeuler.org/t/topic/6224/5",
-        "https://forum.openeuler.org/t/topic/18871/2",
-        "https://docs.openeuler.org/en/docs/22.03_LTS_SP3/docs/KernelLiveUpgrade/KernelLiveUpgrade.html",
-        "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/installation_upgrade/upgrade/openeuler_2203_lts_upgrade_and_downgrade_guide.html",
-        "https://www.cybersecurity-help.cz/vdb/SB2024070726",
-        "https://gitee.com/openeuler/kernel.git",
-        "https://mirrors.huaweicloud.com/openeuler/"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_022",
-      "platform": "deepseek-web",
-      "query": "openEuler 22.03 SP2 执行 dnf upgrade 失败，常见原因和解决方法有哪些？",
-      "timestamp": "2026-04-13T10:37:44Z",
-      "raw_response": "Read 4 web pages\n\n在 openEuler 22.03 SP2 上执行 dnf upgrade 失败，通常与软件源配置、DNF 组件损坏、网络连接或依赖关系冲突有关。\n\n建议按照从易到难的顺序，逐一排查以下可能的原因和解决方法：\n\n🔍 原因一：软件源（Repository）配置问题\n\n这是最常见的原因。如果默认的软件源不可用或连接缓慢，会导致升级失败。\n\n解决方法：更换为国内可靠的镜像源，例如华为云镜像。\n\n备份当前的源文件：\n\nbash\nCopy\nDownload\nsudo cp /etc/yum.repos.d/openEuler.repo /etc/yum.repos.d/openEuler.repo.bak\n\n修改源配置，将地址替换为华为云镜像-\n3\n：\n\nbash\nCopy\nDownload\nsudo sed -i 's#mirrorlist=http://mirrorlist.openEuler.org#baseurl=http://mirrors.huaweicloud.com/openEuler#g' /etc/yum.repos.d/openEuler.repo\n\n清理缓存并重新生成：\n\nbash\nCopy\nDownload\nsudo dnf clean all\nsudo dnf makecache\n🔍 原因二：DNF 组件本身损坏或缺失\n\n系统更新过程中，如果 DNF 或其依赖的 Python 模块出现问题（例如报错 ModuleNotFoundError: No module named 'dnf'），会导致命令无法执行-\n1\n。\n\n解决方法：尝试使用 yum（通常与 dnf 兼容）重新安装 DNF 组件。\n\nbash\nCopy\nDownload\n# 尝试使用 yum 来重装 dnf\nsudo yum reinstall dnf -y\nsudo yum reinstall python3-dnf -y\n🔍 原因三：软件包依赖关系冲突\n\n在升级大量软件包时，可能会遇到某个软件包的依赖无法满足，导致整个升级过程中断-\n4\n。\n\n解决方法：使用 --skip-broken 参数，跳过有问题的软件包，先完成其他部分的升级。\n\nbash\nCopy\nDownload\nsudo dnf update --skip-broken\n\n升级完成后，再单独分析和处理被跳过的软件包。\n\n🔍 原因四：系统环境变量 (LD_LIBRARY_PATH) 被错误修改\n\n手动修改过 LD_LIBRARY_PATH 等环境变量，可能导致 DNF 在运行时调用了不兼容的库文件，从而报错-\n2\n。\n\n解决方法：检查并清理可能被错误设置的环境变量。\n\n检查当前环境变量的值：\n\nbash\nCopy\nDownload\necho $LD_LIBRARY_PATH\n\n检查 ~/.bashrc 或 /etc/profile 等配置文件，如果发现手动添加或修改了 LD_LIBRARY_PATH，可以先将其注释掉。\n\n重新登录终端，或执行 source ~/.bashrc 使配置生效后，再次尝试 dnf update。\n\n🔍 原因五：网络连接或DNS问题\n\n网络不通畅或 DNS 解析失败，会导致 DNF 无法连接到软件源服务器。\n\n解决方法：确保系统的网络连接是正常的。\n\n测试网络连通性：\n\nbash\nCopy\nDownload\nping -c 4 www.baidu.com\n\n如果 ping 失败，说明网络配置有问题。\n\n检查 DNS 配置：可以尝试临时使用公共 DNS 服务器（如 114.114.114.114）进行测试。\n\nbash\nCopy\nDownload\n# 临时修改DNS\necho \"nameserver 114.114.114.114\" | sudo tee /etc/resolv.conf\n💡 如果以上方法都无效\n\n寻求社区帮助：openEuler 的社区论坛是一个很好的求助平台。发帖求助时，为了能更快地定位问题，建议附上完整的错误日志。如果你是从 CentOS 等其他系统迁移过来，可以查看升级工具生成的详细日志（例如 /opt/x2openEuler-upgrade/upgrade/upgrade.log），这对排查问题非常有帮助-\n2\n。\n\n希望这些步骤能帮你解决问题。如果在排查中有具体的错误提示，可以发出来再一起看看～\n\n4 web pages",
-      "citations": [
-        "https://edu.51cto.com/article/note/8530.html",
-        "https://www.bt.cn/bbs/archiver/tid-120775.html",
-        "https://blog.csdn.net/zengfl6468/article/details/149357438",
-        "https://forum.openeuler.org/t/topic/4023/16",
-        "https://forum.openeuler.org/t/topic/3597/1",
-        "https://forum.openeuler.org/t/topic/xxxx",
-        "https://mirrors.huaweicloud.com/openEuler/",
-        "https://docs.openeuler.org/zh/docs/22.03_LTS/docs/administration/Upgrade.html"
       ],
       "model": "DeepSeek (web)",
       "status": "success"
@@ -961,32 +866,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_019",
-      "platform": "qwen-web",
-      "query": "鲲鹏 920 处理器的服务器应该安装哪个架构版本的 openEuler（X86 还是 AArch64）？",
-      "timestamp": "2026-04-13T13:42:01Z",
-      "raw_response": "Thinking completed\n答案：应安装 AArch64 架构版本的 openEuler\n原因说明\n鲲鹏920处理器的架构特性：\n鲲鹏920是华为自主研发的服务器处理器，基于ARMv8架构，采用7nm工艺制造\n百度\nwww.datacenterdynamics.com\nwww.hisilicon.com\n该处理器拥有64个核心，主频可达2.6GHz，专为数据中心和云计算场景设计\ntime.geekbang.org\nwww.cnx-software.com\nopenEuler官方硬件要求：\n根据openEuler官方文档的系统安装要求\nopenEuler\nopenEuler\n：\n组件\n\t\nAArch64架构\n\t\nx86_64架构\n\n\n支持CPU\n\t\n华为鲲鹏920系列\n\t\nIntel® Xeon® (Skylake及以上)\n\n\n架构说明\n\t\n支持Arm的64位架构\n\t\n支持Intel的x86 64位架构\n文档明确指出：鲲鹏920（架构为AArch64）\nopenEuler\nopenEuler\n安装建议\n下载镜像时：选择 openEuler-xx.xx-AArch64-dvd.iso 版本，而非x86_64版本\nopenEuler\n验证系统架构：安装后可通过以下命令确认：\nbash\n1\nuname -m  # 应返回 aarch64\n软件兼容性：安装第三方软件时，需选择 aarch64 或 arm64 架构的软件包\nCSDN - 专业开发者社区\nCSDN - 专业开发者社区\n常见误区提醒\n⚠️ 不要混淆：\nx86_64 / amd64 = Intel/AMD 64位处理器架构\nAArch64 / arm64 = ARM 64位处理器架构（鲲鹏920所属）\n两者指令集不兼容，装错架构将导致系统无法启动或运行异常\nCSDN - 专业开发者社区\nopenEuler\n。\n如需进一步了解安装步骤，可参考华为官方文档：openEuler 24.03 LTS 操作系统安装指导书（鲲鹏920处理器）\nsupport.huawei.cn\n。\n+30",
-      "citations": [
-        "https://support.huawei.cn/enterprise/zh/doc/EDOC1100464351/79f45fb8",
-        "https://support.huawei.com/enterprise/zh/doc/EDOC1100464351"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_021",
-      "platform": "qwen-web",
-      "query": "openEuler 22.03 SP1 是否支持将内核升级到 6.x 版本？如何操作？",
-      "timestamp": "2026-04-13T13:50:02Z",
-      "raw_response": "Thinking completed\nopenEuler 22.03 SP1 内核升级到 6.x 版本说明\n📋 官方支持情况\nopenEuler 22.03 LTS SP1 默认内核为 5.10，官方软件仓库中该版本最高提供的内核版本为 5.10.0-136.74.0.154.oe2203sp1 \n腾讯\nopenEuler\n。\n官方并未为 22.03 SP1 提供 6.x 内核的正式 RPM 包，但社区用户已验证可以通过以下方式手动升级到 6.6 内核 \nopenEuler\n。\n📌 openEuler 多版本内核支持提案（oEEP-0011）计划从 24.03 LTS SP1 开始正式支持 5.10/6.6 双内核 \nopenEuler\n，22.03 SP1 暂不在此官方支持范围内。\n🔧 升级到 6.6 内核的两种方法\n方法一：使用每日构建版 RPM 包（推荐）\n下载预编译的 6.6 内核 RPM 包\n从 openEuler 每日构建仓库获取（注意：此为测试版本，生产环境请谨慎使用）：\n1\nhttp://121.36.84.172/dailybuild/EBS-openEuler-24.03-LTS/EBS-openEuler-24.03-LTS/\nopenEuler\n安装内核包\nbash\n1\n2\n3\n4\n5\n# 安装内核及头文件\nrpm -ivh kernel-6.6.0*.x86_64.rpm\nrpm -ivh kernel-headers-6.6.0*.x86_64.rpm\n# 或使用 yum 安装（自动处理依赖）\nyum install ./kernel-6.6.0*.rpm ./kernel-headers-6.6.0*.rpm\n设置默认启动项并重启\nbash\n1\n2\ngrub2-set-default 0\nreboot\n验证内核版本\nbash\n1\n2\nuname -r\n# 输出示例：6.6.40\n方法二：从源码编译 6.6 内核（适合定制化需求）\n克隆内核源码并切换分支\nbash\n1\n2\n3\ngit clone https://gitee.com/openeuler/kernel.git\ncd kernel/\ngit checkout OLK-6.6\n安装编译依赖\nbash\n1\nyum install elfutils-libelf-devel dwarves openssl-devel rsync -y\n编译并打包 RPM\nbash\n1\n2\n3\nmake openeuler_defconfig\nmake -j$(nproc)\nmake binrpm-pkg -j$(nproc)\n安装编译好的内核包\nbash\n1\n2\n3\ncd rpmbuild/RPMS/x86_64/\nrpm -ivh kernel-6.6.0*.x86_64.rpm\nrpm -ivh kernel-headers-6.6.0*.x86_64.rpm\n更新引导并重启\nbash\n1\n2\n3\ngrub2-mkconfig -o /boot/grub2/grub.cfg\ngrub2-set-default 0\nreboot\n华为云\nopenEuler\n⚠️ 重要注意事项\n风险项\n\t\n说明\n\n\n🔹 兼容性\n\t\n6.6 内核可能不兼容部分为 5.10 编译的第三方内核模块（如某些硬件驱动）\n\n\n🔹 稳定性\n\t\n每日构建版/自编译内核未经完整 LTS 测试，生产环境建议先在测试集群验证\n\n\n🔹 回退方案\n\t\n升级前确保旧内核保留，可通过 grub2-set-default 切换回 5.10 内核\n\n\n🔹 官方支持\n\t\n自编译内核问题需自行排查，不在 openEuler 官方支持范围内\n✅ 建议方案\n生产环境优先选择：保持官方 5.10 内核，通过 dnf update 获取安全更新 \n腾讯\n需要 6.6 新特性时：\n考虑升级到 openEuler 24.03 LTS（官方原生支持 6.6 内核）\nopenEuler\nopenEuler\n或在测试环境验证 6.6 内核兼容性后再部署到生产\n内核回退准备：升级前备份 /boot 和 GRUB 配置，确保可快速回退\n📚 更多升级细节可参考 openEuler 官方文档：\n系统升降级指南\n内核多版本支持提案\n+60",
-      "citations": [
-        "https://docs.openeuler.org/zh/docs/24.03_LTS_SP1/server/installation_upgrade/upgrade/openeuler_22_03_lts_upgrade_and_downgrade_guide.html",
-        "https://www.openeuler.org/zh/oEEP/?name=oEEP-0011"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_024",
       "platform": "qwen-web",
       "query": "Red Hat 7.9 迁移到 openEuler 时出现 'can not clean repo info before upgrade' 错误，如何解决？",
@@ -1078,20 +957,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_006",
-      "platform": "qwen-web",
-      "query": "openEuler 是否支持飞腾 E2000Q 处理器平台？如何验证硬件兼容性？",
-      "timestamp": "2026-04-13T16:48:28Z",
-      "raw_response": "Thinking completed\nopenEuler 对飞腾 E2000Q 处理器平台的支持情况\n✅ 支持结论\nopenEuler 支持飞腾 E2000Q 处理器平台，但需要注意以下关键信息：\n嵌入式场景支持更完善：飞腾 E2000Q 主要在 openEuler Embedded（嵌入式版本）中获得官方支持，对应开发板为\"飞腾派\"\npages.openeuler.openatom.cn\nGitee\n。\n内核版本要求：\n支持基于 5.10 内核 的 openEuler 22.03 LTS 系列\nGitee\n支持基于 6.6 内核 的 openEuler 24.03 LTS 及更新版本\nGitee\nGitee\n飞腾平台特性补丁已合入 openEuler 内核，包括 mmc、macb、can、drm 等驱动以支持 E2000Q\nGitee\nGitee\n桌面/服务器场景：标准 openEuler 发行版（如 23.03/24.03 LTS）对 E2000Q 的支持仍在社区适配中，用户反馈存在安装引导、驱动识别等问题\nopenEuler\nopenEuler\nopenEuler\n。\n🔍 硬件兼容性验证方法\n方法一：查询官方兼容性列表\n访问 openEuler 官网兼容性页面：https://www.openeuler.org/zh/compatibility/\n使用筛选条件：\n架构：选择 aarch64\nCPU：搜索 Phytium 或 飞腾\n操作系统版本：选择目标 LTS 版本\nopenEuler\nopenEuler\n查看已通过认证的整机/板卡配置详情\n方法二：使用 BSP 包验证（推荐嵌入式场景）\n获取飞腾官方 BSP 支持包：\nbash\n1\n2\n# Gitee 仓库地址\nhttps://gitee.com/phytium_embedded/phytium-openeuler-embedded-bsp\n该 BSP 包支持：\nopenEuler 24.03 LTS 基础版本\n5.10 和 6.6 双内核版本\n飞腾腾云/腾锐/腾珑系列 CPU（含 E2000Q）\nGitee\nGitee\n参考用户使用手册进行构建和部署\nCSDN - 专业开发者社区\n方法三：社区论坛验证\n访问 openEuler 论坛「硬件支持 > 飞腾」分区\nopenEuler\nopenEuler\n搜索 \"E2000Q\" 查看其他用户的安装经验和问题解决方案\nopenEuler\nopenEuler\n如遇问题可发帖咨询，社区维护者会提供内核补丁或配置建议\n方法四：手动兼容性测试\n若官方列表未覆盖您的具体硬件组合，可参考以下步骤自测：\nbash\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n# 1. 检查 CPU 架构识别\nuname -m  # 应返回 aarch64\n# 2. 检查内核是否识别飞腾平台\ncat /proc/cpuinfo | grep \"CPU implementer\"  # 飞腾通常为 0x70 (112)\n# 3. 验证关键驱动加载\nlsmod | grep -E \"phytium|mmc|macb|drm\"\n# 4. 检查外设识别（USB/存储/网络）\nlspci -nn  # PCIe 设备\nlsusb      # USB 设备\nlsblk      # 存储设备\n⚠️ 注意事项\n安装介质建议：部分用户反馈 Ventoy/Rufus 制作启动盘可能存在兼容问题，建议优先使用 dd 命令直接刻录\nopenEuler\nopenEuler\n：\nbash\n1\nsudo dd if=openEuler-xx.xx-aarch64-dvd.iso of=/dev/sdX bs=4M status=progress\nUSB 控制器兼容性：E2000Q 平台可能存在 USB 控制器驱动未完全适配的情况，如遇安装时无法识别 U 盘，可尝试：\n使用 SATA 硬盘直接安装\n通过串口/网络安装\n使用内核参数 usbcore.autosuspend=-1 禁用 USB 自动挂起\nopenEuler\n图形界面优化：若运行 UKUI 等桌面环境出现卡顿，可能缺少 GPU 驱动或需要调整显示配置，建议先使用命令行模式验证系统稳定性\nopenEuler\nopenEuler\n获取最新补丁：飞腾平台内核补丁持续更新中，建议关注 Gitee 仓库：\n主线内核补丁：https://gitee.com/openeuler/phytium-kernel\nEmbedded BSP：https://gitee.com/phytium_embedded/phytium-openeuler-embedded-bsp\n💡 建议：如用于生产环境，优先选择已通过 openEuler 兼容性认证的飞腾整机/板卡方案；如用于开发测试，推荐使用 openEuler Embedded + 飞腾官方 BSP 包组合，可获得更完整的外设驱动支持。\n+60",
-      "citations": [
-        "https://www.openeuler.org/zh/compatibility/",
-        "https://gitee.com/openeuler/phytium-kernel",
-        "https://gitee.com/phytium_embedded/phytium-openeuler-embedded-bsp"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_013",
       "platform": "qwen-web",
       "query": "openEuler 22.03 SP3 如何升级到 24.03 版本？有哪些官方推荐迁移方式？",
@@ -1148,16 +1013,6 @@
       "query": "openEuler 22.03 ARM 架构上如何部署 Zabbix 监控系统？",
       "timestamp": "2026-04-13T17:09:46Z",
       "raw_response": "Thinking completed\n在 openEuler 22.03 LTS（aarch64/ARM）上部署 Zabbix 监控系统，由于 openEuler 与 RHEL/CentOS 8 高度兼容，且 Zabbix 官方已提供 aarch64 架构的 RPM 包，通常可直接使用官方 EL8 源部署。以下是经过验证的完整部署流程（以 Zabbix 6.4 LTS 为例，兼容 openEuler 22.03 默认的 PHP 7.4 与 MariaDB 10.5+）。\n📦 前置准备\nbash\n1\n2\n3\n4\n5\n6\n7\n# 确认架构与系统版本\nuname -m          # 应输出 aarch64\ncat /etc/os-release | grep VERSION\n# 更新系统\nsudo dnf update -y\nsudo reboot       # 如有内核更新建议重启\n🛠 方法一：使用 Zabbix 官方 RPM 源（推荐）\n1. 添加 Zabbix 官方源（aarch64）\nbash\n1\n2\n3\nsudo rpm -Uvh https://repo.zabbix.com/zabbix/6.4/rhel/8/aarch64/zabbix-release-6.4-1.el8.noarch.rpm\nsudo dnf clean all\nsudo dnf makecache\n2. 安装 Zabbix 核心组件与 Web 环境\nbash\n1\n2\nsudo dnf install -y zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-agent zabbix-sql-scripts\nsudo dnf install -y mariadb-server nginx php-fpm php-mysqlnd php-gd php-xml php-bcmath php-mbstring php-ldap\n3. 初始化数据库（MariaDB）\nbash\n1\n2\nsudo systemctl enable --now mariadb\nsudo mysql_secure_installation   # 按提示设置 root 密码并安全初始化\n登录数据库并创建 Zabbix 专用库与用户：\nbash\n1\nmysql -u root -p\nsql\n1\n2\n3\n4\n5\nCREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;\nCREATE USER 'zabbix'@'localhost' IDENTIFIED BY 'Zabbix@DB2024!';\nGRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'localhost';\nFLUSH PRIVILEGES;\nEXIT;\n4. 导入 Zabbix 初始数据\nbash\n1\nzcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql -uzabbix -p'Zabbix@DB2024!' zabbix\n💡 若提示找不到文件，可通过 rpm -ql zabbix-sql-scripts | grep server.sql 确认实际路径。\n5. 配置 Zabbix Server\n编辑 /etc/zabbix/zabbix_server.conf，确保以下项正确：\nini\n1\n2\n3\n4\n5\nDBHost=localhost\nDBName=zabbix\nDBUser=zabbix\nDBPassword=Zabbix@DB2024!\nDBPort=3306\n6. 配置 PHP 时区与 Nginx\nPHP 配置（openEuler 通常使用 /etc/php-fpm.d/zabbix.conf 或 /etc/php.ini）：\nbash\n1\n2\nsudo sed -i 's/^;date.timezone =.*/date.timezone = Asia\\/Shanghai/' /etc/php.ini\nsudo systemctl restart php-fpm\nNginx 配置（Zabbix 已提供模板）：\nbash\n1\n2\nsudo cp /etc/nginx/conf.d/zabbix.conf /etc/nginx/conf.d/zabbix.conf.bak\nsudo vim /etc/nginx/conf.d/zabbix.conf\n取消注释并修改：\nnginx\n1\n2\nlisten 80;\nserver_name your_server_ip;  # 替换为你的 IP 或域名\n7. 启动服务并设置开机自启\nbash\n1\nsudo systemctl enable --now zabbix-server zabbix-agent nginx php-fpm\n8. 防火墙与 SELinux（openEuler 默认开启）\nbash\n1\n2\n3\n4\n5\n6\n7\n# 防火墙放行\nsudo firewall-cmd --permanent --add-service={http,https,zabbix-agent}\nsudo firewall-cmd --reload\n# SELinux 临时放宽（测试通过后建议配置严格策略）\nsudo setenforce 0\n# 永久生效（可选）：sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config\n9. Web 界面初始化\n浏览器访问：http://<你的服务器IP>\n默认语言：中文/英文\n数据库类型：MySQL\n主机：localhost，端口：3306\n数据库名：zabbix，用户：zabbix，密码：Zabbix@DB2024!\nZabbix Server 主机名：默认即可\n默认管理员账号：Admin，密码：zabbix\n🐳 方法二：Docker/Podman 部署（ARM 原生兼容备选）\n若 RPM 依赖冲突或希望隔离环境，可使用容器：\nyaml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n# docker-compose.yml\nversion: '3.8'\nservices:\n  db:\n    image: mariadb:10.11\n    platform: linux/arm64\n    environment:\n      MYSQL_ROOT_PASSWORD: rootpass\n      MYSQL_DATABASE: zabbix\n      MYSQL_USER: zabbix\n      MYSQL_PASSWORD: Zabbix@DB2024!\n    volumes:\n      - db_data:/var/lib/mysql\n  zabbix-server:\n    image: zabbix/zabbix-server-mysql:6.4-alpine\n    platform: linux/arm64\n    depends_on: [db]\n    environment:\n      DB_SERVER_HOST: db\n      MYSQL_USER: zabbix\n      MYSQL_PASSWORD: Zabbix@DB2024!\n      MYSQL_DATABASE: zabbix\n    ports:\n      - \"10051:10051\"\n  zabbix-web:\n    image: zabbix/zabbix-web-nginx-mysql:6.4-alpine\n    platform: linux/arm64\n    depends_on: [db, zabbix-server]\n    environment:\n      DB_SERVER_HOST: db\n      MYSQL_USER: zabbix\n      MYSQL_PASSWORD: Zabbix@DB2024!\n      MYSQL_DATABASE: zabbix\n      ZBX_SERVER_HOST: zabbix-server\n      PHP_TZ: Asia/Shanghai\n    ports:\n      - \"80:8080\"\nvolumes:\n  db_data:\n启动：docker-compose up -d（openEuler 默认集成 Podman，可替换为 podman-compose）\n⚠️ openEuler 22.03 ARM 部署注意事项\n问题\n\t\n解决方案\n\n\ndnf install 报依赖缺失\n\t\nopenEuler 与 EL8 存在细微 glibc/openssl 版本差异，可尝试 dnf install --skip-broken 或改用容器方案\n\n\nPHP 扩展缺失\n\t\n确认安装 php-mysqlnd php-gd php-xml php-bcmath php-mbstring，Zabbix 6.4+ 强依赖这些模块\n\n\nSELinux 拦截 Nginx/PHP\n\t\n执行 setsebool -P httpd_can_network_connect 1 httpd_can_network_relay 1\n\n\nZabbix Agent 监控 ARM 设备\n\t\n使用 zabbix-agent2（支持插件化，ARM 编译良好）：dnf install zabbix-agent2\n\n\n时区不一致\n\t\n确保系统时区、PHP date.timezone、Zabbix 前端时区三者一致（推荐 Asia/Shanghai）\n✅ 验证部署\nbash\n1\n2\n3\n4\n5\n6\n7\n8\n# 检查服务状态\nsudo systemctl status zabbix-server zabbix-agent nginx php-fpm\n# 查看 Zabbix 日志\nsudo tail -f /var/log/zabbix/zabbix_server.log\n# 测试 Web 访问\ncurl -I http://localhost\n登录 Web 后进入 配置 → 主机 → 添加主机，即可开始监控 ARM 服务器或其他网络设备。\n如需部署 Zabbix Agent 到被控端、配置自动发现、或对接企业微信/钉钉告警，可提供具体场景，我将补充对应配置模板。",
-      "citations": [],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_022",
-      "platform": "qwen-web",
-      "query": "openEuler 22.03 SP2 执行 dnf upgrade 失败，常见原因和解决方法有哪些？",
-      "timestamp": "2026-04-13T13:54:19Z",
-      "raw_response": "Thinking completed\n在 openEuler 22.03 SP2 中执行 dnf upgrade 失败是运维中较常见的问题。由于 DNF 依赖网络、元数据、依赖关系和系统状态，失败原因通常可归类为以下几类。下面按发生频率从高到低列出常见原因及对应解决方法，并附带 openEuler 特有注意事项。\n🔍 一、网络与软件源配置问题（最常见）\n现象\n\t\n可能原因\n\t\n解决方法\n\n\nCannot download / Failed to connect\n\t\n镜像源 URL 变更、DNS 解析失败、代理未配置、releasever 不匹配\n\t\n1. ping repo.openeuler.org 确认网络\n2. 检查 /etc/yum.repos.d/ 下的 .repo 文件，确保 baseurl 或 metalink 正确\n3. 官方源示例：https://repo.openeuler.org/openEuler-22.03-LTS-SP2/OS/$basearch/\n4. 代理配置：在 /etc/dnf/dnf.conf 添加 proxy=http://IP:PORT\n\n\nrepo is not enabled\n\t\n源被禁用或命名不匹配\n\t\ndnf config-manager --set-enabled <repo-id>\n或通过 dnf repolist 查看可用源\n💡 openEuler 注意：releasever 应识别为 22.03-LTS-SP2。若识别错误，可手动创建 /etc/yum/vars/releasever 并写入 22.03-LTS-SP2。\n🗃️ 二、DNF 缓存或元数据损坏\n现象\n\t\n可能原因\n\t\n解决方法\n\n\nMetadata file does not match checksum / repomd.xml invalid\n\t\n升级中断、磁盘 IO 异常、镜像同步未完成\n\t\nbash<br>dnf clean all<br>rm -rf /var/cache/dnf/*<br>dnf makecache<br>dnf upgrade\n🔗 三、依赖冲突或第三方源干扰\n现象\n\t\n可能原因\n\t\n解决方法\n\n\nProblem: package X requires Y / conflicting requests\n\t\n安装了非官方源（如 EPEL、自定义 RPM）、架构混装（x86_64/aarch64）、包被锁定\n\t\n1. dnf check 或 dnf repoquery --unsatisfied 定位冲突\n2. 临时跳过坏包：dnf upgrade --skip-broken（仅用于排查）\n3. 安全同步版本：dnf distro-sync\n4. 禁用可疑源：dnf config-manager --set-disabled <repo-id>\n5. 允许替换（谨慎）：dnf upgrade --allowerasing\n⚠️ --allowerasing 会移除冲突包，可能导致服务异常，生产环境慎用。\n🔒 四、锁文件或进程残留\n现象\n\t\n可能原因\n\t\n解决方法\n\n\nAnother app is currently holding the dnf lock\n\t\n上次升级异常退出、后台自动更新、多终端并发\n\t\n1. fuser -v /var/lib/dnf/rpmdb.lock 查看占用进程\n2. 确认无 DNF/YUM 进程后：rm -f /var/lib/dnf/rpmdb.lock /var/run/dnf.pid\n3. 或重启系统释放锁\n📦 五、GPG 签名验证失败\n现象\n\t\n可能原因\n\t\n解决方法\n\n\nPublic key for XXX.rpm is not installed / GPG check FAILED\n\t\n密钥未导入、密钥过期、gpgcheck=1 但缺少对应 key\n\t\n1. 导入官方密钥：\nrpm --import https://repo.openeuler.org/openEuler-22.03-LTS-SP2/OS/$basearch/RPM-GPG-KEY-openEuler\n2. 临时跳过（不推荐生产）：dnf upgrade --nogpgcheck\n💾 六、磁盘空间不足\n现象\n\t\n可能原因\n\t\n解决方法\n\n\nNo space left on device / Insufficient disk space\n\t\n/ 或 /var 分区满、日志/缓存堆积\n\t\n1. df -h 检查分区使用率\n2. 清理：dnf clean all、journalctl --vacuum-size=100M、删除 /var/log 旧日志\n3. 扩展分区或迁移数据\n🧭 标准排查流程（建议按顺序执行）\nbash\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n# 1. 查看详细报错\ndnf upgrade -v 2>&1 | tail -50\n# 2. 清理并重建缓存\ndnf clean all && dnf makecache\n# 3. 检查源状态\ndnf repolist\ndnf repoinfo\n# 4. 尝试单包升级定位问题\ndnf upgrade <具体包名>\n# 5. 查看日志\ncat /var/log/dnf.log | tail -100\n📌 openEuler 22.03 SP2 特别注意\ndnf upgrade 仅支持同版本内更新（安全补丁、Bug修复、SP内组件升级），不支持跨大版本升级（如 22.03 → 24.03）。跨版本需使用 openEuler 官方迁移工具或重新安装。\n社区版 vs 商业版：商业版使用授权仓库（openEuler Commercial Repo），社区版使用 repo.openeuler.org。混用会导致签名或依赖失败。\n架构严格区分：x86_64 与 aarch64 源路径不同，勿在 ARM 服务器配置 x86 源，反之亦然。\n首次安装后：确保 openEuler-22.03-LTS-SP2-BaseOS 和 AppStream 源已启用且可访问。\n✅ 最佳实践建议\n生产环境升级前：创建快照/备份、在测试环境验证、记录当前包版本（rpm -qa > pkg_list_before.txt）\n定期执行 dnf check 和 dnf repoquery --unneeded 保持系统健康\n避免随意使用 --skip-broken、--allowerasing、--nogpgcheck，必要时逐包排查\n如提供具体报错信息（如 dnf upgrade -v 的输出或 /var/log/dnf.log 片段），可进一步精准定位。",
       "citations": [],
       "model": "Qwen (web)",
       "status": "success"
@@ -1405,30 +1260,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_055",
-      "platform": "qwen-web",
-      "query": "如何参与 openEuler 版本 RC 测试阶段，发现问题后的 issue 提交和修复流程是什么？",
-      "timestamp": "2026-04-13T17:40:25Z",
-      "raw_response": "Thinking completed\n参与 openEuler 版本 RC（Release Candidate）测试及后续的 Issue 提交与修复，遵循 openEuler 社区标准化的开源协作流程。以下是完整、可操作的步骤指南：\n🔹 一、如何参与 openEuler RC 版本测试\n关注发布计划\n访问 openEuler 官网\n 或订阅 dev@openeuler.org 邮件列表，RC 版本发布前会公布测试周期、镜像下载链接与测试范围。\n加入 Release Management SIG 或对应架构/组件 SIG，获取测试任务分配与进度看板。\n准备测试环境\n下载官方提供的 RC ISO/云镜像（x86_64、aarch64、riscv64 等）。\n在物理机、虚拟机或云环境中部署，记录完整环境信息（CPU、内存、固件版本、内核参数、网络配置等）。\n执行测试用例\n参考社区发布的《RC 测试指南》（通常位于 openEuler/docs 或 Wiki），覆盖：\n安装与升级流程\n系统启动/关机/休眠\n核心组件功能（systemd、network、storage、security 等）\n硬件兼容性与性能基线\n已知问题回归验证\n可使用自动化工具提升效率：openEuler-oetest、LTP、openQA 或 SIG 提供的测试脚本。\n记录与反馈\n保存复现步骤、系统日志（journalctl、dmesg、/var/log/messages）、崩溃核心转储（coredump）及截图。\nRC 测试期通常有专属 Issue 标签或看板（如 RC2026.xx），便于集中跟踪。\n🔹 二、发现问题后提交 Issue 的流程\n定位对应仓库\nopenEuler 采用多仓库架构，问题可能属于：\n内核：openEuler/kernel\n包管理/RPM：openEuler/rpm、openEuler/dnf\n文档：openEuler/docs\n基础设施/测试：openEuler/oetest 等\n若不确定，可先在 openEuler/community 提交或邮件列表询问。\n创建 Issue\n登录 Gitee openEuler 组织\n，进入对应仓库 → Issues → 新建 Issue。\n选择 Bug 报告 或 测试反馈 模板，必填项包括：\n标题：[RC] 简短描述（如：启动时 systemd-networkd 崩溃）\n环境信息：openEuler 版本、架构、内核版本、硬件/虚拟化平台\n复现步骤：1. 2. 3. …\n预期结果 vs 实际结果\n日志/错误输出（脱敏后粘贴或提供附件）\n严重等级：Critical / Major / Minor / Enhancement\n添加标签：bug、RC-test、need-triage 等。\n提交后跟踪\nMaintainer 会进行 triage（分类），分配负责人并更新状态。\n可通过评论补充信息或回复维护者提问。RC 期问题优先处理，但非安全漏洞通常不承诺 SLA。\n🔹 三、提交修复（Merge Request）的完整流程\n⚠️ openEuler 托管于 Gitee，对应操作称为 Merge Request (MR)，流程与 GitHub PR 高度一致。\n前置准备\n签署 CLA（Contributor License Agreement）或确保启用 DCO（Developer Certificate of Origin）。\n配置 Git：git config user.name \"Your Name\" & git config user.email \"your@email.com\"\nFork 与分支\nbash\n1\n2\n3\ngit clone https://gitee.com/openeuler/<repo>.git\ncd <repo>\ngit checkout -b fix/issue-<编号>-<简短描述>\n开发与验证\n修改代码，遵循 openEuler 编码规范与组件风格。\n本地编译/运行测试，确保修复有效且不引入回归。\n提交 Commit（必须带 DCO 签名）：\nbash\n1\n2\n3\ngit commit -s -m \"component: fix description\n> 详细说明问题原因、影响范围、修复方案。\n> Fixes:  #123\"\n格式要求：模块: 简短说明（首字母小写，无句号），正文换行写细节。\n推送与创建 MR\nbash\n1\ngit push origin fix/issue-<编号>-<简短描述>\n在 Gitee 仓库页面点击 Pull Requests → 新建 Merge Request。\n填写描述，务必关联 Issue（如 Closes #123 或 Fixes #123）。\n选择目标分支（通常为 openEuler-24.03-LTS 或 master，RC 期按公告指定）。\nCI 检查与代码审查\nMR 创建后自动触发 CI：编译检查、单元测试、静态扫描（如 checkpatch、shellcheck）、打包验证。\nMaintainer/Reviewer 会进行代码审查，提出修改意见。按评论修改后直接 git push 更新 MR，无需新建。\n所有 CI 绿灯 + 至少 1 名 Maintainer Approved 后即可合并。\n合并与闭环\nMaintainer 合并后，关联的 Issue 自动关闭（若正确引用）。\n修复会随下一个 RC 或正式版发布，可在 Release Notes 中确认。\n🔹 四、关键注意事项\n环节\n\t\n建议\n\n\n时效性\n\t\nRC 测试窗口通常仅 2~4 周，问题尽早提交，避免错过合入截止期（Code Freeze）\n\n\n安全漏洞\n\t\n勿公开提交 Issue，请邮件联系 security@openeuler.org\n\n\n重复问题\n\t\n提交前搜索 Issue/PR，避免重复\n\n\n沟通渠道\n\t\n复杂问题建议先邮件列表讨论或参加 SIG 周会，提高修复效率\n\n\n贡献门槛\n\t\n首次提交可能被要求补全 CLA/DCO，按提示操作即可\n🔹 五、官方资源指引\n📦 仓库目录：https://gitee.com/openeuler\n📖 贡献指南：各仓库根目录 CONTRIBUTING.md + openEuler 社区规范\n📧 邮件列表：dev@openeuler.org（订阅见官网）\n🐛 Issue 模板：仓库 Issues → 新建 自动加载\n🗓️ 测试计划：Release Management SIG Wiki 或公告邮件\n💡 提示：社区流程可能随版本演进微调，参与前请查阅对应版本发布周期公告与 CONTRIBUTING.md。保持耐心、规范提交、积极沟通，你的反馈将直接提升 openEuler 的发行质量。",
-      "citations": [
-        "https://www.openeuler.org/",
-        "https://gitee.com/openeuler",
-        "https://www.openeuler.org/zh/community/contribute/",
-        "https://www.openeuler.org/zh/community/contribution/detail.html",
-        "https://gitee.com/openeuler/community/blob/master/zh/technical-committee/governance/openEuler%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83.md",
-        "https://gitee.com/openeuler/QA/blob/master/%E7%A4%BE%E5%8C%BA%E7%89%88%E6%9C%ACissue%E5%88%9B%E5%BB%BA%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E4%B8%8E%E8%A7%84%E8%8C%83/%E7%A4%BE%E5%8C%BA%E7%89%88%E6%9C%ACissue%E5%88%9B%E5%BB%BA%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E4%B8%8E%E8%A7%84%E8%8C%83.md",
-        "https://gitee.com/openeuler/QA/blob/master/%E7%A4%BE%E5%8C%BA%E6%B5%8B%E8%AF%95%E4%BD%93%E7%B3%BB%E4%BB%8B%E7%BB%8D.md",
-        "https://atomgit.com/openeuler",
-        "https://atomgit.com/openeuler/release-management",
-        "https://www.openeuler.org/zh/sig/sig-list/",
-        "https://mailweb.openeuler.org/postorius/lists/dev@openeuler.org/",
-        "https://docs.openeuler.org/zh/docs/23.03/docs/certification/openEuler%E6%8A%80%E6%9C%AF%E6%B5%8B%E8%AF%84%E6%8C%87%E5%AF%BC%E4%B9%A6.html",
-        "https://gitee.com/openeuler/infrastructure/blob/master/docs/cla-guide/sign-as-corporation.md"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_056",
       "platform": "qwen-web",
       "query": "openEuler 新版本分支初始化时，SIG maintainer 如何参与 PR 检视流程？",
@@ -1446,16 +1277,6 @@
         "https://docs.openeuler.org/zh/docs/latest/docs/ApplicationDev/installing-obs.html",
         "https://gitee.com/openeuler/community/blob/master/zh/release/API-Change-Notification.md"
       ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_057",
-      "platform": "qwen-web",
-      "query": "openEuler 版本发布 release公告会包含哪些内容？",
-      "timestamp": "2026-04-13T17:44:26Z",
-      "raw_response": "Thinking completed\n根据搜索结果和 openEuler 官方文档，openEuler 版本发布 release 公告/发行说明通常包含以下核心内容模块：\n📋 发行说明标准结构\n1️⃣ 基础信息\n版本标识：如 openEuler 24.03 LTS，采用年月格式便于识别发布时间 \nopenEuler\n版本类型：区分为 LTS（长期支持版）或创新版本（每6个月发布）\nopenEuler\n适用场景：服务器、云计算、边缘计算、嵌入式等 \nopenEuler\n2️⃣ 核心章节内容\n章节\n\t\n说明\n\n\n简介/用户须知\n\t\n版本概述、升级注意事项、兼容性说明 \nopenEuler\n\n\n账号清单\n\t\n系统预置账号及权限说明\n\n\n系统安装\n\t\n安装方式、硬件要求、升级路径\n\n\n关键特性 (Key Features)\n\t\n本版本新增功能，如内核升级（5.10/6.1/6.6）、调度优化、AI 支持、内存管理等 \nopenEuler\nopenEuler\nopenEuler\n\n\n已知问题 (Known Issues)\n\t\n当前版本存在的缺陷及临时规避方案 \nopenEuler\nopenEuler\n\n\n已修复问题 (Resolved Issues)\n\t\n相比上一版本修复的 Bug 列表 \nopenEuler\n\n\nCVE 漏洞\n\t\n安全漏洞修复清单及风险等级 \nopenEuler\n\n\n源代码\n\t\n源码获取方式、两个代码仓库说明 \nopenEuler\n\n\n参与贡献/致谢\n\t\n社区贡献者名单及协作方式 \nopenEuler\n3️⃣ Release 公告邮件/通知补充内容\n社区 release 邮件通常还会包含 \nopenEuler\nopenEuler\n：\n✅ 构建状态：编译成功率、失败软件包清单\n✅ 质量评估：通过 CI/CD 验证、QA SIG 测试结论\n✅ 下载链接：镜像地址及校验信息\n✅ 验证指南：自验证 checklist、问题反馈渠道（Gitee Issue）\n✅ 发布计划：里程碑时间节点（Alpha → Beta → RC → GA）\n✅ 后续安排：下一版本预期时间、维护周期说明\n🔍 获取官方发行说明的途径\n官方文档站：https://docs.openeuler.org/zh/docs/[版本]/docs/Releasenotes/ \nopenEuler\nopenEuler\n社区邮件列表：release@openeuler.org 归档 \nopenEuler\nopenEuler\n版本管理仓库：https://gitee.com/openeuler/release-management \nGitee\n安全公告：https://www.openeuler.org/zh/security/ \nopenEuler\n💡 提示：openEuler 采用 年.月 的版本号规则（如 24.03 表示 2024 年 3 月发布），LTS 版本提供 4 年社区支持，创新版本提供 6 个月支持 \nopenEuler\nopenEuler\n。建议在升级前仔细阅读对应版本的「已知问题」和「用户须知」章节，确保兼容性。\n+90",
-      "citations": [],
       "model": "Qwen (web)",
       "status": "success"
     },
@@ -1553,24 +1374,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_067",
-      "platform": "qwen-web",
-      "query": "向 openEuler Kernal SIG 提交补丁的格式要求是什么？",
-      "timestamp": "2026-04-13T15:29:19Z",
-      "raw_response": "Thinking completed\n向 openEuler Kernel SIG 提交补丁，整体严格遵循 Linux 内核上游的提交规范，并结合 openEuler 项目的协作流程。以下是核心格式与操作要求（基于截至 2026 年的公开规范整理）：\n🔹 1. 补丁生成方式\n使用 Git 命令生成：\nbash\n1\n2\ngit format-patch -1 <commit>          # 单补丁\ngit format-patch -N <base-commit>     # 多补丁系列（自动编号 0/N, 1/N...）\n多补丁必须包含 cover letter（0/N 补丁），用于说明背景、测试情况、依赖关系。\n🔹 2. Commit Message 格式规范\n📌 标题行（Subject）\n1\n[PATCH] 或 [PATCH vN] 子系统/模块: 简短描述\n长度 ≤ 75 字符\n模块名小写，冒号后空格\n首字母不大写，末尾无标点\n修订版必须标注 v2、v3 等\n📌 正文（Body）\n说明 为什么改（问题现象/需求背景）\n说明 怎么改（实现思路/关键变更）\n说明 影响范围（是否影响 ABI/性能/安全）\n每行 ≤ 75 字符，段落间空一行\n📌 签名与元数据标签（Tags）\n标签\n\t\n说明\n\t\n是否必须\n\n\nSigned-off-by: 姓名 <邮箱>\n\t\nDCO 认证，声明代码归属\n\t\n✅ 必须\n\n\nFixes: <commit-hash> (\"commit 标题\")\n\t\n关联修复的引入提交\n\t\n推荐\n\n\nReported-by: / Tested-by: / Acked-by: / Reviewed-by:\n\t\n贡献者/测试者/审核者\n\t\n视情况\n\n\nCc: stable@vger.kernel.org\n\t\n需合入稳定版分支\n\t\n按需\n💡 所有 Signed-off-by 必须与 git config user.name/email 一致，且邮箱需通过 openEuler Gitee/CLA 验证。\n📌 分隔符与变更日志\n使用 --- 分隔 commit message 与 patch 内容\n版本更新日志（changelog）必须写在 --- 之后，提交时会被自动剥离，仅用于邮件审查\n1\n2\n3\n4\n5\n---\nv2:\n  - 根据评审意见补充 xxx 检查\n  - 修复 checkpatch 警告\n  - Rebase 至 openEuler-6.1 分支最新代码\n🔹 3. 代码风格与静态检查\n严格遵循 Linux 内核编码规范（参考内核树 Documentation/process/coding-style.rst）\n提交前必须通过：\nbash\n1\n2\n./scripts/checkpatch.pl --strict <patch-file>\n./scripts/get_maintainer.pl <patch-file>  # 确认收件人\n推荐额外检查：\nbash\n1\n2\nmake C=1 CF=\"-D__CHECK_ENDIAN__\"          # sparse 检查\n./scripts/spelling.txt                    # 拼写规范\n🔹 4. 邮件发送与收件规则\n使用 git send-email 发送（确保配置好 SMTP）\nTo: 模块 Maintainer（由 get_maintainer.pl 输出）\nCc: openEuler Kernel 邮件列表（通常为 kernel@openeuler.org，具体以 SIG Wiki 为准）\n多补丁系列保持邮件线程完整，禁止拆分、乱序或合并补丁\n回复评审时：使用 git format-patch -vN 重新生成，并逐条引用邮件说明修改位置\n🔹 5. 提交前自检清单\n补丁基于 openEuler 对应内核分支（如 openEuler-6.1 / openEuler-6.6）最新代码\n完整编译通过（make defconfig 或对应架构配置）\n运行 checkpatch.pl --strict 无报错/警告\nSigned-off-by 完整且邮箱已绑定 openEuler 账号\n涉及硬件/架构的补丁已注明测试平台与验证方式\n多补丁已包含 0/N cover letter 并说明测试结论\n📖 官方资源参考\nopenEuler Kernel SIG 贡献指南：https://gitee.com/openeuler/kernel/wiki/贡献指南\n内核补丁提交官方文档：Documentation/process/submitting-patches.rst（内核树内）\n邮件列表归档：https://mailweb.openeuler.org/hyperkitty/list/kernel@openeuler.org/\n维护者查询：scripts/get_maintainer.pl + openEuler 内核 MAINTAINERS 文件\n⚠️ 注：openEuler 不同内核版本（如 5.10/6.1/6.6）及特定架构（RISC-V/ARM/x86）可能有补充要求。提交前建议查阅对应分支的 README.openeuler 或在邮件列表发送 [RFC] 预览补丁征求初步意见。\n如需具体场景示例（如驱动补丁、安全修复、Backport 补丁格式），可提供详细方向，我将为你生成对应模板。",
-      "citations": [
-        "https://www.openeuler.org/zh/sig/Kernel",
-        "https://gitee.com/openeuler/community/blob/master/sig/Kernel/%E8%A1%A5%E4%B8%81%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83.md",
-        "https://www.openeuler.org/en/blog/wanghaosq/patch2pr_guide.html",
-        "https://www.openeuler.org/en/blog/2022-11-25-cla/CLA%E7%AD%BE%E7%BD%B2%E6%B5%81%E7%A8%8B",
-        "https://www.kernel.org/doc/html/latest/process/submitting-patches.html",
-        "https://docs.kernel.org/dev-tools/checkpatch.html",
-        "https://www.kernel.org/doc/html/latest/process/coding-style.html"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_070",
       "platform": "qwen-web",
       "query": "如何在 openEuler 24.03 LTS 上使用官方 sig-OpenStack 工具部署 OpenStack Antelope？",
@@ -1596,52 +1399,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_071",
-      "platform": "qwen-web",
-      "query": "openEuler 支持哪些虚拟化技术（KVM、QEMU、libvirt）？",
-      "timestamp": "2026-04-13T17:58:32Z",
-      "raw_response": "Thinking completed\nopenEuler 虚拟化技术支持概览\n根据 openEuler 官方文档，openEuler 全面支持 KVM、QEMU、libvirt 等主流虚拟化技术，具体支持情况如下：\n🔹 核心虚拟化组件\n组件\n\t\n作用说明\n\t\nopenEuler 支持状态\n\n\nKVM (Kernel-based Virtual Machine)\n\t\n提供核心虚拟化基础设施，使 Linux 系统成为 hypervisor，支持多虚拟机同时运行 \nopenEuler\n\t\n✅ 已集成在内核中，无需单独安装 \nopenEuler\n\n\nQEMU\n\t\n模拟处理器并提供设备模型，配合 KVM 实现硬件虚拟化加速 \nopenEuler\n\t\n✅ 软件包仓库提供，可通过 yum install qemu 安装 \nopenEuler\n\n\nLibvirt\n\t\n提供统一的虚拟机管理 API、守护进程(libvirtd)和命令行工具(virsh) \nopenEuler\n\t\n✅ 软件包仓库提供，可通过 yum install libvirt 安装 \nopenEuler\n\n\nOpen vSwitch\n\t\n为虚拟机提供虚拟网络工具集，支持标准管理接口和协议 \nopenEuler\n\t\n✅ 软件包仓库提供\n🔹 架构与平台支持\n处理器架构：支持 AArch64（ARMv8+ 带虚拟化扩展）和 x86_64（需支持 Intel VT-x/AMD-V）\nopenEuler\n内核要求：KVM 模块已集成在 openEuler 内核中，无需额外编译或安装 \nopenEuler\n虚拟化模型：采用宿主模型（Host Model），KVM 作为内核模块 + QEMU 用户态协同工作 \nopenEuler\n🔹 安装验证方法\nbash\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n# 1. 检查内核是否支持 KVM\n$ ls /dev/kvm /sys/module/kvm\n# 2. 安装虚拟化组件\n$ yum install -y qemu libvirt\n# 3. 启动 libvirtd 服务\n$ systemctl start libvirtd\n# 4. 验证服务状态\n$ systemctl status libvirtd\n🔹 其他虚拟化方案（嵌入式场景）\n对于 openEuler Embedded 版本，还支持：\nJailhouse：工业级硬件分区虚拟化方案，适合 FreeRTOS + openEuler 混合部署 \nopenEuler\nopenAMP：轻量化混合部署方案，适用于异构多核场景 \nopenEuler\n🔹 虚拟化特性优势\nopenEuler 虚拟化具备以下特点 \nopenEuler\n：\n分区：单物理服务器可逻辑分割运行多台虚拟机\n隔离：虚拟机间操作系统级隔离，故障互不影响\n封装性：支持热迁移、快照、克隆等高级功能\n硬件无关：虚拟机可跨物理服务器迁移运行\n💡 提示：openEuler 各 LTS 版本（20.03/22.03/24.03）均提供虚拟化支持，建议参考对应版本的官方虚拟化文档\n获取详细配置指南。\n如需了解具体版本的安装步骤或高级配置（如 SR-IOV、设备直通等），可进一步查阅 openEuler 官方文档或社区论坛。\n+30",
-      "citations": [
-        "https://docs.openeuler.org/",
-        "https://docs.openeuler.org/zh/docs/24.03_LTS/docs/Virtualization/virtualization.html",
-        "https://docs.openeuler.org/zh/docs/22.03_LTS/docs/Virtualization/%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E5%8C%96%E7%BB%84%E4%BB%B6.html",
-        "https://docs.openeuler.org/zh/docs/23.03/docs/Virtualization/%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90.html",
-        "https://docs.openeuler.org/zh/docs/25.09/virtualization/index.html",
-        "https://www.openeuler.org/whitepaper/openEuler%2024.03%20LTS%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf",
-        "https://www.openeuler.org/whitepaper/openEuler%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6%EF%BC%88%E5%88%9B%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%80%BB%E8%A7%88%EF%BC%89.pdf",
-        "https://www.openeuler.org/zh/other/projects/stratovirt/",
-        "https://embedded.pages.openeuler.org/openEuler-24.03-LTS/developer_guide/debug/qemu/qemu_start.html",
-        "https://www.hikunpeng.com/document/detail/zh/kunpengcpfs/ecosystemEnable/QEMU-KVM/kunpengqemukvm_03_0009.html",
-        "https://www.openeuler.org/zh/compatibility/",
-        "https://forums.openeuler.org/"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_073",
-      "platform": "qwen-web",
-      "query": "openEuler 虚拟机如何支持 vNMI（虚拟 NMI）热迁移？",
-      "timestamp": "2026-04-13T18:01:15Z",
-      "raw_response": "Thinking completed\nopenEuler 虚拟机 vNMI（虚拟 NMI）热迁移支持说明\n经过搜索，目前 openEuler 官方文档中尚未提供 vNMI（virtual Non-Maskable Interrupt）热迁移的专项配置指南。以下是基于现有信息和 KVM/QEMU 虚拟化架构的技术分析：\n🔍 vNMI 技术背景\nvNMI 是什么？\nvNMI 是 AMD SVM（Secure Virtual Machine）虚拟化扩展中的功能，允许在硬件层面虚拟化不可屏蔽中断（NMI）\n相比传统的软件模拟 NMI，vNMI 通过硬件寄存器（如 V_NMI_PENDING、V_NMI_BLOCKING）直接管理，提升性能和准确性 \nopenEuler\nopenEuler 中的 vNMI 支持状态\nopenEuler 内核（基于 Linux 6.6+）已集成 KVM 对 AMD SVM vNMI 的支持 \nopenEuler\nopenEuler\n相关功能通过内核配置选项 CONFIG_KVM_AMD 启用，依赖宿主机 CPU 的 SVM 扩展\n⚠️ vNMI 热迁移的关键挑战\n1\n2\n3\n4\n5\n6\n7\n8\n┌─────────────────────────────────────┐\n│ vNMI 状态迁移需同步的核心数据：      │\n├─────────────────────────────────────┤\n│ • V_NMI_PENDING（待处理 NMI 标志）   │\n│ • V_NMI_BLOCKING（NMI 阻塞状态）     │\n│ • NMI 窗口请求状态（NMI window）    │\n│ • vCPU 的 GIF（Global Interrupt Flag）│\n└─────────────────────────────────────┘\nQEMU/KVM 的迁移框架需要将这些硬件相关状态通过 KVM_GET_VCPU_EVENTS/KVM_SET_VCPU_EVENTS 接口保存和恢复 \nwww.qemu.org\ndocs.kernel.org\n如果源/目的主机 CPU 微架构或内核版本不一致，可能导致 vNMI 状态迁移失败\n✅ 实践建议\n1. 环境检查\nbash\n1\n2\n3\n4\n5\n6\n# 确认宿主机支持 SVM 和 vNMI\ngrep -E 'svm|nmi' /proc/cpuinfo\ngrep -i vnmi /sys/module/kvm_amd/parameters/  # 部分内核提供参数\n# 确认 openEuler 内核版本 ≥ 5.10（推荐 6.1+）\nuname -r\n2. 虚拟机配置（libvirt XML）\nxml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n<cpu mode='host-passthrough' check='none'>\n  <feature policy='require' name='svm'/>\n  <!-- vNMI 通常自动启用，无需显式配置 -->\n</cpu>\n<features>\n  <apic/>\n  <pae/>\n  <!-- 确保 nested 虚拟化如需支持 -->\n</features>\n3. 热迁移前提条件\n同源架构：源和目的主机需使用相同厂商（AMD）且微码版本兼容的 CPU \ndocs.amd.com\n内核一致性：建议使用相同 openEuler 版本和内核版本\nQEMU/libvirt 版本匹配：确保迁移两端虚拟化组件版本兼容 \nopenEuler\nopenEuler\n4. 执行热迁移\nbash\n1\n2\n3\n4\n5\n# 使用 virsh 执行共享存储热迁移\nvirsh migrate --live --verbose vm_name qemu+ssh://dest_host/system\n# 非共享存储需额外指定 --copy-storage-all\nvirsh migrate --live --copy-storage-all vm_name qemu+ssh://dest_host/system\n🔧 故障排查\n如果迁移过程中出现 vNMI 相关警告或失败：\n检查内核日志\nbash\n1\n2\ndmesg | grep -iE 'kvm|nmi|vnmi'\njournalctl -k | grep -i migration\n验证 vNMI 状态同步\n使用 virsh dumpxml 对比迁移前后虚拟机配置\n通过 QEMU monitor 检查 info kvm 输出\n已知限制\nCVE-2024-39483 修复了 vNMI + NMI window 场景下的 WARN 问题，建议升级至含该修复的内核版本 \nopenEuler\nopenEuler\n嵌套虚拟化（nested KVM）场景下 vNMI 迁移支持仍在完善中 \nlists.openwall.net\n📌 总结\n项目\n\t\n状态\n\n\nopenEuler 内核 vNMI 支持\n\t\n✅ 已集成（Linux 5.10+）\n\n\nQEMU/KVM vNMI 状态迁移\n\t\n⚠️ 依赖内核接口，需同源环境\n\n\n官方文档专项指南\n\t\n❌ 暂无，建议参考通用热迁移文档 \nopenEuler\nopenEuler\n\n\n生产环境建议\n\t\n使用相同硬件/软件栈，迁移前充分测试\n💡 建议：如需在生产环境使用 vNMI 热迁移，建议：\n在 openEuler 社区论坛或邮件列表咨询最新进展 \nopenEuler\nopenEuler\n参考上游 Linux KVM 文档和 QEMU migration 框架 \nwww.qemu.org\ndocs.kernel.org\n在非关键业务环境先行验证迁移兼容性\n如果您有具体的迁移失败日志或场景细节，可进一步提供以便深入分析。\n+146",
-      "citations": [
-        "https://docs.openeuler.org/en/docs/24.03_LTS/docs/Virtualization/virtualization.html",
-        "https://www.openeuler.org/en/faq/virtualization/",
-        "https://gitee.com/src-openeuler/kernel/blob/openEuler-25.03/kernel.spec",
-        "https://docs.kernel.org/virt/kvm/devices/vcpu.html",
-        "https://docs.kernel.org/virt/kvm/x86/running-nested-guests.html",
-        "https://lwn.net/Articles/900683/",
-        "https://www.qemu.org/docs/master/devel/migration/main.html",
-        "https://www.linux-kvm.org/page/Migration",
-        "https://www.amd.com/system/files/TechDocs/40332.pdf",
-        "https://patchwork.ozlabs.org/project/qemu-devel/patch/20250909063327.14263-1-lifei.shirley@bytedance.com/",
-        "https://forum.openeuler.org/",
-        "https://gitee.com/src-openeuler/kernel"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_074",
       "platform": "qwen-web",
       "query": "openEuler Compass-CI 持续集成平台如何使用？如何提交自动化测试任务验证软件包？",
@@ -1652,29 +1409,6 @@
         "https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/docs/EulerMaker/",
         "https://gitee.com/openeuler/compass-ci/blob/master/doc/job/submit/submit-job.zh.md",
         "https://compass-ci.openeuler.org/jobs"
-      ],
-      "model": "Qwen (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_077",
-      "platform": "qwen-web",
-      "query": "openEuler AI SIG 在 openEuler 上支持哪些 AI 推理框架？",
-      "timestamp": "2026-04-13T15:46:01Z",
-      "raw_response": "Thinking completed\n根据搜索结果和openEuler官方文档，openEuler AI SIG（主要通过 Intelligence BooM 全栈开源推理解决方案）在 openEuler 上支持以下 AI 推理框架：\n🧠 主流训练/推理框架\n框架\n\t\n说明\n\n\nPyTorch\n\t\nMeta 通用框架，社区生态丰富，支持 Hugging Face 模型库等工具链 \nopenEuler\n\n\nMindSpore\n\t\n华为全场景 AI 框架，支持图模式优化与动态图执行 \nopenEuler\n\n\nTensorFlow\n\t\n主流深度学习框架，openEuler 提供容器化镜像支持 \nopenEuler\n\n\nMS-InferRT\n\t\nMindSpore 框架下的推理优化组件，兼容 PyTorch 模型 \nGitee\n⚡ 大模型专用推理引擎（运行加速平台）\n框架\n\t\n核心能力\n\n\nvLLM\n\t\n支持 PagedAttention、连续批处理，千参数模型推理延迟降低 50%，吞吐提升 3 倍 \nGitee\n\n\nSGLang\n\t\n统一封装 prompt+推理流程为程序单元，支持多请求调度优化 \n知乎\n\n\nLLaMA Factory\n\t\n一站式模型微调与推理工具，支持 50+ 主流开源模型 \nGitee\n🔧 系统级推理优化组件\n组件\n\t\n功能\n\n\nsysHAX\n\t\n大语言模型异构协同加速运行时，支持鲲鹏+GPU/NPU 协同推理，提升吞吐与并发 \nopenEuler\n\n\nExpert-Kit\n\t\n分布式 MoE 推理框架，通过注意力与专家分离计算提升硬件利用率 \nopenEuler\n\n\nLMCache\n\t\n多级缓存优化，长序列对话场景首字延迟（TTFT）降低 50%+ \nGitee\n\n\nModelFS\n\t\n模型加载加速文件系统，通过可编程页缓存优化大模型启动 \nopenEuler\n🖥️ 硬件与部署支持\n硬件兼容：支持 CPU（x86/ARM/RISC-V）、NPU（昇腾 910/310）、GPU（NVIDIA）等多样性算力 \nopenEuler\n容器化交付：提供 SDK 镜像、AI 框架镜像、模型应用镜像三类容器，支持开箱即用 \nopenEuler\n协同推理：支持 CPU+xPU 协同推理及 MoE 专家异构弹性扩展 \nGitee\n💡 提示：openEuler AI SIG 通过 Intelligence BooM 项目持续迭代，建议访问 openEuler Intelligence BooM 官网\n 或 Gitee 仓库 llm_solution\n 获取最新支持的框架列表和部署指南。\n+54",
-      "citations": [
-        "https://www.openeuler.org/zh/projects/intelligence-boom/",
-        "https://gitee.com/openeuler/llm_solution",
-        "https://docs.openeuler.org/zh/docs/24.03_LTS_SP3/server/releasenotes/releasenotes/key_features.html",
-        "https://docs.openeuler.org/zh/docs/24.03_LTS/docs/AI/AI%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97.html",
-        "https://www.openeuler.org/whitepaper/openEuler%2024.03%20LTS%20SP3%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf",
-        "https://www.openeuler.org/whitepaper/openEuler%2025.03%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf",
-        "https://www.openeuler.org/whitepaper/openEuler%20%E6%8A%80%E6%9C%AF%E7%99%BD%E7%9A%AE%E4%B9%A6%EF%BC%88%E5%88%9B%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%80%BB%E8%A7%88%EF%BC%89.pdf",
-        "https://www.openeuler.org/zh/blog/03-DeepSeek2/2.html",
-        "https://www.openeuler.org/zh/blog/2025-05-06-Qwen3/2025-05-06-Qwen3",
-        "https://www.51cto.com/article/811636.html",
-        "https://www.hikunpeng.com/developer/techArticles/20251203-1",
-        "https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/model_infer/ms_infer/llm_inference_overview.html"
       ],
       "model": "Qwen (web)",
       "status": "success"
@@ -1967,35 +1701,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_055",
-      "platform": "deepseek-web",
-      "query": "如何参与 openEuler 版本 RC 测试阶段，发现问题后的 issue 提交和修复流程是什么？",
-      "timestamp": "2026-04-13T16:13:48Z",
-      "raw_response": "Read 3 web pages\n\n参与 openEuler 版本的 RC 测试，主要是在测试阶段下载并试用 RC 版本，然后在 Gitee 上提交 Issue 来反馈问题。社区有专门的团队会处理这些反馈，整个流程清晰透明。\n\n下面的流程图可以帮你直观地理解整个参与和协作流程：\n\nDiagram\nCode\nDownload\nFullscreen\n\n问题有效/需澄清\n\n问题无效\n\n问题确认\n\n参与RC版本测试\n\n在Gitee对应仓库\n提交Issue\n\nSIG Maintainer\n初步分析\n\n与提交者互动\n补充信息\n\n关闭Issue\n并说明原因\n\n评估并打上\n版本缺陷标签\n\n确定处理人\n开始修复\n\n修复完成\n代码合入\n\nIssue关闭\n\nQA与Release SIG\n定期审视与推进\n\n下面是每个步骤的具体操作方法：\n\n🧪 步骤一：参与 RC 版本测试\n\nRC（Release Candidate，候选版本）阶段是正式版发布前的关键测试期，社区会发布公告并开放版本下载。\n\n获取测试版本：密切关注 release@openeuler.org 邮件列表的版本发布公告。公告中会提供 RC 版本的下载链接、测试计划和质量标准等关键信息-\n2\n。\n\n开展测试活动：根据公告中的指引下载并安装 RC 版本。你可以基于自己的工作负载或使用专门的测试工具（如社区 QA 测试平台 Radiates）进行功能、性能或兼容性验证-\n2\n。\n\n同步测试进展：鼓励在 QA-SIG 组的仓库下以提交 Issue 的方式，同步你的自验证进展和结果，这有助于社区全面评估版本质量-\n2\n。\n\n🐛 步骤二：在 Gitee 上提交 Issue\n\n一旦发现问题，核心动作是在 Gitee 对应的软件包仓库（通常是 src-openEuler 组织下）提交 Issue。为了能高效处理，请务必使用社区提供的标准模板-\n1\n-\n3\n。\n\n提交时需要提供的关键信息：\n\n【标题】：简明扼要地描述问题，格式建议为：“【场景】+【操作】+【现象】”。\n\n【环境信息】：详细描述你的硬件（裸机/虚拟机）、软件（OS版本、内核版本）、网络等信息。\n\n【问题复现步骤】：清晰、完整地写出可以复现该问题的具体操作步骤。\n\n【实际结果】：描述实际出现的错误结果及其影响。\n\n【其他相关附件】：如有系统日志、截图、coredump文件等，请一并提供，这对问题定位非常有帮助。\n\n【必填字段】：提交时，请务必填写模板中的“缺陷上报字段”，特别是内核信息、缺陷归属组件（如 kernel、gcc）和发现的 openEuler 版本（如 openEuler-22.03-LTS-SP1）-\n1\n。\n\n👨‍💻 步骤三：Issue 修复流程\n\n你提交的 Issue 将进入社区的标准处理流程：\n\n社区响应：提交后，对应软件包所属的 SIG（特别兴趣小组）的 Maintainer 或 Committer 会成为第一责任人，负责分析和处理该 Issue-\n1\n-\n3\n。\n\n分析与评估：SIG 维护者会对问题进行初步分析，评估其影响范围、严重等级，并排查其他维护版本是否存在同样问题-\n1\n。\n\n问题修复：确认问题后，维护者或社区开发者会着手修复，并将代码合入到对应的代码分支。\n\n定期审视：QA SIG 和 Release SIG 会定期审视所有版本缺陷，推动高优先级问题尽快修复，确保版本质量-\n1\n-\n3\n。\n\n关闭 Issue：当修复代码被合入后，相关的 Issue 会被关闭。\n\n📝 注意事项\n\n选择正确的仓库：请尽量在 src-openEuler 组织下，找到与问题相关的具体软件包仓库提交 Issue，这样能更快地被对应领域的 SIG 组感知和处理-\n1\n。\n\n跟进与讨论：在问题处理过程中，请留意 Issue 下的评论。维护者可能会需要你补充更多信息或协助验证修复方案。\n\n遇到困难怎么办：如果你对流程不熟悉或不确定该提交到哪个仓库，可以先在 openEuler/QA 仓库下提交 Issue，或者直接联系 QA SIG 组寻求帮助。QA SIG 和 Release SIG 组的联系邮箱可以在官网缺陷管理页面找到-\n1\n-\n3\n。\n\n如果你对某个具体的环节，比如如何用 Gitee 提交详细的 Issue 模板还有疑问，可以随时再问我～\n\n3 web pages",
-      "citations": [
-        "https://mailweb.openeuler.org/hyperkitty/list/release@openeuler.org/thread/56LOZTWQHRO4XMRZ4XTAUGT3QBHA2FQI/?sort=thread",
-        "https://radiatest.openeuler.org/",
-        "https://www.openeuler.org/zh/security/management/#%e7%bc%ba%e9%99%b7%e4%b8%8a%e6%8a%a5%e5%ad%97%e6%ae%b5%e8%af%b4%e6%98%8e-%e7%94%b1%e6%8f%90%e4%ba%a4issue%e8%80%85%e6%98%8e%e7%a1%ae",
-        "https://www.openeuler.org/en/security/management/#bug-management",
-        "https://www.openeuler.org/zh/security/management/#%25e7%25bc%25ba%25e9%2599%25b7%25e4%25b8%258a%25e6%258a%25a5%25e5%25ad%2597%25e6%25ae%25b5%25e8%25af%25b4%25e6%2598%258e-%25e7%2594%25b1%25e6%258f%2590%25e4%25ba%25a4issue%25e8%2580%2585%25e6%2598%258e%25e7%25a1%25ae",
-        "https://yocto-meta-openeuler.pages.openeuler.org/openEuler-25.03/developer_guide/commit.html",
-        "https://www.openeuler.org/zh/blog/yushi-Icy/2023-08-21-mugen-to-test",
-        "https://gitee.com/openeuler/mugen",
-        "https://mailweb.openeuler.org/archives/list/release@openeuler.org/thread/6VXFYTQTWO7L3Z6KN3EMP5IMBHM2YSGZ/",
-        "https://mailweb.openeuler.org/hyperkitty/list/sig-ai-bigdata@openeuler.org/message/6ZFVXKJABTDYOOSLPRLFZJ5U7VNNVXZ7/",
-        "https://gitcode.com/openeuler/release-management",
-        "https://bbs.huaweicloud.com/blogs/462115",
-        "https://bbs.huaweicloud.com/blogs/466444",
-        "https://openeuler.org/zh/security/management",
-        "https://openeuler.org/en/security/management",
-        "https://yocto-meta-openeuler.pages.openeuler.org/",
-        "https://openeuler.org/zh/blog/",
-        "https://mailweb.openeuler.org/"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_056",
       "platform": "deepseek-web",
       "query": "openEuler 新版本分支初始化时，SIG maintainer 如何参与 PR 检视流程？",
@@ -2017,26 +1722,6 @@
         "https://gitcode.com/openeuler/community/merge_requests/4543",
         "https://cdn05042023.gitlink.org.cn/maxjhandsome/community/src/branch/master/en/technical-committee/governance/README.md",
         "https://cdn05042023.gitlink.org.cn/maxjhandsome/community/src/branch/master/zh/technical-committee/governance/README.md"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_057",
-      "platform": "deepseek-web",
-      "query": "openEuler 版本发布 release公告会包含哪些内容？",
-      "timestamp": "2026-04-13T16:17:07Z",
-      "raw_response": "Read 10 web pages\n\nopenEuler的版本发布公告在内容和风格上会根据版本类型（如LTS正式版、创新版、日常更新版）有所不同。一个完整的发布公告通常涵盖以下几个方面，以帮助用户和技术人员快速了解新版本的全貌：\n\n🏷️ 1. 元数据与版本标识\n\n这部分信息帮助用户快速定位和识别发布的版本。\n\n版本号：明确具体的版本名称，如 openEuler 24.03 LTS SP3、openEuler 25.09 等 -\n1\n-\n6\n。\n\n版本类型：说明是长期支持版（LTS）还是创新版，以便用户根据自身需求选择 -\n1\n-\n6\n。\n\n发布时间：公布版本发布的日期 -\n6\n。\n\n获取渠道：提供 ISO 镜像、软件包等发布件的下载链接，以及版本编译构建信息的查询链接 -\n2\n-\n6\n。\n\n🚀 2. 核心特性与亮点\n\n这是发布公告中最受关注的部分，主要介绍新版本带来的主要功能和创新。\n\n重点主题：突出该版本的主打特性。例如，openEuler 24.03 LTS SP3 的最大亮点是成为“全球首个支持超节点的操作系统版本” -\n1\n-\n7\n-\n9\n。\n\n新特性详解：分门别类介绍各模块的新功能。\n\nAI能力：如智能助手升级、AI解决方案（Intelligence BooM）更新、大模型推理加速工具（sysHAX）等 -\n1\n-\n6\n。\n\n内核与基础能力：升级后的内核版本（如Linux Kernel 6.6）、对新型硬件的支持、机密计算特性（如ARM CCA支持）等 -\n1\n-\n6\n。\n\n场景协同：在服务器、云原生（如容器密度提升、内存QoS控制）、嵌入式（如实时性增强）等不同场景下的创新 -\n6\n-\n8\n。\n\n开发者体验：如集成化智能开发平台（DevStation）、开发者软件商店（DevStore）、编译器优化等提升开发效率的工具 -\n6\n。\n\n🔧 3. 修复与安全更新\n\n这部分对于生产环境的安全稳定至关重要，尤其是在定期的Update版本中 -\n2\n。\n\nCVE修复清单：列出本次版本修复的已知安全漏洞（CVE）列表 -\n2\n。\n\nBugfix清单：列出本次版本修复的已知软件缺陷（Bug）列表 -\n2\n。\n\n待修复问题：公布当前版本分支中已知但仍未修复的缺陷或漏洞，保持透明度 -\n2\n。\n\n🤝 4. 生态与社区进展\n\n这部分展示了版本背后的社区力量和生态建设成果。\n\n生态兼容性：与芯片厂商（如Intel、AMD、Arm）、整机厂商、软件伙伴的适配情况 -\n1\n-\n7\n。\n\n社区动态：新加入的社区捐赠单位、与全球开源组织的合作、贡献者与用户数量的增长等 -\n1\n-\n4\n。\n\n人才培养：如学术与教育委员会的成立、产学研联盟的启动等 -\n1\n-\n10\n。\n\n📅 5. 发布与维护计划\n\n为用户提供版本发布的路线图和后续维护安排。\n\n发布路线图：从Alpha、Beta到RC（Release Candidate）版本的各阶段测试计划和时间点，让社区开发者了解版本成熟过程 -\n5\n。\n\n后续更新预期：预告下一个更新版本（Update版本）的计划发布时间 -\n2\n。\n\n你目前是在关注某个具体版本的发布，还是想了解如何高效阅读这些公告来获取对你最有用的信息？\n\n10 web pages",
-      "citations": [
-        "http://tech.cnr.cn/techph/20251115/t20251115_527431052.shtml",
-        "https://www.openeuler.org/zh/news/20250930-openeuler2509/20250930-openeuler2509.html",
-        "https://mailweb.openeuler.org/archives/list/release@openeuler.org/thread/6VXFYTQTWO7L3Z6KN3EMP5IMBHM2YSGZ/",
-        "https://www.stdaily.com/web/gdxw/2025-11/21/content_435559.html",
-        "https://en.antaranews.com/news/395902/empowering-ai-acceleration-openeuler-unveils-first-superpod-ready-os-and-welcomes-amd-inspur-cloud-and-digital-china",
-        "https://docs.openeuler.org/en/docs/23.03/docs/Embedded/openEuler-Embedded-22.09-release-notes.html?trk=article-ssr-frontend-pulse_little-text-block",
-        "https://v.cctv.cn/2025/11/19/ARTIFITjA7LhITf0Ewfp3dFU251119.shtml",
-        "http://fjxcsp.cn/contents/7/88.html",
-        "https://mailweb.openeuler.org/archives/list/cicd@openeuler.org/message/N6RPLUV5EUTSVU7DA6MQUME3XEXYVIXX/"
       ],
       "model": "DeepSeek (web)",
       "status": "success"
@@ -2153,33 +1838,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_067",
-      "platform": "deepseek-web",
-      "query": "向 openEuler Kernal SIG 提交补丁的格式要求是什么？",
-      "timestamp": "2026-04-13T16:23:12Z",
-      "raw_response": "Read 10 web pages\n\n向 openEuler Kernel SIG 提交补丁需要严格遵守一套特定的格式规范，以确保补丁来源清晰、便于追溯和长期维护-\n3\n。核心要求是提交信息（Commit Message）必须包含结构化的元数据标签。\n\n📝 核心提交格式要求\n\n以下表格汇总了提交信息（Commit Message）中各字段的填写要求：\n\n字段/标签\t是否必选\t说明与示例\n分支标识\t是\t标题需用 [PATCH OLK-X.X] 格式标识目标分支。例如：[PATCH OLK-5.10] -\n3\n\n来源标识\t是\t表明补丁来源。常见标识：mainline inclusion（主线backport）、stable inclusion、dist inclusion 等-\n3\n-\n9\n\n来源版本/Commit\t条件必选\t若来源是上游社区，必须提供。例如：from mainline-5.11 和 commit 0becc0ae... -\n3\n-\n9\n\n分类\t是\t标识补丁类型：category: bugfix， performance， feature 或 doc -\n3\n-\n9\n\n关联单号\t是\t至少提供一个。Bug修复用 bugzilla: 链接，CVE修复用 CVE: CVE-2020-36158 -\n3\n\n补充说明\t推荐\t解释为何需要此补丁、复现步骤或测试方法，位于原始提交信息（changelog）之上，两者用空行分隔-\n3\n\n开发者签名\t是\t所有贡献者必须添加 Signed-off-by: Your Name <email>，使用真实姓名-\n3\n-\n9\n📋 完整提交信息示例\n1. 回合主线社区的 Bugfix 补丁\ntext\nCopy\nDownload\n[PATCH OLK-5.10] fix: resolve a memory leak in xx driver\n\nmainline inclusion\nfrom mainline-5.12\ncommit 8a7b9c6d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b\ncategory: bugfix\nbugzilla: https://gitee.com/openeuler/kernel/issues/I6DQFS\nCVE: NA\n\nThe memory leak occurs when the device is disconnected during heavy I/O.\nThis patch adds proper cleanup in the disconnect path.\n\nOriginal patch description from upstream:\n\n    xx: Fix memory leak in xx_probe()\n    \n    When probe fails, the allocated memory was not freed.\n    This patch fixes that by calling xx_free_mem() in the error path.\n    \n    Signed-off-by: Upstream Dev <upstream@example.com>\n\nSigned-off-by: Zhang San <zhang.san@huawei.com>\n2. 自研特性或 Bugfix\ntext\nCopy\nDownload\n[PATCH OLK-5.10] feature: add new knob for scheduler optimization\n\nopenEuler inclusion\ncategory: feature\nfeature: sched-optim\nbugzilla: https://gitee.com/openeuler/kernel/issues/I7ABCD\n\nAdd a new sysctl interface to optimize scheduler behavior for\nhigh-throughput scenarios.\n\nSigned-off-by: Li Si <li.si@huawei.com>\n🚀 完整提交流程\n\n签署CLA：在提交任何代码前，必须先签署贡献者许可协议（CLA）-\n2\n-\n8\n。\n\n准备补丁：\n\n基于最新的目标分支（如 OLK-5.10）进行开发-\n9\n。\n\n使用 git format-patch 生成补丁。\n\n必须用 scripts/checkpatch.pl 脚本检查代码风格，确保无报错-\n3\n-\n9\n。\n\n发送补丁：使用 git send-email 将补丁发送至内核邮件列表 kernel@openeuler.org。注意：必须添加 --suppress-cc=all 参数，避免抄送无关人员-\n9\n-\n10\n。\n\n版本迭代：若补丁需修改后重新提交，请在标题标注版本号，例如 [PATCH OLK-5.10 v2] -\n3\n-\n9\n。\n\n10 web pages",
-      "citations": [
-        "https://blog.51cto.com/u_15127420/3292873",
-        "https://gitcode.net/openeuler/kernel/-/tree/openEuler-20.09",
-        "https://bbs.huaweicloud.com/blogs/466444",
-        "https://www.openeuler.org/zh/wiki/contribution/#_2-1-%e6%96%b0%e5%a2%9e%e8%bd%af%e4%bb%b6%e5%8c%85",
-        "https://gitlab.summer-ospp.ac.cn/summer2022/22b970371/-/blame/openEuler-1.0-LTS/README",
-        "https://www.openeuler.org/zh/security/management/#%e7%bc%ba%e9%99%b7%e4%b8%8a%e6%8a%a5%e5%ad%97%e6%ae%b5%e8%af%b4%e6%98%8e-%e7%94%b1%e6%8f%90%e4%ba%a4issue%e8%80%85%e6%98%8e%e7%a1%ae",
-        "https://mailweb.openeuler.org/hyperkitty/list/kernel@openeuler.org/message/O3LDKSEPBOSRBEHM4DWH5LRMMFE2ARQS/",
-        "https://mailweb.openeuler.org/archives/list/dev@openeuler.org/message/5EL3N7TUPO767ABW72IDVX3TAHBJU3I5/",
-        "https://gitcode.com/openeuler/community/merge_requests/4647",
-        "https://mailweb.openeuler.org/hyperkitty/list/release@openeuler.org/latest?%3Bpage=1&page=91",
-        "https://checkpatch.pl/",
-        "https://gitee.com/openeuler/kernel/pulls/11446",
-        "https://gitee.com/openeuler/kernel",
-        "https://openeuler.org/zh/community/mailing-list/",
-        "https://openeuler.org/zh/community/contribution/",
-        "https://gitee.com/openeuler/kernel/issues"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_070",
       "platform": "deepseek-web",
       "query": "如何在 openEuler 24.03 LTS 上使用官方 sig-OpenStack 工具部署 OpenStack Antelope？",
@@ -2201,51 +1859,6 @@
       "status": "success"
     },
     {
-      "question_id": "q_071",
-      "platform": "deepseek-web",
-      "query": "openEuler 支持哪些虚拟化技术（KVM、QEMU、libvirt）？",
-      "timestamp": "2026-04-13T16:26:13Z",
-      "raw_response": "Read 9 web pages\n\nopenEuler 支持主流的开源虚拟化技术，核心包括 KVM、QEMU 和 libvirt。这三者并不是互相替代的关系，而是在虚拟化架构中各司其职，共同协作。\n\n下图清晰地展示了它们各自在整个虚拟化体系中所处的位置和主要作用：\n\nDiagram\nCode\nDownload\nFullscreen\n\n硬件层\n\n虚拟化引擎与内核\n\n虚拟化管理层\n\n用户/管理层\n\n云管理层\n（如 OpenStack, KubeVirt）\n\n命令行/图形工具\n（如 virsh, virt-manager）\n\nlibvirt\n（管理接口与生命周期管理）\n\nQEMU\n（设备模拟）\n\nKVM内核模块\n（CPU与内存虚拟化）\n\n硬件\n（x86 VT-x, ARM虚拟化扩展）\n\n🔗 三者核心关系解析\n\n这三者的关系可以通俗地理解为：\n\nKVM (Kernel-based Virtual Machine)：负责“硬核”工作。它是 Linux 内核的一部分，直接管理 CPU 和内存的虚拟化，提供核心的计算能力-\n1\n-\n7\n。\n\nQEMU：负责“周边”工作。它模拟出虚拟机需要的网卡、磁盘、USB等外部设备，让虚拟机看起来像一台真实的电脑-\n2\n-\n7\n。在实际使用中，QEMU 会调用 KVM 来加速 CPU，从而提供接近物理机的性能-\n7\n。\n\nlibvirt：充当“大管家”。它是一套方便的管理工具和 API，通过 virsh 命令行或图形工具，来统一管理和调度由 QEMU 和 KVM 创建的虚拟机-\n2\n-\n4\n。\n\n💻 快速部署与验证\n\n在 openEuler 上搭建虚拟化环境非常简便。根据官方文档，主要步骤就两步-\n1\n-\n5\n：\n\n安装核心组件\n使用 yum 包管理器同时安装 QEMU 和 libvirt 即可。\n\nbash\nCopy\nDownload\n# 安装 QEMU 和 libvirt\nyum install -y qemu libvirt\n\n需要注意的是，KVM 模块已经直接集成在 openEuler 的内核中，无需单独安装-\n1\n-\n5\n。\n\n启动服务并验证\n安装完成后，启动 libvirt 服务，并通过检查 /dev/kvm 设备文件来确认 KVM 是否正常工作。\n\nbash\nCopy\nDownload\n# 启动 libvirt 服务\nsystemctl start libvirtd\n\n# 验证 KVM 是否就绪\nls /dev/kvm\n# 如果输出 '/dev/kvm'，说明环境已准备就绪\n✨ openEuler 的特色与增强\n\n除了标准的 KVM/QEMU/libvirt 组合，openEuler 还进行了深度优化，并提供了创新项目：\n\n深度优化：openEuler 在内核层面针对虚拟化场景做了大量优化，例如增强的 NUMA（非统一内存访问）感知能力、CPU 调度优化和大页内存支持，确保虚拟机在长时间、高负载的生产环境下运行得更稳、更快-\n2\n-\n3\n。\n\n创新项目：StratoVirt：openEuler 社区还自主研发了 StratoVirt，这是一个用 Rust 语言编写的轻量级虚拟机运行时。它的特点是启动极快（毫秒级）、内存占用极小（仅几 MB），特别适合容器化、边缘计算等对资源敏感或要求快速响应的场景-\n4\n-\n8\n。\n\n如果你想了解如何具体创建一台虚拟机，或者对 StratoVirt 轻量级虚拟化方案感兴趣，可以随时告诉我。\n\n9 web pages",
-      "citations": [
-        "https://docs.openeuler.org/en/docs/23.09/docs/Virtualization/virtualization-installation.html",
-        "https://www.hikunpeng.com.cn/document/detail/zh/kunpengcpfs/ecosystemEnable/QEMU-KVM/kunpengkvm_03_0001.html",
-        "https://cloud.baidu.com/article/4002111",
-        "https://bbs.huaweicloud.com/blogs/459243",
-        "https://docs.openeuler.openatom.cn/en/docs/20.09/docs/Virtualization/virtualization-installation.html",
-        "https://bbs.huaweicloud.com/blogs/470857",
-        "https://mailweb.openeuler.org/hyperkitty/list/tc@openeuler.org/latest?%3Bsa=U&page=132",
-        "https://docs.openeuler.org/en/docs/25.03/virtualization/index.html",
-        "https://docs.openeuler.org/zh/docs/22.03_LTS_SP4/virtualization/index.html",
-        "https://docs.openeuler.openatom.cn/zh/docs/20.03_LTS_SP3/docs/Virtualization/%25E9%2599%2584%25E5%25BD%2595.html",
-        "https://docs.openeuler.openatom.cn/zh/docs/20.03_LTS_SP3/docs/Virtualization/%E9%99%84%E5%BD%95.html",
-        "https://deepwiki.com/openeuler-mirror/docs/4.2-traditional-kvm-virtualization",
-        "https://op-lists.linaro.org/archives/list/stratos-dev@op-lists.linaro.org/thread/H6WJVSX2AZBVT3E6ELH74MO7IT3CVKS6/",
-        "https://www.hikunpeng.com/doc_center/source/zh/kunpengcpfs/basicAccelFeatures/comAccel/kunpenggcachetp_06_0004.html",
-        "https://docs.openeuler.org/zh/docs/21.03/docs/Releasenotes/%25E6%25BA%2590%25E4%25BB%25A3%25E7%25A0%2581.html",
-        "https://docs.openeuler.org/zh/docs/21.03/docs/Releasenotes/%E6%BA%90%E4%BB%A3%E7%A0%81.html",
-        "https://docs.openeuler.org/",
-        "https://gitee.com/openeuler"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_073",
-      "platform": "deepseek-web",
-      "query": "openEuler 虚拟机如何支持 vNMI（虚拟 NMI）热迁移？",
-      "timestamp": "2026-04-13T16:27:33Z",
-      "raw_response": "Read 2 web pages\n\n要让openEuler虚拟机支持vNMI（虚拟NMI）热迁移，核心是确保KVM内核模块能够正确迁移vNMI相关的硬件状态。\n\n根据最新的补丁信息，针对ARM64架构（GICv3）的vNMI热迁移支持问题已经有了明确的解决方案-\n1\n。\n\n解决方案：使用包含修复补丁的内核\n\n该问题的修复方案已通过补丁 [PATCH OLK-6.6 0/1] KVM: arm64: fix the issue of vNMI not supporting live migration 合入openEuler内核。你需要确保你的系统使用了包含该修复的OLK (openEuler Kernel) 6.6版本内核。\n\n项目\t具体内容\n修复补丁ID\t[PATCH OLK-6.6 1/1]\n核心改动\t在迁移过程中添加对 GICR_INMIR0 寄存器的保存与恢复\n支持范围\t支持：SGI (软件生成中断) 和 PPI (私有外设中断) 的vNMI迁移\n暂不支持：SPI (共享外设中断) 的vNMI迁移\n补丁状态\t已转换为PR (Pull Request)，可视为已合入或待合入主线\n操作步骤\n\n如果你的虚拟机需要使用vNMI热迁移功能，可以按照以下步骤操作：\n\n检查内核版本\n确认你的openEuler宿主机的内核版本是包含了上述修复的OLK 6.6版本或更新版本。你可以通过以下命令查看：\n\nbash\nCopy\nDownload\nuname -r\n\n确认虚拟机配置\n该修复主要针对 ARM64 架构下的 GICv3 中断控制器。在使用vNMI功能时，建议避免在虚拟机上配置依赖SPI中断的设备作为NMI源，因为这部分状态目前无法迁移。\n\n执行热迁移\n在确认环境满足条件后，可以按照标准的热迁移流程操作（例如使用 virsh migrate 命令）。内核会自动处理vNMI状态的迁移。\n\n重要注意事项\n\n架构限制：目前该补丁明确是针对 KVM: arm64 的修复。如果你使用的是x86架构，vNMI热迁移的实现机制可能不同，需要查阅对应的x86 KVM补丁。\n\n功能限制：补丁说明中明确指出 “vNMI migration for SPI is not supported” （不支持SPI中断的vNMI迁移）-\n1\n。这意味着如果你的虚拟化场景重度依赖SPI类型的NMI，热迁移后可能会出现状态不一致的问题。\n\n总结\n\n支持vNMI热迁移的关键在于升级openEuler宿主机的内核到包含 GICR_INMIR0 寄存器迁移逻辑的版本。对于大多数使用ARM64架构和标准虚拟设备配置的场景，这个补丁可以解决vNMI热迁移不支持的问题。\n\n2 web pages",
-      "citations": [
-        "https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/thread/6D3M7BVBEOGCXLTKOVNTY32UNLX4WPEC/",
-        "https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/message/KTJEBZ3V36J5KZBAERJBNOHUCCHLKXCN/",
-        "https://gitee.com/openeuler/kernel/pulls/17802",
-        "https://gitee.com/openeuler/kernel/issues/ICVB8V",
-        "https://mailweb.openeuler.org/archives/list/kernel@openeuler.org/"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
       "question_id": "q_074",
       "platform": "deepseek-web",
       "query": "openEuler Compass-CI 持续集成平台如何使用？如何提交自动化测试任务验证软件包？",
@@ -2262,31 +1875,6 @@
         "https://docs.openeuler.openatom.cn/zh/docs/22.03_LTS_SP3/docs/EulerDevOps/EulerDevOps%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91%E6%9C%8D%E5%8A%A1%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html",
         "https://gitee.com/wu_fengguang/compass-ci/blob/master/doc/manual/submit%25E5%2591%25BD%25E4%25BB%25A4%25E8%25AF%25A6%25E8%25A7%25A3.md",
         "https://gitee.com/openeuler/compass-ci/blob/master/README.zh.md"
-      ],
-      "model": "DeepSeek (web)",
-      "status": "success"
-    },
-    {
-      "question_id": "q_077",
-      "platform": "deepseek-web",
-      "query": "openEuler AI SIG 在 openEuler 上支持哪些 AI 推理框架？",
-      "timestamp": "2026-04-13T16:29:52Z",
-      "raw_response": "Read 7 web pages\n\n根据openEuler AI SIG的公开信息，该SIG在openEuler上支持多种主流AI推理框架，覆盖从传统机器学习到深度学习、大语言模型等多个领域。\n\n🤖 主要支持的AI推理框架\n\n下表整理了在openEuler上可获得支持或已集成的主要AI推理框架及相关软件包：\n\n框架/软件包\t主要用途 / 说明\nMindSpore\t华为开源的深度学习框架，支持端、边、云全场景，已集成至openEuler -\n2\n-\n3\n-\n6\n。\nPyTorch\t主流的深度学习框架，被AI SIG列为典型框架进行分析和支持 -\n2\n-\n3\n-\n4\n。\nTensorFlow\t主流的深度学习框架，AI SIG曾专题讨论其对新硬件特性的支持 -\n2\n-\n3\n-\n6\n。\nSGLang\t高性能大语言模型（LLM）和视觉语言模型服务框架，提供低延迟、高吞吐量推理 -\n1\n。\nONNX Runtime / OpenCV\tONNX Runtime：跨平台推理引擎；OpenCV：计算机视觉库，可用于部署视觉模型 -\n2\n-\n3\n。\nArm NN / oneDNN\tArm NN：在Arm架构设备上加速机器学习工作负载；oneDNN：Intel CPU/GPU的深度学习性能库 -\n2\n-\n3\n-\n7\n。\n传统机器学习库\t包括 dlib、mlpack、libsvm 等，适用于非深度学习的推理任务 -\n2\n-\n3\n。\n💡 补充说明\n\n硬件适配广泛：上述框架支持在多种硬件上运行推理，包括NVIDIA/AMD GPU、Intel/ARM CPU以及华为昇腾NPU等 -\n1\n-\n2\n-\n6\n。\n\n信息时效性：列表主要基于公开的社区文档和会议记录，实际支持的版本和范围可能会持续更新。\n\n如果你对某个特定框架在openEuler上的部署或使用有更具体的问题，可以随时告诉我。\n\n7 web pages",
-      "citations": [
-        "https://www.gitlink.org.cn/maxjhandsome/community/src/branch/master/sig/ai/ai.md",
-        "https://gitee.com/openeuler/community/blob/master/sig/ai/README.md",
-        "https://mailweb.openeuler.org/hyperkitty/list/dev@openeuler.org/message/XGO6KPABFRHSVNWDMYKLG6MGIMGIRZII/",
-        "https://mailweb.openeuler.org/hyperkitty/list/dev@openeuler.org/thread/6TJN3FNV7SMVFNTUJIBWMCZR26TL5NLI/?sort=date",
-        "https://xuanyuan.cloud/r/openeuler/sglang",
-        "https://mailweb.openeuler.org/archives/list/dev@openeuler.org/message/M7XS3EDBQPYKUPZKCNTLLW3LH76QVWB5/",
-        "https://gitee.com/openeuler/community/blob/master/sig/ai/ai.md",
-        "https://gitcode.net/openeuler/community/-/commit/cd844fee8ad1a9bb3550d5a9687fdbbb0e1e0e48",
-        "https://mailweb.openeuler.org/hyperkitty/list/dev@openeuler.org/message/M7XS3EDBQPYKUPZKCNTLLW3LH76QVWB5/",
-        "https://mailweb.openeuler.org/archives/list/tc@openeuler.org/thread/GUIGBRTZUAKZBTRGZVA5GHB7K2QNBAVF/?noscript",
-        "https://mailweb.openeuler.org/hyperkitty/list/sig-ai-bigdata@openeuler.org/message/VI7YD2QIVF6T3WA7P5NZPZNK5TV4RZAW/",
-        "https://forum.openeuler.org/t/topic/7739/24",
-        "https://forum.openeuler.org/t/topic/8064",
-        "https://ste.xidian.edu.cn/info/1070/13866.htm"
       ],
       "model": "DeepSeek (web)",
       "status": "success"
@@ -2399,6 +1987,260 @@
       "citations": [],
       "model": "Qwen (web)",
       "status": "success"
+    },
+    {
+      "question_id": "q_034",
+      "platform": "qwen-web",
+      "query": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
+      "timestamp": "2026-04-09T23:23:28.920780+00:00",
+      "raw_response": "订阅 openEuler 社区邮件列表是参与开源协作、获取技术动态和进行代码评审讨论的重要途径。以下是订阅及参与讨论的具体步骤和相关资源指引。\n\n### 1. 确认邮件列表地址\nopenEuler 社区设有多个邮件列表，针对不同的人群和目的。最核心的技术讨论列表是 **dev@openeuler.org**，主要用于开发者的技术交流、补丁评审和架构讨论。此外还有 **users@openeuler.org** 面向最终用户的技术支持 [1]。您可以在 openEuler 社区官网的邮件列表页面查询所有可用的列表地址 [2]。\n\n### 2. 订阅方式\n订阅 openEuler 邮件列表通常有两种主要方式：\n\n*   **邮件命令订阅**：\n    发送一封电子邮件到列表的管理地址（通常是 `列表名-request@openeuler.org`）。例如，订阅开发列表，请发送邮件至 `dev-request@openeuler.org`，邮件主题（Subject）填写 `subscribe`，正文可以为空或包含简单的问候语 [3]。系统会自动回复确认邮件，需根据提示完成确认。\n*   **网页界面订阅**：\n    访问 openEuler 的邮件归档与管理服务器 [4]。在网页界面上找到对应的列表（如 dev），输入您的邮箱地址并点击订阅按钮。这种方式通常更直观，且可以直接查看历史归档。\n\n### 3. 参与讨论规范\n成功订阅后，您可以直接向 `dev@openeuler.org` 发送邮件参与讨论。为了保持社区的高效沟通，建议遵循以下规范：\n*   **主题清晰**：邮件主题应简明扼要地概括内容，例如 `[Patch]`、`[RFC]` 或 `[Question]` 前缀 [5]。\n*   **遵守行为准则**：所有社区成员需遵守 openEuler 社区行为准则，保持尊重和专业的交流氛围 [6]。\n*   **查阅文档**：在提问或提交补丁前，建议先查阅开发者指南和贡献指南，了解社区的工作流程 [7]。\n\n### 4. 查阅历史归档\n如果您想先了解社区正在讨论的话题，可以不订阅直接访问邮件归档网站。openEuler 使用 public-inbox 系统归档所有邮件，支持搜索和在线阅读 [4]。这对于新成员了解项目背景和技术决策历史非常有帮助。\n\n### 5. 其他协作渠道\n除了邮件列表，openEuler 社区还使用 GitHub 进行代码托管和 Issue 追踪 [8]。邮件列表通常与 GitHub 上的 PR 评审联动，重要的技术决策最终会在邮件列表中达成共识。\n\n参考链接：\n- https://www.openeuler.org/\n- https://community.openeuler.org/zh/community/mailing-list/\n- https://mails.openeuler.org/\n- https://community.openeuler.org/zh/contribution/\n- https://docs.openeuler.org/\n- https://github.com/openeuler-mirror\n- https://community.openeuler.org/zh/community/code-of-conduct/",
+      "citations": [
+        "https://www.openeuler.org/",
+        "https://community.openeuler.org/zh/community/mailing-list/",
+        "https://mails.openeuler.org/",
+        "https://community.openeuler.org/zh/contribution/",
+        "https://docs.openeuler.org/",
+        "https://github.com/openeuler-mirror",
+        "https://community.openeuler.org/zh/community/code-of-conduct/"
+      ],
+      "model": "qwen3.5-plus",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler 社区是参与开源协作、获取技术动态和进行代码评审讨论的重要途径",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.openeuler.org/",
+        "https://community.openeuler.org/zh/community/mailing-list/",
+        "https://mails.openeuler.org/",
+        "https://community.openeuler.org/zh/contribution/",
+        "https://docs.openeuler.org/",
+        "https://github.com/openeuler-mirror",
+        "https://community.openeuler.org/zh/community/code-of-conduct/"
+      ]
+    },
+    {
+      "question_id": "q_034",
+      "platform": "deepseek-web",
+      "query": "如何订阅 openEuler 社区邮件列表（如 dev@openeuler.org）参与技术讨论？",
+      "timestamp": "2026-04-09T23:24:45.870541+00:00",
+      "raw_response": "订阅 openEuler 社区邮件列表（如 dev@openeuler.org）主要通过其官方邮件列表平台完成。以下是具体步骤：\n\n1. **访问邮件列表页面**：openEuler 使用 Gmail Groups 托管邮件列表。你需要打开 [dev 邮件列表页面](https://groups.google.com/g/openeuler-dev)（其他列表如 users、announce 等可在官网找到对应链接）。\n   \n2. **加入或订阅**：在页面中找到“加入群组”或“订阅”按钮（通常位于右上角或页面中央）。点击后，如果你已有 Google 账户，可直接登录；如果没有，需先注册 Google 账户。\n   \n3. **设置订阅偏好**：登录后，你可以选择接收邮件的频率（如每封邮件摘要、每日摘要等），并提交加入请求。部分列表可能需要管理员审核，但 dev 列表通常开放订阅。\n   \n4. **发送验证邮件**：订阅后，系统会向你的邮箱发送确认邮件，需点击链接确认订阅才能生效。\n   \n5. **参与讨论**：订阅成功后，你可以通过向 dev@openeuler.org 发送邮件来参与技术讨论，同时也会收到该列表的所有往来邮件。\n\n注意事项：\n- 如果你无法访问 Google Groups，openEuler 社区也提供了替代方式，如通过官网查看邮件列表归档。\n- 建议阅读社区指南，了解邮件列表礼仪，避免发送无关内容。\n- 其他邮件列表（如 announce、users 等）订阅方法类似，可在 openEuler 官网“社区”或“沟通”板块找到完整列表。\n\n参考链接：\n- https://groups.google.com/g/openeuler-dev\n- https://openeuler.org/zh/community/mailing-list/\n- https://openeuler.org/en/community/mailing-list/\n- https://mailweb.openeuler.org/postorius/lists/\n- https://wiki.openeuler.org/zh/community/contribution/\n- https://gitee.com/openeuler/community/blob/master/zh/communication/mailing-list.md\n- https://www.openeuler.org/zh/blog/2021-09-26/mailing-list-guide.html",
+      "citations": [
+        "https://groups.google.com/g/openeuler-dev",
+        "https://openeuler.org/zh/community/mailing-list/",
+        "https://openeuler.org/en/community/mailing-list/",
+        "https://mailweb.openeuler.org/postorius/lists/",
+        "https://wiki.openeuler.org/zh/community/contribution/",
+        "https://gitee.com/openeuler/community/blob/master/zh/communication/mailing-list.md",
+        "https://www.openeuler.org/zh/blog/2021-09-26/mailing-list-guide.html"
+      ],
+      "model": "deepseek-v3.2",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://openeuler.org/zh/community/mailing-list/",
+        "https://openeuler.org/en/community/mailing-list/",
+        "https://mailweb.openeuler.org/postorius/lists/",
+        "https://wiki.openeuler.org/zh/community/contribution/",
+        "https://gitee.com/openeuler/community/blob/master/zh/communication/mailing-list.md",
+        "https://www.openeuler.org/zh/blog/2021-09-26/mailing-list-guide.html"
+      ]
+    },
+    {
+      "question_id": "q_033",
+      "platform": "qwen-web",
+      "query": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "timestamp": "2026-04-09T23:23:28.921098+00:00",
+      "raw_response": "openEuler 社区通过特别兴趣小组（Special Interest Group，简称 SIG）的方式来组织开发者、用户和合作伙伴，共同推动操作系统的技术创新与生态建设。SIG 组通常专注于特定的技术领域、架构或应用场景 [1]。\n\n### 1. 常见的 openEuler SIG 组\nopenEuler 社区涵盖了多个技术方向的 SIG 组，以下是一些典型示例：\n*   **SIG-Cloud**：专注于云计算场景下的操作系统优化与容器技术支持 [2]。\n*   **SIG-Kernel**：负责内核技术的演进、补丁合入及稳定性维护 [3]。\n*   **SIG-AI**：聚焦人工智能框架与算力在 openEuler 上的适配与优化 [4]。\n*   **SIG-Security**：致力于系统安全加固、漏洞修复及安全合规性研究 [5]。\n*   **SIG-Diversity**：推动社区多样性发展，包括文档国际化、社区活动组织等 [6]。\n*   **SIG-Architecture**：负责支持多种 CPU 架构（如 ARM64, x86_64, RISC-V 等）的移植与维护 [7]。\n\n### 2. 如何查看完整的 SIG 列表\n要获取最新、最完整的 SIG 列表，建议访问 openEuler 官方网站的社区页面。官方会实时维护所有活跃 SIG 的名称、简介及负责人信息 [8]。\n*   **官方 SIG 列表页**：用户可以直接浏览所有注册的特别兴趣小组详情。\n*   **社区治理文档**：在 Gitee 代码托管平台上，openEuler 社区仓库中存有治理文档，详细说明了 SIG 的成立流程与职责 [9]。\n\n### 3. 如何参与 SIG 活动\n加入 SIG 组通常有以下几种途径：\n*   **订阅邮件列表**：每个 SIG 通常都有对应的邮件列表，用于技术讨论和会议通知 [10]。\n*   **参加社区会议**：社区会定期举办技术峰会或 SIG 专项会议，开发者可在线或线下参与 [11]。\n*   **贡献代码与文档**：通过 Gitee 提交 Issue 或 Pull Request 参与具体项目的开发 [12]。\n*   **查阅 Wiki**：openEuler Wiki 提供了丰富的技术文档和 SIG 运作指南 [13]。\n\n通过上述渠道，开发者可以找到适合自己技术栈的 SIG 组并深入参与社区共建。\n\n参考链接：\n- https://www.openeuler.org/zh/community/sig.html\n- https://www.openeuler.org/zh/community/\n- https://wiki.openeuler.org/\n- https://gitee.com/openeuler/community\n- https://www.openeuler.org/zh/community/mailing-list.html\n- https://www.openeuler.org/zh/community/contribution.html\n- https://gitee.com/openeuler/community/blob/master/governance.md\n- https://www.openeuler.org/zh/community/meeting.html",
+      "citations": [
+        "https://www.openeuler.org/zh/community/sig.html",
+        "https://www.openeuler.org/zh/community/",
+        "https://wiki.openeuler.org/",
+        "https://gitee.com/openeuler/community",
+        "https://www.openeuler.org/zh/community/mailing-list.html",
+        "https://www.openeuler.org/zh/community/contribution.html",
+        "https://gitee.com/openeuler/community/blob/master/governance.md",
+        "https://www.openeuler.org/zh/community/meeting.html"
+      ],
+      "model": "qwen3.5-plus",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler 社区通过特别兴趣小组（Special Interest Group，简称 SIG）的方式来组织开发者、用户和合作伙伴，共同推动操作系统的技术创新与生态建设",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.openeuler.org/zh/community/sig.html",
+        "https://www.openeuler.org/zh/community/",
+        "https://wiki.openeuler.org/",
+        "https://gitee.com/openeuler/community",
+        "https://www.openeuler.org/zh/community/mailing-list.html",
+        "https://www.openeuler.org/zh/community/contribution.html",
+        "https://gitee.com/openeuler/community/blob/master/governance.md",
+        "https://www.openeuler.org/zh/community/meeting.html"
+      ]
+    },
+    {
+      "question_id": "q_033",
+      "platform": "deepseek-web",
+      "query": "openEuler 社区有哪些 SIG 组（特别兴趣小组），如何查看完整的 SIG 列表？",
+      "timestamp": "2026-04-09T23:24:47.477482+00:00",
+      "raw_response": "openEuler 社区拥有大量涵盖不同技术领域的特别兴趣小组（SIG），您可以通过以下方式查看其完整的SIG列表。\n\n### 主要查看方式\n最直接的方法是访问 openEuler 社区的 **SIG 官方主页**：\n- **SIG 列表页面**：该页面以表格形式列出了所有活跃的SIG组，包含名称、使命描述、Maintainer（维护者）以及相关的仓库信息。\n  - 访问地址：[https://gitee.com/openeuler/community/tree/master/sig](https://gitee.com/openeuler/community/tree/master/sig)\n- **SIG 信息汇总页面**：这个页面提供了更结构化的导航和分类，便于按领域查找。\n  - 访问地址：[https://www.openeuler.org/zh/sig/sig-list/](https://www.openeuler.org/zh/sig/sig-list/)\n\n### SIG 组的分类示例\nopenEuler的SIG覆盖了操作系统及其生态的各个方面，主要类别包括但不限于：\n1.  **内核与虚拟化**：如 **Kernel SIG**（内核开发）、**Virtualization SIG**（虚拟化技术）。\n2.  **基础服务与编程语言**：如 **Base-service SIG**（基础服务）、**Go SIG**、**Rust SIG**、**Java SIG**。\n3.  **云原生与容器**：如 **Cloud Native SIG**（云原生）、**iSulad SIG**（容器运行时）。\n4.  **桌面与图形**：如 **Desktop SIG**（桌面环境）、**Graphics SIG**（图形驱动与堆栈）。\n5.  **存储与网络**：如 **Storage SIG**（存储技术）、**Network SIG**（网络栈及工具）。\n6.  **安全与兼容性**：如 **Security SIG**（操作系统安全）、**Compatibility SIG**（软硬件兼容性）。\n7.  **架构支持**：如 **RISC-V SIG**、**ARM SIG**，为不同芯片架构提供支持。\n8.  **AI与新兴技术**：如 **AI SIG**（人工智能）、**Big Data SIG**（大数据）。\n9.  **发行与质量**：如 **Release SIG**（版本发布管理）、**QA SIG**（质量保证）。\n\n### 如何进一步了解某个SIG\n在SIG列表页面上点击任意SIG的名称（通常是一个超链接），即可进入该SIG的详情目录。这里通常会包含：\n- `README.md` 或 `sig-info.yaml`：介绍该Sig的使命、工作范围、会议安排和成员。\n- `repository` 目录：列出该SIG所维护的所有代码仓库。\n\n### 参与SIG\n如果您对某个领域感兴趣并希望贡献代码、文档或参与讨论，可以通过SIG详情页找到其邮件列表、IRC/即时通讯频道或会议信息，加入其中。\n\n总之，访问 openEuler 在 Gitee 的 community 仓库中的 sig 目录或其官网的 sig-list 页面，是获取完整、权威SIG列表的最佳途径。\n\n参考链接：\n- https://gitee.com/openeuler/community/tree/master/sig\n- https://www.openeuler.org/zh/sig/sig-list/\n- https://gitee.com/openeuler/community/tree/master/sig/Kernel\n- https://gitee.com/openeuler/community/tree/master/sig/Cloud-Native\n- https://gitee.com/openeuler/community/tree/master/sig/RISC-V\n- https://gitee.com/openeuler/community/tree/master/sig/Desktop\n- https://gitee.com/openeuler/community/tree/master/sig/AI",
+      "citations": [
+        "https://gitee.com/openeuler/community/tree/master/sig",
+        "https://www.openeuler.org/zh/sig/sig-list/",
+        "https://gitee.com/openeuler/community/tree/master/sig/Kernel",
+        "https://gitee.com/openeuler/community/tree/master/sig/Cloud-Native",
+        "https://gitee.com/openeuler/community/tree/master/sig/RISC-V",
+        "https://gitee.com/openeuler/community/tree/master/sig/Desktop",
+        "https://gitee.com/openeuler/community/tree/master/sig/AI"
+      ],
+      "model": "deepseek-v3.2",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler 社区拥有大量涵盖不同技术领域的特别兴趣小组（SIG）",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://gitee.com/openeuler/community/tree/master/sig",
+        "https://www.openeuler.org/zh/sig/sig-list/",
+        "https://gitee.com/openeuler/community/tree/master/sig/Kernel",
+        "https://gitee.com/openeuler/community/tree/master/sig/Cloud-Native",
+        "https://gitee.com/openeuler/community/tree/master/sig/RISC-V",
+        "https://gitee.com/openeuler/community/tree/master/sig/Desktop",
+        "https://gitee.com/openeuler/community/tree/master/sig/AI"
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "platform": "qwen-web",
+      "query": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
+      "timestamp": "2026-04-09T23:23:28.919763+00:00",
+      "raw_response": "加入 openEuler sig-Migration SIG 并参与跨平台操作系统迁移相关的开发贡献，通常需要遵循 openEuler 社区的标准协作流程，同时重点关注迁移工具链的开发与维护。以下是具体的参与步骤和建议：\n\n### 1. 了解 sig-Migration 与社区架构\n首先，你需要访问 openEuler 官方网站，了解社区的整体架构以及 SIG（Special Interest Group）的定义。sig-Migration 主要关注如何将其他操作系统平滑迁移至 openEuler，涉及评估、改造、迁移工具等核心内容。你可以通过社区 SIG 列表页面查找该组的详细信息、维护者名单及当前目标。\n*   官方首页：[https://www.openeuler.org/](https://www.openeuler.org/)\n*   SIG 列表页：[https://www.openeuler.org/zh/community/sig/](https://www.openeuler.org/zh/community/sig/)\n\n### 2. 获取源代码与工具仓库\nopenEuler 的代码主要托管在 Gitee 上。sig-Migration 的核心工作通常围绕迁移工具集（如 `migration-tools` 或 `x2openEuler`）展开。你需要克隆相关仓库，阅读 README 文件，了解项目结构、构建方式以及当前的 Issue 列表，寻找适合新手入门的 `good first issue`。\n*   openEuler 代码托管组织：[https://gitee.com/openeuler](https://gitee.com/openeuler)\n*   迁移工具仓库示例：[https://gitee.com/openeuler/migration-tools](https://gitee.com/openeuler/migration-tools)\n\n### 3. 熟悉贡献指南与流程\n在提交代码之前，必须仔细阅读社区的贡献指南。这包括代码风格规范、提交信息（Commit Message）格式、Pull Request（PR）流程以及签署 CLA（贡献者许可协议）的要求。遵循这些规范能显著提高你的贡献被合并的概率。\n*   社区贡献指南：[https://www.openeuler.org/zh/community/contribute/](https://www.openeuler.org/zh/community/contribute/)\n\n### 4. 加入沟通渠道\n开源开发离不开沟通。你需要订阅 openEuler 的邮件列表，特别是与迁移技术相关的讨论组。此外，关注社区会议信息，定期参加 sig-Migration 的技术例会，可以直接与维护者交流设计思路和技术难点。\n*   邮件列表信息：[https://www.openeuler.org/zh/community/mailing-list/](https://www.openeuler.org/zh/community/mailing-list/)\n*   社区会议安排：[https://www.openeuler.org/zh/community/meeting/](https://www.openeuler.org/zh/community/meeting/)\n\n### 5. 查阅技术文档与开发指南\n除了代码，文档也是贡献的重要部分。你可以通过 openEuler 的官方文档站点学习迁移相关的技术原理、工具使用手册以及开发指南。如果你发现文档有误或缺失，提交文档修正同样是极具价值的贡献。\n*   官方文档中心：[https://docs.openeuler.org/](https://docs.openeuler.org/)\n\n### 6. 提交贡献与反馈\n当你准备好代码或文档修改后，通过 Gitee 提交 PR。在 PR 描述中清晰说明修改目的、测试结果以及关联的 Issue。社区维护者会进行 Code Review，根据反馈进行迭代修改。一旦合并，你的名字将出现在贡献者列表中。\n\n### 7. 持续参与社区建设\n加入 SIG 不仅仅是提交代码，还包括参与测试、反馈 Bug、推广社区等。保持活跃，积极参与讨论，有助于你更深入地理解跨平台迁移的技术细节，并成为社区的核心贡献者。\n\n参考链接：\n- https://www.openeuler.org/\n- https://www.openeuler.org/zh/community/sig/\n- https://gitee.com/openeuler\n- https://gitee.com/openeuler/migration-tools\n- https://www.openeuler.org/zh/community/contribute/\n- https://www.openeuler.org/zh/community/mailing-list/\n- https://docs.openeuler.org/",
+      "citations": [
+        "https://www.openeuler.org/",
+        "https://www.openeuler.org/zh/community/sig/",
+        "https://gitee.com/openeuler",
+        "https://gitee.com/openeuler/migration-tools",
+        "https://www.openeuler.org/zh/community/contribute/",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/community/meeting/",
+        "https://docs.openeuler.org/"
+      ],
+      "model": "qwen3.5-plus",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler is described as a community with a focus on cross-platform OS migration, involving assessment, modification, and migration tools. It has Special Interest Groups (SIGs) like sig-Migration that work on tools for migrating other operating systems to openEuler.",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.openeuler.org/",
+        "https://www.openeuler.org/zh/community/sig/",
+        "https://gitee.com/openeuler",
+        "https://gitee.com/openeuler/migration-tools",
+        "https://www.openeuler.org/zh/community/contribute/",
+        "https://www.openeuler.org/zh/community/mailing-list/",
+        "https://www.openeuler.org/zh/community/meeting/",
+        "https://docs.openeuler.org/"
+      ]
+    },
+    {
+      "question_id": "q_035",
+      "platform": "deepseek-web",
+      "query": "如何加入 openEuler sig-Migration SIG，参与跨平台 OS 迁移相关开发贡献？",
+      "timestamp": "2026-04-09T23:25:03.421486+00:00",
+      "raw_response": "要加入 openEuler 的 sig-Migration SIG 并参与跨平台 OS 迁移相关的开发贡献，您可以遵循以下步骤。该 SIG 主要负责操作系统迁移工具、数据迁移、兼容性评估等项目的开发与维护。\n\n### 主要步骤\n\n1. **了解 sig-Migration SIG**\n   - 首先，访问 openEuler 官网的 SIG 列表页面，找到 sig-Migration 的详细介绍，包括其使命、范围、现有项目（如 x2openEuler, Porting Advisor）及成员。\n   - 参考链接：https://gitee.com/openeuler/community/tree/master/sig/sig-Migration\n\n2. **订阅邮件列表并加入交流**\n   - 订阅该 SIG 的邮件列表，这是官方沟通渠道，用于讨论技术问题、提案和会议。\n   - 邮件列表地址通常可在 SIG 页面找到，例如：https://mailweb.openeuler.org/postorius/lists/migration.openeuler.org/\n   - 同时，可加入 openEuler 的 Matrix/IRC 或 Slack 频道（如 #sig-migration）进行实时交流。\n\n3. **参与会议**\n   - sig-Migration SIG 会定期举行公开会议，会议时间、议程和记录会在 Wiki 或邮件列表中公布。\n   - 通过参加会议，您可以了解当前任务、提出想法并认领任务。\n   - 会议记录参考：https://gitee.com/openeuler/community/tree/master/sig/sig-Migration/meetings\n\n4. **贡献代码或文档**\n   - **选择项目**：从 sig-Migration 负责的项目中挑选感兴趣的任务，如 x2openEuler（迁移工具）、Porting Advisor（兼容性评估）等。\n   - **熟悉代码**：访问项目仓库，阅读 README 和贡献指南。\n     - x2openEuler 项目：https://gitee.com/openeuler/x2openEuler\n     - Porting Advisor 项目：https://gitee.com/openeuler/porting-advisor\n   - **提交 Issue**：如果您发现 Bug 或有新功能建议，可先在 Gitee 上提交 Issue。\n   - **提交 PR**：按照 openEuler 贡献流程，Fork 仓库、修改代码、测试并提交 Pull Request。确保遵循开发规范。\n\n5. **签署 CLA**\n   - 在首次贡献前，需签署 openEuler 贡献者许可协议（CLA），这是代码合并的必要步骤。\n   - CLA 签署页面：https://clasign.osinfra.cn/sign/openEuler\n\n6. **学习资源**\n   - 阅读 openEuler 贡献指南，了解整体开发流程：https://gitee.com/openeuler/community/blob/master/CONTRIBUTING.md\n   - 参考 openEuler 官方文档，获取迁移工具使用和开发指南：https://docs.openeuler.org\n\n7. **持续参与**\n   - 成为活跃贡献者后，可申请成为 SIG 的正式成员或维护者，参与决策和评审。\n\n### 关键提示\n- **技能要求**：熟悉 Linux 系统、迁移工具开发、软件兼容性测试或相关编程语言（如 Python、C++）。\n- **沟通**：积极参与邮件列表和会议讨论，这是融入社区的关键。\n- **从小处着手**：建议从文档改进、Bug 修复等简单任务开始，逐步深入。\n\n通过以上步骤，您可以顺利加入并贡献于 sig-Migration SIG，助力跨平台 OS 迁移技术的发展。\n\n参考链接：\n- https://gitee.com/openeuler/community/tree/master/sig/sig-Migration\n- https://mailweb.openeuler.org/postorius/lists/migration.openeuler.org/\n- https://gitee.com/openeuler/community/tree/master/sig/sig-Migration/meetings\n- https://gitee.com/openeuler/x2openEuler\n- https://gitee.com/openeuler/porting-advisor\n- https://clasign.osinfra.cn/sign/openEuler\n- https://gitee.com/openeuler/community/blob/master/CONTRIBUTING.md\n- https://docs.openeuler.org",
+      "citations": [
+        "https://gitee.com/openeuler/community/tree/master/sig/sig-Migration",
+        "https://mailweb.openeuler.org/postorius/lists/migration.openeuler.org/",
+        "https://gitee.com/openeuler/community/tree/master/sig/sig-Migration/meetings",
+        "https://gitee.com/openeuler/x2openEuler",
+        "https://gitee.com/openeuler/porting-advisor",
+        "https://clasign.osinfra.cn/sign/openEuler",
+        "https://gitee.com/openeuler/community/blob/master/CONTRIBUTING.md",
+        "https://docs.openeuler.org"
+      ],
+      "model": "deepseek-v3.2",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler is an open-source operating system community focused on innovation and collaboration, with SIGs (Special Interest Groups) like sig-Migration dedicated to specific technical areas such as OS migration tools and compatibility.",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://gitee.com/openeuler/community/tree/master/sig/sig-Migration",
+        "https://mailweb.openeuler.org/postorius/lists/migration.openeuler.org/",
+        "https://gitee.com/openeuler/community/tree/master/sig/sig-Migration/meetings",
+        "https://gitee.com/openeuler/x2openEuler",
+        "https://gitee.com/openeuler/porting-advisor",
+        "https://gitee.com/openeuler/community/blob/master/CONTRIBUTING.md",
+        "https://docs.openeuler.org"
+      ]
+    },
+    {
+      "question_id": "q_038",
+      "platform": "qwen-web",
+      "query": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
+      "timestamp": "2026-04-09T23:25:35.410295+00:00",
+      "raw_response": "openEuler 社区的 sig-QA（Special Interest Group - Quality Assurance）主要负责操作系统的版本质量保障、测试框架建设以及社区测试活动的组织。以下是关于 sig-QA 如何进行版本质量测试以及如何参与社区 QA 贡献的详细说明。\n\n### 1. sig-QA 如何进行版本质量测试？\n\nopenEuler 的版本质量测试是一个多层次、自动化的过程，旨在确保每个发布版本（LTS 或创新版本）的稳定性和可靠性。\n\n*   **自动化持续集成（CI/CD）**：\n    社区使用 Jenkins 等工具构建自动化测试流水线。代码提交后会触发构建和基础测试，确保编译通过且基本功能正常。这包括每日构建（Daily Build）测试和版本候选（RC）测试 [7]。\n*   **测试用例管理**：\n    sig-QA 维护着详细的测试用例库，涵盖功能测试、兼容性测试、性能测试和安全测试。这些用例通常存储在代码仓库中，社区成员可以查看和执行 [5]。\n*   **版本准入与准出标准**：\n    在每个版本发布前，sig-QA 会依据既定的质量门禁（Quality Gate）进行评估。只有通过了关键测试用例且严重缺陷（Bug）修复率达到要求的版本才能发布 [3]。\n*   **多维度测试覆盖**：\n    测试不仅限于 x86 架构，还覆盖 ARM64、RISC-V 等多种处理器架构，以及服务器、云计算、边缘计算等多种应用场景 [1]。\n\n### 2. 如何参与社区 QA 贡献？\n\nopenEuler 是一个开源社区，欢迎所有感兴趣的用户参与质量保障工作。参与途径多种多样，门槛也各不相同。\n\n*   **加入 sig-QA 组织**：\n    你可以直接在 Gitee 上关注 openEuler 的 sig-QA 仓库，了解当前的测试计划和任务。通过提交 PR 成为 SIG 成员，参与测试策略的制定 [2]。\n*   **订阅邮件列表**：\n    加入 openEuler 的测试相关邮件列表，可以获取最新的测试通知、版本发布计划以及社区讨论信息。这是参与社区决策的重要渠道 [6]。\n*   **执行测试并提交结果**：\n    社区定期组织“测试周”或“发布候选测试”活动。用户可以下载 ISO 镜像，在本地或云环境中安装运行，并将测试结果反馈到论坛或_issue_ 追踪系统 [4]。\n*   **提交缺陷报告（Bug Report）**：\n    在使用过程中发现的问题，可以通过 Gitee 的 Issue 系统提交详细的缺陷报告。高质量的 Bug 报告（包含复现步骤、日志等）对社区非常有价值 [8]。\n*   **完善测试用例与文档**：\n    如果你擅长编写脚本或文档，可以贡献新的自动化测试用例，或者完善现有的测试文档，帮助降低其他用户的测试门槛 [3]。\n*   **参与社区会议**：\n    sig-QA 定期举行线上会议，讨论质量问题和改进措施。参与会议是深入了解社区运作和建立联系的好方法 [2]。\n\n### 3. 资源与入口\n\n为了方便参与，以下是 openEuler 社区的核心资源入口，建议收藏以便随时查阅最新信息。\n\n参考链接：\n- https://www.openeuler.org/\n- https://gitee.com/openeuler/sig-QA\n- https://docs.openeuler.org/\n- https://forum.openeuler.org/\n- https://gitee.com/openeuler/testcase\n- https://lists.openeuler.org/\n- https://jenkins.openeuler.org/\n- https://gitee.com/openeuler/openeuler/issues",
+      "citations": [
+        "https://www.openeuler.org/",
+        "https://gitee.com/openeuler/sig-QA",
+        "https://docs.openeuler.org/",
+        "https://forum.openeuler.org/",
+        "https://gitee.com/openeuler/testcase",
+        "https://lists.openeuler.org/",
+        "https://jenkins.openeuler.org/",
+        "https://gitee.com/openeuler/openeuler/issues"
+      ],
+      "model": "qwen3.5-plus",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler 社区的 sig-QA（Special Interest Group - Quality Assurance）主要负责操作系统的版本质量保障、测试框架建设以及社区测试活动的组织。",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://www.openeuler.org/",
+        "https://gitee.com/openeuler/sig-QA",
+        "https://docs.openeuler.org/",
+        "https://forum.openeuler.org/",
+        "https://gitee.com/openeuler/testcase",
+        "https://lists.openeuler.org/",
+        "https://jenkins.openeuler.org/",
+        "https://gitee.com/openeuler/openeuler/issues"
+      ]
+    },
+    {
+      "question_id": "q_038",
+      "platform": "deepseek-web",
+      "query": "openEuler sig-QA 如何进行版本质量测试？如何参与社区 QA 贡献？",
+      "timestamp": "2026-04-09T23:26:51.118700+00:00",
+      "raw_response": "openEuler SIG-QA 主要通过**自动化测试框架和社区协作**来保障版本质量，同时欢迎开发者通过多种方式参与社区 QA 贡献。  \n\n### 一、openEuler 版本质量测试流程  \nSIG-QA 负责制定测试策略，并依托以下核心框架与平台进行系统化测试：  \n\n1. **测试框架与工具**  \n   - **Mugen 测试框架**：openEuler 自研的自动化测试框架，支持功能、性能、兼容性等测试，用例以 yaml 格式编写，可通过 Git 仓库管理并集成到 CI/CD。  \n   - **Compass-CI**：社区开放的持续集成测试平台，提供多架构硬件环境，支持每日构建镜像的自动化测试与问题反馈。  \n   - **XFSTests、LTP 等上游测试套**：集成 Linux 内核与系统级标准测试工具，保障基础功能稳定性。  \n\n2. **测试阶段与内容**  \n   - **版本级测试**：针对每个 openEuler 发行版（如 22.03 LTS、23.09），开展分层测试：  \n     - **内核与系统基础测试**：CPU/内存/IO 基础功能、安全特性（如 SELinux）、虚拟化等。  \n     - **兼容性测试**：硬件兼容性（通过 OECA 认证）、软件生态兼容性（如 MySQL/Redis 等应用）。  \n     - **性能测试**：使用 Linux 标准工具（如 perf、fio）对比性能基线，确保版本迭代无衰退。  \n     - **长稳测试**：7×24 小时压力测试，检测内存泄漏等长期运行问题。  \n   - **持续集成测试**：通过门禁检查（如 PR 提交触发 Compass-CI 测试），拦截代码合入风险。  \n\n3. **质量门禁与发布标准**  \n   - 测试结果通过 **openEuler QA 看板**（如 TestBoard）公开，缺陷跟踪使用 **Gitee Issue** 标签管理（如 sig-QA）。  \n   - 版本发布前需通过测试用例通过率、缺陷修复率等质量门槛，具体标准在 SIG-QA 会议中定义并公示。  \n\n### 二、如何参与社区 QA 贡献  \nopenEuler 鼓励开发者以多种形式参与 QA，即使非专业测试人员也可贡献：  \n\n1. **参与测试验证**  \n   - **测试每日构建镜像**：从 openEuler 每日构建仓库下载最新镜像，在物理机/虚拟机中安装并反馈问题（通过 Gitee Issue 提交）。  \n   - **执行测试用例**：使用 Mugen 框架运行现有测试用例（如针对特定软件包），并提交测试报告或补充用例。  \n   - **兼容性验证**：在自有硬件或应用环境中验证 openEuler 兼容性，推动加入 OECA 认证列表。  \n\n2. **贡献测试用例与工具**  \n   - **补充 Mugen 测试用例**：为未覆盖的功能模块编写测试用例（需遵循框架规范），通过 PR 提交至 Mugen 仓库。  \n   - **改进测试工具**：参与 Compass-CI、Mugen 等工具的开发优化，提升自动化测试效率。  \n\n3. **参与社区协作**  \n   - **加入 SIG-QA 讨论**：通过邮件列表、月度会议了解测试计划，认领测试任务（如版本测试轮次）。  \n   - **缺陷分析与报告**：复现社区用户反馈的缺陷，协助定位问题根因，推动修复。  \n   - **文档贡献**：完善测试指南、用例编写教程等文档，降低新人参与门槛。  \n\n4. **新手入门路径**  \n   - 第一步：阅读 **《openEuler QA 贡献指南》**，配置测试环境（安装 openEuler + Mugen）。  \n   - 第二步：从 **“good first issue”** 标签中认领简单任务（如测试单个软件包功能）。  \n   - 第三步：参与 SIG-QA 双周会议，同步进展并获取指导。  \n\n### 参考链接：  \n- openEuler 测试框架 Mugen 仓库：https://gitee.com/openeuler/mugen  \n- Compass-CI 持续集成平台：https://gitee.com/openeuler/compass-ci  \n- openEuler 版本测试策略文档：https://gitee.com/openeuler/QA/blob/master/TestStrategy/TestStrategy.md  \n- SIG-QA 会议记录与讨论：https://gitee.com/openeuler/QA/tree/master/Documents  \n- openEuler 每日构建镜像下载：https://repo.openeuler.org/  \n- OECA 硬件兼容性认证：https://www.openeuler.org/zh/compatibility/  \n- openEuler 贡献者指南（含 QA 部分）：https://www.openeuler.org/zh/community/contribution/",
+      "citations": [
+        "https://gitee.com/openeuler/mugen",
+        "https://gitee.com/openeuler/compass-ci",
+        "https://gitee.com/openeuler/QA/blob/master/TestStrategy/TestStrategy.md",
+        "https://gitee.com/openeuler/QA/tree/master/Documents",
+        "https://repo.openeuler.org/",
+        "https://www.openeuler.org/zh/compatibility/",
+        "https://www.openeuler.org/zh/community/contribution/"
+      ],
+      "model": "deepseek-v3.2",
+      "status": "success",
+      "mentions_community": true,
+      "community_description": "openEuler SIG-QA 主要通过**自动化测试框架和社区协作**来保障版本质量，同时欢迎开发者通过多种方式参与社区 QA 贡献。",
+      "competitors_mentioned": [],
+      "recommendation_position": "primary",
+      "citations_to_official": [
+        "https://gitee.com/openeuler/mugen",
+        "https://gitee.com/openeuler/compass-ci",
+        "https://gitee.com/openeuler/QA/blob/master/TestStrategy/TestStrategy.md",
+        "https://gitee.com/openeuler/QA/tree/master/Documents",
+        "https://repo.openeuler.org/",
+        "https://www.openeuler.org/zh/compatibility/",
+        "https://www.openeuler.org/zh/community/contribution/"
+      ]
     }
   ]
 }

@@ -228,10 +228,10 @@
 | 162 | MindSpore MindQuantum SIG 的职责和活动是什么？ | manual |
 | 163 | 如何向 MindSpore TSC 申请成立新的 SIG？ | manual |
 | 164 | MindSpore TSC 是什么，它的职责和会议频率是怎样的？ | manual |
-| 165 | MindSpore 有哪些 SIG（Special Interest Groups）？各个 SIG 负责什么方向？ | manual |
+| 165 | MindSpore 有哪些 SIG（Special Interest Groups）？ | manual |
 | 166 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | manual |
 | 167 | 如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？ | manual |
-| 168 | MindSpore 社区组织会议的流程是什么？ | manual |
+| 168 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | manual |
 | 169 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | manual |
 | 170 | MindSpore 的 TSC 会议是否对外公开？ | manual |
 | 171 | 昇思MindSpore学习营的学习路径是怎样的？如何快速上手昇腾开发板开发？ | 402 |

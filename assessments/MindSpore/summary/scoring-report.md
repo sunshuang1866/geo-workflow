@@ -10,7 +10,7 @@
 
 ### Issue 闭环情况
 
-本批改进措施对应 [opensourceways/geo-workflow](https://github.com/opensourceways/geo-workflow) 仓库中 3 条 GEO Issue，已全部完成闭环：
+本批改进措施对应 [opensourceways/geo-workflow](https://github.com/opensourceways/geo-workflow) 仓库中已完成 3 条 GEO Issue 闭环：
 
 | Issue | 改进方向 |
 |-------|---------|

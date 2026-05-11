@@ -1,6 +1,6 @@
 # MindSpore GEO 引用评估报告
 
-> 匹配规则：URL 精确匹配（response_text 子串 + citations 前缀匹配），归一化去除 http/https、www.、尾部斜杠，不区分大小写
+> 匹配规则：URL 精确匹配，归一化去除 http/https、www.、尾部斜杠，不区分大小写
 
 **图例**
 
@@ -10,78 +10,114 @@
 | ✅❌ | 仅 DeepSeek 引用 |
 | ❌✅ | 仅 Qwen 引用 |
 | ❌❌ | 两平台均未引用 |
-| —— | 该轮未采样 |
+| ↑ / → / ↓ | 引用趋势：提升 / 持平 / 下降 |
 
 | 采样轮次 | 日期 | 平台 | 采样方式 |
 |----------|------|------|----------|
-| Run A | 2026-03-30 | DeepSeek-web · Qwen-web | 浏览器（联网搜索，含 citations 字段） |
-| Run B | 2026-04-17 | DeepSeek-web · Qwen-web | 浏览器（联网搜索，含 citations 字段） |
-| Run C | 2026-05-10 | DeepSeek-web · Qwen-web | 浏览器（联网搜索，含 citations 字段） |
+| Round 1 | 2026-04-16 | DeepSeek · Qwen | 浏览器（联网搜索，含 citations 字段） |
+| Round 2 | 2026-05-10 | DeepSeek · Qwen | 浏览器（联网搜索，含 citations 字段） |
+
+> **改进措施**：2026-04-20，MindSpore 官网完成一批 GEO 改进上线，包括关键页面静态渲染、TDK（Title / Description / Keywords）补全及结构化数据（Schema）标注。改进效果可结合对比总表中 Round 1 → Round 2 的引用变化进行评估。
 
 ---
 
 ## 对比总表
 
-> 每格为 `DS · Qwen` 两平台的引用结果；**引用计** = 已引用平台数 / 已采样平台数，按引用率降序排列。
-
-| ID | 问题 | Run A<br>03-30 | Run B<br>04-17 | Run C<br>05-10 | 引用计 | 官方链接 |
-|----|------|----------------|----------------|----------------|--------|----------|
-| q_043 | 如何向 MindSpore TSC 申请成立新的 SIG？ | —— | ✅✅ | ✅✅ | 4/4 | [sig](https://www.mindspore.cn/sig) |
-| q_052 | 如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？ | —— | ✅✅ | ✅✅ | 4/4 | [mailman3/lists](https://mailweb.mindspore.cn/mailman3/lists) |
-| q_054 | MindSpore 如何查看历史邮件存档？ | —— | ✅✅ | ✅✅ | 4/4 | [archives](https://mailweb.mindspore.cn/archives/) |
-| q_001 | 如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？ | ❌❌ | ❌✅ | ✅✅ | 3/6 | [install](https://www.mindspore.cn/install/) |
-| q_010 | MindSpore 支持哪些安装方式？ | —— | ✅✅ | ❌✅ | 3/4 | [install](https://www.mindspore.cn/install) |
-| q_048 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | ❌❌ | ✅✅ | ✅✅ | 4/6 | [activities](https://www.mindspore.cn/activities) |
-| q_055 | MindSpore 有哪些邮件列表？ | ❌❌ | ✅✅ | ✅✅ | 4/6 | [mailman3/lists](https://mailweb.mindspore.cn/mailman3/lists/?page=1) |
-| q_032 | MindSpore 2026 年有哪些活动规划？ | ❌❌ | ❌✅ | ✅✅ | 3/6 | [activities](https://www.mindspore.cn/activities) |
-| q_035 | 新手如何加入 MindSpore 社区并参与开源贡献？ | ❌✅ | ✅❌ | ✅❌ | 3/6 | [contribution](https://www.mindspore.cn/contribution) |
-| q_036 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | ❌❌ | ✅✅ | ❌✅ | 3/6 | [sig/MindSpore Transformers](https://www.mindspore.cn/sig/MindSpore%20Transformers) |
-| q_040 | MindSpore Parallel Training System SIG 的工作范围是什么？ | ❌❌ | ✅✅ | ❌✅ | 3/6 | [sig](https://www.mindspore.cn/sig) |
-| q_012 | 如何基于 MindSpore 框架训练 YOLOv5 模型？ | —— | ✅❌ | ✅❌ | 2/4 | [search?q=YOLOv5](https://www.mindspore.cn/search?q=YOLOv5) |
-| q_014 | 将 ONNX 模型转换为 MindIR 格式时出现兼容性问题，如何排查和解决？ | —— | ✅❌ | ✅❌ | 2/4 | [topic/196](https://discuss.mindspore.cn/t/topic/196) |
-| q_016 | MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？ | —— | ✅❌ | ✅❌ | 2/4 | [mindspore.data_sink.html](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/mindspore/mindspore.data_sink.html) |
-| q_018 | MindSpore 的 PyNative 模式与 Graph 模式应如何选择？ | —— | ✅❌ | ✅❌ | 2/4 | [context.html](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/context.html) |
-| q_020 | TransData 算子的功能是什么？ | —— | ✅❌ | ✅❌ | 2/4 | [operators_api.html](https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html) |
-| q_028 | MindSpore 和 PyTorch 对比有哪些相同和不同？ | —— | ✅❌ | ✅❌ | 2/4 | [typical_api_comparision.html](https://www.mindspore.cn/docs/zh-CN/r2.2/migration_guide/typical_api_comparision.html#) |
-| q_041 | MindSpore MindQuantum SIG 的职责和活动是什么？ | —— | ❌✅ | ❌✅ | 2/4 | [sig](https://www.mindspore.cn/sig) |
-| q_047 | MindSpore 有哪些 SIG（Special Interest Groups）？ | —— | ❌✅ | ❌✅ | 2/4 | [sig](https://www.mindspore.cn/sig/) |
-| q_002 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | ❌❌ | ✅❌ | ✅❌ | 2/6 | [topic/706](https://discuss.mindspore.cn/t/topic/706) |
-| q_004 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | ❌❌ | ✅❌ | ✅❌ | 2/6 | [inference.html](https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html) |
-| q_059 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | ❌❌ | ❌✅ | ❌✅ | 2/6 | [meeting-guide](https://www.mindspore.cn/sig/meeting-guide) |
-| q_063 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | ❌❌ | ❌✅ | ❌✅ | 2/6 | [security](https://www.mindspore.cn/security) |
-| q_017 | MindSpore 2.8.0 版本有哪些新增特性？ | —— | ❌❌ | ❌✅ | 1/4 | [RELEASE.html](https://www.mindspore.cn/docs/zh-CN/r2.8.0/RELEASE.html) |
-| q_021 | MindSpore 的算子输入的类型转换规则是什么 | —— | ❌❌ | ❌✅ | 1/4 | [operators_api.html](https://www.mindspore.cn/docs/zh-CN/master/faq/operators_api.html) |
-| q_008 | 如何将 MindSpore 应用打包成 Docker 镜像进行部署？ | ❌❌ | ✅❌ | ❌❌ | 1/6 | [docker-installation.html](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.8.0/example/docker-installation.html) |
-| q_038 | MindSpore 的 LLM Inference Serving SIG 是做什么的？ | ❌❌ | ❌✅ | ❌❌ | 1/6 | [sig/LLM Inference Serving](https://www.mindspore.cn/sig/LLM%20Inference%20Serving) |
-| q_009 | 如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？ | —— | ❌❌ | ❌❌ | 0/4 | [downloads.html](https://www.mindspore.cn/lite/docs/zh-CN/stable/use/downloads.html) |
-| q_011 | MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？ | —— | ❌❌ | ❌❌ | 0/4 | [backend_running.html](https://www.mindspore.cn/doc/faq/zh-CN/r1.2/backend_running.html) |
-| q_013 | 如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？ | —— | ❌❌ | ❌❌ | 0/4 | [operators_api.html](https://www.mindspore.cn/docs/zh-CN/r2.8.0/faq/operators_api.html) |
-| q_015 | 如何将 PyTorch 模型转换为 MindSpore 模型？ | —— | ❌❌ | ❌❌ | 0/4 | [migration_case_of_mindconverter.html](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/migration_case_of_mindconverter.html) |
-| q_019 | MindSpore 目前支持读取哪些第三方框架的模型及格式？ | —— | ❌❌ | ❌❌ | 0/4 | [feature_advice.html](https://www.mindspore.cn/docs/zh-CN/master/faq/feature_advice.html) |
+| ID | 问题 | Round 1 | Round 2 | 引用趋势 |
+|----|------|:---------:|:---------:|:------:|
+| **安装与配置** | | | | |
+| q_001 | 如何在 Ubuntu 22.04 ARM 架构上安装 MindSpore？ | ❌✅ | ✅✅ | ↑ |
+| q_002 | MindSpore NLP（MindNLP）安装失败怎么排查和解决？ | ✅❌ | ✅❌ | → |
+| q_009 | 如何在 Windows 上搭建 MindSpore Lite 端侧模型转换的开发环境？ | ❌❌ | ❌❌ | → |
+| q_010 | MindSpore 支持哪些安装方式？ | ❌✅ | ❌✅ | → |
+| **技术开发与调试** | | | | |
+| q_004 | MindSpore 模型推理持续报错，常见原因和排查思路有哪些？ | ✅❌ | ✅❌ | → |
+| q_011 | MindSpore 多卡训练时如何为不同 NPU 分配不同的数据分片？ | ❌❌ | ❌❌ | → |
+| q_012 | 如何基于 MindSpore 框架训练 YOLOv5 模型？ | ✅❌ | ✅❌ | → |
+| q_013 | 如何解决 PyTorch 和 MindSpore 的 Conv2d 卷积算子精度不对齐的问题？ | ❌❌ | ❌❌ | → |
+| q_014 | 将 ONNX 模型转换为 MindIR 格式时出现兼容性问题，如何排查和解决？ | ✅❌ | ✅❌ | → |
+| q_015 | 如何将 PyTorch 模型转换为 MindSpore 模型？ | ❌❌ | ❌❌ | → |
+| q_016 | MindSpore 框架支持在数据下沉（data sink）模式下动态切换训练数据集吗？ | ✅❌ | ✅❌ | → |
+| q_017 | MindSpore 2.8.0 版本有哪些新增特性？ | ❌❌ | ❌✅ | ↑ |
+| q_018 | MindSpore 的 PyNative 模式与 Graph 模式应如何选择？ | ✅❌ | ✅❌ | → |
+| q_019 | MindSpore 目前支持读取哪些第三方框架的模型及格式？ | ❌❌ | ❌❌ | → |
+| q_020 | TransData 算子的功能是什么？ | ✅❌ | ✅❌ | → |
+| q_021 | MindSpore 的算子输入的类型转换规则是什么 | ❌❌ | ❌✅ | ↑ |
+| q_028 | MindSpore 和 PyTorch 对比有哪些相同和不同？ | ✅❌ | ✅❌ | → |
+| **社区参与与活动** | | | | |
+| q_032 | MindSpore 2026 年有哪些活动规划？ | ❌✅ | ✅✅ | ↑ |
+| q_035 | 新手如何加入 MindSpore 社区并参与开源贡献？ | ✅❌ | ✅❌ | → |
+| q_048 | MindSpore 是否参加过 KubeCon 等国际开源峰会？ | ✅✅ | ✅✅ | → |
+| q_059 | MindSpore 社区组织会议的流程是什么？会议纪要通常包含哪些内容？ | ❌✅ | ❌✅ | → |
+| **SIG 与治理** | | | | |
+| q_036 | MindSpore Transformers SIG 周例会的会议安排是怎样的？ | ✅✅ | ✅✅ | → |
+| q_038 | MindSpore 的 LLM Inference Serving SIG 是做什么的？ | ❌✅ | ❌✅ | → |
+| q_040 | MindSpore Parallel Training System SIG 的工作范围是什么？ | ✅✅ | ✅✅ | → |
+| q_041 | MindSpore MindQuantum SIG 的职责和活动是什么？ | ❌✅ | ❌✅ | → |
+| q_043 | 如何向 MindSpore TSC 申请成立新的 SIG？ | ✅✅ | ✅✅ | → |
+| q_047 | MindSpore 有哪些 SIG（Special Interest Groups）？ | ❌✅ | ❌✅ | → |
+| q_063 | MindSpore 的安全 SIG（Security SIG）如何处理漏洞报告和安全问题？ | ❌✅ | ❌✅ | → |
+| **邮件列表与通信** | | | | |
+| q_052 | 如何向 MindSpore 邮件列表发送邮件或订阅邮件列表？ | ✅✅ | ✅✅ | → |
+| q_054 | MindSpore 如何查看历史邮件存档？ | ✅✅ | ✅✅ | → |
+| q_055 | MindSpore 有哪些邮件列表？ | ✅✅ | ✅✅ | → |
 
 ---
 
-## 🔘 无官方链接（P1，5 题）
+## 🔘 无官方链接（5 题）
 
 官方目前尚无对应内容，无法评估引用情况。
 
-| ID | 问题 | 备注 |
-|----|------|------|
-| q_005 | MindNLP 在昇腾设备上自动下载模型时出错，如何解决？ | Run A + Run B + Run C 均采样 |
-| q_006 | 在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？ | Run A + Run B + Run C 均采样 |
-| q_007 | 如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？ | Run A + Run B + Run C 均采样 |
-| q_045 | MindSpore TSC 是什么，它的职责和会议频率是怎样的？ | Run B + Run C 均采样 |
-| q_064 | MindSpore 的 TSC 会议是否对外公开？ | Run B + Run C 均采样 |
+| ID | 问题 |
+|----|---------|
+| q_005 | MindNLP 在昇腾设备上自动下载模型时出错，如何解决？ |
+| q_006 | 在容器环境中部署 MindSpore 1.1.1 + Ascend 310 时，执行张量运算测试出现设备初始化失败，应如何排查？ |
+| q_007 | 如何使用 vLLM 框架部署 MindSpore 模型并实现流式异步推理服务？ |
+| q_045 | MindSpore TSC 是什么，它的职责和会议频率是怎样的？ |
+| q_064 | MindSpore 的 TSC 会议是否对外公开？ |
 
 ---
 
 ## 汇总统计
 
-| | Run A（03-30） | Run B（04-17） | Run C（05-10） |
-|--|:--------------:|:--------------:|:--------------:|
-| 采样题数（含 P1） | 16 题 | 37 题 | 37 题 |
-| 有官方链接题数 | 13 题 | 32 题 | 32 题 |
-| DeepSeek 引用 ✅ | 0 / 13 | 14 / 32 | 16 / 32 |
-| Qwen 引用 ✅ | 1 / 13 | 18 / 32 | 16 / 32 |
-| 任一平台引用 | 1 题 | 24 题 | 25 题 |
-| 无官方链接（P1） | 3 题 | 5 题 | 5 题 |
+> 将 36 道题按用户意图划分为 5 个类别，统计截止目前（5.10）MindSpore 社区各类问题的引用覆盖率。
+
+### 引用趋势变化（Round 1 → Round 2）
+
+4.20 GEO 改进措施上线后，整体引用覆盖率由 **77%（24/31）提升至 84%（26/31）**。分平台看，DeepSeek 52%→58%，Qwen 48%→55%，两平台均有改善且幅度相近。分类别看：
+
+- **技术开发与调试**：改善最显著，54%（7/13）→ 69%（9/13），其中 Qwen 从 0 题引用增至 2 题；
+- **社区参与与活动**：DeepSeek 引用率 50%→75%，q_032 新增被双平台引用；
+- **SIG 与治理**：两轮均为 100%（7/7），保持稳定，Qwen 对 SIG 页面的全覆盖是该类高引用率的主要支撑；
+- **安装与配置、邮件列表**：两轮持平，无明显变化。
+
+### 类别总览
+
+| 意图类别 | 题数 | 任一平台引用 | 无任何 | 内容缺失 | 有链接引用率 | DeepSeek | Qwen |
+|---------|:----:|:--:|:--:|:--:|:----------:|:--------:|:----:|
+| 邮件列表与通信 | 3 | 3 | 0 | 0 | **100%** (3/3) | 3/3 | 3/3 |
+| 社区参与与活动 | 4 | 4 | 0 | 0 | **100%** (4/4) | 3/4 | 3/4 |
+| SIG 与治理 | 9 | 7 | 0 | 2 | **100%** (7/7) | 3/7 | 7/7 |
+| 技术开发与调试 | 16 | 9 | 4 | 3 | 69% (9/13) | 7/13 | 2/13 |
+| 安装与配置 | 4 | 3 | 1 | 0 | 75% (3/4) | 2/4 | 2/4 |
+| **合计** | **36** | **26** | **5** | **5** | **84% (26/31)** | **18/31** | **17/31** |
+
+### 现状
+**邮件列表与社区内容被两平台均衡引用**：`mailweb.mindspore.cn` 和 `mindspore.cn/activities`、`/contribution` 均被双平台稳定引用，是当前内容 GEO 效果最好的区域。
+
+**安装与技术是短板**：以下 5 道题在两 AI 平台均未引用，官方内容存在但未被 AI 平台有效获取：
+
+| ID | 问题 | 官方链接类型 | 未引用原因（推测） |
+|----|------|----------|----------------|
+| q_009 | Windows + MindSpore Lite 开发环境 | Lite 下载页 | 官方链接为下载索引页而非教程，AI 平台不倾向将纯下载页作为答案来源引用 |
+| q_011 | 多卡训练 NPU 数据分片 | FAQ/backend | 文档版本极旧（r1.2），AI 平台对老版本文档索引覆盖率低，内容已与现版本脱节 |
+| q_013 | Conv2d 算子精度不对齐 | FAQ/operators | 官方链接为通用算子 FAQ 页，未直接覆盖 PyTorch 精度对比场景，问题与页面匹配度低 |
+| q_015 | PyTorch → MindSpore 模型转换 | 迁移指南 | 文档版本过旧（r1.3），且引用工具 MindConverter 已不再主推，AI 平台倾向引用更新内容 |
+| q_019 | 支持读取哪些第三方框架模型 | FAQ/feature | 官方链接为通用 feature FAQ 页，第三方格式支持信息分散，无专题页聚焦该问题 |
+
+**关键现象**：
+
+1. **文档版本过旧**：官方链接指向旧版文档，AI 平台对老版本页面的索引覆盖率低，且内容与现版本已脱节，引用价值降低；
+2. **链接类型与问题语义不匹配**：官方链接为下载索引页或通用 FAQ 聚合页，而非针对具体场景的专题教程，页面与问题的语义相关性弱，AI 平台引用意愿低；
+3. **页面动态渲染导致爬取不稳定**：部分页面依赖前端 JS 渲染，内容未完全静态化，AI 平台爬取时命中率存在随机性；
+4. **引用来源偏向 Gitee 而非 GitCode**：AI 平台当前引用的官方代码仓库链接仍指向 `gitee.com/mindspore`，尚未切换至 `gitcode.com/mindspore`，GitCode 上的内容在现阶段对引用率贡献有限。

@@ -390,13 +390,35 @@ previous-question/scoring-report.md
 |------|------|------|
 | Python 3.8+ | Skill 脚本语言 | 各 Skill 下的 `scripts/*.py` |
 | Claude Code Skill | 流程编排和 LLM 调用 | AGENT.md + SKILL.md 机制 |
-| OpenAI-compatible API | 各 AI 平台采样 | ChatGPT / DeepSeek / Qwen / Gemini 均支持 |
+| **Playwright + Chromium** | **Web UI 浏览器自动化采样** | 用于 ChatGPT/Gemini/Qwen/DeepSeek Web 界面采样；提取回复文本和引用链接；支持匿名（Gemini）或 Session Token 登录模式 |
+| OpenAI-compatible API | API 方式采样（可选） | DeepSeek/Qwen/Doubao API 方式（更快但无引用链接） |
 | GitHub REST API v3 | Issue 创建和评论 | `POST /repos/{owner}/{repo}/issues` |
 | GitCode REST API v5 | Issue 创建和评论（国内社区） | `api.gitcode.com/api/v5` |
 | Discourse API | 论坛热帖抓取（Path 1） | `discuss.mindspore.cn` 公开 API，无需 Auth |
 | HyperKitty API | SIG 邮件列表归档（Path 3） | `mailweb.mindspore.cn` |
 
-### 6.2 外部依赖
+### 6.2 采样方式对比
+
+本系统支持两种 AI 平台采样方式：
+
+| 方式 | 工具 | 适用平台 | 优点 | 缺点 |
+|------|------|---------|------|------|
+| **Web UI 采样** | Playwright + Chromium | ChatGPT, DeepSeek, Gemini, Qwen | 获取完整引用链接；与真实用户体验一致 | 较慢（每题 90s）；需维护 Session Token |
+| **API 采样** | OpenAI-compatible API | DeepSeek, Qwen, Doubao | 快速（每题 2-5s）；无需登录 | 无引用链接；部分平台不支持 |
+
+**Web UI 采样（Playwright）脚本**：
+- `ask-chatgpt.py` — 通过 Session Token 登录 ChatGPT Web UI
+- `ask-gemini.py` — Gemini 支持匿名访问，或 Session Token 登录（启用 Search Grounding + citations）
+- `ask-qwen.py` — 通过 localStorage Token 或自动登录
+- `ask-deepseek.py` — 通过 Cookie 或自动登录
+
+**安装要求**：
+```bash
+pip3 install playwright
+python3 -m playwright install chromium
+```
+
+### 6.3 外部依赖
 
 | 依赖类型 | 要求 |
 |---------|------|

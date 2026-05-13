@@ -49,37 +49,47 @@ If `manual-questions.md` exists → run `python3 $SD/scripts/parse-manual-questi
 
 Skip if `paths` excludes `forum`.
 
-The forum path runs **two channels** simultaneously and combines the results.
+The forum path calls **two scripts** and combines their results.
 
-**Channel 1 — MongoDB aggregated topics** (primary; covers forum posts + repository issues + maillists):
+**Script A — `fetch-hot-topics.py` — MongoDB aggregated topics** (primary; covers forum posts + repository issues + maillists):
 
 MongoDB `community-hot-topic` is an aggregated database where each topic clusters multiple source posts from the community's forum, issue tracker, and maillist. It is the **primary data source for the forum path** and the reason MongoDB credentials are required for get-question. The **consult-filter** retains only user-question-type topics:
 - `MONGODB_HOST`, `MONGODB_PORT`, `MONGODB_USER`, `MONGODB_PASSWORD` — DB name is hardcoded to `community-hot-topic`; TLS is always enabled (hardcoded)
 - Collections: `{community}_hot_topic` (one doc per topic) + `{community}_not_hot_topic` (single doc with `topics[]` array)
-- **Include**: topics whose sources are `type=forum`, `[Question]`, `[Bug]`, or have no bracket prefix
-- **Exclude**: topics where **all** sources are `[Req]`, `[Task]`, `[RFC]`, `[Doc]` (purely non-consult)
-- **Mixed topics**: keep if consult-type sources ≥ 50% of total; discard otherwise
-- Each retained topic carries `consult_count`, `exclude_count`, `total_count` — used for sorting and display
+- **Source-level filter** — applied per source within each topic:
+  - **Keep**: `type=forum`; `[Question]`/`[咨询]`/`[问题]` and variants (e.g. `[问题咨询]`); no bracket prefix
+  - **Exclude**: `[Req]`/`[Task]`/`[RFC]`/`[Roadmap]`/`[Doc]`/`[Bug]` and variants
+- `remaining_count` = sources that survive the filter; topics with `remaining_count == 0` are dropped entirely
+- Topics sorted by `remaining_count` DESC (no hot_topic/not_hot_topic collection priority)
+- Each retained topic carries `consult_count` (= remaining_count), `exclude_count`, `total_count` — used for sorting and display
 
-**Channel 2 — PostgreSQL/Discourse individual forum posts** (supplementary; non-fatal):
+**Script B — `fetch-forum-posts.py` — PostgreSQL/Discourse individual forum posts** (supplementary; non-fatal):
 - Credential source: `HOTOPIC_DB_CONFIG_JSON`, or `HOTOPIC_DB_<COMMUNITY>_HOST/PORT/NAME/USER/PASSWORD`, or `HOTOPIC_DB_HOST/PORT/NAME/USER/PASSWORD`
 - Queries `discussion` table (`source_type='forum'`), `views > 50`, sorted DESC, `LIMIT 30`
 - Surfaces high-traffic individual posts not yet aggregated in MongoDB
 - If PostgreSQL unavailable: falls back to Discourse API (`--api-url`); captures `pg_channel_status` for output
 
-1. Run:
+1. Run Script A (MongoDB):
+   ```
+   python3 $SD/scripts/fetch-hot-topics.py --community "{community}"
+   ```
+   - **exit=0** → capture stdout as `mongo_topics` (JSON array); extract `MONGO_SOURCE_TYPES` from stderr (or `{}` if unavailable).
+   - **exit≠0** → set `mongo_topics=[]`, log warning.
+
+2. Run Script B (PG/Discourse):
    ```
    python3 $SD/scripts/fetch-forum-posts.py \
      --community "{community}" \
      [--api-url "{forum_url}"]
    ```
-2. **exit=0** → combined results contain both MongoDB topics and PG/API forum posts.
-   - Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply forum variant, send LLM call with fetched data. Capture → `path1_questions`.
-3. **exit≠0** → Read `$SD/assets/prompt-templates.md` section `FORUM_FALLBACK`, send LLM call. Capture → `path1_questions`.
-4. Capture stderr for channel status:
-   - Extract `pg_channel_status` from the `pg_channel_status=...` line if present (or `{}` if unavailable).
-   - Extract `MONGO_SOURCE_TYPES` from the `MONGO_SOURCE_TYPES=...` line (JSON object with `forum`, `issue`, `maillist` counts; or `{}` if MongoDB was unavailable).
-   - Record:
+   - **exit=0** → capture stdout as `forum_topics` (JSON array); note `TOTAL_FROM_DB` or `TOTAL_FROM_DISCOURSE` from stderr.
+   - **exit≠0** → set `forum_topics=[]`, log warning.
+
+3. Combine: `combined = mongo_topics + forum_topics`
+   - If `combined` is empty → Read `$SD/assets/prompt-templates.md` section `FORUM_FALLBACK`, send LLM call. Capture → `path1_questions`.
+   - Else → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply forum variant, send LLM call with `combined`. Capture → `path1_questions`.
+
+4. Record:
    ```
    forum_criteria = {
      "source": "combined",

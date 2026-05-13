@@ -1,37 +1,32 @@
 #!/usr/bin/env python3
-"""Fetch forum topics for a community from two complementary sources.
+"""Fetch individual forum posts from PostgreSQL hotopic DB or Discourse API.
 
-Channel 1 — MongoDB community-hot-topic (always tried first, non-fatal):
-  Reads {community}_hot_topic + {community}_not_hot_topic, applies consult-filter,
-  returns ALL passing aggregated topics (each topic = cluster of similar forum/issue posts).
-  No view threshold applied here — MongoDB topics are already curated/clustered.
+Primary:  PostgreSQL hotopic DB — queries discussion table (source_type='forum'),
+          filters views > MIN_VIEWS, returns top FORUM_TOP_N posts sorted by views DESC.
+Fallback: Discourse API — fetches topics from all active forum categories,
+          applies the same views > MIN_VIEWS threshold, returns top FORUM_TOP_N.
 
-Channel 2 — PostgreSQL hotopic DB / Discourse API (always tried, non-fatal):
-  Returns individual forum posts with views > {MIN_VIEWS}, sorted DESC, capped at {FORUM_TOP_N}.
-  PostgreSQL is tried first; Discourse API is the fallback.
-
-Both channel results are combined and returned.
-LLM-level deduplication happens downstream (Step 8 in SKILL.md).
+This script handles Channel 2 of the forum path. Channel 1 (MongoDB aggregated
+topics) is handled by fetch-hot-topics.py.
 
 Usage:
-    python3 fetch-forum-posts.py --community cann --limit 72
+    python3 fetch-forum-posts.py --community openeuler
     python3 fetch-forum-posts.py --community mindspore --api-url https://discuss.mindspore.cn
     python3 fetch-forum-posts.py --community cann --since 2024-01-01
 
-MongoDB credentials (channel 1):
-    MONGODB_HOST, MONGODB_PORT, MONGODB_USER, MONGODB_PASSWORD
-    MONGODB_DBNAME  (default: community-hot-topic)
-    MONGODB_TLS     (default: true)
-
-PostgreSQL credentials (channel 2):
+PostgreSQL credentials:
     HOTOPIC_DB_CONFIG_JSON  — preferred, per-community JSON mapping
     HOTOPIC_DB_<COMMUNITY>_{HOST,PORT,NAME,USER,PASSWORD}
     HOTOPIC_DB_{HOST,PORT,NAME,USER,PASSWORD}
 
 Output: JSON array to stdout, progress/errors to stderr.
+  Also prints to stderr:
+    TOTAL_FROM_DB={N}        (when PostgreSQL is used)
+    TOTAL_FROM_DISCOURSE={N} (when Discourse API fallback is used)
+
 Exit codes:
-  0 — success (at least one topic returned)
-  1 — no topics fetched from any source
+  0 — success (at least one post returned)
+  1 — no posts fetched from any source
 """
 
 import argparse
@@ -44,250 +39,8 @@ import urllib.parse
 import urllib.request
 
 
-# Forum-specific constants
-MIN_VIEWS    = 50   # minimum views threshold for PG/Discourse channel
-FORUM_TOP_N  = 30   # maximum posts from PG/Discourse channel
-
-
-# ── MongoDB config loading + consult filter ─────────────────────────────────
-
-# Source type keywords for consult/exclude classification
-_CONSULT_BRACKETS = frozenset(["question", "bug"])
-_EXCLUDE_BRACKETS = frozenset(["requirement", "req", "task", "rfc", "roadmap", "documentation", "doc"])
-
-
-def _load_mongo_config() -> dict | None:
-    """Return MongoDB config dict from env vars, or None if not configured."""
-    host     = os.environ.get("MONGODB_HOST", "").strip()
-    port     = os.environ.get("MONGODB_PORT", "").strip()
-    user     = os.environ.get("MONGODB_USER", "").strip()
-    password = os.environ.get("MONGODB_PASSWORD", "").strip()
-    dbname   = os.environ.get("MONGODB_DBNAME", "community-hot-topic").strip()
-    tls      = os.environ.get("MONGODB_TLS", "true").strip().lower() not in ("false", "0", "no")
-    if host and port and user and password:
-        return {"host": host, "port": port, "user": user,
-                "password": password, "dbname": dbname, "tls": tls}
-    return None
-
-
-def _classify_source(source: dict) -> str:
-    """Classify a topic source as 'consult' or 'exclude'.
-
-    Consult: Forum (type=forum), Question, Bug  →  kept
-    Exclude: Requirement/Req, Task, RFC, Roadmap, Documentation/Doc  →  dropped
-    Untagged issues (no bracket in title) → treated as consult.
-    """
-    src_type = (source.get("type") or "").lower()
-    if src_type == "forum":
-        return "consult"
-
-    title = (source.get("title") or "").lower()
-    url   = (source.get("url") or "").lower()
-
-    # Extract bracket prefix from issue title: "[Question|问题咨询]: ..."
-    m = re.match(r"\[([^\]|]+)", title)
-    if m:
-        bracket = m.group(1).strip().lower()
-        if any(k in bracket for k in _CONSULT_BRACKETS):
-            return "consult"
-        if any(k in bracket for k in _EXCLUDE_BRACKETS):
-            return "exclude"
-        # Unknown bracket type → consult
-        return "consult"
-
-    # No bracket: forum URL → consult
-    if "/forum/" in url or "hiascend.com/forum" in url:
-        return "consult"
-
-    # Untagged issue without bracket → treat as consult (plain user bug/question)
-    return "consult"
-
-
-def _apply_consult_filter(topics: list[dict]) -> list[dict]:
-    """Filter topics by consult-source ratio.
-
-    Keep:    all sources are consult types (Question/Bug/Forum)
-    Discard: all sources are exclude types (Req/Task/RFC/Doc)
-    Mixed:   keep if consult_count / total >= 0.5, else discard
-    """
-    kept = []
-    for topic in topics:
-        sources = topic.get("sources", [])
-        if not sources:
-            continue
-        classifications = [_classify_source(s) for s in sources]
-        consult_n = classifications.count("consult")
-        exclude_n = classifications.count("exclude")
-        total = len(classifications)
-
-        if exclude_n == 0:                             # pure consult
-            kept.append(topic)
-        elif consult_n == 0:                           # pure exclude → drop
-            pass
-        elif consult_n / total >= 0.5:                 # mixed ≥50% consult → keep
-            kept.append(topic)
-    return kept
-
-
-def _dominant_source_type(sources: list[dict]) -> str:
-    """Among consult-classified sources, determine dominant type: 'forum' or 'issue'.
-
-    Returns 'forum' if forum sources >= issue sources, else 'issue'.
-    'issue' covers both issue-type and untagged no-bracket sources.
-    """
-    forum_n = 0
-    issue_n = 0
-    for s in sources:
-        if _classify_source(s) != "consult":
-            continue
-        src_type = (s.get("type") or "").lower()
-        if src_type == "forum":
-            forum_n += 1
-        else:
-            issue_n += 1
-    return "issue" if issue_n > forum_n else "forum"
-
-
-def _source_type_counts(sources: list[dict]) -> dict:
-    """Count consult-classified sources by type: {"forum": N, "issue": M}."""
-    forum_n = 0
-    issue_n = 0
-    for s in sources:
-        if _classify_source(s) != "consult":
-            continue
-        src_type = (s.get("type") or "").lower()
-        if src_type == "forum":
-            forum_n += 1
-        else:
-            issue_n += 1
-    return {"forum": forum_n, "issue": issue_n}
-
-
-def fetch_from_mongodb(community: str, limit: int | None) -> list[dict] | None:
-    """Fetch consult-filtered topics from MongoDB community-hot-topic DB.
-
-    Reads {community}_hot_topic (individual docs) and
-    {community}_not_hot_topic (single doc with 'topics' array).
-    Applies consult filter, sorts hot_topic first by 'order', then not_hot_topic.
-    Returns list or None on failure.
-    """
-    try:
-        from pymongo import MongoClient  # type: ignore
-    except ImportError:
-        print("WARNING: pymongo not installed, skipping MongoDB path.", file=sys.stderr)
-        return None
-
-    cfg = _load_mongo_config()
-    if not cfg:
-        print("WARNING: No MongoDB credentials found, skipping MongoDB path.", file=sys.stderr)
-        return None
-
-    try:
-        pwd = urllib.parse.quote(cfg["password"], safe="")
-        tls_params = "&tls=true&tlsAllowInvalidCertificates=true" if cfg["tls"] else ""
-        uri = (f"mongodb://{cfg['user']}:{pwd}@{cfg['host']}:{cfg['port']}/"
-               f"?authSource=admin{tls_params}")
-        client = MongoClient(uri, serverSelectionTimeoutMS=10000)
-        db = client[cfg["dbname"]]
-    except Exception as e:
-        print(f"WARNING: MongoDB connection failed: {e}", file=sys.stderr)
-        return None
-
-    comm_key = community.lower()
-    hot_col    = f"{comm_key}_hot_topic"
-    nothot_col = f"{comm_key}_not_hot_topic"
-
-    try:
-        existing_cols = set(db.list_collection_names())
-    except Exception as e:
-        print(f"WARNING: MongoDB list_collections failed: {e}", file=sys.stderr)
-        return None
-
-    if hot_col not in existing_cols and nothot_col not in existing_cols:
-        print(f"WARNING: No MongoDB collections found for '{community}' "
-              f"(tried: {hot_col}, {nothot_col})", file=sys.stderr)
-        return None
-
-    raw_topics: list[dict] = []
-
-    # 1. hot_topic: each document is one topic cluster
-    if hot_col in existing_cols:
-        for doc in db[hot_col].find():
-            raw_topics.append({
-                "title":       doc.get("title", ""),
-                "sources":     doc.get("sources", []),
-                "_collection": "hot_topic",
-                "_order":      int(doc.get("order") or 9999),
-            })
-
-    # 2. not_hot_topic: single document with a 'topics' array
-    if nothot_col in existing_cols:
-        doc = db[nothot_col].find_one()
-        if doc:
-            for i, topic in enumerate(doc.get("topics", [])):
-                raw_topics.append({
-                    "title":       topic.get("title", ""),
-                    "sources":     topic.get("sources", []),
-                    "_collection": "not_hot_topic",
-                    "_order":      i,
-                })
-
-    print(f"MongoDB: {len(raw_topics)} raw topics for '{community}'", file=sys.stderr)
-
-    # Apply consult filter
-    filtered = _apply_consult_filter(raw_topics)
-    print(f"MongoDB: {len(filtered)} topics after consult filter "
-          f"({len(raw_topics)-len(filtered)} dropped)", file=sys.stderr)
-    print(f"TOTAL_FROM_MONGODB={len(filtered)}", file=sys.stderr)
-
-    # Count source type distribution across all raw topics (before filter)
-    type_dist: dict[str, int] = {"forum": 0, "issue": 0, "maillist": 0}
-    for topic in raw_topics:
-        for s in topic.get("sources", []):
-            raw_type = (s.get("type") or "").lower()
-            url = (s.get("url") or "").lower()
-            if raw_type == "forum" or (not raw_type and "/forum/" in url):
-                type_dist["forum"] += 1
-            elif raw_type == "maillist" or (not raw_type and "maillist" in url):
-                type_dist["maillist"] += 1
-            else:
-                type_dist["issue"] += 1
-    print(f"MONGO_SOURCE_TYPES={json.dumps(type_dist)}", file=sys.stderr)
-
-    if not filtered:
-        return None
-
-    # Sort: hot_topic (by order ASC) first, then not_hot_topic
-    filtered.sort(key=lambda t: (0 if t["_collection"] == "hot_topic" else 1, t["_order"]))
-
-    if limit:
-        filtered = filtered[:int(limit)]
-
-    results = []
-    for t in filtered:
-        sources = t["sources"]
-        sources = t["sources"]
-        first_url = next((s.get("url", "") for s in sources if s.get("url")), "")
-        classifications = [_classify_source(s) for s in sources]
-        consult_n = classifications.count("consult")
-        exclude_n = classifications.count("exclude")
-        results.append({
-            "id":          None,
-            "title":       t["title"],
-            "url":         first_url,
-            "views":       0,
-            "reply_count": len(sources),
-            "created_at":  "",
-            "source":      "mongodb",
-            "source_collection": t["_collection"],
-            "consult_count": consult_n,
-            "exclude_count": exclude_n,
-            "total_count":   len(sources),
-        })
-    return results
-
-
-# ── PostgreSQL DB credential loading (mirrors query-db-proportion.py) ─────────
+MIN_VIEWS   = 50
+FORUM_TOP_N = 30
 
 REQUIRED_DB_FIELDS = ("host", "port", "dbname", "user", "password")
 
@@ -297,7 +50,7 @@ def _normalize_key(community: str) -> str:
 
 
 def _load_db_config(community: str) -> dict | None:
-    """Return DB config dict, or None if no credentials configured."""
+    """Return DB config dict from env vars, or None if not configured."""
     key = community.lower()
 
     raw = os.environ.get("HOTOPIC_DB_CONFIG_JSON", "").strip()
@@ -337,10 +90,8 @@ def _load_db_config(community: str) -> dict | None:
     return None
 
 
-# ── DB fetch path ─────────────────────────────────────────────────────────────
-
 def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[dict] | None:
-    """Fetch forum posts from hotopic DB. Returns list or None on failure."""
+    """Fetch forum posts from PostgreSQL hotopic DB. Returns list or None on failure."""
     try:
         import psycopg2
     except ImportError:
@@ -419,13 +170,13 @@ def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[
 
         results = [
             {
-                "id": row[0],
-                "title": row[1],
-                "url": row[2],
-                "views": row[4] or 0,
+                "id":          row[0],
+                "title":       row[1],
+                "url":         row[2],
+                "views":       row[4] or 0,
                 "reply_count": row[5] or 0,
-                "created_at": row[3].isoformat() if row[3] else "",
-                "source": "db",
+                "created_at":  row[3].isoformat() if row[3] else "",
+                "source":      "db",
             }
             for row in rows
             if row[1] and row[2]
@@ -435,8 +186,8 @@ def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[
             + (f" since {since}" if since else ""),
             file=sys.stderr,
         )
-        # Report to stderr so get-question skill can read total
         print(f"TOTAL_FROM_DB={len(results)}", file=sys.stderr)
+        conn.close()
         return results
 
     except Exception as e:
@@ -492,18 +243,6 @@ def _fetch_category_topics(base_url: str, slug: str, category_id: int) -> list[d
     return topics
 
 
-def _normalize_discourse_topic(topic: dict) -> dict:
-    return {
-        "id": topic.get("id"),
-        "title": topic.get("title", ""),
-        "url": "",
-        "views": topic.get("views", 0),
-        "reply_count": topic.get("reply_count", 0),
-        "created_at": topic.get("created_at", ""),
-        "source": "discourse",
-    }
-
-
 def fetch_from_discourse(api_url: str, limit: int | None) -> list[dict]:
     """Fetch topics via Discourse API. Returns empty list on failure."""
     base_url = api_url.rstrip("/")
@@ -525,10 +264,17 @@ def fetch_from_discourse(api_url: str, limit: int | None) -> list[dict]:
 
     results = []
     for topic in all_topics.values():
-        norm = _normalize_discourse_topic(topic)
-        if norm["views"] <= 50:
+        if topic.get("views", 0) <= MIN_VIEWS:
             continue
-        results.append(norm)
+        results.append({
+            "id":          topic.get("id"),
+            "title":       topic.get("title", ""),
+            "url":         "",
+            "views":       topic.get("views", 0),
+            "reply_count": topic.get("reply_count", 0),
+            "created_at":  topic.get("created_at", ""),
+            "source":      "discourse",
+        })
 
     results.sort(key=lambda t: t["views"], reverse=True)
     total = len(results)
@@ -539,71 +285,34 @@ def fetch_from_discourse(api_url: str, limit: int | None) -> list[dict]:
     return results
 
 
-# ── Entry point ───────────────────────────────────────────────────────────────
-
-def fetch_posts(community: str, api_url: str | None,
-                since: str | None, limit: int | None) -> list[dict]:
-    """Fetch topics from BOTH channels and combine.
-
-    Channel 1 — MongoDB: all consult-filtered aggregated topics (non-fatal).
-    Channel 2 — PG/Discourse: top {FORUM_TOP_N} individual forum posts (views>{MIN_VIEWS}).
-    """
-    # Channel 1: MongoDB (all consult-filtered aggregated topics)
-    mongo_results = fetch_from_mongodb(community, limit=None)
-    if mongo_results is None:
-        mongo_results = []
-        print("Channel 1 (MongoDB): unavailable.", file=sys.stderr)
-    else:
-        print(f"Channel 1 (MongoDB): {len(mongo_results)} aggregated topics.", file=sys.stderr)
-
-    # Channel 2: PostgreSQL forum (views>{MIN_VIEWS}, top {FORUM_TOP_N})
-    forum_limit = min(limit or FORUM_TOP_N, FORUM_TOP_N)
-    pg_results = fetch_from_db(community, since, forum_limit)
-    if pg_results is None:
-        pg_results = []
-        if api_url:
-            print(f"Channel 2 (PG): unavailable, falling back to Discourse API.", file=sys.stderr)
-            disc = fetch_from_discourse(api_url, forum_limit)
-            if disc:
-                pg_results = disc
-        else:
-            print("Channel 2 (PG): unavailable. No --api-url provided for Discourse fallback.",
-                  file=sys.stderr)
-    else:
-        print(f"Channel 2 (PG forum): {len(pg_results)} posts (views>{MIN_VIEWS}).", file=sys.stderr)
-
-    combined = mongo_results + pg_results
-    if not combined:
-        print("ERROR: No topics fetched from either channel.", file=sys.stderr)
-        sys.exit(1)
-
-    # Apply overall limit if given (MongoDB topics take priority in ordering)
-    if limit and len(combined) > limit:
-        combined = combined[:limit]
-
-    print(
-        f"source=combined mongo={len(mongo_results)} forum_pg={len(pg_results)} "
-        f"total={len(combined)}",
-        file=sys.stderr,
-    )
-    return combined
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Fetch forum posts from hotopic DB (primary) or Discourse API (fallback)"
+        description="Fetch forum posts from PostgreSQL hotopic DB or Discourse API"
     )
-    parser.add_argument("--community", required=True, help="Community name, e.g. cann, mindspore")
+    parser.add_argument("--community", required=True,
+                        help="Community name, e.g. openeuler, mindspore")
     parser.add_argument("--api-url", default=None,
-                        help="Discourse forum base URL, used only as fallback "
+                        help="Discourse forum base URL, used as fallback "
                              "(e.g. https://discuss.mindspore.cn)")
-    parser.add_argument("--category", default=None,
-                        help="(Discourse fallback only) Category slug to filter")
     parser.add_argument("--since", default=None,
                         help="Only return posts created on or after this date (YYYY-MM-DD)")
     parser.add_argument("--limit", type=int, default=None,
-                        help="Maximum number of posts to return")
+                        help="Maximum number of posts to return (default: top 30)")
     args = parser.parse_args()
 
-    posts = fetch_posts(args.community, args.api_url, args.since, args.limit)
-    print(json.dumps(posts, ensure_ascii=False, indent=2))
+    limit = min(args.limit or FORUM_TOP_N, FORUM_TOP_N)
+
+    results = fetch_from_db(args.community, args.since, limit)
+    if results is None:
+        if args.api_url:
+            print("PG unavailable, falling back to Discourse API.", file=sys.stderr)
+            results = fetch_from_discourse(args.api_url, limit)
+        else:
+            print("PG unavailable. No --api-url provided for Discourse fallback.", file=sys.stderr)
+            results = []
+
+    if not results:
+        print("ERROR: No forum posts fetched.", file=sys.stderr)
+        sys.exit(1)
+
+    print(json.dumps(results, ensure_ascii=False, indent=2))

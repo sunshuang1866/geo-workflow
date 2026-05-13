@@ -82,7 +82,7 @@ Current docs focus:
 - Maillist path: two-step flow — (1) MagicAPI fetches SIG list → extracts mailing_list addresses, (2) HyperKitty API fetches email archives from mailweb.mindspore.cn → thread subjects + email content. Active lists: dev(71), tsc(53), discuss(49), infra(8).
 - Forum: all content types included (technical, events, blogs, announcements) — views are relevance filter, not content type
 - Forum endpoint: `/c/{slug}/{id}/l/top.json?period=all` (views-sorted, not latest activity)
-- Scripts: `parse-manual-questions.py`, `fetch-forum-posts.py`, `fetch-dataset.py`, `query-db-proportion.py`, `validate-questions.py`
+- Scripts: `parse-manual-questions.py`, `fetch-hot-topics.py` (MongoDB聚合), `fetch-forum-posts.py` (PG/Discourse论坛帖), `validate-questions.py`
 - References: `forum-api-spec.md`, `gitcode-api-spec.md`, `sig-api-spec.md`
 - Assets: `questions-template.md`
 

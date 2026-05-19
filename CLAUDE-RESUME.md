@@ -71,6 +71,7 @@ Current docs focus:
 | Skill | Directory | Status |
 |-------|-----------|--------|
 | get-question | `.claude/skills/get-question/` | ✅ Complete |
+| prefill-urls | `.claude/skills/prefill-urls/` | ✅ Complete |
 | platform-chat | `.claude/skills/platform-chat/` | ✅ Complete |
 | scoring-engine | `.claude/skills/scoring-engine/` | ✅ Complete |
 | issue-creator | `.claude/skills/issue-creator/` | ✅ Complete |
@@ -133,7 +134,9 @@ Current docs focus:
 - **CANN community**: First question set generated (2026-04-21): 40 questions from hotopic DB, clustered across 15 topic clusters, issue path only. `assessments/CANN/questions.json` + `questions.md` written.
 - **unifiedbus community**: First question set generated (2026-04-21): 20 questions from maillist path only (47 mail records in hotopic DB, datastat API unavailable for this community). `assessments/unifiedbus/questions.json` + `questions.md` written.
 - **Branch**: `main`
-- **Last updated**: 2026-04-28
+- **openUBMC community**: First question set generated (2026-05-17): 172 questions (q_001–q_172). MongoDB: 293 topics (0 dropped, consult-filter), Discourse API: 30 posts (PG unavailable). Intent distribution: 特性(50), 故障(80), 场景(19), 教程(12), 认知(11). `assessments/openUBMC/questions.json` + `questions.md` written.
+- **openUBMC questions.md wording**: 2026-05-19 clarified the frequency column in `assessments/openUBMC/questions.md` to use consult count with an explicit unit in the header.
+- **Last updated**: 2026-05-19
 
 ## TODO
 
@@ -151,6 +154,9 @@ Current docs focus:
 
 | Date | Change |
 |------|--------|
+| 2026-05-19 | 将 `assessments/openUBMC/questions.md` 中频率列标题改为明确单位的写法，避免仅显示数字。 |
+| 2026-05-17 | 新建 prefill-urls skill（`SKILL.md` + 2 scripts + 1 reference）：LLM 批量推断每条问题的 official_urls（官网中英文双变体 + 仓库 + 论坛），HTTP 验证后写回 questions.json。注册到 AGENT.md（get-question 之后），更新 CLAUDE-RESUME.md skill 表。同步修复 AGENT.md consult-filter 描述（≥50% → remaining_count==0 丢弃）。 |
+| 2026-05-17 | get-question SKILL.md：Step 3 改为 BATCH_SIZE=80 分批处理 combined 列表（避免大 topic 集单次 LLM 超载），删除 target_count 参数（含 I/O 表、Step 1 resolve 块、Log 行），清理 CRITICAL note 中残留的 target_count 引用。openUBMC 首次问题集生成：172 条（q_001–q_172），意图分布特性=50/故障=80/场景=19/教程=12/认知=11。 |
 | 2026-04-28 | openEuler questions.json/md 补充完成：MongoDB channel 94条新增（白名单用户导向过滤），PG/Discourse channel 2条新增（top 30 forum帖子去重后），总计240条，8分类，questions.md 完整重建。 |
 | 2026-04-21 | 全仓替换采样技能引用：README、AGENT、scoring-engine、platform-chat 文档统一使用 platform-chat；删除 platform-sampler 目录后修复残留引用与失效路径。 |
 | 2026-04-21 | Security refactor for get-question credentials: removed insecure legacy script `scripts/dataset.py` (hardcoded account/password and DB secrets), refactored `scripts/query-db-proportion.py` to load DB credentials only from env/secret injection (`HOTOPIC_DB_CONFIG_JSON`, `HOTOPIC_DB_<COMMUNITY>_*`, or `HOTOPIC_DB_*`), and updated `.env.example` + get-question `SKILL.md` accordingly. |

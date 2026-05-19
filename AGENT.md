@@ -34,13 +34,32 @@ Run `/get-question` (separately, before the pipeline) to generate or refresh the
 
 **How it works:**
 - **Path 1 `forum`** — dual-channel:
-  - **Channel 1 (MongoDB)**: queries `community-hot-topic` aggregated DB; each topic clusters posts from the community's forum, issue tracker, and maillists. Applies a **consult-filter**: drops topics whose sources are all `[Req]`/`[Task]`/`[RFC]`/`[Doc]`; keeps mixed topics when consult-type sources ≥ 50%. Each retained topic carries `{N}c/{M}e/{T}t` (consult/exclude/total counts). Sorted within each intent category by consult count descending.
+  - **Channel 1 (MongoDB)**: queries `community-hot-topic` aggregated DB; each topic clusters posts from the community's forum, issue tracker, and maillists. Applies a **consult-filter**: drops a topic only when every source is `[Req]`/`[Task]`/`[RFC]`/`[Doc]`/`[Bug]` (remaining_count == 0); any topic with ≥1 consult-type source is kept. Each retained topic carries `{N}c/{M}e/{T}t` (consult/exclude/total counts). Sorted within each intent category by consult count descending.
   - **Channel 2 (PostgreSQL/Discourse)**: queries `discussion` table (`views > 50`, top 30), sorted by views descending. Non-fatal — falls back to Discourse API if DB unavailable.
 - **Path 2 `website`** — fetches hot-search keywords from `WEBSITE_SEARCH_URL`, rewrites them into natural-language questions via LLM.
 - **Manual**: `manual-questions.md` in project root is auto-loaded whenever it exists (no path flag needed).
 - Appends only new, deduplicated questions to the existing `questions.json`; preserves all existing `official_urls` and `notes`.
 
 **Required env vars**: `MONGODB_HOST`, `MONGODB_PORT`, `MONGODB_USER`, `MONGODB_PASSWORD` (required for get-question; DB name hardcoded to `community-hot-topic`; TLS always enabled — MongoDB aggregates forum, issue, and maillist data); optionally `HOTOPIC_DB_CONFIG_JSON` or `HOTOPIC_DB_<COMMUNITY>_*` for Channel 2.
+
+### Pre-filling `official_urls` — `/prefill-urls`
+
+Run `/prefill-urls` after `/get-question` and before starting the pipeline. It pre-populates `official_urls` for questions that currently have an empty list, so that scoring-engine has URLs to match against.
+
+```
+/prefill-urls                        # reads community from .env, fills all empty official_urls
+/prefill-urls community=openUBMC     # explicit community
+/prefill-urls dry_run=true           # preview candidates without writing
+```
+
+**How it works:**
+- Reads `official_domains` from `questions.json` (populated by human or auto-discovered from source_criteria).
+- For each question with `official_urls == []`, the LLM infers the most relevant official page (website docs, repo sub-path, or forum category) based on the question's topic.
+- Website URLs are expanded to include both `/zh/` and `/en/` variants.
+- All candidate URLs are HTTP-validated before writing; unreachable URLs are dropped.
+- Existing non-empty `official_urls` are never touched.
+
+**Human action**: After `/prefill-urls` runs, review the newly filled URLs and correct any that are inaccurate (e.g., wrong doc page, outdated link). The skill provides a best-effort pre-fill; human verification ensures scoring accuracy.
 
 ## Workflow
 

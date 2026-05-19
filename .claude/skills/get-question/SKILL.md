@@ -1,6 +1,6 @@
 ---
 name: get-question
-description: Generates and incrementally appends to a structured question set for GEO search assessment. Supports 2 source paths (forum, website) — select individually or all. The forum path uses a dual-channel strategy: MongoDB (community-hot-topic database) provides all consult-filtered aggregated topics covering forum posts, issues, and maillists; PostgreSQL/Discourse provides top 30 individual forum posts with views > 50. MongoDB consult-filter: exclude topics whose sources are all Req/Task/RFC/Doc; keep mixed topics if consult-type sources ≥ 50%. Each topic carries consult_count/exclude_count/total_count for sorting and display. Within each intent category, MongoDB topics sorted by consult_count desc; PG/Discourse topics by views desc. Both channels are combined before question rewriting. Loads existing questions.json (if any) and appends only new, deduplicated questions. Preserves existing official_urls and note. Each question in questions.json has exactly 4 fields: id, question, official_urls, note. questions.md uses globally sequential # numbers (across all categories) that match each question's id suffix. Outputs questions.json and questions.md. Use when starting or refreshing a GEO assessment. Do not use for platform sampling, scoring, or improvement suggestions.
+description: Generates and incrementally appends to a structured question set for GEO search assessment. Supports 2 source paths (forum, website) — select individually or all. The forum path uses a dual-channel strategy: MongoDB (community-hot-topic database) provides all consult-filtered aggregated topics covering forum posts, issues, and maillists; PostgreSQL/Discourse provides top 30 individual forum posts with views > 50. MongoDB consult-filter: drop topics only when every source is Req/Task/RFC/Doc (remaining_count == 0); any topic with at least 1 consult-type source is kept. Each topic carries consult_count/exclude_count/total_count for sorting and display. Within each intent category, MongoDB topics sorted by consult_count desc; PG/Discourse topics by views desc. Both channels are combined before question rewriting. Loads existing questions.json (if any) and appends only new, deduplicated questions. Preserves existing official_urls and note. Each question in questions.json has exactly 4 fields: id, question, official_urls, note. questions.md uses globally sequential # numbers (across all categories) that match each question's id suffix. Outputs questions.json and questions.md. Use when starting or refreshing a GEO assessment. Do not use for platform sampling, scoring, or improvement suggestions.
 ---
 
 # Get Question
@@ -10,7 +10,6 @@ description: Generates and incrementally appends to a structured question set fo
 | Param | Required | Default | Notes |
 |---|---|---|---|
 | `community` | no | `GEO_COMMUNITY` from `.env` | e.g. "MindSpore" |
-| `target_count` | no | `GEO_QUESTION_TARGET_COUNT` from `.env` → `100` | Target number of newly generated questions in this run |
 | `seed_keywords` | no | LLM-derived | comma-separated |
 | `paths` | no | `GEO_PATHS` from `.env` → `all` | `forum` / `website` / `all` |
 | `forum_url` | no | `GEO_FORUM_URL` from `.env` | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
@@ -26,7 +25,6 @@ description: Generates and incrementally appends to a structured question set fo
 1. Load `.env` from project root.
 2. Resolve inputs with priority (explicit caller arg > `.env` var > default):
    - `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if still unresolved: `"community not set. Provide as argument or set GEO_COMMUNITY in .env."`
-   - `target_count`: caller arg → `GEO_QUESTION_TARGET_COUNT` from `.env` → `100`
    - `paths`: caller arg → `GEO_PATHS` from `.env` → `all`
    - `forum_url`: caller arg → `GEO_FORUM_URL` from `.env`
 3. If `seed_keywords` missing → LLM: `"List 3-5 comma-separated technical keywords for '{community}'. Keywords only."`
@@ -35,7 +33,7 @@ description: Generates and incrementally appends to a structured question set fo
    - `last_id_num`: parse the numeric suffix of the highest `id` (e.g. `"q_031"` → `31`). New questions will be numbered from `last_id_num + 1`.
    - `existing_texts`: set of lowercased question strings for deduplication
    If the file does not exist, set `existing_questions=[]`, `last_id_num=0`, `existing_texts=set()`.
-5. Log: `Community={community} target_count={target_count} existing={len(existing_questions)} keywords={seed_keywords} paths={paths}`
+5. Log: `Community={community} existing={len(existing_questions)} keywords={seed_keywords} paths={paths}`
 
 ---
 
@@ -87,13 +85,17 @@ MongoDB `community-hot-topic` is an aggregated database where each topic cluster
 
 3. Combine: `combined = mongo_topics + forum_topics`
    - If `combined` is empty → Read `$SD/assets/prompt-templates.md` section `FORUM_FALLBACK`, send LLM call. Capture → `path1_questions`.
-   - Else → Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, apply forum variant, send LLM call with `combined`. Capture → `path1_questions`.
+   - Else → apply **batch processing** with `BATCH_SIZE = 80`:
+     - Split `combined` into chunks of 80 (last chunk may be smaller).
+     - For each chunk: Read `$SD/assets/prompt-templates.md` section `REWRITE_TO_QUESTIONS`, send LLM call with that chunk. Log: `Batch {i}/{total}: {len(chunk)} topics → {n} questions`.
+     - Collect all per-batch results → concatenate into `path1_questions`.
+   - **CRITICAL**: Every item in `combined` must be processed — do NOT skip any chunk or impose an early exit. Stopping before the last chunk is a correctness bug identical to truncating the source list.
 
 4. Record:
    ```
    forum_criteria = {
      "source": "combined",
-     "channel1_mongodb": "{N} aggregated topics (consult-filter: exclude all-Req/Task/RFC/Doc; mixed ≥50% consult kept)",
+     "channel1_mongodb": "{N} aggregated topics (consult-filter: drop only if remaining_count==0; any topic with ≥1 consult source kept)",
      "channel2_forum": "{M} posts (views>50, top 30) from {pg|discourse|unavailable}",
      "mongo_source_types": {"forum": N, "issue": M, "maillist": K},
      "fetched_at": "{YYYY-MM-DD}"

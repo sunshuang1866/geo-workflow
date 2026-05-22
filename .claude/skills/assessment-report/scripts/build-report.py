@@ -14,6 +14,9 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.utils import load_json
+
 PLATFORM_DISPLAY = {
     "doubao": "豆包",
     "qwen": "Qwen",
@@ -26,17 +29,6 @@ STATUS_TO_CATEGORY = {
     "not_cited": "not_cited",
     "satisfied": "satisfied",
 }
-
-
-def load_json(path, label):
-    p = Path(path)
-    if not p.exists():
-        return None
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as e:
-        print(f"ERROR: Failed to parse {label}: {e}", file=sys.stderr)
-        sys.exit(1)
 
 
 def build_issue_lookup(issue_map):
@@ -95,8 +87,8 @@ def main():
         print(f"ERROR: {scoring_file} not found or empty", file=sys.stderr)
         sys.exit(1)
 
-    questions_data = load_json(questions_file, "questions.json") or {"questions": []}
-    issue_map = load_json(issue_map_file, "issue-map.json") or {"issues": {}}
+    questions_data = load_json(questions_file, "questions.json", optional=True) or {"questions": []}
+    issue_map = load_json(issue_map_file, "issue-map.json", optional=True) or {"issues": {}}
 
     # Build questions lookup
     labels_lookup = {

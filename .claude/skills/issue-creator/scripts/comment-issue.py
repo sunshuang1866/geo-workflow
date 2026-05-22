@@ -14,6 +14,10 @@ import os
 import sys
 import urllib.error
 import urllib.request
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.utils import resolve_platform_token
 
 
 GITHUB_API = "https://api.github.com"
@@ -70,28 +74,12 @@ def main():
     args = parser.parse_args()
 
     # Resolve platform + token
-    platform = args.platform
-    token = args.token
-
-    if not token:
-        gh_token = os.environ.get("GITHUB_TOKEN", "")
-        gc_token = os.environ.get("GITCODE_TOKEN", "")
-        if platform == "github":
-            token = gh_token
-        elif platform == "gitcode":
-            token = gc_token
-        else:
-            if gh_token:
-                platform, token = "github", gh_token
-            elif gc_token:
-                platform, token = "gitcode", gc_token
+    platform, token = resolve_platform_token(args.platform, args.token)
 
     if not token and not args.dry_run:
         print("ERROR: No API token found. Set GITHUB_TOKEN or GITCODE_TOKEN in .env.",
               file=sys.stderr)
         sys.exit(1)
-
-    platform = platform or "github"
 
     try:
         if platform == "github":

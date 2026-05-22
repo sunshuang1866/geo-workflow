@@ -10,18 +10,10 @@ Outputs validation result to stdout; errors to stderr with non-zero exit.
 
 import json
 import sys
+from pathlib import Path
 
-
-def load_json(filepath):
-    try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print(f"ERROR: File not found: {filepath}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"ERROR: Invalid JSON in {filepath}: {e}", file=sys.stderr)
-        sys.exit(1)
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.utils import load_json
 
 
 def validate(responses_path, questions_path):

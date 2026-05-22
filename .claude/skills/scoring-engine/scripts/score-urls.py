@@ -21,6 +21,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.utils import load_json
+
 
 def normalize_url(url: str) -> str:
     url = url.strip().lower()
@@ -41,18 +44,6 @@ def is_cited(response_text: str, official_urls: list[str]) -> tuple[bool, list[s
         if norm in text_lower:
             matched.append(url)
     return bool(matched), matched
-
-
-def load_json(path: str, label: str):
-    p = Path(path)
-    if not p.exists():
-        print(f"ERROR: {label} not found: {path}", file=sys.stderr)
-        sys.exit(1)
-    try:
-        return json.loads(p.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as e:
-        print(f"ERROR: Invalid JSON in {label}: {e}", file=sys.stderr)
-        sys.exit(1)
 
 
 def main():

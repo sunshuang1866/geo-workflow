@@ -16,6 +16,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.utils import load_json
+
 PLATFORM_ORDER = ["doubao", "qwen", "chatgpt", "deepseek"]
 PLATFORM_DISPLAY = {"doubao": "豆包", "qwen": "Qwen", "chatgpt": "ChatGPT", "deepseek": "DeepSeek"}
 CITATION_THRESHOLD = 0.9
@@ -64,14 +67,6 @@ ACTION_TAXONOMY = [
 ]
 ACTION_KEY_ORDER = [a["key"] for a in ACTION_TAXONOMY]
 ACTION_META = {a["key"]: a for a in ACTION_TAXONOMY}
-
-
-def load_json(path: str):
-    p = Path(path)
-    if not p.exists():
-        print(f"ERROR: not found: {path}", file=sys.stderr)
-        sys.exit(1)
-    return json.loads(p.read_text(encoding="utf-8"))
 
 
 def load_prev_report(prev_report_file: str) -> dict:

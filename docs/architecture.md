@@ -19,42 +19,61 @@
 - **配置驱动**: 切换社区只需更新 `.env`，不修改任何代码
 - **人工介入最小化**: 首次运行只有一个必要人工节点（填写 `official_urls`），后续复检全自动
 
-### 1.2 关键约束
+### 1.2 支持平台与社区
+
+**AI 平台：** ChatGPT · DeepSeek · 豆包 · Qwen · Gemini（按 `.env` 中有效 API Key 动态启用）
+
+**目标社区：** 通过 `.env` 配置驱动，当前已支持：
+
+> 新增社区只需在 `.env` 中配置 `GEO_COMMUNITY` 和 `GEO_COMMUNITY_DIR`，系统自动创建评估目录。问题源路径按需配置，未配置则跳过。
+
+### 1.3 关键约束
 
 | 约束 | 说明 |
 |------|------|
 | 运行环境 | Claude Code CLI + Python 3.8+，无需 Web 服务器或数据库 |
 | 最小平台数 | 至少 2 个 AI 平台有效 API Key 才允许运行采样 |
-| 采样规模 | MVP 阶段支持 30-50 个问题，上限 100 个 |
-| 评估频率 | 建议每周一次，AI 平台内容索引更新周期约为周级 |
+| 采样规模 | MVP 阶段支持 30-50 个问题，上限 200 个 |
 
 ---
 
-## 二、整体架构
+## 二、架构设计
+
+| 视图 | 章节 | 关注点 |
+|------|------|--------|
+| **逻辑视图** | 2.1 | 系统功能、业务逻辑、数据流转 |
+| **开发视图** | 2.2 | 代码组织、模块划分、依赖关系 |
+| **进程视图** | 2.3 | 运行时行为、并发控制、执行时序 |
+| **物理视图** | 2.4 | 部署拓扑、外部依赖、网络通信 |
+| **场景视图** | 2.5 | 典型用例、用户交互流程 |
+
+### 2.1 逻辑视图（Logical View）
+
+逻辑视图描述系统的功能组成和业务逻辑分层：
 
 ```mermaid
 flowchart TD
     subgraph TRIGGER["触发层"]
-        A1["Claude Code 对话\n（自然语言描述）"]
-        A2["OpenClaw 定时调度\n openClaw trigger --agent AGENT.md"]
+        A1["Claude Code 对话<br>（自然语言描述）"]
+        A2["OpenClaw 定时调度<br>openClaw trigger --agent AGENT.md"]
     end
 
-    subgraph AGENT["编排层 AGENT.md"]
-        B0["Step 0: init\n创建 runs/{date}/ 目录\n检测 questions.json 变更"]
-        B1["Step 1: sample\n/platform-sampler"]
-        B2["Step 2: score\n/scoring-engine"]
-        B3["Step 3: issue\n/issue-creator"]
-        B4["Step 4: report\n/assessment-report"]
-        B5["Step 5: finalize\n写入 run-meta.json\n输出摘要"]
+    subgraph PIPELINE["编排层 AGENT.md"]
+        B0["Step 0: init<br>创建 {date}/ 目录<br>检测 questions.json 变更"]
+        B1["Step 1: sample<br>/platform-sampler"]
+        B2["Step 2: score<br>/scoring-engine"]
+        B3["Step 3: issue<br>/issue-creator"]
+        B4["Step 4: report<br>/assessment-report"]
+        B5["Step 5: finalize<br>写入 run-meta.json<br>输出摘要"]
         B0 --> B1 --> B2 --> B3 --> B4 --> B5
     end
 
     subgraph SOURCES["问题来源（首次运行）"]
-        S1["Discourse 论坛 API\n(Path 1: forum)"]
-        S2["GitCode Issue API\n(Path 2: issue)"]
-        S3["SIG 邮件列表 HyperKitty API\n(Path 3: maillist)"]
-        S4["官网站内搜索热词 API\n(Path 4: website)"]
-        S5["manual-questions.md\n(手动输入)"]
+        S1["Discourse 论坛 API<br>(Path 1: forum)"]
+        S2["GitCode Issue API<br>(Path 2: issue)"]
+        S3["SIG 邮件列表 HyperKitty API<br>(Path 3: maillist)"]
+        S4["官网站内搜索热词 API<br>(Path 4: website)"]
+        S5["manual-questions.md<br>(手动输入)"]
     end
 
     subgraph PLATFORMS["AI 平台采样"]
@@ -66,13 +85,13 @@ flowchart TD
     end
 
     subgraph OUTPUT["输出层"]
-        O1["GitHub / GitCode Issues\n（创建 / 评论 / 关闭建议）"]
-        O2["assessment-report.md\n（人工可读评估报告）"]
-        O3["run-meta.json\n（运行元数据）"]
+        O1["GitHub / GitCode Issues<br>（创建 / 评论 / 关闭建议）"]
+        O2["assessment-report.md<br>（人工可读评估报告）"]
+        O3["run-meta.json<br>（运行元数据）"]
     end
 
-    A1 & A2 --> AGENT
-    S1 & S2 & S3 & S4 & S5 -->|"/get-question\n生成 questions.json"| B0
+    A1 & A2 --> PIPELINE
+    S1 & S2 & S3 & S4 & S5 -->|"/get-question<br>生成 questions.json"| B0
     B1 -->|"并发采样"| P1 & P2 & P3 & P4 & P5
     P1 & P2 & P3 & P4 & P5 -->|"responses.json"| B2
     B2 -->|"scoring-results.json"| B3
@@ -81,11 +100,313 @@ flowchart TD
     B5 --> O3
 ```
 
-### 2.1 两种运行模式
+**功能分层说明：**
+
+| 层级 | 职责 | 核心组件 |
+|------|------|---------|
+| **触发层** | 接收用户请求，路由到执行流水线 | Claude Code 对话 / OpenClaw 定时任务 |
+| **问题来源层** | 从社区真实数据中提取代表性搜索问题 | `get-question` Skill，4 条自动化路径 + 手动标注 |
+| **编排层** | 6 步流水线控制，参数化执行 | `AGENT.md`，Step 0-5 |
+| **AI 平台层** | 向各 AI 平台并发发送问题并收集回答 | `platform-sampler` Skill，Playwright / API 双模式 |
+| **评分与行动层** | URL 匹配评分 → 建议匹配 → Issue 创建 | `scoring-engine` + `issue-creator` + `assessment-report` |
+
+### 2.2 开发视图（Development View）
+
+开发视图描述代码的物理组织和模块划分：
+
+```
+geo-workflow/
+├── AGENT.md                           # 工作流编排入口（6 步流水线）
+├── CLAUDE.md                          # Claude Code 开发规则
+├── .env.example                       # API Key 配置模板
+│
+├── assessments/{community}/           # 评估数据（按社区 + 日期隔离）
+│   ├── questions.json                 # 符号链接 → 当前问题集
+│   ├── issue-map.json                 # 累积 Issue 映射（跨运行）
+│   ├── summary/                       # 跨运行汇总数据
+│   └── {YYYY-MM-DD}/                  # 单次运行数据
+│
+├── .claude/skills/                    # Skill 定义（Claude Code 执行单元）
+│   ├── get-question/                  # 问题集生成
+│   │   ├── SKILL.md                   # 8 步过程定义
+│   │   ├── scripts/                   # Python 脚本（5 个）
+│   │   ├── references/                # API 规范（3 个）
+│   │   └── assets/                    # 模板和提示词
+│   ├── platform-sampler/              # AI 平台采样
+│   │   ├── SKILL.md                   # 5 步过程定义
+│   │   ├── scripts/                   # Python 脚本（4 个）
+│   │   ├── references/                # 速率限制规范
+│   │   └── assets/                    # 输出模板
+│   ├── scoring-engine/                # 评分与诊断
+│   │   ├── SKILL.md                   # 6 步过程定义
+│   │   ├── scripts/                   # Python 脚本（2 个）
+│   │   ├── references/                # GEO 建议目录 + 匹配规则
+│   │   └── assets/                    # 建议输出模板
+│   ├── issue-creator/                 # Issue 创建与追踪
+│   │   ├── SKILL.md                   # 7 步过程定义
+│   │   ├── scripts/                   # Python 脚本（3 个）
+│   │   ├── references/                # GitCode API 规范
+│   │   └── assets/                    # Issue 模板
+│   └── assessment-report/             # 评估报告生成
+│       ├── SKILL.md                   # 6 步过程定义
+│       ├── references/                # 指示符规则
+│       └── assets/                    # 报告模板
+│
+├── docs/                              # 设计文档
+│   ├── PRD.md
+│   ├── architecture.md                # 本文档
+│   ├── data-model.md
+│   └── geo-theory.md
+│
+└── .claude/
+    └── settings.json                  # Claude Code 项目级配置
+```
+
+**模块依赖关系：**
+
+```
+get-question ──► questions.json
+                      │
+                      ├──► platform-sampler ──► responses.json
+                      │                              │
+                      │                              ├──► scoring-engine ──► scoring-results.json
+                      │                              │                              │
+                      │                              │                              ├──► issue-creator ──► GitHub/GitCode Issues
+                      │                              │                              │        │
+                      │                              │                              │        └──► issue-map.json
+                      │                              │                              │
+                      │                              │                              └──► assessment-report ──► report.json + .md
+                      │                              │
+                      │                              └──► 直接引用（报告）
+                      │
+                      └──► 直接引用（报告各问题描述）
+```
+
+**关键设计模式：**
+
+| 模式 | 应用场景 |
+|------|---------|
+| **管道-过滤器** | 5 个 Skill 串联为单向流水线，每步只依赖上游 JSON 输出 |
+| **配置驱动** | `.env` 控制社区切换、API Key 启用/禁用，Skill 脚本不硬编码 |
+| **文件作为契约** | 所有 Skill 间通过 JSON Schema 约定交接格式，方便独立测试和重跑 |
+| **追加而非覆盖** | 问题集追加、Issue 映射累积、采样支持 append 模式，保证幂等性 |
+| **两步采样** | Web UI（Playwright，有引用链接）与 API（OpenAI-compatible，快速）互补，优先 API 兜底 Web |
+
+### 2.3 进程视图（Process View）
+
+进程视图描述系统运行时的执行时序和并发行为：
+
+```mermaid
+sequenceDiagram
+    participant User as 用户
+    participant AGENT as AGENT.md
+    participant Sampler as platform-sampler
+    participant GPT as ChatGPT
+    participant DS as DeepSeek
+    participant QW as Qwen
+    participant GM as Gemini
+    participant Score as scoring-engine
+    participant Issue as issue-creator
+    participant GitHub as GitHub API
+    participant Report as assessment-report
+
+    User->>AGENT: "对 MindSpore 执行 GEO 复检"
+    AGENT->>AGENT: Step 0: init（配置加载 + 目录创建）
+    
+    AGENT->>Sampler: Step 1: 启动采样
+    
+    par 并发平台采样
+        Sampler->>GPT: 问题 1-5（分批，5题/批）
+        GPT-->>Sampler: 回答 + citations
+        Sampler->>DS: 问题 1-5
+        DS-->>Sampler: 回答 + citations
+        Sampler->>QW: 问题 1-5
+        QW-->>Sampler: 回答 + citations
+        Sampler->>GM: 问题 1-5
+        GM-->>Sampler: 回答 + citations
+    end
+    
+    Sampler-->>AGENT: responses.json
+    
+    AGENT->>Score: Step 2: 评分
+    Score-->>AGENT: scoring-results.json
+    
+    AGENT->>Issue: Step 3: Issue 管理
+    Issue->>GitHub: POST /issues（新建）
+    Issue->>GitHub: POST /issues/*/comments（更新）
+    GitHub-->>Issue: Issue URL
+    Issue-->>AGENT: created-issues.json
+    
+    AGENT->>Report: Step 4: 报告生成
+    Report-->>AGENT: assessment-report.md
+    
+    AGENT->>AGENT: Step 5: finalize（元数据 + 摘要）
+    AGENT-->>User: 打印摘要
+```
+
+**并发控制策略：**
+
+| 场景 | 并发方式 | 限制 |
+|------|---------|------|
+| **多平台采样（同一问题批次）** | 顺序调用，平台间间隔 1s | 避免触发频率限制 |
+| **多问题批次** | 顺序分批（5 题/批） | 防止单平台上下文污染 |
+| **单平台失败处理** | `try/except` 隔离，标记 `status=error` | 不影响其他平台采样 |
+| **即时写入** | 每批次采样结果立即 flush 到 `responses.json` | 防止中断丢失数据 |
+| **评分 / Issue / 报告** | 同步串行执行 | 单步骤 ≤ 30s |
+
+**采样执行流程伪代码：**
+
+```python
+questions = load_questions(filtered_by_scope)
+platforms = detect_enabled_platforms_from_dotenv()
+
+for batch in chunk(questions, 5):
+    for question in batch:
+        for platform in platforms:
+            try:
+                response = sample_platform(platform, question)
+                result = {"status": "success", "citations": response.citations}
+            except Exception as e:
+                result = {"status": "error", "error": str(e)}
+            
+            append_to_responses_json(question.id, platform, result)
+            sleep(1)  # 平台间冷却间隔
+```
+
+### 2.4 物理视图（Physical View）
+
+物理视图描述系统的部署拓扑和外部依赖：
+
+```mermaid
+flowchart LR
+    subgraph LOCAL["本地环境"]
+        A["Claude Code + Python 3.8+<br>geo-workflow"]
+        B["assessments/{community}/{date}/<br>JSON 数据文件"]
+        C["assessment-report.md<br>评估报告"]
+        A --> B
+        A --> C
+    end
+
+    subgraph AI_PLATFORMS["AI 平台（采样目标）"]
+        D1["ChatGPT API / Web"]
+        D2["DeepSeek API / Web"]
+        D3["豆包 API"]
+        D4["Qwen API / Web"]
+        D5["Gemini Web"]
+    end
+
+    subgraph COMMUNITY_SOURCES["社区数据源（问题采集）"]
+        E1["Discourse API<br>discuss.mindspore.cn"]
+        E2["GitCode API<br>api.gitcode.com"]
+        E3["HyperKitty API<br>mailweb.mindspore.cn"]
+        E4["官网搜索热词 API"]
+    end
+
+    subgraph ISSUE_PLATFORMS["Issue 平台"]
+        F1["GitHub API<br>api.github.com"]
+        F2["GitCode API<br>api.gitcode.com"]
+    end
+
+    A -.->|"HTTPS · 采样提问"| D1 & D2 & D3 & D4 & D5
+    A -.->|"HTTPS · 问题采集"| E1 & E2 & E3 & E4
+    A -.->|"HTTPS · Issue CRUD"| F1 & F2
+```
+
+**部署说明：**
+
+| 组件 | 位置 | 说明 |
+|------|------|------|
+| **主程序** | 本地单机 | 无需数据库或 Web 服务，Claude Code 对话驱动 |
+| **AI 平台 API** | 各平台云端 | 需 API Key（Web 模式需 Session Token） |
+| **社区数据源** | 各社区服务器 | 按需配置，未配置则跳过对应路径 |
+| **Issue 平台** | GitHub / GitCode | 需 Personal Access Token |
+| **数据存储** | 本地 JSON 文件 | `assessments/{community}/{date}/`，按日期隔离 |
+
+**网络要求：**
+
+| 方向 | 目标 | 协议 | 用途 |
+|------|------|------|------|
+| 本地 → 远程 | AI 平台 API | HTTPS | 采样提问与引用采集 |
+| 本地 → 远程 | Discourse / GitCode / HyperKitty API | HTTPS | 问题集生成（数据采集） |
+| 本地 → 远程 | GitHub / GitCode API | HTTPS | Issue 创建和评论 |
+
+### 2.5 场景视图（Scenarios / Use Cases）
+
+场景视图通过典型用例串联上述 4 个视图：
+
+#### 场景 1：首次运行 — 建立 MindSpore GEO 基线
+
+```
+用户: "对 MindSpore 生成问题集并完成首次 GEO 评估"
+    │
+    ├─► Step 0: init — 创建 assessments/MindSpore/2026-04-14/ 目录
+    │
+    ├─► /get-question — 4 条路径并发采集
+    │       Path 1: Discourse 论坛 → 30 个热帖问题
+    │       Path 2: GitCode Issue → 15 个高频 Issue 改写
+    │       Path 3: SIG 邮件列表 → 8 个讨论问题
+    │       Path 4: 官网搜索热词 → 12 个搜索问题
+    │       → 语义去重后合并 50 题 → questions.json
+    │
+    ├─► 【人工介入】标注每个问题的 official_urls
+    │
+    ├─► /platform-sampler — 4 平台并发采样
+    │       50 题 × 4 平台 = 200 次调用
+    │       → responses.json
+    │
+    ├─► /scoring-engine — URL 匹配 + 引用率计算
+    │       satisfied=12, not_cited=30, no_official_content=8
+    │       → scoring-results.json（含 GEO 建议）
+    │
+    ├─► /issue-creator — LLM 分组 → 创建 15 个 Issue
+    │       → issue-map.json + created-issues.json
+    │
+    └─► /assessment-report — 生成基线报告
+            → assessment-report.md（人工可读）
+```
+
+#### 场景 2：定期复检 — P0 问题重检
+
+```
+用户: "按照 AGENT.md 对 MindSpore 执行 GEO 复检，scope=p0"
+    │
+    ├─► Step 0: init — 检测 questions.json 无变更，创建 2026-04-21/ 目录
+    │
+    ├─► /platform-sampler — 仅采样 30 个 P0 问题
+    │       30 题 × 4 平台 = 120 次调用
+    │       → responses.json
+    │
+    ├─► /scoring-engine — 重新评分
+    │       satisfied=15 (+3), not_cited=25 (-5)
+    │       → scoring-results.json
+    │
+    ├─► /issue-creator — 比对 issue-map.json
+    │       5 个 Issue 引用率改善 → 追加评论
+    │       3 个 Issue satisfied → 追加关闭建议
+    │       → 更新 issue-map.json
+    │
+    └─► /assessment-report — 趋势对比
+            → assessment-report.md（标注 improved/regressed/stable）
+```
+
+#### 场景 3：仅重新评分（跳过采样）
+
+```
+用户: "steps=2,3,4,5 scope=p0"
+    │
+    ├─► Step 0: init — 复用上次运行的 questions.json 快照
+    ├─► Step 1: 跳过（steps 参数不含 1）
+    ├─► Step 2: /scoring-engine — 使用已有 responses.json 重新评分
+    ├─► Step 3: /issue-creator
+    ├─► Step 4: /assessment-report
+    └─► Step 5: finalize
+```
+
+**两种核心运行模式对比：**
 
 | 模式 | 场景 | 人工介入点 | 触发方式 |
 |------|------|-----------|---------|
-| **首次运行** | 建立基线，生成问题集和标注 | 需要人工填写 `official_urls` | 手动逐步执行 |
+| **首次运行** | 建立基线，生成问题集和标注 | 需填写 `official_urls` | 手动逐步执行 |
 | **定期复检** | 周期性重新评估，更新 Issue | 无需人工介入 | Claude Code 对话 / OpenClaw |
 
 ---
@@ -390,42 +711,91 @@ previous-question/scoring-report.md
 |------|------|------|
 | Python 3.8+ | Skill 脚本语言 | 各 Skill 下的 `scripts/*.py` |
 | Claude Code Skill | 流程编排和 LLM 调用 | AGENT.md + SKILL.md 机制 |
-| **Playwright + Chromium** | **Web UI 浏览器自动化采样** | 用于 ChatGPT/Gemini/Qwen/DeepSeek Web 界面采样；提取回复文本和引用链接；支持匿名（Gemini）或 Session Token 登录模式 |
-| OpenAI-compatible API | API 方式采样（可选） | DeepSeek/Qwen/Doubao API 方式（更快但无引用链接） |
-| GitHub REST API v3 | Issue 创建和评论 | `POST /repos/{owner}/{repo}/issues` |
-| GitCode REST API v5 | Issue 创建和评论（国内社区） | `api.gitcode.com/api/v5` |
-| Discourse API | 论坛热帖抓取（Path 1） | `discuss.mindspore.cn` 公开 API，无需 Auth |
-| HyperKitty API | SIG 邮件列表归档（Path 3） | `mailweb.mindspore.cn` |
+| JSON | 数据交换格式 | 所有中间状态持久化，无数据库 |
+| Markdown | 报告和问题集输出 | 人工可读 |
+| `.env` | 配置管理 | 社区切换、API Key 管理 |
 
-### 6.2 采样方式对比
+### 6.2 Python 依赖（按模块）
+
+**数据采集 & 问题生成（get-question）：**
+
+| 库 | 用途 |
+|----|------|
+| `requests` | Discourse / GitCode / 官网 API 的 HTTP 同步调用 |
+| `openai` | OpenAI API 客户端，LLM 改写问题标题 |
+| `json`（标准库） | JSON 读取和问题集输出 |
+
+**AI 平台采样（platform-sampler）：**
+
+| 库 | 用途 |
+|----|------|
+| `playwright` | Chromium 浏览器自动化，Web UI 采样 |
+| `requests` | OpenAI-compatible API 快速采样 |
+
+**评分与报告（scoring-engine / assessment-report）：**
+
+| 库 | 用途 |
+|----|------|
+| `json`（标准库） | JSON 读写和数据聚合 |
+| `datetime`（标准库） | 时间戳和周期计算 |
+| `re`（标准库） | URL 归一化正则匹配 |
+
+**Issue 创建（issue-creator）：**
+
+| 库 | 用途 |
+|----|------|
+| `requests` | GitHub / GitCode REST API 调用 |
+
+### 6.3 采样方式对比
 
 本系统支持两种 AI 平台采样方式：
 
 | 方式 | 工具 | 适用平台 | 优点 | 缺点 |
 |------|------|---------|------|------|
-| **Web UI 采样** | Playwright + Chromium | ChatGPT, DeepSeek, Gemini, Qwen | 获取完整引用链接；与真实用户体验一致 | 较慢（每题 90s）；需维护 Session Token |
+| **Web UI 采样** | Playwright + Chromium | ChatGPT, DeepSeek, Gemini, Qwen | 获取完整引用链接；与真实用户体验一致 | 较慢（每题 ~90s）；需维护 Session Token |
 | **API 采样** | OpenAI-compatible API | DeepSeek, Qwen, Doubao | 快速（每题 2-5s）；无需登录 | 无引用链接；部分平台不支持 |
 
-**Web UI 采样（Playwright）脚本**：
-- `ask-chatgpt.py` — 通过 Session Token 登录 ChatGPT Web UI
-- `ask-gemini.py` — Gemini 支持匿名访问，或 Session Token 登录（启用 Search Grounding + citations）
-- `ask-qwen.py` — 通过 localStorage Token 或自动登录
-- `ask-deepseek.py` — 通过 Cookie 或自动登录
+**Web UI 采样（Playwright）脚本：**
 
-**安装要求**：
+| 脚本 | 平台 | 登录方式 |
+|------|------|---------|
+| `ask-chatgpt.py` | ChatGPT | Session Token |
+| `ask-gemini.py` | Gemini | 匿名访问 / Session Token（启用 Search Grounding） |
+| `ask-qwen.py` | Qwen | localStorage Token / 自动登录 |
+| `ask-deepseek.py` | DeepSeek | Cookie / 自动登录 |
+
+**安装要求：**
+
 ```bash
 pip3 install playwright
 python3 -m playwright install chromium
 ```
 
-### 6.3 外部依赖
+### 6.4 外部服务依赖
 
-| 依赖类型 | 要求 |
-|---------|------|
-| API Keys | 至少 2 个 AI 平台 Key（CHATGPT / DEEPSEEK / QWEN / DOUBAO / GEMINI） |
-| `GITHUB_TOKEN` 或 `GITCODE_TOKEN` | Issue 创建时必须提供 |
-| `GITCODE_TOKEN` | get-question Path 2（GitCode Issue 抓取）时必须提供 |
-| `WEBSITE_SEARCH_URL` | get-question Path 4（官网搜索热词）时可选提供 |
+| 服务 | 用途 | 必需 | 备选 |
+|------|------|------|------|
+| ChatGPT API / Web | AI 平台采样 | 按 Key 启用 | 无 Key 则跳过该平台 |
+| DeepSeek API / Web | AI 平台采样 | 按 Key 启用 | 同上 |
+| 豆包 API | AI 平台采样 | 按 Key 启用 | 同上 |
+| Qwen API / Web | AI 平台采样 | 按 Key 启用 | 同上 |
+| Gemini Web | AI 平台采样 | 按 Key 启用 | 同上 |
+| Discourse API | 论坛热帖采集（Path 1） | 可选 | 无则跳过该路径 |
+| GitCode API | Issue 采集（Path 2）+ Issue 创建 | 需 Token | GitHub API 作为 Issue 创建备选 |
+| GitHub API | Issue 创建和评论 | 需 Token | GitCode API 作为备选 |
+| LLM 服务 | 问题改写 + Issue 语义分组 | 需要 | Claude Code 内置 |
+
+> 各 API 的详细端点规范和认证方式见各 Skill 对应的 `references/` 目录。
+
+### 6.5 部署要求
+
+| 项目 | 要求 |
+|------|------|
+| 操作系统 | macOS / Linux（Playwright 依赖 Chromium，Windows 需额外配置） |
+| Python 版本 | 3.8+ |
+| 运行方式 | Claude Code CLI 对话驱动，无需 Web 服务器或数据库 |
+| 磁盘占用 | 每次运行产生 ~500KB JSON 数据，历史数据按日期累积 |
+| 网络要求 | 需访问各 AI 平台 API、社区数据源 API、GitHub / GitCode API |
 
 ---
 

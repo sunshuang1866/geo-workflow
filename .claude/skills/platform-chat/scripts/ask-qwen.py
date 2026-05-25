@@ -44,19 +44,11 @@ import json
 import os
 import sys
 import time
+from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.playwright_config import create_browser_context
 
-ANTI_DETECT_ARGS = [
-    "--no-sandbox",
-    "--disable-blink-features=AutomationControlled",
-    "--disable-infobars",
-    "--window-size=1280,800",
-]
-UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0.0.0 Safari/537.36"
-)
 CHROMIUM_PATH = os.path.expanduser(
     "~/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome"
 )
@@ -191,21 +183,12 @@ def main():
 
     timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
-    launch_kwargs: dict = dict(headless=True, args=ANTI_DETECT_ARGS)
+    launch_kwargs: dict = {}
     if os.path.isfile(CHROMIUM_PATH):
         launch_kwargs["executable_path"] = CHROMIUM_PATH
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(**launch_kwargs)
-        ctx = browser.new_context(
-            user_agent=UA,
-            viewport={"width": 1280, "height": 800},
-            locale="en-US",
-        )
-        ctx.add_init_script(
-            'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
-        )
-        page = ctx.new_page()
+        browser, ctx, page = create_browser_context(p, launch_kwargs=launch_kwargs or None)
 
         def save_screenshot(label: str) -> None:
             if args.screenshot_dir:

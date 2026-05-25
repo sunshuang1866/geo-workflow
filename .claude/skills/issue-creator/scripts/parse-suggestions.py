@@ -10,19 +10,15 @@ Errors go to stderr with non-zero exit code.
 
 import json
 import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.utils import load_json
 
 
 def parse_scoring_results(filepath):
     """Extract actionable suggestions from scoring results."""
-    try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            data = json.load(f)
-    except FileNotFoundError:
-        print(f"ERROR: File not found: {filepath}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"ERROR: Invalid JSON in {filepath}: {e}", file=sys.stderr)
-        sys.exit(1)
+    data = load_json(filepath, "scoring-results.json")
 
     suggestions = []
     suggestion_counter = 0

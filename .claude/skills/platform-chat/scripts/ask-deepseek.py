@@ -37,19 +37,10 @@ import json
 import os
 import sys
 import time
+from pathlib import Path
 
-
-ANTI_DETECT_ARGS = [
-    "--no-sandbox",
-    "--disable-blink-features=AutomationControlled",
-    "--disable-infobars",
-    "--window-size=1280,800",
-]
-UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0.0.0 Safari/537.36"
-)
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from _shared.playwright_config import create_browser_context
 
 # ── Selectors ──────────────────────────────────────────────────────────────────
 # Sign-in page
@@ -198,22 +189,10 @@ def main():
                 pass
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=ANTI_DETECT_ARGS)
-
-        # Build context with optional storage_state (cookie file)
-        ctx_kwargs = dict(
-            user_agent=UA,
-            viewport={"width": 1280, "height": 800},
-            locale="en-US",
-        )
+        ctx_kwargs = {}
         if has_session:
             ctx_kwargs["storage_state"] = args.session
-
-        ctx = browser.new_context(**ctx_kwargs)
-        ctx.add_init_script(
-            'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
-        )
-        page = ctx.new_page()
+        browser, ctx, page = create_browser_context(p, **ctx_kwargs)
 
         # Navigate
         try:

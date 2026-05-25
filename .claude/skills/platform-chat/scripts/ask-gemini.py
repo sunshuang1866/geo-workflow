@@ -111,7 +111,8 @@ def main():
         sys.exit(1)
 
     # ── Load session cookies (optional) ───────────────────────────────────────
-    cookie_header = None
+    session_cookies = []   # list of Playwright cookie dicts
+    storage_state  = None  # full Playwright storage_state path (preferred)
     if args.session:
         if not os.path.isfile(args.session):
             print(f"SESSION_FILE_MISSING: {args.session}", file=sys.stderr)
@@ -119,13 +120,26 @@ def main():
         try:
             with open(args.session) as f:
                 sess = json.load(f)
-            cookies = sess.get("cookies", {})
-            if not cookies:
-                print("SESSION_TOKEN_MISSING: no cookies in session file", file=sys.stderr)
-                sys.exit(2)
-            cookie_header = "; ".join(f"{k}={v}" for k, v in cookies.items())
-            print(f"  [session] loaded {len(cookies)} cookie(s): {list(cookies.keys())}",
-                  file=sys.stderr)
+
+            if "cookies" in sess and isinstance(sess["cookies"], list):
+                # Full Playwright storage_state format — use directly
+                storage_state = args.session
+                print(f"  [session] storage_state format: {len(sess['cookies'])} cookie(s)",
+                      file=sys.stderr)
+            else:
+                # Legacy dict format: {"cookies": {"name": "value", ...}}
+                cookies_dict = sess.get("cookies", {})
+                if not cookies_dict:
+                    print("SESSION_TOKEN_MISSING: no cookies in session file", file=sys.stderr)
+                    sys.exit(2)
+                for name, value in cookies_dict.items():
+                    session_cookies.append({
+                        "name": name, "value": value,
+                        "domain": ".google.com", "path": "/",
+                        "httpOnly": True, "secure": True, "sameSite": "None",
+                    })
+                print(f"  [session] legacy format: {len(session_cookies)} cookie(s)",
+                      file=sys.stderr)
         except Exception as e:
             print(f"SESSION_READ_ERROR: {e}", file=sys.stderr)
             sys.exit(2)
@@ -133,7 +147,10 @@ def main():
     timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
     with sync_playwright() as p:
-        browser, ctx, page = create_browser_context(p)
+        ctx_kwargs = {}
+        if storage_state:
+            ctx_kwargs["storage_state"] = storage_state
+        browser, ctx, page = create_browser_context(p, **ctx_kwargs)
 
         def save_screenshot(label):
             if args.screenshot_dir:
@@ -145,10 +162,10 @@ def main():
                 except Exception:
                     pass
 
-        # ── Navigate (inject cookies if session provided) ──────────────────────
+        # ── Navigate (storage_state handles auth; fallback to add_cookies) ────
         try:
-            if cookie_header:
-                page.set_extra_http_headers({"Cookie": cookie_header})
+            if not storage_state and session_cookies:
+                ctx.add_cookies(session_cookies)
             page.goto("https://gemini.google.com/app", timeout=30000)
             time.sleep(3)
         except Exception as e:

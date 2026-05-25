@@ -75,7 +75,11 @@ def main():
         print("SESSION_SAVED (playwright not available, skipping verify)", file=sys.stderr)
         sys.exit(0)
 
-    cookie_header = "; ".join(f"{k}={v}" for k, v in cookies.items())
+    pw_cookies = [
+        {"name": k, "value": v, "domain": ".google.com", "path": "/",
+         "httpOnly": True, "secure": True, "sameSite": "None"}
+        for k, v in cookies.items()
+    ]
 
     anti_detect = [
         "--no-sandbox",
@@ -100,16 +104,9 @@ def main():
         )
         page = ctx.new_page()
 
-        # Inject cookies into ALL *.google.com requests via route interception.
-        # set_extra_http_headers only covers the top-level navigation; Google auth
-        # validates via accounts.google.com sub-requests which need the same cookies.
-        def _inject_cookies(route):
-            existing = route.request.headers.get("cookie", "")
-            merged = (existing + "; " + cookie_header).strip("; ")
-            route.continue_(headers={**route.request.headers, "cookie": merged})
-
-        page.route("**/*google.com/**", _inject_cookies)
-        page.route("**/*google.com", _inject_cookies)
+        # Inject cookies into the browser's cookie store (domain-scoped).
+        # This covers all subdomains (accounts.google.com, etc.) automatically.
+        ctx.add_cookies(pw_cookies)
 
         page.goto("https://gemini.google.com/app", timeout=30000)
         time.sleep(5)

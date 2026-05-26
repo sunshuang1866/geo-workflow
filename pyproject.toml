@@ -1,0 +1,32 @@
+[project]
+name = "geo-workflow"
+version = "0.1.0"
+description = "GEO Search Assessment Workflow — evaluates AI platform citation of community content"
+requires-python = ">=3.9"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=.claude/skills --cov-report=term-missing --cov-fail-under=70"
+
+[tool.coverage.run]
+omit = [
+    ".claude/skills/_shared/playwright_config.py",
+    ".claude/skills/platform-chat/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
+exclude = '''
+/(
+    \.git
+  | __pycache__
+  | \.pytest_cache
+  | \.claude/skills/[^/]+/references
+)/
+'''

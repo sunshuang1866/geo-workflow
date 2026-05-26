@@ -1,0 +1,12 @@
+# Browser automation (platform-chat skill)
+playwright>=1.40.0
+
+# Database connectors (get-question skill)
+psycopg2-binary>=2.9.0
+pymongo>=4.0.0
+
+# Code quality and testing (dev)
+black>=24.0.0
+flake8>=7.0.0
+pytest>=8.0.0
+pytest-cov>=5.0.0

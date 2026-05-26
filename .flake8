@@ -1,0 +1,26 @@
+[flake8]
+max-line-length = 100
+extend-ignore =
+    # E402: scripts use sys.path.insert before imports (intentional pattern)
+    E402
+exclude =
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .claude/skills/*/references
+per-file-ignores =
+    __init__.py: F401
+    # Pre-existing code — not modified in this change set
+    .claude/skills/issue-creator/scripts/comment-issue.py: E501,F401
+    .claude/skills/issue-creator/scripts/create-issue.py: F401,E741
+    .claude/skills/platform-chat/scripts/ask-chatgpt.py: E501
+    .claude/skills/platform-chat/scripts/ask-deepseek.py: E501
+    .claude/skills/platform-chat/scripts/ask-gemini.py: F401,E501
+    .claude/skills/platform-chat/scripts/ask-qwen.py: F401
+    .claude/skills/platform-chat/scripts/check-env.py: E501
+    .claude/skills/platform-chat/scripts/inject-gemini-session.py: F401,F541
+    .claude/skills/platform-chat/scripts/inject-token.py: E501
+    .claude/skills/platform-chat/scripts/run-platform-chat.py: F401,F841
+    .claude/skills/platform-chat/scripts/verify-session.py: E501
+    .claude/skills/prefill-urls/scripts/search-discourse.py: E501
+    .claude/skills/scoring-engine/scripts/select-spot-check.py: F541

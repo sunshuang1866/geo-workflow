@@ -46,19 +46,26 @@ GEO（Generative Engine Optimization）搜索能力诊断系统 —— 自动评
 
 ## 前置准备
 
-### 1. 环境要求
+### 1. 一键初始化环境
 
-- [Claude Code](https://claude.ai/code) CLI
-- Python 3.8+
-- Git
-
-### 2. 凭证与环境变量
-
-复制 `.env.example` 为 `.env`，按下表填写必需凭证：
+克隆仓库后，运行一次：
 
 ```bash
-cp .env.example .env
+bash scripts/setup.sh
 ```
+
+该脚本自动完成所有环境准备工作：
+
+| 步骤 | 内容 |
+|------|------|
+| Python 依赖 | `pip3 install -r requirements.txt` |
+| Playwright 浏览器 | 安装 Chromium（platform-chat 采样使用） |
+| `.env` 文件 | 从 `.env.example` 自动生成（已存在则跳过） |
+| git pre-commit hook | 安装提交前自动检查（格式 + lint） |
+
+### 2. 填写凭证
+
+编辑 `.env`（`setup.sh` 已自动创建），按下表填写必需凭证：
 
 | 变量 | 用途 | 必需 |
 |------|------|------|
@@ -79,7 +86,7 @@ cp .env.example .env
 | 变量 | 用途 | 示例值 |
 |------|------|--------|
 | `GEO_COMMUNITY` | 社区名称，供所有 Skill 读取 | `openEuler` |
-| `GEO_COMMUNITY_DIR` | 社区数据目录路径 | `assessments/openEuler/` |
+| `GEO_COMMUNITY_DIR` | 社区数据目录路径 | `output/openEuler/` |
 | `GEO_FORUM_URL` | 社区 Discourse 论坛地址 | `https://forum.openeuler.org` |
 | `GEO_PATHS` | get-question 默认来源路径 | `all` |
 | `GEO_DRY_RUN` | 全局 dry-run 开关 | `false` |
@@ -88,12 +95,20 @@ cp .env.example .env
 
 > 采样使用 `/platform-chat` 浏览器自动化，不依赖平台接口密钥；请至少准备 1 个可用平台的 Web 登录凭证或会话文件。
 
-### 3. 创建社区目录
-
-社区数据统一存放在 `assessments/` 下：
+### 3. 验证环境
 
 ```bash
-mkdir -p assessments/openEuler/
+bash scripts/validate-env.sh
+```
+
+逐项检查 `.env` 变量、Python 依赖、Playwright 浏览器和系统库是否就绪，输出 ✓/✗ 和修复提示。**所有项目显示 ✓ 后再继续。**
+
+### 4. 创建社区目录
+
+社区数据统一存放在 `output/` 下：
+
+```bash
+mkdir -p output/openEuler/
 ```
 
 ---
@@ -167,7 +182,7 @@ mkdir -p assessments/openEuler/
 
 > `repo_url` 自动从 `.env` 的 `GEO_REPO_URL` 读取。`dry_run=true` 覆盖 `.env` 中的 `GEO_DRY_RUN`。
 
-**首次运行完成后**，`assessments/openEuler/` 目录下应有：
+**首次运行完成后**，`output/openEuler/` 目录下应有：
 - `questions.json` — 问题集（`/get-question` 生成，含人工填写的 `official_urls`）
 - `issue-map.json` — Issue 映射（自动生成）
 
@@ -256,7 +271,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 /get-question community=openEuler target_count=50
 ```
 
-> 每次执行自动加载 `assessments/{community}/questions.json`，将新问题**追加**到现有问题集末尾，语义重复的问题自动过滤。已填写的 `official_urls` 和 `notes` 将原样保留。
+> 每次执行自动加载 `output/{community}/questions.json`，将新问题**追加**到现有问题集末尾，语义重复的问题自动过滤。已填写的 `official_urls` 和 `notes` 将原样保留。
 
 ### platform-chat — 采样 AI 平台（浏览器自动化）
 
@@ -271,7 +286,7 @@ Step 5 (finalize):  更新 run-meta.json，输出摘要
 | `min_citations` | 最少引用数，不足时自动追问 | `8` |
 
 各平台凭证要求：
-- **ChatGPT**：`assessments/{community}/.chatgpt-session.json`
+- **ChatGPT**：`output/{community}/.chatgpt-session.json`
 - **DeepSeek**：`DEEPSEEK_WEB_EMAIL` + `DEEPSEEK_WEB_PASSWORD`（自动登录）
 - **Gemini**：匿名可用（无引用）；有 `.gemini-session.json` 时启用 Search Grounding
 - **Qwen**：`QWEN_WEB_EMAIL` + `QWEN_WEB_PASSWORD`（自动登录）
@@ -330,7 +345,21 @@ geo-workflow/
 ├── .env.example                    # 环境变量模板
 ├── .env                            # 凭证配置（不入库）
 ├── .gitignore
-├── assessments/                    # 社区评估数据
+├── pyproject.toml                  # Python 项目配置（pytest、black、coverage）
+├── .github/
+│   └── workflows/
+│       └── ci.yml                  # GitHub Actions CI 门禁（PR 合入前自动运行）
+├── scripts/                        # 开发环境工具脚本
+│   ├── setup.sh                    # 一键初始化（克隆后运行一次）
+│   ├── validate-env.sh             # 环境健康检查（随时可运行）
+│   └── pre-commit.sh               # git pre-commit hook（由 setup.sh 自动安装）
+├── tests/                          # 自动化测试集（由 CI 门禁执行）
+│   ├── conftest.py                 # 公共 fixture 与辅助函数
+│   ├── test_score_urls.py          # scoring-engine URL 匹配逻辑测试
+│   ├── test_shared_utils.py        # _shared/utils.py 工具函数测试
+│   ├── test_validate_questions.py  # 问题集格式校验测试
+│   └── test_clean_code.py          # stdout/stderr 协议与退出码合规测试
+├── output/                    # 社区评估数据
 │   └── openEuler/                  # openEuler 社区
 │       ├── questions.json               # 问题集 + official_urls（人工填写，source of truth）
 │       ├── questions.md                 # 问题集（人工可读）
@@ -407,13 +436,13 @@ openclaw trigger \
 
 ### Q: 如何更新问题集？
 
-重新运行 `/get-question` 或直接编辑 `assessments/openEuler/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
+重新运行 `/get-question` 或直接编辑 `output/openEuler/questions.json`。下次执行 AGENT.md 时，Step 0 会自动检测到变更并打印 diff，需要加 `accept_question_update=true` 才能继续。新增问题记得在 `questions.json` 中补充 `official_urls`。
 
 ### Q: 某个平台 Web 凭证或会话失效了怎么办？
 
 更新对应平台凭证即可：
 - DeepSeek/Qwen：更新 `.env` 中 `*_WEB_EMAIL` 与 `*_WEB_PASSWORD`
-- ChatGPT/Gemini：更新 `assessments/{community}/.*-session.json` 会话文件
+- ChatGPT/Gemini：更新 `output/{community}/.*-session.json` 会话文件
 只要至少 1 个平台可用，采样即可继续；失败平台会记录在 `skipped_platforms`。
 
 ### Q: Issue 被手动关闭后，下次复检还会操作它吗？
@@ -426,10 +455,10 @@ openclaw trigger \
 
 ### Q: 如何新增一个社区（以 openEuler 为例）？
 
-1. 创建目录 `assessments/openEuler/`
-2. 运行 `/get-question paths=all` 生成 `questions.json`（需先把 `.env` 中 `GEO_COMMUNITY=openEuler`、`GEO_COMMUNITY_DIR=assessments/openEuler/`、`GEO_FORUM_URL`、`GEO_REPO_URL` 更新为 openEuler 对应值）
+1. 创建目录 `output/openEuler/`
+2. 运行 `/get-question paths=all` 生成 `questions.json`（需先把 `.env` 中 `GEO_COMMUNITY=openEuler`、`GEO_COMMUNITY_DIR=output/openEuler/`、`GEO_FORUM_URL`、`GEO_REPO_URL` 更新为 openEuler 对应值）
 3. 审核 `questions.md`，直接编辑 `questions.json` 做必要调整
-4. 在 `assessments/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
+4. 在 `output/openEuler/questions.json` 中填写各问题的 `official_urls`（以及顶层 `official_domains`）
 5. 在 `.env` 中配置该社区的平台 Web 凭证与 Issue Token
 6. 按正常流程运行
 
@@ -442,13 +471,36 @@ openclaw trigger \
 
 ### Q: 评分结果不准怎么办？
 
-打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `assessments/{community}/questions.json` 中对应问题的 `official_urls`，然后重新运行 scoring-engine（`steps=2,3,4,5`）。
+打开 `scoring-results.json`，找到对应的 `question_id` + `platform` 条目，确认 `official_urls` 标注是否准确。若标注有误，直接修改 `output/{community}/questions.json` 中对应问题的 `official_urls`，然后重新运行 scoring-engine（`steps=2,3,4,5`）。
 
 ---
 
 ## 使用 Claude Code 开发
 
 本仓库使用 [Claude Code](https://claude.ai/code) 作为主要开发工具，配置了自动化工作流和会话恢复机制。
+
+### CI 门禁 —— 代码合入保障
+
+质量检查分两层，分工明确：
+
+| 层级 | 触发时机 | 检查内容 | 目的 |
+|------|----------|----------|------|
+| **本地 pre-commit** | `git commit` | black 格式检查 + flake8 lint | 本地即时拦截低级错误，秒级反馈 |
+| **GitHub Actions CI** | PR 创建/更新 | black + flake8 + 全套测试 + 覆盖率（≥70%） | 合入主分支前的强制门禁 |
+
+CI 配置文件：`.github/workflows/ci.yml`，PR 所有检查通过后方可合入 `main`。
+
+测试集位于 `tests/`，涵盖：
+- URL 匹配算法（`test_score_urls.py`）
+- 共享工具函数（`test_shared_utils.py`）
+- 问题集格式校验（`test_validate_questions.py`）
+- stdout/stderr 协议合规（`test_clean_code.py`）
+
+本地手动运行全套测试：
+
+```bash
+python3 -m pytest
+```
 
 ### CLAUDE-RESUME.md —— 会话恢复
 

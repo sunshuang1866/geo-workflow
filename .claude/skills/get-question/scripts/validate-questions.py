@@ -12,7 +12,7 @@ Validates:
 - id follows pattern q_NNN
 - No duplicate ids
 
-Output: "VALID: N questions passed validation." to stdout on success,
+Output: "VALID: N questions passed validation." to stderr on success,
         errors to stderr on failure (exit 1).
 """
 
@@ -89,4 +89,4 @@ if __name__ == "__main__":
                 print(e, file=sys.stderr)
             sys.exit(1)
 
-    print(f"VALID: {len(data)} questions passed validation.")
+    print(f"VALID: {len(data)} questions passed validation.", file=sys.stderr)

@@ -5,7 +5,8 @@ from scoring-results.json, questions.json, issue-map.json, and the previous
 run's assessment-report.json (for trend comparison).
 
 Usage:
-  python3 generate-report.py <scoring_file> <questions_file> <issue_map_file> <output_dir> <prev_report_file>
+  python3 generate-report.py <scoring_file> <questions_file> <issue_map_file> \
+      <output_dir> <prev_report_file>
 
   Pass "none" for <prev_report_file> on the first run.
 """
@@ -75,8 +76,10 @@ def load_prev_report(prev_report_file: str) -> dict:
         return {}
     p = Path(prev_report_file)
     if not p.exists():
-        print(f"WARNING: prev_report_file not found: {prev_report_file} — treating as first run",
-              file=sys.stderr)
+        print(
+            f"WARNING: prev_report_file not found: {prev_report_file} — treating as first run",
+            file=sys.stderr,
+        )
         return {}
     data = json.loads(p.read_text(encoding="utf-8"))
     prev_map = {}
@@ -217,12 +220,17 @@ def assign_action_keys(record: dict) -> list:
     action_keys = []
 
     # Detect non-doc official URLs (news pages, issue search, gitee search)
-    non_doc_url_signals = ["news/detail", "issues?q=", "activities", "version-updates",
-                            "sig/meeting-guide", "mailweb", "/sig/", "/contribution"]
-    is_non_doc = any(
-        any(sig in url for sig in non_doc_url_signals)
-        for url in official_urls
-    )
+    non_doc_url_signals = [
+        "news/detail",
+        "issues?q=",
+        "activities",
+        "version-updates",
+        "sig/meeting-guide",
+        "mailweb",
+        "/sig/",
+        "/contribution",
+    ]
+    is_non_doc = any(any(sig in url for sig in non_doc_url_signals) for url in official_urls)
 
     if citation_rate == 0.0:
         if is_non_doc:
@@ -280,22 +288,25 @@ def build_action_groups(not_cited_records: list) -> list:
                 issue_refs[num] = url
 
         meta = ACTION_META[key]
-        groups.append({
-            "action_key": key,
-            "action_title": meta["title"],
-            "action_description": meta["description"],
-            "questions": qs,
-            "issue_refs": [{"number": n, "url": u} for n, u in sorted(issue_refs.items())],
-            "avg_citation_rate": avg_rate,
-            "unique_question_count": len(qs),
-        })
+        groups.append(
+            {
+                "action_key": key,
+                "action_title": meta["title"],
+                "action_description": meta["description"],
+                "questions": qs,
+                "issue_refs": [{"number": n, "url": u} for n, u in sorted(issue_refs.items())],
+                "avg_citation_rate": avg_rate,
+                "unique_question_count": len(qs),
+            }
+        )
 
     groups.sort(key=lambda g: g["avg_citation_rate"])
     return groups
 
 
-def render_grouped_not_cited(not_cited_records: list, platforms_present: list,
-                              platform_headers: list) -> str:
+def render_grouped_not_cited(
+    not_cited_records: list, platforms_present: list, platform_headers: list
+) -> str:
     """Render the P0 not_cited section sub-grouped by action type."""
     groups = build_action_groups(not_cited_records)
     lines = []
@@ -348,9 +359,11 @@ def build_changes_summary(records: list, prev_report_file: str) -> dict:
 
 def main():
     if len(sys.argv) != 6:
-        print("Usage: generate-report.py <scoring_file> <questions_file> <issue_map_file> "
-              "<output_dir> <prev_report_file>",
-              file=sys.stderr)
+        print(
+            "Usage: generate-report.py <scoring_file> <questions_file> <issue_map_file> "
+            "<output_dir> <prev_report_file>",
+            file=sys.stderr,
+        )
         print("  Pass 'none' for prev_report_file on the first run.", file=sys.stderr)
         sys.exit(1)
 
@@ -364,9 +377,15 @@ def main():
 
     # Run build-report.py to get merged records
     result = subprocess.run(
-        [sys.executable, str(SCRIPT_DIR / "build-report.py"),
-         scoring_file, questions_file, issue_map_file],
-        capture_output=True, text=True
+        [
+            sys.executable,
+            str(SCRIPT_DIR / "build-report.py"),
+            scoring_file,
+            questions_file,
+            issue_map_file,
+        ],
+        capture_output=True,
+        text=True,
     )
     if result.returncode != 0:
         print(f"ERROR: build-report.py failed:\n{result.stderr}", file=sys.stderr)
@@ -482,7 +501,9 @@ def main():
     question_index = build_question_index(records)
     rows_no = "\n".join(build_table_row(r, platforms_present) for r in no_official)
     grouped_not_cited_md = render_grouped_not_cited(not_cited, platforms_present, platform_headers)
-    rows_ok = "\n".join(build_table_row(r, platforms_present, show_citation=True) for r in satisfied)
+    rows_ok = "\n".join(
+        build_table_row(r, platforms_present, show_citation=True) for r in satisfied
+    )
 
     md_lines = [
         f"# GEO 问题集评估报告 — {community}",
@@ -579,19 +600,22 @@ def main():
     md_path = output_dir / "assessment-report.md"
     md_path.write_text("\n".join(md_lines), encoding="utf-8")
 
-    print(f"Assessment report generated:")
-    print(f"  Community: {community}")
-    print(f"  Total questions: {len(records)}")
-    print(f"  官方内容缺失:    {len(no_official)} questions (P1)")
-    print(f"  有内容未被引用:  {len(not_cited)} questions (P0)")
-    print(f"  引用了官方内容:  {len(satisfied)} questions (OK)")
+    print("Assessment report generated:", file=sys.stderr)
+    print(f"  Community: {community}", file=sys.stderr)
+    print(f"  Total questions: {len(records)}", file=sys.stderr)
+    print(f"  官方内容缺失:    {len(no_official)} questions (P1)", file=sys.stderr)
+    print(f"  有内容未被引用:  {len(not_cited)} questions (P0)", file=sys.stderr)
+    print(f"  引用了官方内容:  {len(satisfied)} questions (OK)", file=sys.stderr)
     if is_first_run:
-        print(f"  变化摘要:        首次运行，无历史基线")
+        print("  变化摘要:        首次运行，无历史基线", file=sys.stderr)
     else:
-        print(f"  变化摘要:        ↑{changes['improved']} ↓{changes['regressed']} "
-              f"✓{changes['resolved']} ★{changes['new']} →{changes['stable']}")
-    print(f"  Output: {json_path}")
-    print(f"          {md_path}")
+        print(
+            f"  变化摘要:        ↑{changes['improved']} ↓{changes['regressed']} "
+            f"✓{changes['resolved']} ★{changes['new']} →{changes['stable']}",
+            file=sys.stderr,
+        )
+    print(f"  Output: {json_path}", file=sys.stderr)
+    print(f"          {md_path}", file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -76,8 +76,10 @@ def build_platform_record(platform_data, has_official_content):
 
 def main():
     if len(sys.argv) < 4:
-        print("Usage: build-report.py <scoring_file> <questions_file> <issue_map_file>",
-              file=sys.stderr)
+        print(
+            "Usage: build-report.py <scoring_file> <questions_file> <issue_map_file>",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     scoring_file, questions_file, issue_map_file = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -91,10 +93,7 @@ def main():
     issue_map = load_json(issue_map_file, "issue-map.json", optional=True) or {"issues": {}}
 
     # Build questions lookup
-    labels_lookup = {
-        entry["id"]: entry
-        for entry in questions_data.get("questions", [])
-    }
+    labels_lookup = {entry["id"]: entry for entry in questions_data.get("questions", [])}
 
     # Build issue lookup
     issue_lookup = build_issue_lookup(issue_map)

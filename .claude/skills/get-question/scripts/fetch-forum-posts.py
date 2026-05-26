@@ -38,8 +38,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-
-MIN_VIEWS   = 50
+MIN_VIEWS = 50
 FORUM_TOP_N = 30
 
 REQUIRED_DB_FIELDS = ("host", "port", "dbname", "user", "password")
@@ -68,20 +67,20 @@ def _load_db_config(community: str) -> dict | None:
 
     ck = _normalize_key(community)
     scoped = {
-        "host":     os.environ.get(f"HOTOPIC_DB_{ck}_HOST", ""),
-        "port":     os.environ.get(f"HOTOPIC_DB_{ck}_PORT", ""),
-        "dbname":   os.environ.get(f"HOTOPIC_DB_{ck}_NAME", ""),
-        "user":     os.environ.get(f"HOTOPIC_DB_{ck}_USER", ""),
+        "host": os.environ.get(f"HOTOPIC_DB_{ck}_HOST", ""),
+        "port": os.environ.get(f"HOTOPIC_DB_{ck}_PORT", ""),
+        "dbname": os.environ.get(f"HOTOPIC_DB_{ck}_NAME", ""),
+        "user": os.environ.get(f"HOTOPIC_DB_{ck}_USER", ""),
         "password": os.environ.get(f"HOTOPIC_DB_{ck}_PASSWORD", ""),
     }
     if all(scoped.values()):
         return scoped
 
     generic = {
-        "host":     os.environ.get("HOTOPIC_DB_HOST", ""),
-        "port":     os.environ.get("HOTOPIC_DB_PORT", ""),
-        "dbname":   os.environ.get("HOTOPIC_DB_NAME", ""),
-        "user":     os.environ.get("HOTOPIC_DB_USER", ""),
+        "host": os.environ.get("HOTOPIC_DB_HOST", ""),
+        "port": os.environ.get("HOTOPIC_DB_PORT", ""),
+        "dbname": os.environ.get("HOTOPIC_DB_NAME", ""),
+        "user": os.environ.get("HOTOPIC_DB_USER", ""),
         "password": os.environ.get("HOTOPIC_DB_PASSWORD", ""),
     }
     if all(generic.values()):
@@ -105,8 +104,11 @@ def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[
 
     try:
         conn = psycopg2.connect(
-            host=cfg["host"], port=int(cfg["port"]),
-            dbname=cfg["dbname"], user=cfg["user"], password=cfg["password"],
+            host=cfg["host"],
+            port=int(cfg["port"]),
+            dbname=cfg["dbname"],
+            user=cfg["user"],
+            password=cfg["password"],
             connect_timeout=10,
         )
     except Exception as e:
@@ -145,7 +147,10 @@ def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[
 
         if rows is None:
             # No view column found — fall back to comment_num + recency ordering
-            print("WARNING: No view column found; falling back to comment_num ordering.", file=sys.stderr)
+            print(
+                "WARNING: No view column found; falling back to comment_num ordering.",
+                file=sys.stderr,
+            )
             query = f"""
                 SELECT source_id, title, url, created_at,
                        0 AS views,
@@ -165,18 +170,21 @@ def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[
                 return None
 
         if not rows:
-            print(f"WARNING: DB returned 0 forum rows for '{community}' (views>{MIN_VIEWS}).", file=sys.stderr)
+            print(
+                f"WARNING: DB returned 0 forum rows for '{community}' (views>{MIN_VIEWS}).",
+                file=sys.stderr,
+            )
             return None
 
         results = [
             {
-                "id":          row[0],
-                "title":       row[1],
-                "url":         row[2],
-                "views":       row[4] or 0,
+                "id": row[0],
+                "title": row[1],
+                "url": row[2],
+                "views": row[4] or 0,
                 "reply_count": row[5] or 0,
-                "created_at":  row[3].isoformat() if row[3] else "",
-                "source":      "db",
+                "created_at": row[3].isoformat() if row[3] else "",
+                "source": "db",
             }
             for row in rows
             if row[1] and row[2]
@@ -201,6 +209,7 @@ def fetch_from_db(community: str, since: str | None, limit: int | None) -> list[
 
 # ── Discourse API fallback ────────────────────────────────────────────────────
 
+
 def _fetch_json(url: str) -> dict:
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     try:
@@ -221,8 +230,9 @@ def _fetch_all_categories(base_url: str) -> list[dict]:
     try:
         data = _fetch_json(f"{base_url}/categories.json")
         cats = data.get("category_list", {}).get("categories", [])
-        return [c for c in cats
-                if c.get("topic_count", 0) > 0 and c.get("slug", "") not in SKIP_SLUGS]
+        return [
+            c for c in cats if c.get("topic_count", 0) > 0 and c.get("slug", "") not in SKIP_SLUGS
+        ]
     except Exception as e:
         print(f"WARNING: Failed to fetch categories: {e}", file=sys.stderr)
         return []
@@ -266,15 +276,17 @@ def fetch_from_discourse(api_url: str, limit: int | None) -> list[dict]:
     for topic in all_topics.values():
         if topic.get("views", 0) <= MIN_VIEWS:
             continue
-        results.append({
-            "id":          topic.get("id"),
-            "title":       topic.get("title", ""),
-            "url":         "",
-            "views":       topic.get("views", 0),
-            "reply_count": topic.get("reply_count", 0),
-            "created_at":  topic.get("created_at", ""),
-            "source":      "discourse",
-        })
+        results.append(
+            {
+                "id": topic.get("id"),
+                "title": topic.get("title", ""),
+                "url": "",
+                "views": topic.get("views", 0),
+                "reply_count": topic.get("reply_count", 0),
+                "created_at": topic.get("created_at", ""),
+                "source": "discourse",
+            }
+        )
 
     results.sort(key=lambda t: t["views"], reverse=True)
     total = len(results)
@@ -289,15 +301,23 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Fetch forum posts from PostgreSQL hotopic DB or Discourse API"
     )
-    parser.add_argument("--community", required=True,
-                        help="Community name, e.g. openeuler, mindspore")
-    parser.add_argument("--api-url", default=None,
-                        help="Discourse forum base URL, used as fallback "
-                             "(e.g. https://discuss.mindspore.cn)")
-    parser.add_argument("--since", default=None,
-                        help="Only return posts created on or after this date (YYYY-MM-DD)")
-    parser.add_argument("--limit", type=int, default=None,
-                        help="Maximum number of posts to return (default: top 30)")
+    parser.add_argument(
+        "--community", required=True, help="Community name, e.g. openeuler, mindspore"
+    )
+    parser.add_argument(
+        "--api-url",
+        default=None,
+        help="Discourse forum base URL, used as fallback " "(e.g. https://discuss.mindspore.cn)",
+    )
+    parser.add_argument(
+        "--since", default=None, help="Only return posts created on or after this date (YYYY-MM-DD)"
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of posts to return (default: top 30)",
+    )
     args = parser.parse_args()
 
     limit = min(args.limit or FORUM_TOP_N, FORUM_TOP_N)

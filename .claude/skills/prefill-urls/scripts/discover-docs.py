@@ -22,7 +22,6 @@ import re
 import sys
 import urllib.request
 
-
 TIMEOUT = 10
 
 

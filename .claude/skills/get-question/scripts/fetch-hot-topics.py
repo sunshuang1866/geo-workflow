@@ -35,22 +35,28 @@ import re
 import sys
 import urllib.parse
 
-
 _CONSULT_BRACKETS = frozenset(["question", "咨询", "问题"])
-_EXCLUDE_BRACKETS = frozenset(["requirement", "req", "task", "rfc", "roadmap",
-                                "documentation", "doc", "bug"])
+_EXCLUDE_BRACKETS = frozenset(
+    ["requirement", "req", "task", "rfc", "roadmap", "documentation", "doc", "bug"]
+)
 
 
 def _load_mongo_config() -> dict | None:
-    host     = os.environ.get("MONGODB_HOST", "").strip()
-    port     = os.environ.get("MONGODB_PORT", "").strip()
-    user     = os.environ.get("MONGODB_USER", "").strip()
+    host = os.environ.get("MONGODB_HOST", "").strip()
+    port = os.environ.get("MONGODB_PORT", "").strip()
+    user = os.environ.get("MONGODB_USER", "").strip()
     password = os.environ.get("MONGODB_PASSWORD", "").strip()
-    dbname   = os.environ.get("MONGODB_DBNAME", "community-hot-topic").strip()
-    tls      = os.environ.get("MONGODB_TLS", "true").strip().lower() not in ("false", "0", "no")
+    dbname = os.environ.get("MONGODB_DBNAME", "community-hot-topic").strip()
+    tls = os.environ.get("MONGODB_TLS", "true").strip().lower() not in ("false", "0", "no")
     if host and port and user and password:
-        return {"host": host, "port": port, "user": user,
-                "password": password, "dbname": dbname, "tls": tls}
+        return {
+            "host": host,
+            "port": port,
+            "user": user,
+            "password": password,
+            "dbname": dbname,
+            "tls": tls,
+        }
     return None
 
 
@@ -65,7 +71,7 @@ def _classify_source(source: dict) -> str:
         return "consult"
 
     title = (source.get("title") or "").lower()
-    url   = (source.get("url") or "").lower()
+    url = (source.get("url") or "").lower()
 
     # Extract bracket prefix: "[Question|问题咨询]: ..." → "question"
     m = re.match(r"\[([^\]|]+)", title)
@@ -108,16 +114,18 @@ def fetch_topics(community: str, limit: int | None) -> list[dict] | None:
     try:
         pwd = urllib.parse.quote(cfg["password"], safe="")
         tls_params = "&tls=true&tlsAllowInvalidCertificates=true" if cfg["tls"] else ""
-        uri = (f"mongodb://{cfg['user']}:{pwd}@{cfg['host']}:{cfg['port']}/"
-               f"?authSource=admin{tls_params}")
+        uri = (
+            f"mongodb://{cfg['user']}:{pwd}@{cfg['host']}:{cfg['port']}/"
+            f"?authSource=admin{tls_params}"
+        )
         client = MongoClient(uri, serverSelectionTimeoutMS=10000)
         db = client[cfg["dbname"]]
     except Exception as e:
         print(f"WARNING: MongoDB connection failed: {e}", file=sys.stderr)
         return None
 
-    comm_key   = community.lower()
-    hot_col    = f"{comm_key}_hot_topic"
+    comm_key = community.lower()
+    hot_col = f"{comm_key}_hot_topic"
     nothot_col = f"{comm_key}_not_hot_topic"
 
     try:
@@ -127,29 +135,36 @@ def fetch_topics(community: str, limit: int | None) -> list[dict] | None:
         return None
 
     if hot_col not in existing_cols and nothot_col not in existing_cols:
-        print(f"WARNING: No MongoDB collections found for '{community}' "
-              f"(tried: {hot_col}, {nothot_col})", file=sys.stderr)
+        print(
+            f"WARNING: No MongoDB collections found for '{community}' "
+            f"(tried: {hot_col}, {nothot_col})",
+            file=sys.stderr,
+        )
         return None
 
     raw_topics: list[dict] = []
 
     if hot_col in existing_cols:
         for doc in db[hot_col].find():
-            raw_topics.append({
-                "title":           doc.get("title", ""),
-                "sources":         doc.get("sources", []),
-                "source_collection": "hot_topic",
-            })
+            raw_topics.append(
+                {
+                    "title": doc.get("title", ""),
+                    "sources": doc.get("sources", []),
+                    "source_collection": "hot_topic",
+                }
+            )
 
     if nothot_col in existing_cols:
         doc = db[nothot_col].find_one()
         if doc:
             for topic in doc.get("topics", []):
-                raw_topics.append({
-                    "title":           topic.get("title", ""),
-                    "sources":         topic.get("sources", []),
-                    "source_collection": "not_hot_topic",
-                })
+                raw_topics.append(
+                    {
+                        "title": topic.get("title", ""),
+                        "sources": topic.get("sources", []),
+                        "source_collection": "not_hot_topic",
+                    }
+                )
 
     print(f"MongoDB: {len(raw_topics)} raw topics for '{community}'", file=sys.stderr)
 
@@ -159,13 +174,17 @@ def fetch_topics(community: str, limit: int | None) -> list[dict] | None:
         sources = topic.get("sources", [])
         classifications = [_classify_source(s) for s in sources]
         remaining_count = classifications.count("consult")
-        exclude_count   = classifications.count("exclude")
+        exclude_count = classifications.count("exclude")
         if remaining_count == 0:
             continue
-        scored.append({**topic,
-                       "remaining_count": remaining_count,
-                       "exclude_count":   exclude_count,
-                       "total_count":     len(sources)})
+        scored.append(
+            {
+                **topic,
+                "remaining_count": remaining_count,
+                "exclude_count": exclude_count,
+                "total_count": len(sources),
+            }
+        )
 
     dropped = len(raw_topics) - len(scored)
     print(f"MongoDB: {len(scored)} topics after source filter ({dropped} dropped)", file=sys.stderr)
@@ -192,25 +211,27 @@ def fetch_topics(community: str, limit: int | None) -> list[dict] | None:
     scored.sort(key=lambda t: t["remaining_count"], reverse=True)
 
     if limit:
-        scored = scored[:int(limit)]
+        scored = scored[: int(limit)]
 
     results = []
     for t in scored:
         sources = t["sources"]
         first_url = next((s.get("url", "") for s in sources if s.get("url")), "")
-        results.append({
-            "id":                None,
-            "title":             t["title"],
-            "url":               first_url,
-            "views":             0,
-            "reply_count":       len(sources),
-            "created_at":        "",
-            "source":            "mongodb",
-            "source_collection": t["source_collection"],
-            "consult_count":     t["remaining_count"],
-            "exclude_count":     t["exclude_count"],
-            "total_count":       t["total_count"],
-        })
+        results.append(
+            {
+                "id": None,
+                "title": t["title"],
+                "url": first_url,
+                "views": 0,
+                "reply_count": len(sources),
+                "created_at": "",
+                "source": "mongodb",
+                "source_collection": t["source_collection"],
+                "consult_count": t["remaining_count"],
+                "exclude_count": t["exclude_count"],
+                "total_count": t["total_count"],
+            }
+        )
     return results
 
 
@@ -218,10 +239,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Fetch filtered aggregated topics from community-hot-topic MongoDB"
     )
-    parser.add_argument("--community", required=True,
-                        help="Community name, e.g. cann, openeuler, mindspore")
-    parser.add_argument("--limit", type=int, default=None,
-                        help="Maximum number of topics to return (default: all passing topics)")
+    parser.add_argument(
+        "--community", required=True, help="Community name, e.g. cann, openeuler, mindspore"
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of topics to return (default: all passing topics)",
+    )
     args = parser.parse_args()
 
     results = fetch_topics(args.community, args.limit)

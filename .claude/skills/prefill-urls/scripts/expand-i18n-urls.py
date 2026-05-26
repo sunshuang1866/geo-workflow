@@ -20,7 +20,6 @@ import json
 import re
 import sys
 
-
 # Patterns that indicate i18n path structure
 _ZH_PATTERNS = ["/zh/", "/zh-cn/", "/zh_cn/", "/chinese/"]
 _EN_PATTERNS = ["/en/", "/en-us/", "/en_us/", "/english/"]

@@ -21,7 +21,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--token", required=True, help="__Secure-next-auth.session-token value")
     parser.add_argument("--community", required=True, help="Community name, e.g. MindSpore")
-    parser.add_argument("--skip-verify", action="store_true", help="Save token without browser verify")
+    parser.add_argument(
+        "--skip-verify", action="store_true", help="Save token without browser verify"
+    )
     args = parser.parse_args()
 
     skill_dir = os.path.dirname(__file__)
@@ -67,9 +69,7 @@ def main():
         # Use extra HTTP headers instead of add_cookies — Playwright 1.x rejects
         # __Secure- prefixed cookies via CDP setCookies; header injection is equivalent
         # because NextAuth.js reads the Cookie header server-side.
-        page.set_extra_http_headers({
-            "Cookie": f"__Secure-next-auth.session-token={args.token}"
-        })
+        page.set_extra_http_headers({"Cookie": f"__Secure-next-auth.session-token={args.token}"})
         page.goto("https://chatgpt.com/", timeout=30000)
         time.sleep(4)
 

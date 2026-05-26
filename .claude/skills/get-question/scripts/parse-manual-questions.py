@@ -57,12 +57,14 @@ def parse_manual_questions(filepath: str) -> list[dict]:
             # Detect language
             has_cjk = bool(re.search(r"[\u4e00-\u9fff]", question))
             lang = "zh" if has_cjk else "en"
-            questions.append({
-                "question": question,
-                "scenario": current_scenario,
-                "lang": lang,
-                "source": "manual",
-            })
+            questions.append(
+                {
+                    "question": question,
+                    "scenario": current_scenario,
+                    "lang": lang,
+                    "source": "manual",
+                }
+            )
 
     if not questions:
         print("WARNING: No questions found in the file.", file=sys.stderr)

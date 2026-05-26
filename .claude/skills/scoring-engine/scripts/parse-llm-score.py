@@ -11,17 +11,35 @@ Errors go to stderr with non-zero exit code.
 import json
 import sys
 
-
 VALID_CITATION_TYPES = {"B", "C", "D", "E"}
 REQUIRED_FIELDS = ["citation_type", "official_source_ratio", "accuracy_score", "details"]
 VALID_ISSUE_TAGS = {
-    "no_direct_answer", "buried_answer", "missing_faq", "ambiguous_terminology",
-    "missing_disambiguation", "negation_missed", "negation_reversed", "outdated_info",
-    "version_confusion", "fabricated_claims", "vague_numbers", "no_schema_markup",
-    "poor_structure", "no_tables", "missing_summary", "no_query_variants",
-    "missing_scope", "entity_confusion", "shallow_content", "no_evidence",
-    "no_alternatives", "missing_use_cases", "no_process_doc", "inconsistent_data",
-    "missing_edge_cases", "no_reasoning",
+    "no_direct_answer",
+    "buried_answer",
+    "missing_faq",
+    "ambiguous_terminology",
+    "missing_disambiguation",
+    "negation_missed",
+    "negation_reversed",
+    "outdated_info",
+    "version_confusion",
+    "fabricated_claims",
+    "vague_numbers",
+    "no_schema_markup",
+    "poor_structure",
+    "no_tables",
+    "missing_summary",
+    "no_query_variants",
+    "missing_scope",
+    "entity_confusion",
+    "shallow_content",
+    "no_evidence",
+    "no_alternatives",
+    "missing_use_cases",
+    "no_process_doc",
+    "inconsistent_data",
+    "missing_edge_cases",
+    "no_reasoning",
 }
 
 

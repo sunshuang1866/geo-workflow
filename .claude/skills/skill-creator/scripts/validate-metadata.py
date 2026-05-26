@@ -2,6 +2,7 @@ import re
 import sys
 import argparse
 
+
 def validate_metadata(name, description):
     errors = []
 
@@ -27,7 +28,7 @@ def validate_metadata(name, description):
 
     # 4. Check for Third-Person Perspective (Basic Heuristic)
     first_person_words = {"i", "me", "my", "we", "our", "you", "your"}
-    desc_words = set(re.findall(r'\b\w+\b', description.lower()))
+    desc_words = set(re.findall(r"\b\w+\b", description.lower()))
     found_forbidden = first_person_words.intersection(desc_words)
     if found_forbidden:
         errors.append(
@@ -41,6 +42,7 @@ def validate_metadata(name, description):
     else:
         print("SUCCESS: Metadata is valid and optimized for discovery.")
         sys.exit(0)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Validate skill metadata")

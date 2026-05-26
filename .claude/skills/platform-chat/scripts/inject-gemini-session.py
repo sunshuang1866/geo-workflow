@@ -37,11 +37,15 @@ import time
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--community", required=True, help="Community name, e.g. openEuler")
-    parser.add_argument("--1psid",    required=True, dest="psid1",    help="__Secure-1PSID value")
-    parser.add_argument("--3psid",    default=None,  dest="psid3",    help="__Secure-3PSID value (recommended)")
-    parser.add_argument("--1papisid", default=None,  dest="papisid1", help="__Secure-1PAPISID value")
-    parser.add_argument("--3papisid", default=None,  dest="papisid3", help="__Secure-3PAPISID value")
-    parser.add_argument("--skip-verify", action="store_true", help="Save without browser verification")
+    parser.add_argument("--1psid", required=True, dest="psid1", help="__Secure-1PSID value")
+    parser.add_argument(
+        "--3psid", default=None, dest="psid3", help="__Secure-3PSID value (recommended)"
+    )
+    parser.add_argument("--1papisid", default=None, dest="papisid1", help="__Secure-1PAPISID value")
+    parser.add_argument("--3papisid", default=None, dest="papisid3", help="__Secure-3PAPISID value")
+    parser.add_argument(
+        "--skip-verify", action="store_true", help="Save without browser verification"
+    )
     args = parser.parse_args()
 
     skill_dir = os.path.dirname(__file__)
@@ -76,8 +80,15 @@ def main():
         sys.exit(0)
 
     pw_cookies = [
-        {"name": k, "value": v, "domain": ".google.com", "path": "/",
-         "httpOnly": True, "secure": True, "sameSite": "None"}
+        {
+            "name": k,
+            "value": v,
+            "domain": ".google.com",
+            "path": "/",
+            "httpOnly": True,
+            "secure": True,
+            "sameSite": "None",
+        }
         for k, v in cookies.items()
     ]
 
@@ -99,9 +110,7 @@ def main():
             viewport={"width": 1280, "height": 800},
             locale="en-US",
         )
-        ctx.add_init_script(
-            'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
-        )
+        ctx.add_init_script('Object.defineProperty(navigator, "webdriver", {get: () => undefined})')
         page = ctx.new_page()
 
         # Inject cookies into the browser's cookie store (domain-scoped).
@@ -132,12 +141,13 @@ def main():
             print("SESSION_VALID: logged in, input box found")
             sys.exit(0)
         elif sign_in:
-            print("SESSION_EXPIRED: Sign-in button still visible — cookie may be invalid",
-                  file=sys.stderr)
+            print(
+                "SESSION_EXPIRED: Sign-in button still visible — cookie may be invalid",
+                file=sys.stderr,
+            )
             sys.exit(1)
         else:
-            print("SESSION_UNKNOWN: input box not found — page may have changed",
-                  file=sys.stderr)
+            print("SESSION_UNKNOWN: input box not found — page may have changed", file=sys.stderr)
             sys.exit(1)
 
 

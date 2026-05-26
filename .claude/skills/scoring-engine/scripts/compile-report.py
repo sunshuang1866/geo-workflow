@@ -56,11 +56,14 @@ def assign_ids(suggestions: list) -> list:
 def sort_by_priority(suggestions: list) -> list:
     """Sort suggestions by priority (P0 first) then by category."""
     priority_order = {"P0": 0, "P1": 1, "P2": 2}
-    return sorted(suggestions, key=lambda s: (
-        priority_order.get(s.get("severity", "P2"), 2),
-        s.get("category", "zzz"),
-        s.get("question_id", "")
-    ))
+    return sorted(
+        suggestions,
+        key=lambda s: (
+            priority_order.get(s.get("severity", "P2"), 2),
+            s.get("category", "zzz"),
+            s.get("question_id", ""),
+        ),
+    )
 
 
 def main():
@@ -92,9 +95,7 @@ def main():
             counts[p] = counts.get(p, 0) + 1
         return counts
 
-    content_origin_count = sum(
-        1 for s in suggestions if s.get("is_content_origin", False)
-    )
+    content_origin_count = sum(1 for s in suggestions if s.get("is_content_origin", False))
 
     report = {
         "metadata": metadata,
@@ -110,9 +111,10 @@ def main():
     }
 
     json.dump(report, sys.stdout, ensure_ascii=False, indent=2)
-    print(f"\nCompiled: {len(suggestions)} suggestions "
-          f"({content_origin_count} content-origin)",
-          file=sys.stderr)
+    print(
+        f"\nCompiled: {len(suggestions)} suggestions " f"({content_origin_count} content-origin)",
+        file=sys.stderr,
+    )
 
 
 if __name__ == "__main__":

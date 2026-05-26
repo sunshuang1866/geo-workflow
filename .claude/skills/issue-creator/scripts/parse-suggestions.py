@@ -67,28 +67,29 @@ def parse_scoring_results(filepath):
         else:  # no_official_content
             description = "官方内容缺失"
             suggestion_text = (
-                f"问题「{question}」缺少官方页面，"
-                f"建议在 mindspore.cn 创建对应内容页面"
+                f"问题「{question}」缺少官方页面，" f"建议在 mindspore.cn 创建对应内容页面"
             )
             category = "content"
 
         suggestion_counter += 1
-        suggestions.append({
-            "suggestion_id": f"s_{suggestion_counter:03d}",
-            "question_id": question_id,
-            "question": question,
-            "status": status,
-            "description": description,
-            "severity": severity,
-            "citation_rate": citation_rate,
-            "cited_count": cited_count,
-            "total_platforms": total_platforms,
-            "cited_platforms": cited_platforms,
-            "not_cited_platforms": not_cited_platforms,
-            "official_urls": official_urls,
-            "suggestion_text": suggestion_text,
-            "category": category,
-        })
+        suggestions.append(
+            {
+                "suggestion_id": f"s_{suggestion_counter:03d}",
+                "question_id": question_id,
+                "question": question,
+                "status": status,
+                "description": description,
+                "severity": severity,
+                "citation_rate": citation_rate,
+                "cited_count": cited_count,
+                "total_platforms": total_platforms,
+                "cited_platforms": cited_platforms,
+                "not_cited_platforms": not_cited_platforms,
+                "official_urls": official_urls,
+                "suggestion_text": suggestion_text,
+                "category": category,
+            }
+        )
 
     if not suggestions:
         print("No actionable suggestions found. All scores are healthy.", file=sys.stderr)

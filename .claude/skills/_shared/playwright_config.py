@@ -11,15 +11,15 @@ UA = (
     "Chrome/124.0.0.0 Safari/537.36"
 )
 
-ANTI_DETECT_INIT_SCRIPT = (
-    'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
-)
+ANTI_DETECT_INIT_SCRIPT = 'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
 
 VIEWPORT = {"width": 1280, "height": 800}
 LOCALE = "en-US"
 
 
-def create_browser_context(playwright_instance, headless=True, launch_kwargs=None, **context_kwargs):
+def create_browser_context(
+    playwright_instance, headless=True, launch_kwargs=None, **context_kwargs
+):
     """Create a Playwright browser, context and page with anti-detection config.
 
     Args:

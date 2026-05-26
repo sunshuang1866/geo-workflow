@@ -19,7 +19,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from _shared.utils import resolve_platform_token
 
-
 GITHUB_API = "https://api.github.com"
 GITCODE_API = "https://api.gitcode.com/api/v5"
 
@@ -31,8 +30,9 @@ def _post(url: str, body: dict, headers: dict) -> dict:
         return json.loads(resp.read())
 
 
-def comment_github(owner: str, repo: str, issue_number: str,
-                   body: str, token: str, dry_run: bool) -> dict:
+def comment_github(
+    owner: str, repo: str, issue_number: str, body: str, token: str, dry_run: bool
+) -> dict:
     url = f"{GITHUB_API}/repos/{owner}/{repo}/issues/{issue_number}/comments"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -42,20 +42,27 @@ def comment_github(owner: str, repo: str, issue_number: str,
     }
 
     if dry_run:
-        return {"mode": "dry-run", "issue_number": issue_number,
-                "body": body[:200] + ("..." if len(body) > 200 else "")}
+        return {
+            "mode": "dry-run",
+            "issue_number": issue_number,
+            "body": body[:200] + ("..." if len(body) > 200 else ""),
+        }
 
     return _post(url, {"body": body}, headers)
 
 
-def comment_gitcode(owner: str, repo: str, issue_number: str,
-                    body: str, token: str, dry_run: bool) -> dict:
+def comment_gitcode(
+    owner: str, repo: str, issue_number: str, body: str, token: str, dry_run: bool
+) -> dict:
     url = f"{GITCODE_API}/repos/{owner}/{repo}/issues/{issue_number}/comments"
     headers = {"Content-Type": "application/json", "private-token": token}
 
     if dry_run:
-        return {"mode": "dry-run", "issue_number": issue_number,
-                "body": body[:200] + ("..." if len(body) > 200 else "")}
+        return {
+            "mode": "dry-run",
+            "issue_number": issue_number,
+            "body": body[:200] + ("..." if len(body) > 200 else ""),
+        }
 
     payload = {"access_token": token, "body": body}
     return _post(url, payload, headers)
@@ -66,8 +73,9 @@ def main():
     parser.add_argument("--owner", required=True)
     parser.add_argument("--repo", required=True)
     parser.add_argument("--platform", choices=["github", "gitcode"], default=None)
-    parser.add_argument("--issue-number", required=True,
-                        help="Issue number (GitHub) or Issue number/ID (GitCode)")
+    parser.add_argument(
+        "--issue-number", required=True, help="Issue number (GitHub) or Issue number/ID (GitCode)"
+    )
     parser.add_argument("--body", required=True, help="Comment body in Markdown")
     parser.add_argument("--token", default=None, help="API token (overrides env)")
     parser.add_argument("--dry-run", action="store_true")
@@ -77,29 +85,37 @@ def main():
     platform, token = resolve_platform_token(args.platform, args.token)
 
     if not token and not args.dry_run:
-        print("ERROR: No API token found. Set GITHUB_TOKEN or GITCODE_TOKEN in .env.",
-              file=sys.stderr)
+        print(
+            "ERROR: No API token found. Set GITHUB_TOKEN or GITCODE_TOKEN in .env.", file=sys.stderr
+        )
         sys.exit(1)
 
     try:
         if platform == "github":
-            result = comment_github(args.owner, args.repo, args.issue_number,
-                                    args.body, token, args.dry_run)
+            result = comment_github(
+                args.owner, args.repo, args.issue_number, args.body, token, args.dry_run
+            )
             comment_url = result.get("html_url", "")
         else:
-            result = comment_gitcode(args.owner, args.repo, args.issue_number,
-                                     args.body, token, args.dry_run)
+            result = comment_gitcode(
+                args.owner, args.repo, args.issue_number, args.body, token, args.dry_run
+            )
             comment_url = result.get("html_url", "")
 
         if args.dry_run:
             print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
-            print(json.dumps({
-                "status": "commented",
-                "issue_number": args.issue_number,
-                "comment_url": comment_url,
-                "comment_id": result.get("id", ""),
-            }, ensure_ascii=False))
+            print(
+                json.dumps(
+                    {
+                        "status": "commented",
+                        "issue_number": args.issue_number,
+                        "comment_url": comment_url,
+                        "comment_id": result.get("id", ""),
+                    },
+                    ensure_ascii=False,
+                )
+            )
 
     except urllib.error.HTTPError as e:
         body_err = ""

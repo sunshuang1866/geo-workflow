@@ -19,14 +19,14 @@ import sys
 import urllib.request
 import urllib.error
 
-
 TIMEOUT = 8
 
 
 def check_url(url: str) -> bool:
     try:
-        req = urllib.request.Request(url, method="HEAD",
-                                     headers={"User-Agent": "geo-prefill-urls/1.0"})
+        req = urllib.request.Request(
+            url, method="HEAD", headers={"User-Agent": "geo-prefill-urls/1.0"}
+        )
         with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
             return resp.status < 400
     except urllib.error.HTTPError as e:
@@ -37,7 +37,7 @@ def check_url(url: str) -> bool:
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: validate-urls.py '[\"url1\", \"url2\"]'", file=sys.stderr)
+        print('Usage: validate-urls.py \'["url1", "url2"]\'', file=sys.stderr)
         sys.exit(1)
 
     try:

@@ -18,7 +18,6 @@ import sys
 import urllib.parse
 import urllib.request
 
-
 TIMEOUT = 10
 
 

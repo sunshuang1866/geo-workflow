@@ -41,7 +41,7 @@ SELECTOR_SEND_ENABLED = "button[aria-label='Send message']:not([aria-disabled='t
 
 # Generation lifecycle signals
 SELECTOR_GENERATION_START = "pending-response"
-SELECTOR_GENERATION_END   = "pending-response"   # wait state="detached"
+SELECTOR_GENERATION_END = "pending-response"  # wait state="detached"
 
 # Response container (directly accessible in regular DOM, no shadow pierce needed)
 # Use textContent (not innerText) — layout-based innerText is truncated
@@ -96,12 +96,22 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--question", required=True)
     parser.add_argument("--question-id", required=True)
-    parser.add_argument("--session", default=None,
-                        help="Path to .gemini-session.json (enables logged-in mode with citations)")
+    parser.add_argument(
+        "--session",
+        default=None,
+        help="Path to .gemini-session.json (enables logged-in mode with citations)",
+    )
     parser.add_argument("--timeout", type=int, default=90, help="Seconds to wait for response")
-    parser.add_argument("--screenshot-dir", default=None, help="Directory to save debug screenshots")
-    parser.add_argument("--min-citations", type=int, default=8, dest="min_citations",
-                        help="Minimum citation count; sends a follow-up if not met")
+    parser.add_argument(
+        "--screenshot-dir", default=None, help="Directory to save debug screenshots"
+    )
+    parser.add_argument(
+        "--min-citations",
+        type=int,
+        default=8,
+        dest="min_citations",
+        help="Minimum citation count; sends a follow-up if not met",
+    )
     args = parser.parse_args()
 
     try:
@@ -111,8 +121,8 @@ def main():
         sys.exit(1)
 
     # ── Load session cookies (optional) ───────────────────────────────────────
-    session_cookies = []   # list of Playwright cookie dicts
-    storage_state  = None  # full Playwright storage_state path (preferred)
+    session_cookies = []  # list of Playwright cookie dicts
+    storage_state = None  # full Playwright storage_state path (preferred)
     if args.session:
         if not os.path.isfile(args.session):
             print(f"SESSION_FILE_MISSING: {args.session}", file=sys.stderr)
@@ -124,8 +134,10 @@ def main():
             if "cookies" in sess and isinstance(sess["cookies"], list):
                 # Full Playwright storage_state format — use directly
                 storage_state = args.session
-                print(f"  [session] storage_state format: {len(sess['cookies'])} cookie(s)",
-                      file=sys.stderr)
+                print(
+                    f"  [session] storage_state format: {len(sess['cookies'])} cookie(s)",
+                    file=sys.stderr,
+                )
             else:
                 # Legacy dict format: {"cookies": {"name": "value", ...}}
                 cookies_dict = sess.get("cookies", {})
@@ -133,13 +145,20 @@ def main():
                     print("SESSION_TOKEN_MISSING: no cookies in session file", file=sys.stderr)
                     sys.exit(2)
                 for name, value in cookies_dict.items():
-                    session_cookies.append({
-                        "name": name, "value": value,
-                        "domain": ".google.com", "path": "/",
-                        "httpOnly": True, "secure": True, "sameSite": "None",
-                    })
-                print(f"  [session] legacy format: {len(session_cookies)} cookie(s)",
-                      file=sys.stderr)
+                    session_cookies.append(
+                        {
+                            "name": name,
+                            "value": value,
+                            "domain": ".google.com",
+                            "path": "/",
+                            "httpOnly": True,
+                            "secure": True,
+                            "sameSite": "None",
+                        }
+                    )
+                print(
+                    f"  [session] legacy format: {len(session_cookies)} cookie(s)", file=sys.stderr
+                )
         except Exception as e:
             print(f"SESSION_READ_ERROR: {e}", file=sys.stderr)
             sys.exit(2)
@@ -175,12 +194,12 @@ def main():
 
         # ── Session validity check (only when --session provided) ──────────────
         if args.session:
-            sign_in = page.query_selector(
-                'a[href*="accounts.google.com"], [aria-label*="Sign in"]'
-            )
+            sign_in = page.query_selector('a[href*="accounts.google.com"], [aria-label*="Sign in"]')
             if sign_in:
-                print("SESSION_EXPIRED: Sign-in button visible — re-inject via inject-gemini-session.py",
-                      file=sys.stderr)
+                print(
+                    "SESSION_EXPIRED: Sign-in button visible — re-inject via inject-gemini-session.py",
+                    file=sys.stderr,
+                )
                 browser.close()
                 sys.exit(2)
             print("  [session] login verified", file=sys.stderr)
@@ -242,12 +261,15 @@ def main():
             page.wait_for_selector("pending-response", timeout=15000)
             print("  [gen] pending-response appeared", file=sys.stderr)
         except PW_Timeout:
-            print("  [gen] pending-response never appeared — may have completed instantly",
-                  file=sys.stderr)
+            print(
+                "  [gen] pending-response never appeared — may have completed instantly",
+                file=sys.stderr,
+            )
 
         try:
-            page.wait_for_selector("pending-response", state="detached",
-                                   timeout=args.timeout * 1000)
+            page.wait_for_selector(
+                "pending-response", state="detached", timeout=args.timeout * 1000
+            )
             print("  [gen] pending-response detached — generation done", file=sys.stderr)
         except PW_Timeout:
             timed_out = True
@@ -310,7 +332,10 @@ def main():
         # Follow-up: request more citations if below threshold
         FOLLOW_UP = "请继续补充更多相关参考来源链接，要求总共包含至少8个不同的来源。"
         if len(citations) < args.min_citations:
-            print(f"  citations={len(citations)} < {args.min_citations}, sending follow-up...", file=sys.stderr)
+            print(
+                f"  citations={len(citations)} < {args.min_citations}, sending follow-up...",
+                file=sys.stderr,
+            )
             seen = set(citations)
             try:
                 # Wait for input to re-enable after previous response
@@ -331,8 +356,9 @@ def main():
                 except PW_Timeout:
                     pass
                 try:
-                    page.wait_for_selector("pending-response", state="detached",
-                                           timeout=args.timeout * 1000)
+                    page.wait_for_selector(
+                        "pending-response", state="detached", timeout=args.timeout * 1000
+                    )
                 except PW_Timeout:
                     pass
                 wait_for_stable_text(15)

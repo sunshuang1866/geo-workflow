@@ -6,7 +6,7 @@ Usage:
   python3 ask-chatgpt.py \\
     --question "What is MindSpore?" \\
     --question-id q_001 \\
-    --session assessments/MindSpore/.chatgpt-session.json \\
+    --session output/MindSpore/.chatgpt-session.json \\
     --timeout 90
 
 Stdout: single JSON object (responses.json compatible)
@@ -52,9 +52,16 @@ def main():
     parser.add_argument("--question-id", required=True)
     parser.add_argument("--session", required=True, help="Path to .chatgpt-session.json")
     parser.add_argument("--timeout", type=int, default=90, help="Seconds to wait for response")
-    parser.add_argument("--screenshot-dir", default=None, help="Directory to save debug screenshots")
-    parser.add_argument("--min-citations", type=int, default=8, dest="min_citations",
-                        help="Minimum citation count; sends a follow-up if not met")
+    parser.add_argument(
+        "--screenshot-dir", default=None, help="Directory to save debug screenshots"
+    )
+    parser.add_argument(
+        "--min-citations",
+        type=int,
+        default=8,
+        dest="min_citations",
+        help="Minimum citation count; sends a follow-up if not met",
+    )
     args = parser.parse_args()
 
     if not os.path.isfile(args.session):
@@ -127,8 +134,10 @@ def main():
 
         # Strategy 2: no stop button appeared (selectors may have changed again).
         # Fall back to waiting for the send button to become re-enabled.
-        print("  [gen] stop button not found; falling back to send-button re-enable check",
-              file=sys.stderr)
+        print(
+            "  [gen] stop button not found; falling back to send-button re-enable check",
+            file=sys.stderr,
+        )
         try:
             # Send button is disabled / replaced during streaming; re-appears when done.
             page.wait_for_function(
@@ -198,9 +207,9 @@ def main():
         try:
             # Inject token via extra request header — bypasses CDP __Secure- cookie
             # restriction in Playwright 1.x. NextAuth.js reads Cookie header server-side.
-            page.set_extra_http_headers({
-                "Cookie": f"__Secure-next-auth.session-token={token_value}"
-            })
+            page.set_extra_http_headers(
+                {"Cookie": f"__Secure-next-auth.session-token={token_value}"}
+            )
             page.goto("https://chatgpt.com/", timeout=30000)
             time.sleep(3)
         except Exception as e:
@@ -297,8 +306,10 @@ def main():
         # --- follow-up if too few citations ---
         FOLLOW_UP = "请继续补充更多相关参考来源链接，要求总共包含至少8个不同的来源。"
         if len(citations) < args.min_citations:
-            print(f"  citations={len(citations)} < {args.min_citations}, sending follow-up...",
-                  file=sys.stderr)
+            print(
+                f"  citations={len(citations)} < {args.min_citations}, sending follow-up...",
+                file=sys.stderr,
+            )
             try:
                 textarea = page.wait_for_selector(SELECTOR_INPUT, timeout=5000)
                 fill_input(textarea, FOLLOW_UP)

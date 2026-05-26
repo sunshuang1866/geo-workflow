@@ -4,6 +4,20 @@
 # Python cache artifacts
 __pycache__/
 *.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Local Claude settings
 .claude/settings.local.json
+
+# Runtime output (large data, not for version control)
+output/
+
+# Log files
+*.log
+
+# OS artifacts
+.DS_Store
+Thumbs.db

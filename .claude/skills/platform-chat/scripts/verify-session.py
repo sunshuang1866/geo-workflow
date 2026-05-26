@@ -3,7 +3,7 @@
 Verify that a saved ChatGPT session file is still valid.
 
 Usage:
-  python3 verify-session.py --session assessments/MindSpore/.chatgpt-session.json
+  python3 verify-session.py --session output/MindSpore/.chatgpt-session.json
 
 Stdout:
   SESSION_VALID   — token accepted, input box found
@@ -41,6 +41,7 @@ def main():
     ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
     import json as _json
+
     with open(args.session) as _f:
         _sess = _json.load(_f)
     token_value = None
@@ -64,9 +65,7 @@ def main():
         )
         ctx.add_init_script('Object.defineProperty(navigator, "webdriver", {get: () => undefined})')
         page = ctx.new_page()
-        page.set_extra_http_headers({
-            "Cookie": f"__Secure-next-auth.session-token={token_value}"
-        })
+        page.set_extra_http_headers({"Cookie": f"__Secure-next-auth.session-token={token_value}"})
         page.goto("https://chatgpt.com/", timeout=30000)
         time.sleep(4)
 

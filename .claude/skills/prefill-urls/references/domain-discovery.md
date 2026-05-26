@@ -23,6 +23,6 @@ Populate `official_domains` with verified official domains before URL inference 
 
 3. **HTTP validation**: Run `python3 $SD/scripts/validate-urls.py` on each inferred domain (prepend `https://`). Keep only domains that return HTTP 2xx/3xx.
 
-4. **Write back**: Update `official_domains` in `assessments/{community}/questions.json` with the verified list before proceeding to Step 2 of the main skill flow.
+4. **Write back**: Update `official_domains` in `output/{community}/questions.json` with the verified list before proceeding to Step 2 of the main skill flow.
 
 5. **If still empty after validation**: Abort with the error message specified in the Error Handling section of SKILL.md.

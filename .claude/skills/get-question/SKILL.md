@@ -14,7 +14,7 @@ description: Generates and incrementally appends to a structured question set fo
 | `paths` | no | `GEO_PATHS` from `.env` → `all` | `forum` / `website` / `all` |
 | `forum_url` | no | `GEO_FORUM_URL` from `.env` | Discourse forum base URL (e.g. `https://discuss.mindspore.cn`) |
 
-**Outputs**: `questions.json`, `questions.md` in `assessments/{community}/` — appended in-place, never overwritten
+**Outputs**: `questions.json`, `questions.md` in `output/{community}/` — appended in-place, never overwritten
 
 **Constant**: `SD=.claude/skills/get-question`
 
@@ -28,7 +28,7 @@ description: Generates and incrementally appends to a structured question set fo
    - `paths`: caller arg → `GEO_PATHS` from `.env` → `all`
    - `forum_url`: caller arg → `GEO_FORUM_URL` from `.env`
 3. If `seed_keywords` missing → LLM: `"List 3-5 comma-separated technical keywords for '{community}'. Keywords only."`
-4. **Load existing question set**: If `assessments/{community}/questions.json` exists, parse it:
+4. **Load existing question set**: If `output/{community}/questions.json` exists, parse it:
    - `existing_questions`: the `questions` array (preserve `official_urls`, `note`, `official_domains` as-is)
    - `last_id_num`: parse the numeric suffix of the highest `id` (e.g. `"q_031"` → `31`). New questions will be numbered from `last_id_num + 1`.
    - `existing_texts`: set of lowercased question strings for deduplication
@@ -151,7 +151,7 @@ Skip if `paths` excludes `website`.
    - PG/Discourse topics (`_source == "forum"`, has `source_views`) → sort by `source_views` descending.
    - `_source == "website"` or `_source == "manual"` → maintain original order within category.
    - Do NOT re-assign IDs after sorting; IDs stay fixed.
-2. Write `questions.json` to `assessments/{community}/` with the following structure:
+2. Write `questions.json` to `output/{community}/` with the following structure:
    ```json
    {
      "community": "{community}",

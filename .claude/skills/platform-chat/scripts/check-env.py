@@ -50,7 +50,7 @@ all_ok &= check(
     "python3 -m playwright install chromium",
 )
 
-# 3. Session file: look in assessments/*/.chatgpt-session.json
+# 3. Session file: look in output/*/.chatgpt-session.json
 session_found = False
 asses_dir = os.path.join(os.path.dirname(__file__), "..", "..", "..", "assessments")
 if os.path.isdir(asses_dir):

@@ -13,7 +13,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
   - `GITHUB_TOKEN` — GitHub Personal Access Token with `issues:write` scope (for GitHub repos)
   - `GITCODE_TOKEN` — GitCode personal access token with `read_projects` + `write_issues` scopes (for GitCode repos)
 - `scoring-results.json` (output from scoring-engine skill)
-- `questions.json` in `assessments/{community}/` (used to enrich root-cause analysis with `official_urls` and `notes`)
+- `questions.json` in `output/{community}/` (used to enrich root-cause analysis with `official_urls` and `notes`)
 - Human review of scoring results completed
 
 ## Procedures
@@ -42,7 +42,7 @@ Create or update GitHub/GitCode Issues from GEO improvement suggestions. New sug
 **Step 2: Parse Scoring Results**
 
 1. Read the `input_file` (default: `scoring-results.json`).
-2. Also read `questions.json` from `assessments/{community}/` if it exists — its `notes` and `official_urls` fields enrich root-cause analysis.
+2. Also read `questions.json` from `output/{community}/` if it exists — its `notes` and `official_urls` fields enrich root-cause analysis.
 3. Run `python3 scripts/parse-suggestions.py {input_file}` to extract actionable items.
 4. The script outputs a JSON array of suggestion objects to stdout — one per question with `not_cited` or `no_official_content` status:
    ```json

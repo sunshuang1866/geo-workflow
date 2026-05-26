@@ -11,13 +11,13 @@ Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for ea
 
 - `playwright` Python package installed: `pip3 install playwright`
 - Chromium browser downloaded: `python3 -m playwright install chromium`
-- **ChatGPT**: Valid session token stored in `assessments/{community}/.chatgpt-session.json`
-- **DeepSeek**: Either a session cookie file `assessments/{community}/.deepseek-session.json`  
+- **ChatGPT**: Valid session token stored in `output/{community}/.chatgpt-session.json`
+- **DeepSeek**: Either a session cookie file `output/{community}/.deepseek-session.json`  
   OR env vars `DEEPSEEK_WEB_EMAIL` + `DEEPSEEK_WEB_PASSWORD` (auto-login, no manual token needed)
-- **Gemini**: Anonymous usage (no citations) OR logged-in via `assessments/{community}/.gemini-session.json` (enables Search Grounding + citations)
-- **Qwen**: Either a localStorage token file `assessments/{community}/.qwen-session.json`  
+- **Gemini**: Anonymous usage (no citations) OR logged-in via `output/{community}/.gemini-session.json` (enables Search Grounding + citations)
+- **Qwen**: Either a localStorage token file `output/{community}/.qwen-session.json`  
   OR env vars `QWEN_WEB_EMAIL` + `QWEN_WEB_PASSWORD` (auto-login, no CAPTCHA)
-- `assessments/{community}/questions.json` (output from get-question skill)
+- `output/{community}/questions.json` (output from get-question skill)
 
 ## Inputs
 
@@ -42,19 +42,19 @@ Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for ea
 4. **ChatGPT only**: Verify the session token is still valid:
    ```bash
    python3 .claude/skills/platform-chat/scripts/verify-session.py \
-     --session assessments/{community}/.chatgpt-session.json
+     --session output/{community}/.chatgpt-session.json
    ```
    On failure, print `SESSION_EXPIRED` and instruct the user to re-inject via `inject-token.py`.
-5. **DeepSeek only**: Verify that either `assessments/{community}/.deepseek-session.json` exists  
+5. **DeepSeek only**: Verify that either `output/{community}/.deepseek-session.json` exists  
    OR that `DEEPSEEK_WEB_EMAIL` + `DEEPSEEK_WEB_PASSWORD` are set in the environment.
-   **Gemini**: Check if `assessments/{community}/.gemini-session.json` exists.  
+   **Gemini**: Check if `output/{community}/.gemini-session.json` exists.  
    - If present → pass `--session` to `ask-gemini.py` (logged-in mode, citations enabled).  
    - If absent → run anonymous (no citations; note this to the user).
-5b. **Qwen only**: Verify that either `assessments/{community}/.qwen-session.json` exists  
+5b. **Qwen only**: Verify that either `output/{community}/.qwen-session.json` exists  
    OR that `QWEN_WEB_EMAIL` + `QWEN_WEB_PASSWORD` are set in the environment.
 6. Resolve output path:
-   - `append`: pick the latest `YYYY-MM-DD` subfolder under `assessments/{community}/`.
-   - `new_run`: create `assessments/{community}/{YYYY-MM-DD}/`.
+   - `append`: pick the latest `YYYY-MM-DD` subfolder under `output/{community}/`.
+   - `new_run`: create `output/{community}/{YYYY-MM-DD}/`.
 7. Print:
    ```
    Platform: {platform}
@@ -63,7 +63,7 @@ Collect AI platform web UI responses (ChatGPT, DeepSeek, Gemini, or Qwen) for ea
 
 ## Step 2: Load Question Set
 
-1. Read `assessments/{community}/questions.json`.
+1. Read `output/{community}/questions.json`.
 2. If the `questions` param is provided, filter to only the specified IDs. Warn and skip unknown IDs.
 3. Print: `Questions loaded: {n}`.
 
@@ -78,7 +78,7 @@ For each question:
      python3 .claude/skills/platform-chat/scripts/ask-chatgpt.py \
        --question "{question_text}" \
        --question-id {question_id} \
-       --session assessments/{community}/.chatgpt-session.json \
+       --session output/{community}/.chatgpt-session.json \
        --timeout {timeout}
      ```
    - `deepseek-web` (cookie auth):
@@ -86,7 +86,7 @@ For each question:
      python3 .claude/skills/platform-chat/scripts/ask-deepseek.py \
        --question "{question_text}" \
        --question-id {question_id} \
-       --session assessments/{community}/.deepseek-session.json \
+       --session output/{community}/.deepseek-session.json \
        --timeout {timeout}
      ```
    - `deepseek-web` (password auth — no session file needed):
@@ -109,7 +109,7 @@ For each question:
      python3 .claude/skills/platform-chat/scripts/ask-gemini.py \
        --question "{question_text}" \
        --question-id {question_id} \
-       --session assessments/{community}/.gemini-session.json \
+       --session output/{community}/.gemini-session.json \
        --timeout {timeout}
      ```
    - `qwen-web` (token file):
@@ -117,7 +117,7 @@ For each question:
      python3 .claude/skills/platform-chat/scripts/ask-qwen.py \
        --question "{question_text}" \
        --question-id {question_id} \
-       --session assessments/{community}/.qwen-session.json \
+       --session output/{community}/.qwen-session.json \
        --timeout {timeout}
      ```
    - `qwen-web` (password auth — no session file needed):
@@ -172,7 +172,7 @@ Read `references/get-session-token.md` for the full step-by-step guide.
 
 Quick reference:
 ```bash
-# Inject token once — writes assessments/{community}/.chatgpt-session.json
+# Inject token once — writes output/{community}/.chatgpt-session.json
 python3 .claude/skills/platform-chat/scripts/inject-token.py \
   --token "<__Secure-next-auth.session-token value>" \
   --community {community}
@@ -191,7 +191,7 @@ export QWEN_WEB_PASSWORD=yourpassword
 # 1. Log in at https://chat.qwen.ai/
 # 2. DevTools → Application → Local Storage → chat.qwen.ai → copy "token" key value
 # 3. Save:
-echo '{"token":"<paste-here>"}' > assessments/{community}/.qwen-session.json
+echo '{"token":"<paste-here>"}' > output/{community}/.qwen-session.json
 ```
 
 > **How it works**: Qwen stores auth as a JWT in `localStorage["token"]`. All API requests use
@@ -243,7 +243,7 @@ python3 .claude/skills/platform-chat/scripts/inject-gemini-session.py \
   --3papisid "<__Secure-3PAPISID value>"
 ```
 
-Writes `assessments/{community}/.gemini-session.json` and prints `SESSION_VALID` on success.
+Writes `output/{community}/.gemini-session.json` and prints `SESSION_VALID` on success.
 
 **Step 3 — Run with session:**
 
@@ -251,7 +251,7 @@ Writes `assessments/{community}/.gemini-session.json` and prints `SESSION_VALID`
 python3 .claude/skills/platform-chat/scripts/ask-gemini.py \
   --question "What is openEuler?" \
   --question-id q_001 \
-  --session assessments/{community}/.gemini-session.json
+  --session output/{community}/.gemini-session.json
 ```
 
 > **Citation notes**: Gemini wraps source URLs inside Google search redirects
@@ -276,7 +276,7 @@ python3 -c "
 import json, sys
 cookie = input('Paste ds_session_id value: ')
 out = {'cookies': [{'name': 'ds_session_id', 'value': cookie, 'domain': '.chat.deepseek.com', 'path': '/'}]}
-open('assessments/{community}/.deepseek-session.json', 'w').write(json.dumps(out))
+open('output/{community}/.deepseek-session.json', 'w').write(json.dumps(out))
 print('Saved.')
 "
 ```
@@ -287,7 +287,7 @@ print('Saved.')
 ## Error Handling
 
 * If the script fails with `SESSION_EXPIRED`, stop and direct the user to re-inject the token.
-* If the script fails with `INPUT_NOT_FOUND` (selector changed), save a screenshot to `assessments/{community}/debug-{timestamp}.png` and abort with: `"UI may have changed. Check the screenshot and update references/selectors.json."`.
+* If the script fails with `INPUT_NOT_FOUND` (selector changed), save a screenshot to `output/{community}/debug-{timestamp}.png` and abort with: `"UI may have changed. Check the screenshot and update references/selectors.json."`.
 * For DeepSeek: if `LOGIN_FAILED`, check that `DEEPSEEK_WEB_EMAIL` / `DEEPSEEK_WEB_PASSWORD` are correct, or that the account is not locked.
 * For Gemini: if `INPUT_NOT_FOUND`, the Quill editor selector may have changed. Save a screenshot with `--screenshot-dir` and update `references/selectors.json`.
 * For Qwen: if `SESSION_EXPIRED`, re-extract the token from LocalStorage or re-run with `QWEN_WEB_EMAIL`/`QWEN_WEB_PASSWORD`. If `LOGIN_FAILED`, verify credentials are correct — the login form has no CAPTCHA.

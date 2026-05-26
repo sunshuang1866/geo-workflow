@@ -10,15 +10,15 @@ Evaluate AI platform responses against official content availability. Pure URL s
 ## Prerequisites
 
 - `responses.json` in the run directory (output from platform-chat skill)
-- `questions.json` in `assessments/{community}/` (output from get-question skill, with `official_urls` and `official_domains` fields populated by human)
+- `questions.json` in `output/{community}/` (output from get-question skill, with `official_urls` and `official_domains` fields populated by human)
 
 ## Procedures
 
 **Step 1: Load and Validate Inputs**
 
 1. Read `responses.json` from the run directory.
-2. Resolve `community`: read from `responses.json` metadata field `community` → `GEO_COMMUNITY` from `.env` → infer from file path. Build `questions_json_path = assessments/{community}/questions.json`.
-3. Read `questions.json` from `assessments/{community}/`. Build a lookup map `{id → {official_urls, notes}}`.
+2. Resolve `community`: read from `responses.json` metadata field `community` → `GEO_COMMUNITY` from `.env` → infer from file path. Build `questions_json_path = output/{community}/questions.json`.
+3. Read `questions.json` from `output/{community}/`. Build a lookup map `{id → {official_urls, notes}}`.
 4. Run `python3 scripts/validate-inputs.py responses.json {questions_json_path}` to verify both files exist and are structurally valid.
 4. The script checks:
    - `responses.json` contains a `responses` array with `question_id`, `platform`, `response_text` fields.
@@ -228,10 +228,10 @@ For each question, aggregate the per-platform results from Step 2 to determine t
 
 **Step 6: Sync official_urls into questions.md**
 
-After scoring is complete, regenerate `assessments/{community}/questions.md` so each question row displays its `official_urls` from `questions.json`.
+After scoring is complete, regenerate `output/{community}/questions.md` so each question row displays its `official_urls` from `questions.json`.
 
-1. Read `assessments/{community}/questions.json` to get `{id → official_urls}` mapping.
-2. Read `assessments/{community}/questions.md`.
+1. Read `output/{community}/questions.json` to get `{id → official_urls}` mapping.
+2. Read `output/{community}/questions.md`.
 3. For every Markdown table in `questions.md` where columns are `| # | 问题 | 来源 |`:
    - Replace the header row with `| # | 问题 | 来源 | 官方链接 |` and update the separator row accordingly.
    - For each data row (not `| — | — | — |`), append an `official_urls` cell:
@@ -239,7 +239,7 @@ After scoring is complete, regenerate `assessments/{community}/questions.md` so 
      - If `official_urls` is empty: cell value is `—`.
    - Leave `| — | — | — |` placeholder rows as `| — | — | — | — |`.
 4. If the header already has 4 columns (previously synced), update the `官方链接` cell in place without adding a duplicate column.
-5. Write the updated content back to `assessments/{community}/questions.md`.
+5. Write the updated content back to `output/{community}/questions.md`.
 6. Print: `questions.md updated — {n_with_urls} questions now have official URL links.`
 
 ## Error Handling

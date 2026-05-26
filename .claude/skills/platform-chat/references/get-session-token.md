@@ -39,7 +39,7 @@ python3 .claude/skills/platform-chat/scripts/inject-token.py \
 ```
 
 The script will:
-1. Save the token to `assessments/MindSpore/.chatgpt-session.json`
+1. Save the token to `output/MindSpore/.chatgpt-session.json`
 2. Launch a headless browser to verify the session is valid
 3. Print `SESSION_VALID` on success or `SESSION_EXPIRED` on failure
 
@@ -52,5 +52,5 @@ ChatGPT session tokens typically expire after **30–90 days** of inactivity, or
 The session file is saved as `.chatgpt-session.json` (dot-prefix). Ensure it is listed in `.gitignore` to prevent accidental commits:
 
 ```gitignore
-assessments/**/.chatgpt-session.json
+output/**/.chatgpt-session.json
 ```

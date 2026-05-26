@@ -16,7 +16,7 @@ Output:
   gemini-storage-state.json  (in the current directory)
 
 Then copy it to the server:
-  scp gemini-storage-state.json <server>:<project>/assessments/openUBMC/.gemini-session.json
+  scp gemini-storage-state.json <server>:<project>/output/openUBMC/.gemini-session.json
 """
 
 import json
@@ -57,13 +57,11 @@ with open(OUTPUT) as f:
 
 # Extract all cookies for google domains
 google_cookies = {
-    c["name"]: c["value"]
-    for c in state.get("cookies", [])
-    if "google" in c.get("domain", "")
+    c["name"]: c["value"] for c in state.get("cookies", []) if "google" in c.get("domain", "")
 }
 
 session = {
-    "storage_state": OUTPUT,   # keep full state path for reference
+    "storage_state": OUTPUT,  # keep full state path for reference
     "cookies": google_cookies,
 }
 with open(OUTPUT, "w") as f:
@@ -74,4 +72,4 @@ print(f"  Cookies captured: {len(google_cookies)}")
 print(f"  Keys: {list(google_cookies.keys())[:8]}...")
 print()
 print("下一步 — 将文件传到服务器:")
-print(f"  scp {OUTPUT} <server>:<project_path>/assessments/openUBMC/.gemini-session.json")
+print(f"  scp {OUTPUT} <server>:<project_path>/output/openUBMC/.gemini-session.json")

@@ -13,7 +13,7 @@ description: Pre-fills official_urls for questions in questions.json using the c
 | `batch_size` | no | `50` | Questions processed per LLM call |
 | `dry_run` | no | `false` | If true, print candidates without writing |
 
-**Input**: `assessments/{community}/questions.json` — must exist  
+**Input**: `output/{community}/questions.json` — must exist  
 **Output**: same file, `official_urls` populated for previously-empty questions  
 **Constant**: `SD=.claude/skills/prefill-urls`
 
@@ -23,7 +23,7 @@ description: Pre-fills official_urls for questions in questions.json using the c
 
 1. Load `.env` from project root.
 2. Resolve `community`: caller arg → `GEO_COMMUNITY` from `.env`. Abort if unresolved.
-3. Load `assessments/{community}/questions.json`. Abort if file does not exist.
+3. Load `output/{community}/questions.json`. Abort if file does not exist.
 4. Extract:
    - `official_domains`: the `official_domains` array from the JSON root.
    - `target_questions`: questions where `official_urls == []`.
@@ -135,14 +135,14 @@ Log: `Validated {n_pass}/{n_total} URLs reachable`.
    - Set `official_urls` to the validated URL list for that question.
    - If a question's URL list is still empty after validation → leave `official_urls: []` and append `note: "prefill-urls: no reachable URL found"`.
 3. Merge updated questions back into the full question list (existing questions with non-empty `official_urls` are unchanged).
-4. Write the updated JSON back to `assessments/{community}/questions.json`, preserving all other top-level fields (`community`, `generated_at`, `official_domains`, `source_criteria`, `pg_channel_status`).
+4. Write the updated JSON back to `output/{community}/questions.json`, preserving all other top-level fields (`community`, `generated_at`, `official_domains`, `source_criteria`, `pg_channel_status`).
 5. Print: `Filled {n_filled}/{len(target_questions)} questions | Skipped (no URL): {n_empty} | dry_run={dry_run}`.
 
 ---
 
 ## Error Handling
 
-- **questions.json missing** → abort with `ERROR: assessments/{community}/questions.json not found. Run get-question first.`
+- **questions.json missing** → abort with `ERROR: output/{community}/questions.json not found. Run get-question first.`
 - **official_domains empty after discovery** → abort with `ERROR: Cannot infer URLs without official_domains. Populate official_domains in questions.json first.`
 - **validate-urls.py network timeout** → treat timed-out URLs as `false`; do not retry.
 - **LLM returns malformed JSON** → re-prompt once with `Fix the JSON syntax. Return only the JSON array, no prose.` If still invalid → skip the batch and log `WARNING: Batch {i} LLM output invalid, skipped`.

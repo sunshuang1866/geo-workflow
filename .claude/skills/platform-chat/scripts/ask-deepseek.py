@@ -11,7 +11,7 @@ Usage:
   python3 ask-deepseek.py \\
     --question "What is MindSpore?" \\
     --question-id q_001 \\
-    --session assessments/MindSpore/.deepseek-session.json \\
+    --session output/MindSpore/.deepseek-session.json \\
     --timeout 90
 
   # Password mode (auto-login, no session file needed)
@@ -44,17 +44,17 @@ from _shared.playwright_config import create_browser_context
 
 # ── Selectors ──────────────────────────────────────────────────────────────────
 # Sign-in page
-SELECTOR_EMAIL    = "input.ds-input__input[type='text']"  # stable ds- prefix
+SELECTOR_EMAIL = "input.ds-input__input[type='text']"  # stable ds- prefix
 SELECTOR_PASSWORD = "input[type='password']"
-SELECTOR_LOGIN_BTN = "button.ds-basic-button--primary"    # "Log in"
+SELECTOR_LOGIN_BTN = "button.ds-basic-button--primary"  # "Log in"
 
 # Chat UI (CSS module hashes can drift across deployments; update if UI breaks)
-SELECTOR_TEXTAREA     = "textarea"                         # only one textarea on page
-SELECTOR_SEND_BTN     = "._7436101"                       # sendButton CSS class
-SELECTOR_SEND_ACTIVE  = "._7436101:not(.bcc55ca1)"        # sendButton when not disabled
-SELECTOR_STOP_BTN     = "._7436101.bcc55ca1"              # sendButton in "stop" state
-SELECTOR_ASST_MSG     = "._4f9bf79"                       # assistantMessage container
-SELECTOR_CITATIONS    = "._4f9bf79 a[href]"               # links inside response
+SELECTOR_TEXTAREA = "textarea"  # only one textarea on page
+SELECTOR_SEND_BTN = "._7436101"  # sendButton CSS class
+SELECTOR_SEND_ACTIVE = "._7436101:not(.bcc55ca1)"  # sendButton when not disabled
+SELECTOR_STOP_BTN = "._7436101.bcc55ca1"  # sendButton in "stop" state
+SELECTOR_ASST_MSG = "._4f9bf79"  # assistantMessage container
+SELECTOR_CITATIONS = "._4f9bf79 a[href]"  # links inside response
 
 # Fallback selector using CSS variable in style attribute (more stable)
 SELECTOR_ASST_MSG_STABLE = "div[style*='--assistant-last-margin-bottom']"
@@ -110,9 +110,8 @@ def _wait_for_response(page, timeout_sec):
 
     # Phase 1: wait for at least one assistant message to appear
     while time.time() < deadline:
-        msgs = (
-            page.query_selector_all(SELECTOR_ASST_MSG)
-            or page.query_selector_all(SELECTOR_ASST_MSG_STABLE)
+        msgs = page.query_selector_all(SELECTOR_ASST_MSG) or page.query_selector_all(
+            SELECTOR_ASST_MSG_STABLE
         )
         if msgs:
             break
@@ -122,9 +121,8 @@ def _wait_for_response(page, timeout_sec):
 
     # Phase 2: wait for text to stabilize
     while time.time() < deadline:
-        msgs = (
-            page.query_selector_all(SELECTOR_ASST_MSG)
-            or page.query_selector_all(SELECTOR_ASST_MSG_STABLE)
+        msgs = page.query_selector_all(SELECTOR_ASST_MSG) or page.query_selector_all(
+            SELECTOR_ASST_MSG_STABLE
         )
         current_text = msgs[-1].inner_text().strip() if msgs else ""
         if current_text == prev_text and current_text:
@@ -144,22 +142,28 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--question", required=True)
     parser.add_argument("--question-id", required=True, dest="question_id")
-    parser.add_argument("--session", default=None,
-                        help="Path to .deepseek-session.json (cookie auth)")
-    parser.add_argument("--timeout", type=int, default=90,
-                        help="Seconds to wait for response")
-    parser.add_argument("--screenshot-dir", default=None,
-                        help="Directory to save debug screenshots")
-    parser.add_argument("--min-citations", type=int, default=8, dest="min_citations",
-                        help="Minimum citation count; sends a follow-up if not met")
+    parser.add_argument(
+        "--session", default=None, help="Path to .deepseek-session.json (cookie auth)"
+    )
+    parser.add_argument("--timeout", type=int, default=90, help="Seconds to wait for response")
+    parser.add_argument(
+        "--screenshot-dir", default=None, help="Directory to save debug screenshots"
+    )
+    parser.add_argument(
+        "--min-citations",
+        type=int,
+        default=8,
+        dest="min_citations",
+        help="Minimum citation count; sends a follow-up if not met",
+    )
     args = parser.parse_args()
 
-    email    = os.environ.get("DEEPSEEK_WEB_EMAIL")
+    email = os.environ.get("DEEPSEEK_WEB_EMAIL")
     password = os.environ.get("DEEPSEEK_WEB_PASSWORD")
 
     # Must have at least one auth method
     has_session = args.session and os.path.isfile(args.session)
-    has_creds   = bool(email and password)
+    has_creds = bool(email and password)
 
     if not has_session and not has_creds:
         msg = (
@@ -172,8 +176,10 @@ def main():
     try:
         from playwright.sync_api import sync_playwright, TimeoutError as PW_Timeout
     except ImportError:
-        print("playwright not installed — run: pip3 install playwright && python3 -m playwright install chromium",
-              file=sys.stderr)
+        print(
+            "playwright not installed — run: pip3 install playwright && python3 -m playwright install chromium",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
@@ -215,8 +221,10 @@ def main():
                     sys.exit(2)
             else:
                 save_screenshot("session-expired")
-                print("SESSION_EXPIRED: cookie auth failed and no credentials provided",
-                      file=sys.stderr)
+                print(
+                    "SESSION_EXPIRED: cookie auth failed and no credentials provided",
+                    file=sys.stderr,
+                )
                 browser.close()
                 sys.exit(2)
 
@@ -247,8 +255,7 @@ def main():
         if timed_out and not response_text:
             save_screenshot("timeout")
             result = _make_empty_result(
-                args.question_id, args.question, "timeout",
-                "Response generation timed out"
+                args.question_id, args.question, "timeout", "Response generation timed out"
             )
             result["timestamp"] = timestamp
             print(json.dumps(result, ensure_ascii=False))
@@ -258,9 +265,11 @@ def main():
         # Extract citations
         try:
             links = page.eval_on_selector_all(
-                SELECTOR_CITATIONS
-                if page.query_selector(SELECTOR_ASST_MSG) else
-                SELECTOR_ASST_MSG_STABLE + " a[href]",
+                (
+                    SELECTOR_CITATIONS
+                    if page.query_selector(SELECTOR_ASST_MSG)
+                    else SELECTOR_ASST_MSG_STABLE + " a[href]"
+                ),
                 "els => els.map(a => a.href).filter(h => h.startsWith('http'))",
             )
         except Exception:
@@ -276,7 +285,10 @@ def main():
         # Follow-up: request more citations if below threshold
         FOLLOW_UP = "请继续补充更多相关参考来源链接，要求总共包含至少8个不同的来源。"
         if len(citations) < args.min_citations:
-            print(f"  citations={len(citations)} < {args.min_citations}, sending follow-up...", file=sys.stderr)
+            print(
+                f"  citations={len(citations)} < {args.min_citations}, sending follow-up...",
+                file=sys.stderr,
+            )
             try:
                 textarea = page.wait_for_selector(SELECTOR_TEXTAREA, timeout=5000)
                 textarea.click()
@@ -290,9 +302,11 @@ def main():
                 _wait_for_response(page, args.timeout)
                 try:
                     all_links = page.eval_on_selector_all(
-                        SELECTOR_CITATIONS
-                        if page.query_selector(SELECTOR_ASST_MSG)
-                        else SELECTOR_ASST_MSG_STABLE + " a[href]",
+                        (
+                            SELECTOR_CITATIONS
+                            if page.query_selector(SELECTOR_ASST_MSG)
+                            else SELECTOR_ASST_MSG_STABLE + " a[href]"
+                        ),
                         "els => els.map(a => a.href).filter(h => h.startsWith('http'))",
                     )
                     for href in all_links:

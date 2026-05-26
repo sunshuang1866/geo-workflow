@@ -12,7 +12,7 @@ Usage:
   python3 ask-qwen.py \\
     --question "What is MindSpore?" \\
     --question-id q_001 \\
-    --session assessments/MindSpore/.qwen-session.json \\
+    --session output/MindSpore/.qwen-session.json \\
     --timeout 90
 
   # Password mode (auto-login, no session file needed)
@@ -26,7 +26,7 @@ Obtain token:
   1. Log in at https://chat.qwen.ai/
   2. Open DevTools → Application → Local Storage → chat.qwen.ai
   3. Copy the value of the "token" key
-  4. Save: echo '{"token":"<value>"}' > assessments/{community}/.qwen-session.json
+  4. Save: echo '{"token":"<value>"}' > output/{community}/.qwen-session.json
 
 Stdout: single JSON object (responses.json compatible)
 Stderr: error messages only
@@ -49,28 +49,26 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from _shared.playwright_config import create_browser_context
 
-CHROMIUM_PATH = os.path.expanduser(
-    "~/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome"
-)
+CHROMIUM_PATH = os.path.expanduser("~/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome")
 
 # ── Selectors ──────────────────────────────────────────────────────────────────
 # Auth page
-SELECTOR_EMAIL        = "input[name='email']"
-SELECTOR_PASSWORD     = "input[name='password']"
-SELECTOR_SUBMIT       = "button.qwenchat-auth-pc-submit-button"
-SELECTOR_LOGIN_BTN    = ".auth-button-ui.login"   # Log in button on home page
+SELECTOR_EMAIL = "input[name='email']"
+SELECTOR_PASSWORD = "input[name='password']"
+SELECTOR_SUBMIT = "button.qwenchat-auth-pc-submit-button"
+SELECTOR_LOGIN_BTN = ".auth-button-ui.login"  # Log in button on home page
 
 # Chat UI
-SELECTOR_TEXTAREA     = "textarea.message-input-textarea"
-SELECTOR_SEND         = "button.send-button"
-SELECTOR_STOP         = "button.stop-button"        # present only during generation
-SELECTOR_ASSISTANT    = ".qwen-chat-message-assistant"
-SELECTOR_CITATIONS    = ".qwen-chat-message-assistant a[href]"
+SELECTOR_TEXTAREA = "textarea.message-input-textarea"
+SELECTOR_SEND = "button.send-button"
+SELECTOR_STOP = "button.stop-button"  # present only during generation
+SELECTOR_ASSISTANT = ".qwen-chat-message-assistant"
+SELECTOR_CITATIONS = ".qwen-chat-message-assistant a[href]"
 
 # Session check
-API_AUTH_CHECK        = "https://chat.qwen.ai/api/v1/auths/"
-AUTH_URL              = "https://chat.qwen.ai/auth"
-CHAT_URL              = "https://chat.qwen.ai/"
+API_AUTH_CHECK = "https://chat.qwen.ai/api/v1/auths/"
+AUTH_URL = "https://chat.qwen.ai/auth"
+CHAT_URL = "https://chat.qwen.ai/"
 
 
 def _load_session(session_path: str) -> str:
@@ -148,29 +146,31 @@ def main():
     parser.add_argument(
         "--session",
         default=None,
-        help="Path to .qwen-session.json with {\"token\": \"...\"}",
+        help='Path to .qwen-session.json with {"token": "..."}',
     )
-    parser.add_argument(
-        "--timeout", type=int, default=90, help="Seconds to wait for response"
-    )
+    parser.add_argument("--timeout", type=int, default=90, help="Seconds to wait for response")
     parser.add_argument(
         "--screenshot-dir", default=None, help="Directory to save debug screenshots"
     )
-    parser.add_argument("--min-citations", type=int, default=8, dest="min_citations",
-                        help="Minimum citation count; sends a follow-up if not met")
+    parser.add_argument(
+        "--min-citations",
+        type=int,
+        default=8,
+        dest="min_citations",
+        help="Minimum citation count; sends a follow-up if not met",
+    )
     args = parser.parse_args()
 
-    email    = os.environ.get("QWEN_WEB_EMAIL", "")
+    email = os.environ.get("QWEN_WEB_EMAIL", "")
     password = os.environ.get("QWEN_WEB_PASSWORD", "")
 
     # Determine auth mode
-    use_token    = bool(args.session)
+    use_token = bool(args.session)
     use_password = bool(email and password)
 
     if not use_token and not use_password:
         print(
-            "AUTH_MISSING: provide --session <file> or set "
-            "QWEN_WEB_EMAIL + QWEN_WEB_PASSWORD",
+            "AUTH_MISSING: provide --session <file> or set " "QWEN_WEB_EMAIL + QWEN_WEB_PASSWORD",
             file=sys.stderr,
         )
         sys.exit(2)
@@ -367,7 +367,10 @@ def main():
         # Follow-up: request more citations if below threshold
         FOLLOW_UP = "请继续补充更多相关参考来源链接，要求总共包含至少8个不同的来源。"
         if len(links) < args.min_citations:
-            print(f"  citations={len(links)} < {args.min_citations}, sending follow-up...", file=sys.stderr)
+            print(
+                f"  citations={len(links)} < {args.min_citations}, sending follow-up...",
+                file=sys.stderr,
+            )
             seen = set(links)
             try:
                 textarea = page.wait_for_selector(SELECTOR_TEXTAREA, timeout=5000)

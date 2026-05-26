@@ -5,10 +5,9 @@ Usage:
     python3 validate-inputs.py <responses.json> <questions.json>
 
 Checks structural validity and cross-references question IDs.
-Outputs validation result to stdout; errors to stderr with non-zero exit.
+Outputs validation result to stderr; errors to stderr with non-zero exit.
 """
 
-import json
 import sys
 from pathlib import Path
 
@@ -49,7 +48,9 @@ def validate(responses_path, questions_path):
     response_question_ids = {r.get("question_id") for r in responses}
     missing_questions = response_question_ids - question_ids
     if missing_questions:
-        errors.append(f"ERROR: Questions in responses missing from questions.json: {missing_questions}")
+        errors.append(
+            f"ERROR: Questions in responses missing from questions.json: {missing_questions}"
+        )
 
     if errors:
         print("\n".join(errors), file=sys.stderr)
@@ -57,14 +58,24 @@ def validate(responses_path, questions_path):
 
     # Summary
     labeled_count = sum(1 for q in questions if q.get("official_urls"))
-    print(f"Validation passed:")
-    print(f"  Responses: {len(responses)} entries across {len(response_question_ids)} questions")
-    print(f"  Questions: {len(questions)} total, {labeled_count} with official_urls, {len(questions) - labeled_count} without")
-    print(f"  Cross-reference: OK")
+    print("Validation passed:", file=sys.stderr)
+    print(
+        f"  Responses: {len(responses)} entries across {len(response_question_ids)} questions",
+        file=sys.stderr,
+    )
+    without = len(questions) - labeled_count
+    q_total = len(questions)
+    print(
+        f"  Questions: {q_total} total, {labeled_count} with official_urls, {without} without",
+        file=sys.stderr,
+    )
+    print("  Cross-reference: OK", file=sys.stderr)
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python3 validate-inputs.py <responses.json> <questions.json>", file=sys.stderr)
+        print(
+            "Usage: python3 validate-inputs.py <responses.json> <questions.json>", file=sys.stderr
+        )
         sys.exit(1)
     validate(sys.argv[1], sys.argv[2])

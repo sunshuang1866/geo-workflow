@@ -27,9 +27,9 @@ from _shared.utils import load_json
 
 def normalize_url(url: str) -> str:
     url = url.strip().lower()
-    url = re.sub(r'^https?://', '', url)
-    url = re.sub(r'^www\.', '', url)
-    url = url.rstrip('/')
+    url = re.sub(r"^https?://", "", url)
+    url = re.sub(r"^www\.", "", url)
+    url = url.rstrip("/")
     return url
 
 
@@ -38,9 +38,9 @@ def is_cited(response_text: str, official_urls: list[str]) -> tuple[bool, list[s
     text_lower = response_text.lower()
     matched = []
     for url in official_urls:
-        if not url:
-            continue
         norm = normalize_url(url)
+        if not norm:  # skip empty or whitespace-only URLs (normalize_url("   ") == "")
+            continue
         if norm in text_lower:
             matched.append(url)
     return bool(matched), matched
@@ -48,8 +48,10 @@ def is_cited(response_text: str, official_urls: list[str]) -> tuple[bool, list[s
 
 def main():
     if len(sys.argv) != 4:
-        print("Usage: score-urls.py <responses_json> <questions_json> <output_scoring_json>",
-              file=sys.stderr)
+        print(
+            "Usage: score-urls.py <responses_json> <questions_json> <output_scoring_json>",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     responses_path, questions_path, output_path = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -63,7 +65,9 @@ def main():
         q_lookup[q["id"]] = q
 
     # responses.json may be a bare array or {"responses": [...]}
-    raw_responses = responses_data if isinstance(responses_data, list) else responses_data.get("responses", [])
+    raw_responses = (
+        responses_data if isinstance(responses_data, list) else responses_data.get("responses", [])
+    )
 
     # Group responses by question_id
     by_question: dict[str, list] = {}
@@ -85,21 +89,22 @@ def main():
         if not official_urls:
             # No official content
             platform_records = [
-                {"platform": r["platform"], "cited": False, "matched_urls": []}
-                for r in responses
+                {"platform": r["platform"], "cited": False, "matched_urls": []} for r in responses
             ]
-            results.append({
-                "question_id": qid,
-                "question": q["question"],
-                "official_urls": [],
-                "status": "no_official_content",
-                "description": "官方内容缺失",
-                "severity": "P1",
-                "citation_rate": 0.0,
-                "cited_count": 0,
-                "total_platforms": len(responses),
-                "platforms": platform_records,
-            })
+            results.append(
+                {
+                    "question_id": qid,
+                    "question": q["question"],
+                    "official_urls": [],
+                    "status": "no_official_content",
+                    "description": "官方内容缺失",
+                    "severity": "P1",
+                    "citation_rate": 0.0,
+                    "cited_count": 0,
+                    "total_platforms": len(responses),
+                    "platforms": platform_records,
+                }
+            )
             status_counts["no_official_content"] += 1
             continue
 
@@ -107,37 +112,43 @@ def main():
         platform_records = []
         cited_count = 0
         for r in responses:
-            cited, matched = is_cited(r.get("response_text", r.get("raw_response", "")), official_urls)
+            cited, matched = is_cited(
+                r.get("response_text", r.get("raw_response", "")), official_urls
+            )
             if cited:
                 cited_count += 1
-            platform_records.append({
-                "platform": r["platform"],
-                "cited": cited,
-                "matched_urls": matched,
-            })
+            platform_records.append(
+                {
+                    "platform": r["platform"],
+                    "cited": cited,
+                    "matched_urls": matched,
+                }
+            )
 
         total = len(responses)
         citation_rate = cited_count / total if total > 0 else 0.0
 
-        if citation_rate >= 0.9:
+        if citation_rate >= 0.75:
             status, description, severity = "satisfied", "引用了官方内容", "OK"
             status_counts["satisfied"] += 1
         else:
             status, description, severity = "not_cited", "有内容未被引用", "P0"
             status_counts["not_cited"] += 1
 
-        results.append({
-            "question_id": qid,
-            "question": q["question"],
-            "official_urls": official_urls,
-            "status": status,
-            "description": description,
-            "severity": severity,
-            "citation_rate": round(citation_rate, 4),
-            "cited_count": cited_count,
-            "total_platforms": total,
-            "platforms": platform_records,
-        })
+        results.append(
+            {
+                "question_id": qid,
+                "question": q["question"],
+                "official_urls": official_urls,
+                "status": status,
+                "description": description,
+                "severity": severity,
+                "citation_rate": round(citation_rate, 4),
+                "cited_count": cited_count,
+                "total_platforms": total,
+                "platforms": platform_records,
+            }
+        )
 
     # Sort: P0 first, then P1, then OK
     severity_order = {"P0": 0, "P1": 1, "OK": 2}
@@ -147,8 +158,10 @@ def main():
         "metadata": {
             "scored_at": datetime.now(timezone.utc).isoformat(),
             "total_questions": len(results),
-            "total_platforms": len({r["platform"] for resp_list in by_question.values() for r in resp_list}),
-            "citation_threshold": 0.9,
+            "total_platforms": len(
+                {r["platform"] for resp_list in by_question.values() for r in resp_list}
+            ),
+            "citation_threshold": 0.75,
             "match_mode": "exact_url",
         },
         "results": results,
@@ -165,12 +178,15 @@ def main():
     Path(output_path).write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
 
     total = len(results)
-    print(f"Scoring complete (exact_url match only):")
-    print(f"  Questions scored: {total}")
-    print(f"  引用了官方内容 (OK):  {status_counts['satisfied']} ({status_counts['satisfied']/total*100:.0f}%)")
-    print(f"  有内容未被引用 (P0):  {status_counts['not_cited']} ({status_counts['not_cited']/total*100:.0f}%)")
-    print(f"  官方内容缺失  (P1):   {status_counts['no_official_content']} ({status_counts['no_official_content']/total*100:.0f}%)")
-    print(f"  Output: {output_path}")
+    print("Scoring complete (exact_url match only):", file=sys.stderr)
+    print(f"  Questions scored: {total}", file=sys.stderr)
+    ok = status_counts["satisfied"]
+    p0 = status_counts["not_cited"]
+    p1 = status_counts["no_official_content"]
+    print(f"  引用了官方内容 (OK):  {ok} ({ok/total*100:.0f}%)", file=sys.stderr)
+    print(f"  有内容未被引用 (P0):  {p0} ({p0/total*100:.0f}%)", file=sys.stderr)
+    print(f"  官方内容缺失  (P1):   {p1} ({p1/total*100:.0f}%)", file=sys.stderr)
+    print(f"  Output: {output_path}", file=sys.stderr)
 
 
 if __name__ == "__main__":

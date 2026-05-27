@@ -1,0 +1,562 @@
+# Feature Workflow Trigger
+#
+# 用法：将本文件复制到目标仓库的 .github/workflows/，然后在目标仓库配置：
+#
+# Settings → Secrets and variables → Actions:
+#   Variables:
+#     AGENT_WORKFLOW_REPO = your-org/agent-workflow   ← 指向存放 JS 脚本的仓库
+#   Secrets:
+#     ANTHROPIC_API_KEY   = sk-ant-...
+#
+# Issues → Labels（创建以下 3 个）:
+#   feature        — Feature 触发标签（手动打）
+#   req-in-review  — 需求评审中（Stage 1 自动添加）
+#   arch-in-review — 架构评审中（Stage 2 自动添加）
+#
+# Settings → Actions → General → Workflow permissions → Read and write
+
+name: Feature Workflow
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: write
+  pull-requests: write
+
+jobs:
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Job 1: Requirements Analysis
+#
+# Trigger: /implement on feature-labeled issue（maintainer only）
+# Re-trigger: 再次评论 /implement 覆盖上次结果
+# Output: .feature-context/{N}-requirements.md 提交到 feature-{N} 分支
+# ──────────────────────────────────────────────────────────────────────────────
+  feature-requirements:
+    if: startsWith(github.event.comment.body, '/implement') && contains(github.event.issue.labels.*.name, 'feature')
+    runs-on: self-hosted
+    permissions:
+      issues: write
+      contents: write
+
+    steps:
+      - name: Verify write permission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              username: context.payload.comment.user.login,
+            });
+            if (!['admin', 'write'].includes(data.permission))
+              core.setFailed(`@${context.payload.comment.user.login} lacks write permission.`);
+
+      - name: React to /implement
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              comment_id: context.payload.comment.id, content: 'eyes',
+            });
+
+      - name: Post started comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: [
+                `🔍 **需求分析已启动**（由 @${context.payload.comment.user.login} 触发）`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 🔄 进行中 → 架构设计 ⏳ → 代码实现 ⏳`,
+              ].join('\n'),
+            });
+
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout agent-workflow scripts
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.AGENT_WORKFLOW_REPO }}
+          path: _agent_workflow
+
+      - name: Create or restore working branch
+        id: branch
+        run: |
+          BRANCH="feature-${{ github.event.issue.number }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout "$BRANCH" 2>/dev/null || git checkout -b "$BRANCH"
+          mkdir -p .feature-context
+          echo "name=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Reset label state
+        uses: actions/github-script@v7
+        with:
+          script: |
+            for (const label of ['req-in-review', 'arch-in-review']) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: context.payload.issue.number, name: label,
+                });
+              } catch(e) {}
+            }
+
+      - name: Set up Node.js & Claude Code CLI
+
+      - name: Run requirements analysis
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          N="${{ github.event.issue.number }}"
+          SCRIPTS="${GITHUB_WORKSPACE}/_agent_workflow"
+          claude --dangerously-skip-permissions -p \
+            "ultrawork 请分析 GitHub issue #${N} 的需求. \
+             scriptPath: ${SCRIPTS}/feature-dev.js, \
+             args: {\"phase\": \"requirements\", \"issueNumber\": ${N}, \"repo\": \"${{ github.repository }}\", \
+                    \"repoPath\": \"${GITHUB_WORKSPACE}\", \
+                    \"reqFile\": \"${GITHUB_WORKSPACE}/.feature-context/${N}-requirements.md\"}"
+
+      - name: Commit requirements doc
+        run: |
+          git add .feature-context/
+          git diff --staged --quiet || git commit -m "docs: requirements analysis for feature #${{ github.event.issue.number }}
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          git push origin "${{ steps.branch.outputs.name }}"
+
+      - name: Post requirements doc + add label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const n = ${{ github.event.issue.number }};
+            const footer = [
+              ``,
+              `---`,
+              `**进度**: 需求分析 ✅ → 架构设计 ⏳ → 代码实现 ⏳`,
+              ``,
+              `**命令**: \`/req-approve\` 确认需求，进入架构设计 | \`/implement\` 重新分析需求`,
+            ].join('\n');
+            let body = '⚠️ 需求文档生成失败，请检查 workflow 日志。' + footer;
+            try {
+              body = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/.feature-context/${n}-requirements.md`, 'utf8') + footer;
+            } catch(e) {}
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: n, body,
+            });
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: n, labels: ['req-in-review'],
+            });
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: ${{ github.event.issue.number }},
+              body: [
+                `❌ **需求分析失败**。[查看日志](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 ❌ → 架构设计 ⏳ → 代码实现 ⏳`,
+                ``,
+                `**命令**: \`/implement\` 重新触发需求分析`,
+              ].join('\n'),
+            });
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Job 2: Architecture Design (adversarial debate)
+#
+# Trigger: /req-approve on feature-labeled issue（maintainer only）
+# Re-trigger: 再次评论 /req-approve 覆盖上次架构
+# Guard: branch feature-{N} 必须已存在（Stage 1 至少运行过一次）
+# Output: .feature-context/{N}-architecture.md 提交到 feature-{N} 分支
+# ──────────────────────────────────────────────────────────────────────────────
+  feature-architecture:
+    if: startsWith(github.event.comment.body, '/req-approve') && contains(github.event.issue.labels.*.name, 'feature')
+    runs-on: self-hosted
+    permissions:
+      issues: write
+      contents: write
+
+    steps:
+      - name: Verify write permission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              username: context.payload.comment.user.login,
+            });
+            if (!['admin', 'write'].includes(data.permission))
+              core.setFailed(`@${context.payload.comment.user.login} lacks write permission.`);
+
+      - name: React to /req-approve
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              comment_id: context.payload.comment.id, content: 'rocket',
+            });
+
+      - name: Post started comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: [
+                `🏗️ **架构设计已启动**（由 @${context.payload.comment.user.login} 触发）`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 ✅ → 架构设计 🔄 进行中 → 代码实现 ⏳`,
+              ].join('\n'),
+            });
+
+      - name: Checkout working branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature-${{ github.event.issue.number }}
+          fetch-depth: 0
+
+      - name: Checkout agent-workflow scripts
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.AGENT_WORKFLOW_REPO }}
+          path: _agent_workflow
+
+      - name: Set up Node.js & Claude Code CLI
+
+      - name: Run architecture design
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          N="${{ github.event.issue.number }}"
+          SCRIPTS="${GITHUB_WORKSPACE}/_agent_workflow"
+          claude --dangerously-skip-permissions -p \
+            "ultrawork 请为 feature #${N} 进行架构设计对抗辩论. \
+             scriptPath: ${SCRIPTS}/feature-dev.js, \
+             args: {\"phase\": \"architecture\", \"repoPath\": \"${GITHUB_WORKSPACE}\", \
+                    \"reqFile\":  \"${GITHUB_WORKSPACE}/.feature-context/${N}-requirements.md\", \
+                    \"archFile\": \"${GITHUB_WORKSPACE}/.feature-context/${N}-architecture.md\"}"
+
+      - name: Commit architecture doc
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .feature-context/
+          git diff --staged --quiet || git commit -m "docs: architecture design for feature #${{ github.event.issue.number }}
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          git push origin "feature-${{ github.event.issue.number }}"
+
+      - name: Post architecture doc + swap labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const n = ${{ github.event.issue.number }};
+            const footer = [
+              ``,
+              `---`,
+              `**进度**: 需求分析 ✅ → 架构设计 ✅ → 代码实现 ⏳`,
+              ``,
+              `**命令**: \`/arch-approve\` 确认架构，开始代码实现 | \`/req-approve\` 重新设计架构 | \`/implement\` 回到需求分析`,
+            ].join('\n');
+            let body = '⚠️ 架构文档生成失败，请检查 workflow 日志。' + footer;
+            try {
+              body = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/.feature-context/${n}-architecture.md`, 'utf8') + footer;
+            } catch(e) {}
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: n, body,
+            });
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: n, labels: ['arch-in-review'],
+            });
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: n, name: 'req-in-review',
+              });
+            } catch(e) {}
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: ${{ github.event.issue.number }},
+              body: [
+                `❌ **架构设计失败**。[查看日志](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 ✅ → 架构设计 ❌ → 代码实现 ⏳`,
+                ``,
+                `**命令**: \`/req-approve\` 重新触发架构设计 | \`/implement\` 回到需求分析`,
+              ].join('\n'),
+            });
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Job 3: Implementation
+#
+# Trigger: /arch-approve on feature-labeled issue（maintainer only）
+# Re-trigger: 再次评论 /arch-approve 覆盖当前实现
+# Guard: branch feature-{N} 必须同时有 requirements.md 和 architecture.md
+# Output: 代码变更提交到 feature-{N}，自动开 PR
+# ──────────────────────────────────────────────────────────────────────────────
+  feature-implement:
+    if: startsWith(github.event.comment.body, '/arch-approve') && contains(github.event.issue.labels.*.name, 'feature')
+    runs-on: self-hosted
+    permissions:
+      issues: write
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Verify write permission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              username: context.payload.comment.user.login,
+            });
+            if (!['admin', 'write'].includes(data.permission))
+              core.setFailed(`@${context.payload.comment.user.login} lacks write permission.`);
+
+      - name: React to /arch-approve
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              comment_id: context.payload.comment.id, content: 'rocket',
+            });
+
+      - name: Post started comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: [
+                `🚀 **代码实现已启动**（由 @${context.payload.comment.user.login} 触发）`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 ✅ → 架构设计 ✅ → 代码实现 🔄 进行中`,
+              ].join('\n'),
+            });
+
+      - name: Checkout working branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature-${{ github.event.issue.number }}
+          fetch-depth: 0
+
+      - name: Checkout agent-workflow scripts
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.AGENT_WORKFLOW_REPO }}
+          path: _agent_workflow
+
+      - name: Set up Node.js & Claude Code CLI
+
+      - name: Run implementation
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          N="${{ github.event.issue.number }}"
+          SCRIPTS="${GITHUB_WORKSPACE}/_agent_workflow"
+          claude --dangerously-skip-permissions -p \
+            "ultrawork 请按照已批准的架构实现 feature #${N}. \
+             scriptPath: ${SCRIPTS}/feature-dev.js, \
+             args: {\"phase\": \"implement\", \"issueNumber\": ${N}, \
+                    \"repoPath\":  \"${GITHUB_WORKSPACE}\", \
+                    \"reqFile\":   \"${GITHUB_WORKSPACE}/.feature-context/${N}-requirements.md\", \
+                    \"archFile\":  \"${GITHUB_WORKSPACE}/.feature-context/${N}-architecture.md\"}"
+
+      - name: Commit implementation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf .feature-context/
+          git add -A
+          git diff --staged --quiet || git commit -m "feat: implement feature #${{ github.event.issue.number }}
+
+          Requirements reviewed and approved.
+          Architecture reviewed and approved.
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          git push origin "feature-${{ github.event.issue.number }}"
+
+      - name: Create PR and notify
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs  = require('fs');
+            const n   = ${{ github.event.issue.number }};
+            const title = context.payload.issue.title;
+            let prBody = '<!-- PR body generation failed -->';
+            try { prBody = fs.readFileSync(`/tmp/feature-pr-body-${n}.md`, 'utf8'); } catch(e) {}
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: `feat: ${title} (#${n})`,
+              head:  `feature-${n}`,
+              base:  context.payload.repository.default_branch,
+              body:  prBody + '\n\n---\n🤖 Generated by [Feature Workflow](https://github.com/${{ vars.AGENT_WORKFLOW_REPO }})',
+            });
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: n, name: 'arch-in-review',
+            }).catch(() => {});
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: n,
+              body: [
+                `✅ **实现完成！**`,
+                ``,
+                `**PR**: ${pr.html_url}`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 ✅ → 架构设计 ✅ → 代码实现 ✅`,
+                ``,
+                `**命令**: \`/arch-approve\` 重新实现（覆盖当前 PR）| \`/req-approve\` 重新设计架构 | \`/implement\` 回到需求分析`,
+              ].join('\n'),
+            });
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: ${{ github.event.issue.number }},
+              body: [
+                `❌ **代码实现失败**。[查看日志](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
+                ``,
+                `---`,
+                `**进度**: 需求分析 ✅ → 架构设计 ✅ → 代码实现 ❌`,
+                ``,
+                `**命令**: \`/arch-approve\` 重新触发代码实现 | \`/req-approve\` 重新设计架构`,
+              ].join('\n'),
+            });
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Job 4: Context Refresh
+#
+# Trigger: /refresh-context on any issue（maintainer only）
+# Action: 扫描目标仓库，生成 .context/snapshot.md，commit 到默认分支
+# ──────────────────────────────────────────────────────────────────────────────
+  refresh-context:
+    if: startsWith(github.event.comment.body, '/refresh-context')
+    runs-on: self-hosted
+    permissions:
+      issues: write
+      contents: write
+
+    steps:
+      - name: Verify write permission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              username: context.payload.comment.user.login,
+            });
+            if (!['admin', 'write'].includes(data.permission))
+              core.setFailed(`@${context.payload.comment.user.login} lacks write permission.`);
+
+      - name: React to comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              comment_id: context.payload.comment.id, content: 'eyes',
+            });
+
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Checkout agent-workflow scripts
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.AGENT_WORKFLOW_REPO }}
+          path: _agent_workflow
+
+      - name: Set up Node.js & Claude Code CLI
+
+      - name: Run context-refresh
+        env:
+        run: |
+          SCRIPTS="${GITHUB_WORKSPACE}/_agent_workflow"
+          claude --dangerously-skip-permissions -p \
+            "ultrawork 请刷新项目上下文快照. \
+             scriptPath: ${SCRIPTS}/context-refresh.js, \
+             args: {\"repoPath\": \"${GITHUB_WORKSPACE}\"}"
+
+      - name: Commit and push snapshot
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .context/snapshot.md
+          git diff --staged --quiet && echo "snapshot unchanged" || \
+            git commit -m "chore: refresh .context/snapshot.md
+
+          Triggered by @${{ github.event.comment.user.login }} via /refresh-context.
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          git push origin ${{ github.event.repository.default_branch }}
+
+      - name: Post completion comment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: [
+                `✅ Context snapshot refreshed → \`.context/snapshot.md\` committed to \`${{ github.event.repository.default_branch }}\`.`,
+                ``,
+                `Snapshot sections: File Map · Interfaces · Data Schemas · Coding Conventions · Test Conventions · Env Vars · Constraints (§7) · Build & Test command (§8)`,
+                ``,
+                `Future \`/implement\` runs will read this snapshot instead of re-exploring the codebase.`,
+              ].join('\n'),
+            });
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: [
+                `❌ Context refresh failed.`,
+                ``,
+                `Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.`,
+              ].join('\n'),
+            });

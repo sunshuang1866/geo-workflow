@@ -112,7 +112,6 @@ jobs:
               } catch(e) {}
             }
 
-      - name: Set up Node.js & Claude Code CLI
 
       - name: Run requirements analysis
         env:
@@ -241,7 +240,6 @@ jobs:
           repository: ${{ vars.AGENT_WORKFLOW_REPO }}
           path: _agent_workflow
 
-      - name: Set up Node.js & Claude Code CLI
 
       - name: Run architecture design
         env:
@@ -379,7 +377,6 @@ jobs:
           repository: ${{ vars.AGENT_WORKFLOW_REPO }}
           path: _agent_workflow
 
-      - name: Set up Node.js & Claude Code CLI
 
       - name: Run implementation
         env:
@@ -506,7 +503,6 @@ jobs:
           repository: ${{ vars.AGENT_WORKFLOW_REPO }}
           path: _agent_workflow
 
-      - name: Set up Node.js & Claude Code CLI
 
       - name: Run context-refresh
         env:

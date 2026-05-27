@@ -505,7 +505,6 @@ jobs:
 
 
       - name: Run context-refresh
-        env:
         run: |
           SCRIPTS="${GITHUB_WORKSPACE}/_agent_workflow"
           claude --dangerously-skip-permissions -p \

@@ -10,7 +10,7 @@ This file orchestrates the full GEO assessment pipeline. It is designed for both
 | `repo_url` | No | Target repo for issue creation. Default: `GEO_REPO_URL` from `.env` |
 | `version_label` | No | Round label, e.g. `V2`. Default: auto-increment from existing date subdirectories |
 | `dry_run` | No | If `true`, skip actual issue creation. Default: `false` |
-| `steps` | No | Comma-separated list of steps to execute. Default: `0,1,2,3,4,5` (all). Accepts step numbers or names: `init,sample,score,issue,report,finalize`. Also accepts `update_questions` to only confirm question set changes. |
+| `steps` | No | Comma-separated list of steps to execute. Default: `0,1,2,3,4,5` (all). Accepts step numbers or names: `init,sample,score,issue,report,finalize`. Also accepts `update_questions` to only confirm question set changes, and `classify` to only run scenario classification. |
 | `scope` | No | Controls which questions Step 1 (sampling) processes. Default: `all`. Options: `all` \| `p0` \| comma-separated question IDs (e.g. `q_001,q_005`). |
 | `accept_question_update` | No | If `true`, accept detected changes in `questions.json` and proceed. Default: `false` (abort on changes). |
 
@@ -44,9 +44,30 @@ Run `/get-question` (separately, before the pipeline) to generate or refresh the
 
 **Required env vars**: `MONGODB_HOST`, `MONGODB_PORT`, `MONGODB_USER`, `MONGODB_PASSWORD` (required for get-question; DB name hardcoded to `community-hot-topic`; TLS always enabled — MongoDB aggregates forum, issue, and maillist data); optionally `HOTOPIC_DB_CONFIG_JSON` or `HOTOPIC_DB_<COMMUNITY>_*` for Channel 2.
 
+### Classifying Questions into Scenarios — `/classify-scenarios`
+
+Run `/classify-scenarios` after `/get-question` and before `/prefill-urls`. It derives an application scenario taxonomy from the community documentation site (`DOCS_INDEX_URL`) and classifies every question into exactly one scenario, writing the `scenario` field to `questions.json`.
+
+```
+/classify-scenarios                              # reads community + DOCS_INDEX_URL from .env
+/classify-scenarios community=openEuler          # explicit community
+/classify-scenarios dry_run=true                 # preview without writing
+/classify-scenarios force_reclassify=true        # re-derive taxonomy + reclassify all questions
+```
+
+**How it works:**
+- Fetches the docs index from `DOCS_INDEX_URL` (auto-detects HTML/sitemap.xml/JSON format).
+- Calls LLM to extract 5–8 application scenario categories from the docs structure.
+- Persists the taxonomy in `questions.json` root (`scenario_taxonomy` field) to avoid label drift across runs.
+- Classifies unclassified questions in batches of 80 per LLM call; already-classified questions are skipped.
+- Warns if `通用` scenario > 20% of classified questions (does not abort).
+- Supports `force_reclassify=true` to re-derive taxonomy after community switch.
+
+**Required env vars**: `ANTHROPIC_API_KEY` (for LLM); `DOCS_INDEX_URL` (community docs directory URL).
+
 ### Pre-filling `official_urls` — `/prefill-urls`
 
-Run `/prefill-urls` after `/get-question` and before starting the pipeline. It pre-populates `official_urls` for questions that currently have an empty list, so that scoring-engine has URLs to match against.
+Run `/prefill-urls` after `/classify-scenarios` and before starting the pipeline. It pre-populates `official_urls` for questions that currently have an empty list, so that scoring-engine has URLs to match against.
 
 ```
 /prefill-urls                        # reads community from .env, fills all empty official_urls

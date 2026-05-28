@@ -23,6 +23,9 @@ import sys
 REQUIRED_FIELDS = {"id", "question"}
 
 
+GENERAL_SCENARIO_THRESHOLD = 0.20
+
+
 def validate(data: list) -> list[str]:
     errors = []
 
@@ -30,6 +33,9 @@ def validate(data: list) -> list[str]:
         return ["ERROR: Root element must be a JSON array or an object with a 'questions' key."]
 
     seen_ids = set()
+    scenario_total = 0
+    general_count = 0
+
     for i, item in enumerate(data):
         prefix = f"Item [{i}]"
 
@@ -54,6 +60,23 @@ def validate(data: list) -> list[str]:
         # Validate question is non-empty
         if not item["question"] or len(item["question"].strip()) < 3:
             errors.append(f"{prefix}: Question is empty or too short.")
+
+        # Optional scenario validation
+        if "scenario" in item:
+            scenario = item["scenario"]
+            if not isinstance(scenario, str) or scenario.strip() == "":
+                errors.append(f"WARNING: {prefix}: scenario field is present but empty or non-string.")
+            else:
+                scenario_total += 1
+                if scenario.strip() == "通用":
+                    general_count += 1
+
+    # Check general scenario ratio across all questions with scenario set
+    if scenario_total > 0 and general_count / scenario_total > GENERAL_SCENARIO_THRESHOLD:
+        pct = int(general_count / scenario_total * 100)
+        errors.append(
+            f"WARNING: 通用场景占比 {pct}%，建议检查场景分类质量 ({general_count}/{scenario_total} 问题)"
+        )
 
     return errors
 

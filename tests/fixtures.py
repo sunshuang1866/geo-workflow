@@ -40,6 +40,7 @@ class GeoTestData:
         question: str = "How to install openEuler on ARM?",
         official_urls: Optional[List[str]] = None,
         doc_form: Optional[str] = None,
+        scenario: Optional[str] = None,
     ) -> Dict[str, Any]:
         """生成单个问题条目"""
         entry: Dict[str, Any] = {"id": id, "question": question}
@@ -47,6 +48,8 @@ class GeoTestData:
             entry["official_urls"] = official_urls
         if doc_form is not None:
             entry["doc_form"] = doc_form
+        if scenario is not None:
+            entry["scenario"] = scenario
         return entry
 
     @staticmethod

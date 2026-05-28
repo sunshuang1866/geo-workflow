@@ -132,6 +132,7 @@ def main():
             "cited_count": result.get("cited_count"),
             "total_platforms": result.get("total_platforms"),
             "platforms": platforms,
+            "scenario": label_entry.get("scenario") or "通用",
             "issue_url": issue_info.get("issue_url"),
             "issue_number": issue_info.get("issue_number"),
             "issue_created_at": issue_info.get("issue_created_at"),

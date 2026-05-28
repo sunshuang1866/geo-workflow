@@ -337,6 +337,32 @@ def render_grouped_not_cited(
     return "\n".join(lines)
 
 
+def _build_scenario_summary(records: list) -> list[dict]:
+    """Aggregate per-scenario metrics from record list."""
+    buckets: dict[str, dict] = {}
+    for r in records:
+        scenario = r.get("scenario") or "通用"
+        if scenario not in buckets:
+            buckets[scenario] = {"question_count": 0, "p0_count": 0, "citation_rates": []}
+        buckets[scenario]["question_count"] += 1
+        if r.get("severity") == "P0":
+            buckets[scenario]["p0_count"] += 1
+        rate = r.get("citation_rate")
+        if rate is not None:
+            buckets[scenario]["citation_rates"].append(rate)
+    summary = []
+    for scenario, data in sorted(buckets.items(), key=lambda x: x[1]["p0_count"], reverse=True):
+        rates = data["citation_rates"]
+        avg_rate = sum(rates) / len(rates) if rates else 0.0
+        summary.append({
+            "scenario": scenario,
+            "question_count": data["question_count"],
+            "p0_count": data["p0_count"],
+            "avg_citation_rate": round(avg_rate, 4),
+        })
+    return summary
+
+
 def build_changes_summary(records: list, prev_report_file: str) -> dict:
     """Aggregate trend counts across all records."""
     counts = {"improved": 0, "regressed": 0, "resolved": 0, "new": 0, "stable": 0}
@@ -425,6 +451,9 @@ def main():
     # Changes summary
     changes = build_changes_summary(records, prev_report_file)
 
+    # Scenario summary
+    scenario_summary = _build_scenario_summary(records)
+
     # ── JSON output ──────────────────────────────────────────────────────────
     json_output = {
         "metadata": {
@@ -471,6 +500,7 @@ def main():
                 "questions": satisfied,
             },
         },
+        "scenario_summary": scenario_summary,
     }
 
     json_path = output_dir / "assessment-report.json"
@@ -595,6 +625,23 @@ def main():
         md_lines.append(rows_ok)
     else:
         md_lines.append("*(无)*")
+
+    # Scenario summary section
+    md_lines += [
+        "",
+        "---",
+        "",
+        "## 按应用场景分组",
+        "",
+        "> 各应用场景的问题数、P0 数和平均引用率，按 P0 数量降序排列。",
+        "",
+        "| 场景 | 问题数 | P0 | 平均引用率 |",
+        "|------|--------|----|---------:|",
+    ]
+    for s in scenario_summary:
+        rate_str = f"{s['avg_citation_rate']*100:.0f}%"
+        md_lines.append(f"| {s['scenario']} | {s['question_count']} | {s['p0_count']} | {rate_str} |")
+
     md_lines += ["", "---", "", "*由 GEO Search Assessment 系统自动生成*", ""]
 
     md_path = output_dir / "assessment-report.md"

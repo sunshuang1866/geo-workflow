@@ -127,3 +127,45 @@ class TestValidateQuestions:
         ]
         errors = validate(questions)
         assert len(errors) >= 2
+
+    # ------------------------------------------------------------------
+    # scenario 字段可选校验
+    # ------------------------------------------------------------------
+
+    def test_valid_with_scenario_field(self):
+        """含有合法 scenario 字段的问题应通过验证"""
+        q = _q()
+        q["scenario"] = "安装与部署"
+        assert validate([q]) == []
+
+    def test_scenario_empty_string_triggers_warning(self):
+        """scenario 为空字符串时应产生 WARNING"""
+        q = _q()
+        q["scenario"] = ""
+        errors = validate([q])
+        assert any("WARNING" in e and "scenario" in e for e in errors)
+
+    def test_scenario_general_ratio_warning(self):
+        """通用场景占比 > 20% 时应产生 WARNING"""
+        questions = []
+        for i in range(1, 6):
+            q = {"id": f"q_{i:03d}", "question": f"Question number {i}?"}
+            q["scenario"] = "通用"  # all general → 100%
+            questions.append(q)
+        errors = validate(questions)
+        assert any("WARNING" in e and "通用" in e for e in errors)
+
+    def test_scenario_general_below_threshold_no_warning(self):
+        """通用场景占比 ≤ 20% 时不产生 WARNING"""
+        questions = []
+        # 1 general out of 10 = 10% — below threshold
+        for i in range(1, 11):
+            q = {"id": f"q_{i:03d}", "question": f"Question number {i}?"}
+            q["scenario"] = "通用" if i == 1 else "安装与部署"
+            questions.append(q)
+        errors = validate(questions)
+        assert not any("WARNING" in e and "通用" in e for e in errors)
+
+    def test_existing_tests_unaffected_without_scenario(self):
+        """不含 scenario 字段的问题不受新校验影响"""
+        assert validate([_q()]) == []

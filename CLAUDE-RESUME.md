@@ -71,6 +71,7 @@ Current docs focus:
 | Skill | Directory | Status |
 |-------|-----------|--------|
 | get-question | `.claude/skills/get-question/` | ✅ Complete |
+| classify-scenarios | `.claude/skills/classify-scenarios/` | ✅ Complete (feature #1) |
 | prefill-urls | `.claude/skills/prefill-urls/` | ✅ Complete |
 | platform-chat | `.claude/skills/platform-chat/` | ✅ Complete |
 | scoring-engine | `.claude/skills/scoring-engine/` | ✅ Complete |
@@ -116,7 +117,7 @@ Current docs focus:
 
 ## Current Status
 
-- **Phase**: All 5 pipeline skills created and simplified. AGENT.md is 6 steps (0-5): init → sample → score → issue → report → finalize.
+- **Phase**: All 6 pipeline skills created. classify-scenarios (feature #1) added. AGENT.md pipeline now: init → sample → score → issue → report → finalize; with classify-scenarios as a pre-pipeline step after get-question and before prefill-urls.
 - **MindSpore pipeline**: Two full runs completed — V3 (2026-04-17) and V4 (2026-04-20).
   - **Scoring threshold**: Changed from 75% to `any_one` (cited_count ≥ 1 = OK).
   - **Platforms**: DeepSeek-web + Qwen-web (2 platforms per run).
@@ -154,6 +155,7 @@ Current docs focus:
 
 | Date | Change |
 |------|--------|
+| 2026-05-28 | Feature #1 implemented: new `classify-scenarios` skill (SKILL.md + 3 scripts + prompt templates); `build-report.py` adds `scenario` field; `generate-report.py` adds `_build_scenario_summary()` and `## 按应用场景分组` section; `validate-questions.py` adds optional scenario validation; `fixtures.py` adds `scenario` param; `tests/test_classify_scenarios.py` (31 tests); `AGENT.md` + `.env.example` updated. All 104 tests pass. |
 | 2026-05-19 | 将 `output/openUBMC/questions.md` 中频率列标题改为明确单位的写法，避免仅显示数字。 |
 | 2026-05-17 | 新建 prefill-urls skill（`SKILL.md` + 2 scripts + 1 reference）：LLM 批量推断每条问题的 official_urls（官网中英文双变体 + 仓库 + 论坛），HTTP 验证后写回 questions.json。注册到 AGENT.md（get-question 之后），更新 CLAUDE-RESUME.md skill 表。同步修复 AGENT.md consult-filter 描述（≥50% → remaining_count==0 丢弃）。 |
 | 2026-05-17 | get-question SKILL.md：Step 3 改为 BATCH_SIZE=80 分批处理 combined 列表（避免大 topic 集单次 LLM 超载），删除 target_count 参数（含 I/O 表、Step 1 resolve 块、Log 行），清理 CRITICAL note 中残留的 target_count 引用。openUBMC 首次问题集生成：172 条（q_001–q_172），意图分布特性=50/故障=80/场景=19/教程=12/认知=11。 |
